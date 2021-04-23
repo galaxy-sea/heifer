@@ -1,0 +1,51 @@
+package puls.wcj.heifer.boot.common.mvc.result;
+
+import lombok.Getter;
+import lombok.ToString;
+import puls.wcj.heifer.boot.common.exception.ResultStatus;
+
+/**
+ * @author changjin wei(魏昌进)
+ * @date 2021/4/23
+ */
+@Getter
+@ToString
+public class Result<T> {
+    /** 业务错误码 */
+    private final Integer code;
+    /** 信息描述 */
+    private final String message;
+    /** 返回参数 */
+    private final T data;
+
+    private Result(ResultStatus resultStatus, T data) {
+        this.code = resultStatus.getCode();
+        this.message = resultStatus.getMessage();
+        this.data = data;
+    }
+
+    /** 业务成功返回业务代码和描述信息 */
+    public static Result<Void> success() {
+        return new Result<Void>(ResultStatus.SUCCESS, null);
+    }
+
+    /** 业务成功返回业务代码,描述和返回的参数 */
+    public static <T> Result<T> success(T data) {
+        return new Result<T>(ResultStatus.SUCCESS, data);
+    }
+
+    /** 业务成功返回业务代码,描述和返回的参数 */
+    public static <T> Result<T> success(ResultStatus resultStatus, T data) {
+        return new Result<T>(resultStatus, data);
+    }
+
+    /** 业务异常返回业务代码,描述和返回的参数 */
+    public static <T> Result<T> fail(ResultStatus resultStatus) {
+        return new Result<T>(ResultStatus.SUCCESS, null);
+    }
+
+    /** 业务异常返回业务代码,描述和返回的参数 */
+    public static <T> Result<T> fail(ResultStatus resultStatus, T data) {
+        return new Result<T>(resultStatus, data);
+    }
+}

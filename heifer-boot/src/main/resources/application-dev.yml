@@ -1,5 +1,5 @@
 server:
-    port: 9090
+    port: 8080
 spring:
     application:
         name: heifer-boot
@@ -9,6 +9,7 @@ spring:
         url: jdbc:mysql://localhost:3306/blue?serverTimezone=UTC
         password: '***'
         username: '***'
+
 
 
 
