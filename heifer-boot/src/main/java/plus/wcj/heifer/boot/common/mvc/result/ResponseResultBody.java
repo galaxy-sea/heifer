@@ -1,4 +1,4 @@
-package puls.wcj.heifer.boot.common.mvc.result;
+package plus.wcj.heifer.boot.common.mvc.result;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 

@@ -1,4 +1,4 @@
-package puls.wcj.heifer.boot.common.mvc;
+package plus.wcj.heifer.boot.common.mvc;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

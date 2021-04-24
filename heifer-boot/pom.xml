@@ -96,7 +96,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>puls.wcj.heifer.boot.HeiferBootApplication</mainClass>
+                    <mainClass>plus.wcj.heifer.boot.HeiferBootApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

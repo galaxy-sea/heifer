@@ -1,11 +1,11 @@
-package puls.wcj.heifer.boot.controller;
+package plus.wcj.heifer.boot.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import puls.wcj.heifer.boot.common.mvc.result.ResponseResultBody;
-import puls.wcj.heifer.boot.common.mvc.result.Result;
+import plus.wcj.heifer.boot.common.mvc.result.ResponseResultBody;
+import plus.wcj.heifer.boot.common.mvc.result.Result;
 
 import java.util.HashMap;
 import java.util.Map;

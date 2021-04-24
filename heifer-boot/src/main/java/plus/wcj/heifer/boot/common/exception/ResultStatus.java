@@ -1,4 +1,4 @@
-package puls.wcj.heifer.boot.common.exception;
+package plus.wcj.heifer.boot.common.exception;
 
 import lombok.Getter;
 import lombok.ToString;

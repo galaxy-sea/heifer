@@ -1,4 +1,4 @@
-package puls.wcj.heifer.boot;
+package plus.wcj.heifer.boot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,8 +1,8 @@
-package puls.wcj.heifer.boot.common.mvc.result;
+package plus.wcj.heifer.boot.common.mvc.result;
 
 import lombok.Getter;
 import lombok.ToString;
-import puls.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.exception.ResultStatus;
 
 /**
  * @author changjin wei(魏昌进)
