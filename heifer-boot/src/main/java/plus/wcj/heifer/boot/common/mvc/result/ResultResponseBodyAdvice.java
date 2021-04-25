@@ -20,16 +20,12 @@ import java.lang.annotation.Annotation;
  * @date 2021/4/23
  */
 @RestControllerAdvice
-// @Order(Ordered.HIGHEST_PRECEDENCE)
-public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
-
-    private static final Class<? extends Annotation> ANNOTATION_TYPE = ResponseResultBody.class;
-
+public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     /** 判断类或者方法是否使用了 @ResponseResultBody */
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ANNOTATION_TYPE) || returnType.hasMethodAnnotation(ANNOTATION_TYPE);
+        return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResultResponseBody.class) || returnType.hasMethodAnnotation(ResultResponseBody.class);
     }
 
     /** 当类或者方法使用了 @ResponseResultBody 就会调用这个方法 */

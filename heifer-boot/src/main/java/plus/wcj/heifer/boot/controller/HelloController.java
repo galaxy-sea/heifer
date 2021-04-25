@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import plus.wcj.heifer.boot.common.mvc.result.ResponseResultBody;
+import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 import plus.wcj.heifer.boot.common.mvc.result.Result;
 
 import java.util.HashMap;
@@ -27,7 +27,6 @@ public class HelloController {
     }
 
     @GetMapping("/hello")
-    @ResponseResultBody
     public Map<String, Object> hello() {
         return INFO;
     }
@@ -39,19 +38,19 @@ public class HelloController {
     }
 
     @GetMapping("/resultBody")
-    @ResponseResultBody
+    @ResultResponseBody
     public Map<String, Object> helloResultBody() {
         return INFO;
     }
 
     @GetMapping(value = "testInt")
-    @ResponseResultBody
+    @ResultResponseBody
     public Integer testInt() throws Exception {
         return 123;
     }
 
     @GetMapping(value = "testString")
-    @ResponseResultBody
+    @ResultResponseBody
     public String testString() throws Exception {
         return "123";
     }
