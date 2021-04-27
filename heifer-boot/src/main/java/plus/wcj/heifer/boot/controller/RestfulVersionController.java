@@ -26,17 +26,6 @@ public class RestfulVersionController {
     }
 
 
-    @GetMapping(value = "/version")
-    @ApiVersion(1)
-    public String version1() {
-        return "hello version v1";
-    }
-
-    @GetMapping(value = "/version")
-    @ApiVersion(2)
-    public String version2() {
-        return "hello version v2";
-    }
 }
 
 

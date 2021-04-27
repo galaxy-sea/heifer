@@ -2,6 +2,8 @@ package plus.wcj.heifer.boot.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 import plus.wcj.heifer.boot.common.mvc.result.Result;
 
+import javax.jws.WebResult;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +60,21 @@ public class HelloController {
     @ResultResponseBody
     public String testString() throws Exception {
         return "123";
+    }
+
+
+    @GetMapping("/heifer")
+    @ApiOperation("测试测试")
+    @ResultResponseBody
+    public Heifer heifer() {
+        return new Heifer().setName("小奶牛").setAge(25);
+    }
+
+    @Data
+    @Accessors(chain = true)
+    class Heifer {
+        private String name;
+        private Integer age;
     }
 }
 
