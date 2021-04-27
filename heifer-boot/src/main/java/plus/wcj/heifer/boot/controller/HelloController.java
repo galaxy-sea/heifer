@@ -20,8 +20,8 @@ import java.util.Map;
  * @date 2021/4/23
  */
 @Api(tags = "测试测试")
-@RestController
-@RequestMapping("/hello")
+// @RestController
+// @RequestMapping("/hello")
 public class HelloController {
 
     private static final HashMap<String, Object> INFO;

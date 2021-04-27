@@ -15,6 +15,11 @@ import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 @RequestMapping("/restful")
 public class RestfulVersionController {
 
+    @GetMapping(value = "/hello")
+    public String hello() {
+        return "hello Restful v2";
+    }
+
     @GetMapping(value = "/hello",headers = "version=v1")
     public String helloV1() {
         return "hello Restful v1";
