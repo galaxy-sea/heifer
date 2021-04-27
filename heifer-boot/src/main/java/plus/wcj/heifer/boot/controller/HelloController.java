@@ -1,5 +1,7 @@
 package plus.wcj.heifer.boot.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +16,7 @@ import java.util.Map;
  * @author changjin wei(魏昌进)
  * @date 2021/4/23
  */
+@Api(tags = "测试测试")
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
@@ -27,6 +30,7 @@ public class HelloController {
     }
 
     @GetMapping("/hello")
+    @ApiOperation("测试测试")
     public Map<String, Object> hello() {
         return INFO;
     }
