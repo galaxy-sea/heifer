@@ -14,7 +14,7 @@ import java.util.List;
  * @author changjin wei(魏昌进)
  * @date 2021/4/23
  */
-@EnableWebMvc
+// @EnableWebMvc
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
