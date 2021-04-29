@@ -16,9 +16,17 @@ import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 public class RestfulVersionController {
 
     @GetMapping(value = "/hello")
-    public String hello() {
-        return "hello Restful v2";
+    @ApiVersion(1)
+    public String hello1() {
+        return "hello Restful version1";
     }
+
+    @ApiVersion(2)
+    @GetMapping(value = "/hello")
+    public String hello2() {
+        return "hello Restful version2";
+    }
+
 
     @GetMapping(value = "/hello",headers = "version=v1")
     public String helloV1() {

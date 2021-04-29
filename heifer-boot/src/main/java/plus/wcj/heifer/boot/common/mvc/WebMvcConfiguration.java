@@ -1,12 +1,14 @@
 package plus.wcj.heifer.boot.common.mvc;
 
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import plus.wcj.heifer.boot.common.mvc.resolver.tenant.TenantMethodArgumentResolver;
+import plus.wcj.heifer.boot.common.mvc.restful.ApiVersionRequestMappingHandlerMapping;
 
 import java.util.List;
 
@@ -16,8 +18,9 @@ import java.util.List;
  */
 // @EnableWebMvc
 @Configuration
-public class WebMvcConfiguration implements WebMvcConfigurer {
+public class WebMvcConfiguration implements WebMvcConfigurer, WebMvcRegistrations {
 
+    // WebMvcConfigurer start
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
@@ -29,5 +32,16 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.removeIf(httpMessageConverter -> StringHttpMessageConverter.class.equals(httpMessageConverter.getClass()));
     }
+    // WebMvcConfigurer end
+
+    // WebMvcRegistrations start
+
+    @Override
+    public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+        return new ApiVersionRequestMappingHandlerMapping();
+    }
+
+    // WebMvcRegistrations end
+
 
 }
