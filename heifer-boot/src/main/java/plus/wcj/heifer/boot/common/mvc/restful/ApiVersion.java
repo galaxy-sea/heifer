@@ -7,6 +7,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ *
+ * @see org.springframework.web.servlet.mvc.condition.RequestCondition
+ * @see org.springframework.web.servlet.mvc.condition.HeadersRequestCondition
+ * @see org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
+ *
  * @author changjin wei(魏昌进)
  * @date 2021/4/26
  */
