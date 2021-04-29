@@ -1,5 +1,8 @@
 package plus.wcj.heifer.boot.controller;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +30,16 @@ public class JacksonController {
 class Jack {
     private String name;
     private Integer age;
+    @JsonSetter(nulls = Nulls.AS_EMPTY)
     private List<String> stringList;
+    @JsonSetter(nulls = Nulls.AS_EMPTY)
     private Set<String> stringSet;
 
     private String name1;
     private Integer age1;
+    @JsonSetter(nulls = Nulls.AS_EMPTY)
     private List<String> stringList1;
+    @JsonSetter(nulls = Nulls.AS_EMPTY)
     private Set<String> stringSet1;
 }
 
