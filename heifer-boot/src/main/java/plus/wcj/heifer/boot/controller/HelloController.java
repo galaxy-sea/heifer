@@ -20,8 +20,8 @@ import java.util.Map;
  * @date 2021/4/23
  */
 @Api(tags = "测试测试")
-// @RestController
-// @RequestMapping("/hello")
+@RestController
+@RequestMapping("/hello")
 public class HelloController {
 
     private static final HashMap<String, Object> INFO;
@@ -32,7 +32,7 @@ public class HelloController {
         INFO.put("age", "70");
     }
 
-    @GetMapping("/hello")
+    @GetMapping(value = "/hello", headers = "version=1")
     @ApiOperation("测试测试")
     public Map<String, Object> hello() {
         return INFO;

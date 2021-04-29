@@ -8,7 +8,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import plus.wcj.heifer.boot.common.mvc.resolver.tenant.TenantMethodArgumentResolver;
-import plus.wcj.heifer.boot.common.mvc.restful.ApiVersionRequestMappingHandlerMapping;
+// import plus.wcj.heifer.boot.common.mvc.restful.ApiVersionRequestMappingHandlerMapping;
 
 import java.util.List;
 
@@ -36,10 +36,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer, WebMvcRegistration
 
     // WebMvcRegistrations start
 
-    @Override
-    public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
-        return new ApiVersionRequestMappingHandlerMapping();
-    }
+    // @Override
+    // public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+    //     return new ApiVersionRequestMappingHandlerMapping();
+    // }
 
     // WebMvcRegistrations end
 
