@@ -1,81 +1,40 @@
 package plus.wcj.heifer.boot.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 import plus.wcj.heifer.boot.common.mvc.result.Result;
 
-import javax.jws.WebResult;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author changjin wei(魏昌进)
  * @date 2021/4/23
  */
-@Api(tags = "测试测试")
-@RestController
+@Controller
 @RequestMapping("/hello")
 public class HelloController {
 
-    private static final HashMap<String, Object> INFO;
 
-    static {
-        INFO = new HashMap<>();
-        INFO.put("name", "galaxy");
-        INFO.put("age", "70");
-    }
-
-    @GetMapping(value = "/hello", headers = "version=1")
-    @ApiOperation("测试测试")
-    public Map<String, Object> hello() {
-        return INFO;
-    }
-
-    @GetMapping("/result")
+    @GetMapping(headers = "version=1")
     @ResponseBody
-    public Result<Map<String, Object>> helloResult() {
-        return Result.success(INFO);
+    public String hello() {
+        return "hello";
     }
 
-    @GetMapping("/resultBody")
-    @ResultResponseBody
-    public Map<String, Object> helloResultBody() {
-        return INFO;
-    }
-
-    @GetMapping(value = "testInt")
-    @ResultResponseBody
-    public Integer testInt() throws Exception {
+    @GetMapping(headers = "version=2")
+    @ResponseBody
+    public int helloInt() {
         return 123;
     }
 
-    @GetMapping(value = "testString")
-    @ResultResponseBody
-    public String testString() throws Exception {
-        return "123";
+    @GetMapping(headers = "version=3")
+    @ResponseBody
+    public Result<String> result() {
+        return Result.success("hello");
     }
 
-
-    @GetMapping("/heifer")
-    @ApiOperation("测试测试")
-    @ResultResponseBody
-    public Heifer heifer() {
-        return new Heifer().setName("小奶牛").setAge(25);
-    }
-
-    @Data
-    @Accessors(chain = true)
-    class Heifer {
-        private String name;
-        private Integer age;
-    }
 }
 
 

@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -20,6 +21,7 @@ import java.lang.annotation.Annotation;
  * @date 2021/4/23
  */
 @RestControllerAdvice
+@Controller
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     /** 判断类或者方法是否使用了 @ResponseResultBody */
