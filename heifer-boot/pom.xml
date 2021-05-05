@@ -14,6 +14,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.4.5</spring-boot.version>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.3.0</mybatis-plus-generator.version>
+        <!--<mybatis-plus-generator.version>3.5.0-SNAPSHOT</mybatis-plus-generator.version>-->
 
     </properties>
 
@@ -26,18 +28,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--    <groupId>com.baomidou</groupId>-->
-        <!--    <artifactId>mybatis-plus-boot-starter</artifactId>-->
-        <!--    <version>${mybatis-plus.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-plus-generator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
 
-        <!--<dependency>-->
-        <!--    <groupId>mysql</groupId>-->
-        <!--    <artifactId>mysql-connector-java</artifactId>-->
-        <!--    <scope>runtime</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
 
         <dependency>
@@ -127,5 +141,19 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>spring</id>
+            <url>https://maven.aliyun.com/repository/spring</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
 
 </project>
