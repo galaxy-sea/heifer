@@ -1,7 +1,6 @@
 package plus.wcj.heifer.boot;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
@@ -11,6 +10,7 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
@@ -83,24 +83,23 @@ public class CodeGenerator {
         };
 
         // 如果模板引擎是 freemarker
-        String templatePath = "templates/mapper.xml.ftl";
+        // String templatePath = "templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
-        // String templatePath = "/templates/mapper.xml.vm";
+        String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                String moduleName = pc.getModuleName();
-                if (moduleName == null) {
-                    return projectPath + "/src/main/resources/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-                }
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName() + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-            }
-        });
+        // focList.add(new FileOutConfig(null) {
+        //     @Override
+        //     public String outputFile(TableInfo tableInfo) {
+        //         String serviceName = tableInfo.getServiceName();
+        //         tableInfo.setServiceName(serviceName.substring(1));
+        //
+        //
+        //         return null;
+        //     }
+        // });
         /*
         cfg.setFileCreate(new IFileCreate() {
             @Override
@@ -125,6 +124,7 @@ public class CodeGenerator {
         // 配置自定义输出模板
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         templateConfig.setEntity("/generator/templates/entity.java");
+        templateConfig.setController("/generator/templates/controller.java");
         // templateConfig.setService();
         // templateConfig.setController();
 
@@ -143,7 +143,7 @@ public class CodeGenerator {
         strategy.setEntityBooleanColumnRemoveIsPrefix(true);
         strategy.setSuperServiceClass(ConstVal.SUPER_SERVICE_CLASS);
         // 公共父类
-        //strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
+        // strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
         //strategy.setSuperEntityColumns("id");
         strategy.setInclude(tables);
@@ -151,8 +151,20 @@ public class CodeGenerator {
         strategy.setEntityTableFieldAnnotationEnable(true);
         strategy.setEntityBooleanColumnRemoveIsPrefix(true);
         mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        mpg.setTemplateEngine(new MyFreemarkerTemplateEngine());
         mpg.execute();
     }
 
+
+    static class MyFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
+        @Override
+        public FreemarkerTemplateEngine init(ConfigBuilder configBuilder) {
+            FreemarkerTemplateEngine freemarkerTemplateEngine = super.init(configBuilder);
+            List<TableInfo> tableInfoList = freemarkerTemplateEngine.getConfigBuilder().getTableInfoList();
+            for (TableInfo tableInfo : tableInfoList) {
+                tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
+            }
+            return freemarkerTemplateEngine;
+        }
+    }
 }

@@ -1,12 +1,15 @@
 package plus.wcj.heifer.boot.controller;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import plus.wcj.heifer.boot.common.mvc.result.Result;
-
-import java.util.HashMap;
+import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 
 /**
  * @author changjin wei(魏昌进)
@@ -14,26 +17,55 @@ import java.util.HashMap;
  */
 @Controller
 @RequestMapping("/hello")
+@RequiredArgsConstructor
 public class HelloController {
 
+    private final IService iService;
 
-    @GetMapping(headers = "version=1")
-    @ResponseBody
-    public String hello() {
-        return "hello";
+    @GetMapping
+    @ResultResponseBody
+    public Object get(Long id) {
+        return null;
     }
 
-    @GetMapping(headers = "version=2")
-    @ResponseBody
-    public int helloInt() {
-        return 123;
+
+    @PostMapping
+    @ResultResponseBody
+    public Object post(@RequestBody Object o){
+        return null;
     }
 
-    @GetMapping(headers = "version=3")
-    @ResponseBody
-    public Result<String> result() {
-        return Result.success("hello");
+    @PutMapping
+    @ResultResponseBody
+    public Object put(@RequestBody Object o){
+        return null;
     }
+
+
+    @DeleteMapping
+    @ResultResponseBody
+    public Object delete(Long id) {
+        return null;
+    }
+
+
+    // @GetMapping(headers = "version=1")
+    // @ResponseBody
+    // public String hello() {
+    //     return "hello";
+    // }
+    //
+    // @GetMapping(headers = "version=2")
+    // @ResponseBody
+    // public int helloInt() {
+    //     return 123;
+    // }
+    //
+    // @GetMapping(headers = "version=3")
+    // @ResponseBody
+    // public Result<String> result() {
+    //     return Result.success("hello");
+    // }
 
 }
 
