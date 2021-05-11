@@ -101,7 +101,6 @@ public class CodeGenerator {
                     tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
                     isRemovePrefix = true;
                 }
-                System.out.println(1111);
                 String moduleName = pc.getModuleName();
                 if (moduleName == null) {
                     return projectPath + "/src/main/resources/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;

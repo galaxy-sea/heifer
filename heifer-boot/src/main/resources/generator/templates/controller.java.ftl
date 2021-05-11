@@ -45,7 +45,7 @@ public class ${table.controllerName} {
 </#if>
     private final ${table.serviceName} ${table.serviceName?uncap_first};
 
-    @GetMapping
+    @GetMapping(params = "id")
     @ResultResponseBody
     public ${entity} getById(Long id) {
         return ${table.serviceName?uncap_first}.getById(id);
@@ -69,7 +69,7 @@ public class ${table.controllerName} {
         return ${table.serviceName?uncap_first}.updateById(${entity?uncap_first});
     }
 
-    @DeleteMapping
+    @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(Long id) {
         return ${table.serviceName?uncap_first}.removeById(id);
