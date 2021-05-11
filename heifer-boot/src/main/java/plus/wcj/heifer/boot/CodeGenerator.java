@@ -54,7 +54,7 @@ public class CodeGenerator {
         gc.setOpen(false);
         gc.setFileOverride(true);
         gc.setIdType(IdType.ASSIGN_ID);
-        // gc.setSwagger2(true);
+        gc.setSwagger2(true);
         gc.setBaseResultMap(true);
         gc.setBaseColumnList(true);
         gc.setDateType(DateType.ONLY_DATE);
@@ -157,7 +157,6 @@ public class CodeGenerator {
         strategy.setInclude(tables);
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setEntityTableFieldAnnotationEnable(true);
-        strategy.setEntityBooleanColumnRemoveIsPrefix(true);
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
