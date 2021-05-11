@@ -20,14 +20,17 @@ import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 @RequiredArgsConstructor
 public class HelloController {
 
-    private final IService iService;
 
-    @GetMapping
+    @GetMapping(params = "id")
     @ResultResponseBody
     public Object get(Long id) {
-        return null;
+        return "aaaaaa";
     }
-
+    @GetMapping
+    @ResultResponseBody
+    public Object get() {
+        return "bbbb";
+    }
 
     @PostMapping
     @ResultResponseBody
