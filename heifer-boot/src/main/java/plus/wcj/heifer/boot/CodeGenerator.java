@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
@@ -24,7 +25,7 @@ public class CodeGenerator {
     /**
      * 要生成的表名
      */
-    private static String[] tables = {"user",};
+    private static String[] tables = {"Role",};
 
     /**
      * 表的前缀
@@ -83,23 +84,31 @@ public class CodeGenerator {
         };
 
         // 如果模板引擎是 freemarker
-        // String templatePath = "templates/mapper.xml.ftl";
+        String templatePath = "templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
-        String templatePath = "/templates/mapper.xml.vm";
+        // String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
-        // focList.add(new FileOutConfig(null) {
-        //     @Override
-        //     public String outputFile(TableInfo tableInfo) {
-        //         String serviceName = tableInfo.getServiceName();
-        //         tableInfo.setServiceName(serviceName.substring(1));
-        //
-        //
-        //         return null;
-        //     }
-        // });
+        focList.add(new FileOutConfig(templatePath) {
+
+            boolean isRemovePrefix;
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                if (!isRemovePrefix) {
+                    tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
+                    isRemovePrefix = true;
+                }
+                System.out.println(1111);
+                String moduleName = pc.getModuleName();
+                if (moduleName == null) {
+                    return projectPath + "/src/main/resources/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                }
+                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName() + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+            }
+        });
         /*
         cfg.setFileCreate(new IFileCreate() {
             @Override
@@ -151,20 +160,9 @@ public class CodeGenerator {
         strategy.setEntityTableFieldAnnotationEnable(true);
         strategy.setEntityBooleanColumnRemoveIsPrefix(true);
         mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new MyFreemarkerTemplateEngine());
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
 
 
-    static class MyFreemarkerTemplateEngine extends FreemarkerTemplateEngine {
-        @Override
-        public FreemarkerTemplateEngine init(ConfigBuilder configBuilder) {
-            FreemarkerTemplateEngine freemarkerTemplateEngine = super.init(configBuilder);
-            List<TableInfo> tableInfoList = freemarkerTemplateEngine.getConfigBuilder().getTableInfoList();
-            for (TableInfo tableInfo : tableInfoList) {
-                tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
-            }
-            return freemarkerTemplateEngine;
-        }
-    }
 }
