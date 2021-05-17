@@ -9,20 +9,24 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CodeGeneratorV2 {
 
     /**
      * 要生成的表名
      */
-    private static String[] tables = {"user",};
+    private static String[] tables = {"rbac_user",};
 
     /**
      * 表的前缀
@@ -120,6 +124,15 @@ public class CodeGeneratorV2 {
             public void initTableMap(TableInfo tableInfo) {
                 super.initTableMap(tableInfo);
                 tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
+                for (TableField field : tableInfo.getFields()) {
+
+
+                    if (StringUtils.isNotEmpty(field.getComment())) {
+
+                        Matcher m = Pattern.compile("\\s*|\t|\r|\n").matcher(field.getComment());
+                        field.setComment(m.replaceAll(""));
+                    }
+                }
             }
         };
 
