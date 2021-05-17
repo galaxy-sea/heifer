@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xkcoding.rbac.security.repository.RoleDao">
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.xkcoding.rbac.security.model.Role">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="description" property="description"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+  </resultMap>
+
+  <!-- 通用查询结果列 -->
+  <sql id="Base_Column_List">
+    id,
+    name,
+    description,
+    create_time,
+    update_time
+  </sql>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    SELECT sec_role.*
+    FROM sec_role,
+         sec_user,
+         sec_user_role
+    WHERE sec_user.id = sec_user_role.user_id
+      AND sec_role.id = sec_user_role.role_id
+      AND sec_user.id = #{userId}
+  </select>
+</mapper>
