@@ -1,0 +1,13 @@
+###
+POST http://localhost:8080/demo/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "usernameOrEmailOrPhone": "admin",
+  "password": "123456"
+}
+
+###
+GET  http://localhost:8080/demo/api/monitor/online/user HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDcyODA2Mzc3NjYxMDA5OTIwIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE2MjEyNjQwNTYsInJvbGVzIjpbIueuoeeQhuWRmCJdLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoicGFnZTp0ZXN0In0seyJhdXRob3JpdHkiOiJidG46dGVzdDpxdWVyeSJ9LHsiYXV0aG9yaXR5IjoiYnRuOnRlc3Q6aW5zZXJ0In0seyJhdXRob3JpdHkiOiJwYWdlOm1vbml0b3I6b25saW5lIn0seyJhdXRob3JpdHkiOiJidG46bW9uaXRvcjpvbmxpbmU6cXVlcnkifSx7ImF1dGhvcml0eSI6ImJ0bjptb25pdG9yOm9ubGluZTpraWNrb3V0In1dLCJleHAiOjE2MjEyNjQ2NTZ9.aBO7Ax8_caNT4iJcw87J8fwaTWLOEo2MpE3SMrhUIpA
