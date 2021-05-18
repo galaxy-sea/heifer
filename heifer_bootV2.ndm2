@@ -1906,7 +1906,7 @@
               },
               {
                 "objectType": "TableField_MYSQL",
-                "name": "rbac_ tenant_id",
+                "name": "rbac_tenant_id",
                 "type": "bigint",
                 "length": 0,
                 "decimals": 0,
@@ -1928,7 +1928,7 @@
                 "isGeneratedAlways": false,
                 "virtualExpr": "",
                 "virtualType": "",
-                "oldName": "rbac_ tenant_id"
+                "oldName": "rbac_tenant_id"
               },
               {
                 "objectType": "TableField_MYSQL",
@@ -2156,7 +2156,7 @@
                 "objectType": "ForeignKey_MYSQL",
                 "name": "a1",
                 "fields": [
-                  "rbac_ tenant_id"
+                  "rbac_tenant_id"
                 ],
                 "referenceSchema": "Default",
                 "referenceTable": "rdbc_tenant",
@@ -2214,9 +2214,9 @@
           "schemaName": "Default",
           "tableName": "rbac_client",
           "x": 150,
-          "y": 1370,
+          "y": 1380,
           "width": 222,
-          "height": 104,
+          "height": 110,
           "isBold": false,
           "titleColor": {
             "r": 55,
@@ -2328,7 +2328,7 @@
           "x": 960,
           "y": 1200,
           "width": 186,
-          "height": 104,
+          "height": 110,
           "isBold": false,
           "titleColor": {
             "r": 55,
@@ -2429,7 +2429,7 @@
           "x": 100,
           "y": 1150,
           "width": 1142,
-          "height": 399,
+          "height": 405,
           "layerColor": {
             "r": 100,
             "g": 234,
@@ -2658,7 +2658,7 @@
             },
             {
               "x": 260,
-              "y": 1355
+              "y": 1365
             }
           ],
           "label": {
@@ -2874,7 +2874,7 @@
             },
             {
               "x": 1060,
-              "y": 1319
+              "y": 1325
             }
           ],
           "label": {
