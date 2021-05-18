@@ -48,6 +48,7 @@ jwt:
 logging:
   level:
     com.xkcoding.rbac.security: debug
+    org.springframework.security: debug
 custom:
   config:
     ignores:
