@@ -54,7 +54,7 @@ public class CodeGenerator {
         gc.setOpen(false);
         gc.setFileOverride(true);
         gc.setIdType(IdType.ASSIGN_ID);
-        gc.setSwagger2(true);
+        // gc.setSwagger2(true);
         gc.setBaseResultMap(true);
         gc.setBaseColumnList(true);
         gc.setDateType(DateType.ONLY_DATE);
