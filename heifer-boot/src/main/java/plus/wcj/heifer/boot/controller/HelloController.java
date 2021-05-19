@@ -1,6 +1,5 @@
 package plus.wcj.heifer.boot.controller;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;

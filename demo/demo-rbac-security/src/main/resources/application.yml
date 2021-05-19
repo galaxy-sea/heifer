@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9876
   servlet:
     context-path: /demo
 spring:
@@ -43,7 +43,7 @@ spring:
 jwt:
   config:
     key: xkcoding
-    ttl: 600000
+    ttl: 6000000000
     remember: 604800000
 logging:
   level:

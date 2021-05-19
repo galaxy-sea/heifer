@@ -34,6 +34,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ApiResponse handlerException(Exception e) {
+        e.printStackTrace();
+
+
         if (e instanceof NoHandlerFoundException) {
             log.error("【全局异常拦截】NoHandlerFoundException: 请求方法 {}, 请求路径 {}", ((NoHandlerFoundException) e).getRequestURL(), ((NoHandlerFoundException) e).getHttpMethod());
             return ApiResponse.ofStatus(Status.REQUEST_NOT_FOUND);

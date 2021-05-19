@@ -1,6 +1,5 @@
-package com.xkcoding.rbac.security.config;
+package plus.wcj.heifer.boot.common.security;
 
-import com.xkcoding.rbac.security.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService;
 
 /**
  * <p>
@@ -29,7 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableConfigurationProperties(CustomConfig.class)
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomConfig customConfig;
@@ -64,30 +64,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // @formatter:off
         http.cors()
-                // 关闭 CSRF
-                .and().csrf().disable()
-                // 登录行为由自己实现，参考 AuthController#login
-                .formLogin().disable()
-                .httpBasic().disable()
+            // 关闭 CSRF
+            .and().csrf().disable()
+            // 登录行为由自己实现，参考 AuthController#login
+            .formLogin().disable()
+            .httpBasic().disable()
 
-                // 认证请求
-                .authorizeRequests()
-                // 所有请求都需要登录访问
-                .anyRequest()
-                .authenticated()
-                // RBAC 动态 url 认证
-                // .anyRequest()
-                // .access("@rbacAuthorityService.hasPermission(request,authentication)")
+            // 认证请求
+            .authorizeRequests()
+            // 所有请求都需要登录访问
+            .anyRequest()
+            .authenticated()
+            // RBAC 动态 url 认证
+            // .anyRequest()
+            // .access("@rbacAuthorityService.hasPermission(request,authentication)")
 
-                // 登出行为由自己实现，参考 AuthController#logout
-                .and().logout().disable()
-                // Session 管理
-                .sessionManagement()
-                // 因为使用了JWT，所以这里不管理Session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            // 登出行为由自己实现，参考 AuthController#logout
+            .and().logout().disable()
+            // Session 管理
+            .sessionManagement()
+            // 因为使用了JWT，所以这里不管理Session
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-                // 异常处理
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+            // 异常处理
+            .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
@@ -96,7 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 放行所有不需要登录就可以访问的请求，参见 AuthController
-     * 也可以在 {@link #configure(HttpSecurity)} 中配置
+     * 也可以在 {@link #configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)} 中配置
      * {@code http.authorizeRequests().antMatchers("/api/auth/**").permitAll()}
      */
     @Override

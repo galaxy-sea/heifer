@@ -7,7 +7,7 @@ import lombok.Getter;
  * @date 2021/4/23
  */
 @Getter
-public class ResultException extends Exception {
+public class ResultException extends RuntimeException {
 
     /**
      * 业务异常信息信息

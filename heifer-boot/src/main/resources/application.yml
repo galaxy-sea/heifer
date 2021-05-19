@@ -6,7 +6,16 @@ spring:
   datasource:
     name: defaultDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://xxxx:3306/heifer_boot?serverTimezone=UTC
-    password: xxx
-    username: xxx
-
+    url: jdbc:mysql://127.0.0.1:3306/heifer_boot?serverTimezone=UTC
+    password: root
+    username: root
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+        - "/api/auth/login"
+        - "/api/auth/logout"
+      # 需要过滤的请求，不限方法
+      pattern:
+        - "/test/*"

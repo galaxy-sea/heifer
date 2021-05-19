@@ -1,15 +1,9 @@
-package com.xkcoding.rbac.security.config;
+package plus.wcj.heifer.boot.common.security;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import com.google.common.collect.Sets;
-import com.xkcoding.rbac.security.common.Status;
-import com.xkcoding.rbac.security.exception.SecurityException;
-import com.xkcoding.rbac.security.service.CustomUserDetailsService;
-import com.xkcoding.rbac.security.util.JwtUtil;
-import com.xkcoding.rbac.security.util.ResponseUtil;
+
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,12 +13,17 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import plus.wcj.heifer.boot.common.exception.ResultException;
+import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -57,7 +56,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String jwt = jwtUtil.getJwtFromRequest(request);
 
-        if (StrUtil.isNotBlank(jwt)) {
+        if (StringUtils.isNotBlank(jwt)) {
+            try {
                 String username = jwtUtil.getUsernameFromJWT(jwt);
 
                 UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
@@ -66,9 +66,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 filterChain.doFilter(request, response);
-
+            } catch (SecurityException e) {
+                throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+            }
         } else {
-            ResponseUtil.renderJson(response, Status.UNAUTHORIZED, null);
+            throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -83,11 +85,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String method = request.getMethod();
 
         HttpMethod httpMethod = HttpMethod.resolve(method);
-        if (ObjectUtil.isNull(httpMethod)) {
+        if (Objects.isNull(httpMethod)) {
             httpMethod = HttpMethod.GET;
         }
 
-        Set<String> ignores = Sets.newHashSet();
+        Set<String> ignores = new HashSet<>();
 
         switch (httpMethod) {
             case GET:
@@ -120,7 +122,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         ignores.addAll(customConfig.getIgnores().getPattern());
 
-        if (CollUtil.isNotEmpty(ignores)) {
+        if (CollectionUtils.isNotEmpty(ignores)) {
             for (String ignore : ignores) {
                 AntPathRequestMatcher matcher = new AntPathRequestMatcher(ignore, method);
                 if (matcher.matches(request)) {

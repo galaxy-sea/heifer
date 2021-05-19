@@ -26,23 +26,27 @@ public class CodeGeneratorV2 {
     /**
      * 要生成的表名
      */
-    private static String[] tables = {"rbac_user",};
+    private static String[] tables = {"sec_permission",
+            "sec_role",
+            "sec_role_permission",
+            "sec_user",
+            "sec_user_role",};
 
     /**
      * 表的前缀
      */
-    private static String[] tablePrefix = {"t_"};
+    private static String[] tablePrefix = {"sec_"};
     /**
      * 数据库逻辑删除字段
      */
     private static String logicDeleteFieldName = "is_delete";
 
 
-    private static String url = "jdbc:mysql://xxxxxx:3306/heifer_boot?useUnicode=true&useSSL=false&characterEncoding=utf8";
+    private static String url = "jdbc:mysql://47.114.167.3:3306/spring-boot-demo?useUnicode=true&useSSL=false&characterEncoding=utf8";
     private static String schemaName = "public";
     private static String driverName = "com.mysql.cj.jdbc.Driver";
-    private static String username = "xxxxx";
-    private static String password = "xxxx";
+    private static String username = "root";
+    private static String password = "weichangjin";
 
     private static String parent = "plus.wcj.heifer.boot";
 
