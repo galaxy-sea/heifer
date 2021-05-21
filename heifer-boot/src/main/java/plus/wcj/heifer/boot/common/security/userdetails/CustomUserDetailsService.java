@@ -6,9 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import plus.wcj.heifer.boot.common.security.userdetails.mapper.PermissionDao;
-import plus.wcj.heifer.boot.common.security.userdetails.mapper.RoleDao;
-import plus.wcj.heifer.boot.common.security.userdetails.mapper.UserDao;
+import plus.wcj.heifer.boot.common.security.userdetails.mapper.CustomUserDetailsDao;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,20 +22,14 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
-    private RoleDao roleDao;
-
-    @Autowired
-    private PermissionDao permissionDao;
+    private CustomUserDetailsDao customUserDetailsDao;
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmailOrPhone) throws UsernameNotFoundException {
-        User user = userDao.findByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
-        List<Role> roles = roleDao.selectByUserId(user.getId());
+        User user = customUserDetailsDao.findUserByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
+        List<Role> roles = customUserDetailsDao.selectRoleByUserId(user.getId());
         List<Long> roleIds = roles.stream().map(Role::getId).collect(Collectors.toList());
-        List<Permission> permissions = permissionDao.selectByRoleIdList(roleIds);
+        List<Permission> permissions = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
         return UserPrincipal.create(user, roles, permissions);
     }
 }
