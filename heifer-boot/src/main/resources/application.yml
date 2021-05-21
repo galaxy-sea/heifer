@@ -4,11 +4,28 @@ spring:
   application:
     name: heifer-boot
   datasource:
-    name: defaultDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/heifer_boot?serverTimezone=UTC
-    password: root
-    username: root
+    url: jdbc:mysql://xxx:xxx/spring-boot-demo?serverTimezone=UTC
+    password: xxx
+    username: xxx
+  redis:
+    host: r-bp1vyc4m1618jli5kwpd.redis.rds.aliyuncs.com
+    port: 6379
+    # 连接超时时间（记得添加单位，Duration）
+    timeout: 10000ms
+    password: wcj@469753862
+    # Redis默认情况下有16个分片，这里配置具体使用的分片
+    # database: 0
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: -1ms
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 8
+        # 连接池中的最小空闲连接 默认 0
+        min-idle: 0
 custom:
   config:
     ignores:
@@ -19,3 +36,12 @@ custom:
       # 需要过滤的请求，不限方法
       pattern:
         - "/test/*"
+logging:
+  level:
+    plus.wcj.heifer.boot.common.security: debug
+    org.springframework.security: debug
+jwt:
+  config:
+    key: weichangjin
+    ttl: 6000000000
+    remember: 604800000

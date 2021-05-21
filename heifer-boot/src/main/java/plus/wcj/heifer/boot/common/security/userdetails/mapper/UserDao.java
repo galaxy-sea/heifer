@@ -1,7 +1,8 @@
-package plus.wcj.heifer.boot.common.security.userdetails;
+package plus.wcj.heifer.boot.common.security.userdetails.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import plus.wcj.heifer.boot.common.security.userdetails.User;
 
 import java.util.List;
 import java.util.Optional;

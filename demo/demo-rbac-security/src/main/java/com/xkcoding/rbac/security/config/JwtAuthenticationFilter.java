@@ -19,12 +19,16 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -46,6 +50,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private CustomConfig customConfig;
+
+    @Autowired
+    private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -80,6 +87,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * @return true - 忽略，false - 不忽略
      */
     private boolean checkIgnores(HttpServletRequest request) {
+
+        // TODO: 2021/5/20 changjin wei(魏昌进) 获取全部的controller
+        // Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
+        //
+        //
+        // for (Map.Entry<RequestMappingInfo, HandlerMethod> requestMappingInfoHandlerMethodEntry : handlerMethods.entrySet()) {
+        //     System.out.println(requestMappingInfoHandlerMethodEntry.getKey());
+        //     System.out.println(requestMappingInfoHandlerMethodEntry.getValue());
+        //
+        //
+        // }
+
         String method = request.getMethod();
 
         HttpMethod httpMethod = HttpMethod.resolve(method);

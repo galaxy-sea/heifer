@@ -6,6 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import plus.wcj.heifer.boot.common.security.userdetails.mapper.PermissionDao;
+import plus.wcj.heifer.boot.common.security.userdetails.mapper.RoleDao;
+import plus.wcj.heifer.boot.common.security.userdetails.mapper.UserDao;
 
 import java.util.List;
 import java.util.stream.Collectors;
