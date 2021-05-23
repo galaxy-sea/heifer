@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.security.userdetails.mapper;
+package plus.wcj.heifer.boot.common.security.userdetails.dao;
 
 import org.apache.ibatis.annotations.Param;
 import plus.wcj.heifer.boot.common.security.userdetails.Permission;

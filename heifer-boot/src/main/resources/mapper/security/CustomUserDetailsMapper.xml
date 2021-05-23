@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="plus.wcj.heifer.boot.common.security.userdetails.mapper.CustomUserDetailsDao">
+<mapper namespace="plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao">
     <resultMap id="PermissionBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.Permission">
         <id column="id" property="id"/>
         <result column="name" property="name"/>

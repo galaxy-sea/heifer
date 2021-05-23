@@ -16,7 +16,7 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.userdetails.Permission;
 import plus.wcj.heifer.boot.common.security.userdetails.Role;
 import plus.wcj.heifer.boot.common.security.userdetails.UserPrincipal;
-import plus.wcj.heifer.boot.common.security.userdetails.mapper.CustomUserDetailsDao;
+import plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
