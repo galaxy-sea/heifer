@@ -1,0 +1,15 @@
+server:
+    port: 8080
+spring:
+    application:
+        name: heifer-boot
+    datasource:
+        name: defaultDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/blue?serverTimezone=UTC
+        password: '***'
+        username: '***'
+
+
+
+
