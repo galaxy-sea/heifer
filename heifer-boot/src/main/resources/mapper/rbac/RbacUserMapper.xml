@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plus.wcj.heifer.boot.dao.rbac.RbacUserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacUserDo">
+        <id column="id" property="id" />
+        <result column="tenant_org_id" property="tenantOrgId" />
+        <result column="rbac_dept_id" property="rbacDeptId" />
+        <result column="username" property="username" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="password" property="password" />
+        <result column="nickname" property="nickname" />
+        <result column="is_account_non_expired" property="isAccountNonExpired" />
+        <result column="is_account_non_locked" property="isAccountNonLocked" />
+        <result column="is_credentials_non_expired" property="isCredentialsNonExpired" />
+        <result column="is_enabled" property="isEnabled" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, tenant_org_id, rbac_dept_id, username, phone, email, password, nickname, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled
+    </sql>
+
+</mapper>

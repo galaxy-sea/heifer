@@ -1,76 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao">
-    <resultMap id="PermissionBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.Permission">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="url" property="url"/>
-        <result column="type" property="type"/>
-        <result column="permission" property="permission"/>
-        <result column="method" property="method"/>
-        <result column="sort" property="sort"/>
-        <result column="parent_id" property="parentId"/>
+
+    <resultMap id="PermissionBaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacPermissionDo">
+        <id column="id" property="id" />
+        <result column="parent_id" property="parentId" />
+        <result column="tenant_client_id" property="tenantClientId" />
+        <result column="name" property="name" />
+        <result column="permission" property="permission" />
+        <result column="type" property="type" />
+        <result column="sort" property="sort" />
     </resultMap>
 
     <select id="selectPermissionByRoleIdList" resultMap="PermissionBaseResultMap">
-        SELECT DISTINCT sec_permission.*
-        FROM sec_permission,
-             sec_role,
-             sec_role_permission WHERE sec_role.id = sec_role_permission.role_id
-                                   AND sec_permission.id = sec_role_permission.permission_id
-                                   AND sec_role.id IN
+        SELECT DISTINCT rbac_permission.*
+        FROM rbac_permission,
+             rbac_role,
+             rbac_role_permission_rel
+                WHERE rbac_role.id = rbac_role_permission_rel.rdac_role_id
+                  AND rbac_permission.id = rbac_role_permission_rel.rdac_permission_id
+                  AND rbac_role.id IN
         <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>
 
 
-    <resultMap id="RoleBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.Role">
+    <resultMap id="RoleBaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacRoleDo">
         <id column="id" property="id"/>
+        <result column="tenant_org_id" property="tenantOrgId"/>
         <result column="name" property="name"/>
-        <result column="description" property="description"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <select id="selectRoleByUserId" resultMap="RoleBaseResultMap">
-        SELECT sec_role.*
-        FROM sec_role,
-             sec_user,
-             sec_user_role
-        WHERE sec_user.id = sec_user_role.user_id
-          AND sec_role.id = sec_user_role.role_id
-          AND sec_user.id = #{userId}
+        SELECT rbac_role.*
+        FROM rbac_role,
+             rbac_user,
+             rbac_user_role_rel
+        WHERE rbac_user.id = rbac_user_role_rel.rbac_user_id
+          AND rbac_role.id = rbac_user_role_rel.brac_role_id
+          AND rbac_user.id = #{userId}
     </select>
 
 
-    <resultMap id="UserBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.User">
+    <resultMap id="UserBaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacUserDo">
         <id column="id" property="id"/>
+        <result column="tenant_org_id" property="tenantOrgId"/>
+        <result column="rbac_dept_id" property="rbacDeptId"/>
         <result column="username" property="username"/>
-        <result column="password" property="password"/>
-        <result column="nickname" property="nickname"/>
         <result column="phone" property="phone"/>
         <result column="email" property="email"/>
-        <result column="birthday" property="birthday"/>
-        <result column="sex" property="sex"/>
-        <result column="status" property="status"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
+        <result column="password" property="password"/>
+        <result column="nickname" property="nickname"/>
+        <result column="is_account_non_expired" property="isAccountNonExpired"/>
+        <result column="is_account_non_locked" property="isAccountNonLocked"/>
+        <result column="is_credentials_non_expired" property="isCredentialsNonExpired"/>
+        <result column="is_enabled" property="isEnabled"/>
     </resultMap>
 
     <select id="findUserByUsernameOrEmailOrPhone" resultMap="UserBaseResultMap">
-        select
-            *
-        from sec_user
+        select *
+        from rbac_user
         where username = #{username}
            or email = #{email}
            or phone = #{phone}
     </select>
 
     <select id="findUserByUsernameIn" resultMap="UserBaseResultMap">
-        select
-            *
-        from sec_user
+        select *
+        from rbac_user
                 where username in
         <foreach collection="usernameList" item="username" index="index" open="(" close=")" separator=",">
             #{username}
