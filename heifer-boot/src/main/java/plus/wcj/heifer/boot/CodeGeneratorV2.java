@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
@@ -18,35 +19,30 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CodeGeneratorV2 {
 
-    /**
-     * 要生成的表名
-     */
-    private static String[] tables = {"sec_permission",
-            "sec_role",
-            "sec_role_permission",
-            "sec_user",
-            "sec_user_role",};
+    /** 模块名 */
+    private static String moduleName = "tenant";
 
-    /**
-     * 表的前缀
-     */
-    private static String[] tablePrefix = {"sec_"};
-    /**
-     * 数据库逻辑删除字段
-     */
+    /** 要生成的表名 */
+    private static String[] tables = {
+
+    };
+
+    /** 表的前缀 */
+    private static String[] tablePrefix = {
+    };
+    /** 数据库逻辑删除字段 */
     private static String logicDeleteFieldName = "is_delete";
 
 
-    private static String url = "jdbc:mysql://47.114.167.3:3306/spring-boot-demo?useUnicode=true&useSSL=false&characterEncoding=utf8";
+    private static String url = "jdbc:mysql://xxx:3306/heifer_boot?useUnicode=true&useSSL=false&characterEncoding=utf8";
     private static String schemaName = "public";
     private static String driverName = "com.mysql.cj.jdbc.Driver";
-    private static String username = "root";
-    private static String password = "weichangjin";
+    private static String username = "xxx";
+    private static String password = "xxx";
 
     private static String parent = "plus.wcj.heifer.boot";
 
@@ -60,7 +56,7 @@ public class CodeGeneratorV2 {
         // 包配置
         mpg.setPackageInfo(packageConfig());
         // 自定义配置
-        mpg.setCfg(injectionConfig());
+        mpg.setCfg(injectionConfig(mpg.getPackageInfo()));
         // 配置模板
         mpg.setTemplate(templateConfig());
         // 策略配置
@@ -109,15 +105,19 @@ public class CodeGeneratorV2 {
         TemplateConfig templateConfig = new TemplateConfig();
         templateConfig.setEntity("/generator/templates/entity.java");
         // templateConfig.setEntityKt();
-        // templateConfig.setService();
-        // templateConfig.setServiceImpl();
+        // templateConfig.setService("/generator/templates/service.java");
+        // templateConfig.setServiceImpl("/generator/templates/serviceImpl.java");
         // templateConfig.setMapper();
-        // templateConfig.setXml();
+        templateConfig.setXml(null);
         templateConfig.setController("/generator/templates/controller.java");
         return templateConfig;
     }
 
-    private static InjectionConfig injectionConfig() {
+    static final Pattern pattern = Pattern.compile("\\s*|\t|\r|\n");
+
+    private static InjectionConfig injectionConfig(PackageConfig packageInfo) {
+
+
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
@@ -127,21 +127,39 @@ public class CodeGeneratorV2 {
             @Override
             public void initTableMap(TableInfo tableInfo) {
                 super.initTableMap(tableInfo);
+
                 tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
+                tableInfo.setComment(pattern.matcher(tableInfo.getComment()).replaceAll(""));
                 for (TableField field : tableInfo.getFields()) {
-
-
                     if (StringUtils.isNotEmpty(field.getComment())) {
-
-                        Matcher m = Pattern.compile("\\s*|\t|\r|\n").matcher(field.getComment());
-                        field.setComment(m.replaceAll(""));
+                        field.setComment(pattern.matcher(field.getComment()).replaceAll(""));
                     }
                 }
             }
         };
 
+        String projectPath = System.getProperty("user.dir");
+
+        // 如果模板引擎是 freemarker
+        String templatePath = "templates/mapper.xml.ftl";
+        // 如果模板引擎是 velocity
+        // String templatePath = "/templates/mapper.xml.vm";
+
 
         List<FileOutConfig> focList = new ArrayList<>();
+        focList.add(new FileOutConfig(templatePath) {
+
+
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                if (moduleName == null) {
+                    return projectPath + "/src/main/resources/mapper/"+"" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                }
+                return projectPath + "/src/main/resources/mapper/" + moduleName + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+            }
+        });
+
         cfg.setFileOutConfigList(focList);
         return cfg;
     }
@@ -150,12 +168,12 @@ public class CodeGeneratorV2 {
         PackageConfig pc = new PackageConfig();
         pc.setParent(parent);
         pc.setModuleName(null);
-        // pc.setEntity();
-        // pc.setService();
-        // pc.setServiceImpl();
-        // pc.setMapper();
-        // pc.setXml();
-        // pc.setController();
+        pc.setEntity(pc.getEntity() + "." + moduleName);
+        pc.setService(pc.getService() + "."+moduleName);
+        pc.setServiceImpl(pc.getService()  + ".impl");
+        pc.setMapper(pc.getMapper() + "."+moduleName);
+        pc.setXml(pc.getXml() + "."+moduleName);
+        pc.setController(pc.getController() + "."+moduleName);
 
         return pc;
     }
@@ -191,8 +209,8 @@ public class CodeGeneratorV2 {
         gc.setBaseResultMap(true);
         gc.setDateType(DateType.ONLY_DATE);
         gc.setBaseColumnList(true);
-        // gc.setEntityName();
-        // gc.setMapperName();
+        gc.setEntityName("%sDo");
+        gc.setMapperName("%sDao");
         // gc.setXmlName();
         // gc.setServiceName();
         // gc.setServiceImplName();

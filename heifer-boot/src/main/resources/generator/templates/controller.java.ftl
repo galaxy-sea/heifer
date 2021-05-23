@@ -54,7 +54,7 @@ public class ${table.controllerName} {
     @GetMapping
     @ResultResponseBody
     public Page<${entity}> page(Page<${entity}> page, ${entity} ${entity?uncap_first}) {
-        return ${table.serviceName?uncap_first}.page(page, new QueryWrapper<>(role));
+        return ${table.serviceName?uncap_first}.page(page, new QueryWrapper<>(${entity?uncap_first}));
     }
 
     @PostMapping
