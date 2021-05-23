@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
@@ -28,7 +29,18 @@ public class CodeGeneratorV2 {
 
     /** 要生成的表名 */
     private static String[] tables = {
-
+            // "rbac_dept",
+            // "rbac_permission",
+            // "rbac_role",
+            // "rbac_role_data_power",
+            // "rbac_role_permission_rel",
+            // "rbac_user",
+            // "rbac_user_data_power",
+            // "rbac_user_permission_rel",
+            // "rbac_user_role_rel",
+            "tenant_client",
+            "tenant_org",
+            "tenant_org_client_rel",
     };
 
     /** 表的前缀 */
@@ -128,7 +140,7 @@ public class CodeGeneratorV2 {
             public void initTableMap(TableInfo tableInfo) {
                 super.initTableMap(tableInfo);
 
-                tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
+                // tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
                 tableInfo.setComment(pattern.matcher(tableInfo.getComment()).replaceAll(""));
                 for (TableField field : tableInfo.getFields()) {
                     if (StringUtils.isNotEmpty(field.getComment())) {
@@ -154,9 +166,9 @@ public class CodeGeneratorV2 {
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
                 if (moduleName == null) {
-                    return projectPath + "/src/main/resources/mapper/"+"" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                    return projectPath + "/src/main/resources/mapper/" + "" + tableInfo.getXmlName() + "Mapper" + StringPool.DOT_XML;
                 }
-                return projectPath + "/src/main/resources/mapper/" + moduleName + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return projectPath + "/src/main/resources/mapper/" + moduleName + "/" + tableInfo.getXmlName() + StringPool.DOT_XML;
             }
         });
 
@@ -169,11 +181,11 @@ public class CodeGeneratorV2 {
         pc.setParent(parent);
         pc.setModuleName(null);
         pc.setEntity(pc.getEntity() + "." + moduleName);
-        pc.setService(pc.getService() + "."+moduleName);
-        pc.setServiceImpl(pc.getService()  + ".impl");
-        pc.setMapper("dao" + "."+moduleName);
-        pc.setXml(pc.getXml() + "."+moduleName);
-        pc.setController(pc.getController() + "."+moduleName);
+        pc.setService(pc.getService() + "." + moduleName);
+        pc.setServiceImpl(pc.getService() + ".impl");
+        pc.setMapper("dao." + moduleName);
+        pc.setXml("dao." + moduleName+".mapper");
+        pc.setController(pc.getController() + "." + moduleName);
 
         return pc;
     }
@@ -212,7 +224,7 @@ public class CodeGeneratorV2 {
         gc.setEntityName("%sDo");
         gc.setMapperName("%sDao");
         // gc.setXmlName();
-        // gc.setServiceName();
+        gc.setServiceName("%s" + ConstVal.SERVICE);
         // gc.setServiceImplName();
         // gc.setControllerName();
         gc.setIdType(IdType.ASSIGN_ID);
