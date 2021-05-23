@@ -1,7 +1,7 @@
 package plus.wcj.heifer.boot.service.tenant.impl;
 
 import plus.wcj.heifer.boot.entity.tenant.TenantOrgDo;
-import plus.wcj.heifer.boot.mapper.tenant.TenantOrgDao;
+import plus.wcj.heifer.boot.dao.tenant.TenantOrgDao;
 import plus.wcj.heifer.boot.service.tenant.TenantOrgService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package plus.wcj.heifer.boot.service.rbac.impl;
 
 import plus.wcj.heifer.boot.entity.rbac.RbacUserRoleRelDo;
-import plus.wcj.heifer.boot.mapper.rbac.RbacUserRoleRelDao;
+import plus.wcj.heifer.boot.dao.rbac.RbacUserRoleRelDao;
 import plus.wcj.heifer.boot.service.rbac.RbacUserRoleRelService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

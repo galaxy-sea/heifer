@@ -171,7 +171,7 @@ public class CodeGeneratorV2 {
         pc.setEntity(pc.getEntity() + "." + moduleName);
         pc.setService(pc.getService() + "."+moduleName);
         pc.setServiceImpl(pc.getService()  + ".impl");
-        pc.setMapper(pc.getMapper() + "."+moduleName);
+        pc.setMapper("dao" + "."+moduleName);
         pc.setXml(pc.getXml() + "."+moduleName);
         pc.setController(pc.getController() + "."+moduleName);
 

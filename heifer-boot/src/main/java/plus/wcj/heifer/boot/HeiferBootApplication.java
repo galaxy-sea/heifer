@@ -9,7 +9,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @EnableOpenApi
 @SpringBootApplication
 @MapperScans({
-        @MapperScan("plus.wcj.heifer.boot.mapper.*"),
+        @MapperScan("plus.wcj.heifer.boot.dao.*"),
         @MapperScan("plus.wcj.heifer.boot.common.security.userdetails.mapper")
 })
 public class HeiferBootApplication {

@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.mapper.tenant;
+package plus.wcj.heifer.boot.dao.tenant;
 
 import plus.wcj.heifer.boot.entity.tenant.TenantClientDo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
