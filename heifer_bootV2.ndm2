@@ -2260,7 +2260,7 @@
                 "objectType": "TableField_MYSQL",
                 "name": "password",
                 "type": "varchar",
-                "length": 50,
+                "length": 100,
                 "decimals": 0,
                 "isUnsigned": false,
                 "isZeroFill": false,
