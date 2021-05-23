@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.mapper;
+package plus.wcj.heifer.boot.dao;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

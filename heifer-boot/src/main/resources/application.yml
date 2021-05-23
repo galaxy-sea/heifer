@@ -4,10 +4,11 @@ spring:
   application:
     name: heifer-boot
   datasource:
+    type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://xxx:xxx/spring-boot-demo?serverTimezone=UTC
-    password: xxx
-    username: xxx
+    url: jdbc:mysql://xxxx:3306/spring-boot-demo?serverTimezone=UTC
+    password: xxxx
+    username: xxxx
   redis:
     host: r-bp1vyc4m1618jli5kwpd.redis.rds.aliyuncs.com
     port: 6379
