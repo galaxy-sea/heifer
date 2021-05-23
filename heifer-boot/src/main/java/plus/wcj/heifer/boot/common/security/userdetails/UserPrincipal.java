@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -69,7 +70,7 @@ public class UserPrincipal implements UserDetails {
     /**
      * 状态，启用-1，禁用-0
      */
-    private Integer status;
+    private Boolean status;
 
     /**
      * 创建时间
@@ -131,6 +132,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return BooleanUtils.isTrue(status);
     }
 }

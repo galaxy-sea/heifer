@@ -36,6 +36,11 @@ custom:
       # 需要过滤的请求，不限方法
       pattern:
         - "/test/*"
+        - "/doc"
+        - "/swagger-resources/**"
+        - "/swagger-ui/**"
+        - "/swagger-ui/*"
+        - "/v3/api-docs/**"
 logging:
   level:
     plus.wcj.heifer.boot.common.security: debug

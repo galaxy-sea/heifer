@@ -60,7 +60,7 @@ public class User implements Serializable {
 
     /** 状态，启用-1，禁用-0 */
     @TableField("status")
-    private Integer status;
+    private Boolean status;
 
     /** 创建时间 */
     @TableField("create_time")
