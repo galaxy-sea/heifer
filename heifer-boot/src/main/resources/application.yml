@@ -1,3 +1,4 @@
+kdy: key
 server:
   port: 9090
 spring:
@@ -6,9 +7,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://xxxx:3306/spring-boot-demo?serverTimezone=UTC
-    password: xxxx
-    username: xxxx
+    url: mpw:jiD4Yw3oNwCOQZO1bX0ksHZQoZrTH5j+CIqHSZNIWR6H2fb2/Al/Mb6EfAiQrMDKBil4CvkeBh7134KMM3RS5g==
+    password: mpw:AmNKrHnSb16mbMa/kDRgIQ==
+    username: mpw:9BaRvNjQ0aUgYyX++zKQ3Q==
   redis:
     host: r-bp1vyc4m1618jli5kwpd.redis.rds.aliyuncs.com
     port: 6379
@@ -48,6 +49,7 @@ logging:
     org.springframework.security: debug
 jwt:
   config:
-    key: weichangjin
+    key: ${key}
     ttl: 6000000000
     remember: 604800000
+mp.key: ${key}

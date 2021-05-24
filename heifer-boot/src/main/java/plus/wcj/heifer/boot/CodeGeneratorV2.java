@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.toolkit.AES;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -25,7 +26,7 @@ import java.util.regex.Pattern;
 public class CodeGeneratorV2 {
 
     /** 模块名 */
-    private static String moduleName = "tenant";
+    private static String moduleName = "abc";
 
     /** 要生成的表名 */
     private static String[] tables = {
@@ -49,12 +50,13 @@ public class CodeGeneratorV2 {
     /** 数据库逻辑删除字段 */
     private static String logicDeleteFieldName = "is_delete";
 
+    private static String key = "xxxxxxxxxxxxxxxx";
 
-    private static String url = "jdbc:mysql://xxx:3306/heifer_boot?useUnicode=true&useSSL=false&characterEncoding=utf8";
-    private static String schemaName = "public";
+    private static String url = "jiD4Yw3oNwCOQZO1bX0ksHZQoZrTH5j+CIqHSZNIWR6H2fb2/Al/Mb6EfAiQrMDKBil4CvkeBh7134KMM3RS5g==";
+    private static String username = "9BaRvNjQ0aUgYyX++zKQ3Q==";
+    private static String password = "AmNKrHnSb16mbMa/kDRgIQ==";
     private static String driverName = "com.mysql.cj.jdbc.Driver";
-    private static String username = "xxx";
-    private static String password = "xxx";
+    private static String schemaName = "public";
 
     private static String parent = "plus.wcj.heifer.boot";
 
@@ -184,7 +186,7 @@ public class CodeGeneratorV2 {
         pc.setService(pc.getService() + "." + moduleName);
         pc.setServiceImpl(pc.getService() + ".impl");
         pc.setMapper("dao." + moduleName);
-        pc.setXml("dao." + moduleName+".mapper");
+        pc.setXml("dao." + moduleName + ".mapper");
         pc.setController(pc.getController() + "." + moduleName);
 
         return pc;
@@ -192,11 +194,11 @@ public class CodeGeneratorV2 {
 
     private static DataSourceConfig dataSourceConfig() {
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl(url);
+        dsc.setUrl(AES.decrypt(url, key));
         dsc.setSchemaName(schemaName);
         dsc.setDriverName(driverName);
-        dsc.setUsername(username);
-        dsc.setPassword(password);
+        dsc.setUsername(AES.decrypt(username, key));
+        dsc.setPassword(AES.decrypt(password, key));
         // dsc.setTypeConvert();
         return dsc;
     }
