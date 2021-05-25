@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class CodeGeneratorV2 {
+public class GeneratorCodeV2 {
 
     /** 模块名 */
     private static String moduleName = "abc";
