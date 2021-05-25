@@ -13,7 +13,13 @@
     </resultMap>
 
     <select id="selectPermissionByRoleIdList" resultMap="PermissionBaseResultMap">
-        SELECT DISTINCT rbac_permission.*
+        SELECT DISTINCT rbac_permission.id,
+                        rbac_permission.parent_id,
+                        rbac_permission.tenant_client_id,
+                        rbac_permission.name,
+                        rbac_permission.permission,
+                        rbac_permission.type,
+                        rbac_permission.sort
         FROM rbac_permission,
              rbac_role,
              rbac_role_permission_rel
@@ -33,7 +39,9 @@
     </resultMap>
 
     <select id="selectRoleByUserId" resultMap="RoleBaseResultMap">
-        SELECT rbac_role.*
+        SELECT rbac_role.id,
+               rbac_role.tenant_org_id,
+               rbac_role.name
         FROM rbac_role,
              rbac_user,
              rbac_user_role_rel
@@ -59,7 +67,18 @@
     </resultMap>
 
     <select id="findUserByUsernameOrEmailOrPhone" resultMap="UserBaseResultMap">
-        select *
+        select rbac_user.id,
+               rbac_user.tenant_org_id,
+               rbac_user.rbac_dept_id,
+               rbac_user.username,
+               rbac_user.phone,
+               rbac_user.email,
+               rbac_user.password,
+               rbac_user.nickname,
+               rbac_user.is_account_non_expired,
+               rbac_user.is_account_non_locked,
+               rbac_user.is_credentials_non_expired,
+               rbac_user.is_enabled
         from rbac_user
         where username = #{username}
            or email = #{email}
@@ -67,7 +86,18 @@
     </select>
 
     <select id="findUserByUsernameIn" resultMap="UserBaseResultMap">
-        select *
+        select rbac_user.id,
+               rbac_user.tenant_org_id,
+               rbac_user.rbac_dept_id,
+               rbac_user.username,
+               rbac_user.phone,
+               rbac_user.email,
+               rbac_user.password,
+               rbac_user.nickname,
+               rbac_user.is_account_non_expired,
+               rbac_user.is_account_non_locked,
+               rbac_user.is_credentials_non_expired,
+               rbac_user.is_enabled
         from rbac_user
                 where username in
         <foreach collection="usernameList" item="username" index="index" open="(" close=")" separator=",">
