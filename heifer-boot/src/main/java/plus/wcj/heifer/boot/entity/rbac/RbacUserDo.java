@@ -1,15 +1,16 @@
 package plus.wcj.heifer.boot.entity.rbac;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -71,22 +72,22 @@ public class RbacUserDo implements Serializable {
     /** 指示用户的帐户是否已过期。过期的帐户无法通过身份验证。返回值：true如果用户的帐户是否有效（即未过期），false如果不再有效（即到期） */
     @ApiModelProperty(value = "指示用户的帐户是否已过期。过期的帐户无法通过身份验证。返回值：true如果用户的帐户是否有效（即未过期），false如果不再有效（即到期）")
     @TableField("is_account_non_expired")
-    private Integer isAccountNonExpired;
+    private Boolean isAccountNonExpired;
 
     /** 指示用户是锁定还是解锁。锁定的用户无法通过身份验证。返回值：true如果用户没有被锁定，false否则 */
     @ApiModelProperty(value = "指示用户是锁定还是解锁。锁定的用户无法通过身份验证。返回值：true如果用户没有被锁定，false否则")
     @TableField("is_account_non_locked")
-    private Integer isAccountNonLocked;
+    private Boolean isAccountNonLocked;
 
     /** 指示用户的凭据（密码）是否已过期。过期的凭据会阻止身份验证。返回值：true如果用户的证书是有效的（即非到期），false如果不再有效（即到期 */
     @ApiModelProperty(value = "指示用户的凭据（密码）是否已过期。过期的凭据会阻止身份验证。返回值：true如果用户的证书是有效的（即非到期），false如果不再有效（即到期")
     @TableField("is_credentials_non_expired")
-    private Integer isCredentialsNonExpired;
+    private Boolean isCredentialsNonExpired;
 
     /** 指示用户是启用还是禁用。禁用的用户无法通过身份验证。返回值：true如果用户已启用，false否则 */
     @ApiModelProperty(value = "指示用户是启用还是禁用。禁用的用户无法通过身份验证。返回值：true如果用户已启用，false否则")
     @TableField("is_enabled")
-    private Integer isEnabled;
+    private Boolean isEnabled;
 
 
 }

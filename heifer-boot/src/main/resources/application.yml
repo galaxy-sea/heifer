@@ -1,4 +1,6 @@
 key: xxxxxx
+mpw:
+  key: ${key}
 server:
   port: 9090
 spring:
@@ -54,8 +56,5 @@ jwt:
     key: ${key}
     ttl: 6000000000
     remember: 604800000
-mpw:
-  key: ${key}
 
-hahah:
-  hahah: "#{T(com.baomidou.mybatisplus.core.toolkit.AES).decrypt('AmNKrHnSb16mbMa/kDRgIQ==','${key}')}"
+
