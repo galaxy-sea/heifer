@@ -19,7 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
-import plus.wcj.heifer.boot.common.security.userdetails.UserPrincipal;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;

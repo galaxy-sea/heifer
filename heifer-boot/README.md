@@ -18,7 +18,7 @@
 | rbac_user_permission_rel | 用户功能权限表     |
 | rbac_user_role_rel       | 角色用户关系表     |
 
-### 多租户
+### tenant 多租户
 
 | 表名                  | 注释       | 
 | --------------------- | ---------- | 

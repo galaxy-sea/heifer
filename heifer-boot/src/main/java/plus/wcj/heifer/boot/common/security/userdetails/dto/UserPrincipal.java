@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.security.userdetails;
+package plus.wcj.heifer.boot.common.security.userdetails.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.security.userdetails;
+package plus.wcj.heifer.boot.common.security.userdetails.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

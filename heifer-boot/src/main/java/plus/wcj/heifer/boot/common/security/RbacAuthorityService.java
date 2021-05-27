@@ -13,9 +13,9 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
-import plus.wcj.heifer.boot.common.security.userdetails.Permission;
-import plus.wcj.heifer.boot.common.security.userdetails.Role;
-import plus.wcj.heifer.boot.common.security.userdetails.UserPrincipal;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.Permission;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.Role;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 import plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao;
 
 import javax.servlet.http.HttpServletRequest;

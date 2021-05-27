@@ -1,4 +1,4 @@
-kdy: key
+key: xxxxxx
 server:
   port: 9090
 spring:
@@ -11,11 +11,13 @@ spring:
     password: mpw:AmNKrHnSb16mbMa/kDRgIQ==
     username: mpw:9BaRvNjQ0aUgYyX++zKQ3Q==
   redis:
-    host: r-bp1vyc4m1618jli5kwpd.redis.rds.aliyuncs.com
+#    host: r-bp1vyc4m1618jli5kwpd.redis.rds.aliyuncs.com
+    host: "#{T(com.baomidou.mybatisplus.core.toolkit.AES).decrypt('XN5INON/AmwF1fZUz1aTkk9w7R6vaidfON7/TXZzVvZYq8opET7jd7k6GMQA57xg','${key}')}"
     port: 6379
     # 连接超时时间（记得添加单位，Duration）
     timeout: 10000ms
-    password: wcj@469753862
+#    password: wcj@469753862
+    password: "#{T(com.baomidou.mybatisplus.core.toolkit.AES).decrypt('uGUVwEKBLwSbWluDsF+Dlw==','${key}')}"
     # Redis默认情况下有16个分片，这里配置具体使用的分片
     # database: 0
     lettuce:
@@ -52,4 +54,8 @@ jwt:
     key: ${key}
     ttl: 6000000000
     remember: 604800000
-mp.key: ${key}
+mpw:
+  key: ${key}
+
+hahah:
+  hahah: "#{T(com.baomidou.mybatisplus.core.toolkit.AES).decrypt('AmNKrHnSb16mbMa/kDRgIQ==','${key}')}"

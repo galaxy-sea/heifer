@@ -25,6 +25,10 @@ import java.util.regex.Pattern;
 
 public class CodeGeneratorV2 {
 
+
+    private static String key = "xxxxxx";
+
+
     /** 模块名 */
     private static String moduleName = "abc";
 
@@ -39,9 +43,9 @@ public class CodeGeneratorV2 {
             // "rbac_user_data_power",
             // "rbac_user_permission_rel",
             // "rbac_user_role_rel",
-            "tenant_client",
-            "tenant_org",
-            "tenant_org_client_rel",
+            // "tenant_client",
+            // "tenant_org",
+            "test_hahah",
     };
 
     /** 表的前缀 */
@@ -50,7 +54,6 @@ public class CodeGeneratorV2 {
     /** 数据库逻辑删除字段 */
     private static String logicDeleteFieldName = "is_delete";
 
-    private static String key = "xxxxxxxxxxxxxxxx";
 
     private static String url = "jiD4Yw3oNwCOQZO1bX0ksHZQoZrTH5j+CIqHSZNIWR6H2fb2/Al/Mb6EfAiQrMDKBil4CvkeBh7134KMM3RS5g==";
     private static String username = "9BaRvNjQ0aUgYyX++zKQ3Q==";
@@ -208,7 +211,7 @@ public class CodeGeneratorV2 {
      *
      * @return
      */
-    private static GlobalConfig globalConfig() {
+    private static synchronized GlobalConfig globalConfig() {
         String projectPath = System.getProperty("user.dir");
 
         GlobalConfig gc = new GlobalConfig();

@@ -10,8 +10,8 @@ public class GenerateRandomKey {
         System.out.println("mpw:" + AES.encrypt("weichangjin", "xxxxxxxxxxxxxxxx"));
 
 
-        String encrypt = AES.encrypt("weichangjin", "xxxxxxxxxxxxxxxx");
-        System.out.println(AES.decrypt(encrypt, "xxxxxxxxxxxxxxxx"));
+        System.out.println(AES.encrypt("r-bp1vyc4m1618jli5kwpd.redis.rds.aliyuncs.com", "thisForYinjuanLi"));
+        System.out.println(AES.decrypt("jiD4Yw3oNwCOQZO1bX0ksHZQoZrTH5j+CIqHSZNIWR6H2fb2/Al/Mb6EfAiQrMDKBil4CvkeBh7134KMM3RS5g==","thisForYinjuanLi"));
 
     }
 }

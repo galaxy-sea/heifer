@@ -1,9 +1,9 @@
 package plus.wcj.heifer.boot.common.security.userdetails.dao;
 
 import org.apache.ibatis.annotations.Param;
-import plus.wcj.heifer.boot.common.security.userdetails.Permission;
-import plus.wcj.heifer.boot.common.security.userdetails.Role;
-import plus.wcj.heifer.boot.common.security.userdetails.User;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.Permission;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.Role;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.User;
 
 import java.util.List;
 import java.util.Optional;
