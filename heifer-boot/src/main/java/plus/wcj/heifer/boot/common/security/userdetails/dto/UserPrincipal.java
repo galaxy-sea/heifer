@@ -58,29 +58,9 @@ public class UserPrincipal implements UserDetails {
     private String email;
 
     /**
-     * 生日
-     */
-    private Long birthday;
-
-    /**
-     * 性别，男-1，女-2
-     */
-    private Integer sex;
-
-    /**
      * 状态，启用-1，禁用-0
      */
-    private Boolean status;
-
-    /**
-     * 创建时间
-     */
-    private Long createTime;
-
-    /**
-     * 更新时间
-     */
-    private Long updateTime;
+    private Boolean isEnabled;
 
     /**
      * 用户角色列表
@@ -92,12 +72,13 @@ public class UserPrincipal implements UserDetails {
      */
     private Collection<? extends GrantedAuthority> authorities;
 
-    public static UserPrincipal create(User user, List<Role> roles, List<Permission> permissions) {
-        List<String> roleNames = roles.stream().map(Role::getName).collect(Collectors.toList());
+
+    public static UserPrincipal create(RbacUserDto user, List<RbacRoleDto> roles, List<RbacPermissionDto> permissions) {
+        List<String> roleNames = roles.stream().map(RbacRoleDto::getName).collect(Collectors.toList());
 
         List<GrantedAuthority> authorities = permissions.stream().filter(permission -> StringUtils.isNotBlank(permission.getPermission())).map(permission -> new SimpleGrantedAuthority(permission.getPermission())).collect(Collectors.toList());
 
-        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getBirthday(), user.getSex(), user.getStatus(), user.getCreateTime(), user.getUpdateTime(), roleNames, authorities);
+        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getIsEnabled(), roleNames, authorities);
     }
 
     @Override
@@ -132,6 +113,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return BooleanUtils.isTrue(status);
+        return BooleanUtils.isTrue(isEnabled);
     }
 }

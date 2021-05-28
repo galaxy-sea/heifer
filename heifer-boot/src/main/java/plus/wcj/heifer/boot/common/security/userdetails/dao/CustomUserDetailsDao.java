@@ -1,9 +1,9 @@
 package plus.wcj.heifer.boot.common.security.userdetails.dao;
 
 import org.apache.ibatis.annotations.Param;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.Permission;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.Role;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.User;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +20,7 @@ public interface CustomUserDetailsDao {
      *
      * @return 权限列表
      */
-    List<Permission> selectPermissionByRoleIdList(@Param("ids") List<Long> ids);
+    List<RbacPermissionDto> selectPermissionByRoleIdList(@Param("ids") List<Long> ids);
     /**
      * 根据用户id 查询角色列表
      *
@@ -28,7 +28,7 @@ public interface CustomUserDetailsDao {
      *
      * @return 角色列表
      */
-    List<Role> selectRoleByUserId(@Param("userId") Long userId);
+    List<RbacRoleDto> selectRoleByUserId(@Param("userId") Long userId);
 
     /**
      * 根据用户名、邮箱、手机号查询用户
@@ -39,7 +39,7 @@ public interface CustomUserDetailsDao {
      *
      * @return 用户信息
      */
-    Optional<User> findUserByUsernameOrEmailOrPhone(@Param("username") String username, @Param("email") String email, @Param("phone") String phone);
+    Optional<RbacUserDto> findUserByUsernameOrEmailOrPhone(@Param("username") String username, @Param("email") String email, @Param("phone") String phone);
 
     /**
      * 根据用户名列表查询用户列表
@@ -48,5 +48,5 @@ public interface CustomUserDetailsDao {
      *
      * @return 用户列表
      */
-    List<User> findUserByUsernameIn(@Param("usernameList") List<String> usernameList);
+    List<RbacUserDto> findUserByUsernameIn(@Param("usernameList") List<String> usernameList);
 }

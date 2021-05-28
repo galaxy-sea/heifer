@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao">
 
-    <resultMap id="PermissionBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.Permission">
+    <resultMap id="PermissionBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto">
         <id column="id" property="id" />
         <result column="parent_id" property="parentId" />
         <result column="tenant_client_id" property="tenantClientId" />
@@ -32,7 +32,7 @@
     </select>
 
 
-    <resultMap id="RoleBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.Role">
+    <resultMap id="RoleBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto">
         <id column="id" property="id"/>
         <result column="tenant_org_id" property="tenantOrgId"/>
         <result column="name" property="name"/>
@@ -51,7 +51,7 @@
     </select>
 
 
-    <resultMap id="UserBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.User">
+    <resultMap id="UserBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto">
         <id column="id" property="id"/>
         <result column="tenant_org_id" property="tenantOrgId"/>
         <result column="rbac_dept_id" property="rbacDeptId"/>
