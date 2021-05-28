@@ -63,6 +63,14 @@ public class GeneratorCodeV2 {
 
     private static String parent = "plus.wcj.heifer.boot";
 
+
+    // public static void main(String[] args) {
+    //     System.out.println("mpw:" + AES.encrypt("jdbc:mysql://xxxxx :3306/heifer_boot?serverTimezone=UTC", "xxxxxxxxxxxxxxxx"));
+    //     System.out.println("mpw:" + AES.encrypt("xxxxxx", "xxxxxxxxxxxxxxxx"));
+    //     System.out.println("mpw:" + AES.encrypt("xxxxxx", "xxxxxxxxxxxxxxxx"));
+    // }
+
+
     public static void main(String[] args) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();

@@ -1,6 +1,6 @@
-key: xxxxxx
-mpw:
-  key: ${key}
+jasypt:
+  encryptor:
+    password: xxxxxxxx
 server:
   port: 9090
 spring:
@@ -9,17 +9,15 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: mpw:jiD4Yw3oNwCOQZO1bX0ksHZQoZrTH5j+CIqHSZNIWR6H2fb2/Al/Mb6EfAiQrMDKBil4CvkeBh7134KMM3RS5g==
-    password: mpw:AmNKrHnSb16mbMa/kDRgIQ==
-    username: mpw:9BaRvNjQ0aUgYyX++zKQ3Q==
+    url: ENC(WALyQUsObPa17M8MI3PbKjty4Wp+u7eMZHbstE6dP6d5hLBdgK9KiDrRMk/f5ceLvEed3HW0oO2HEROHiP16NzcKY2H9gJK9BDevM2aRpdBemUrnC35WSxf1FoW9BSwW)
+    username: ENC(vLxFiSnkM5sVkZr5O+lE+KakAkXdb5KesPFTfRWHm061AFONSp5Teb7OrDQ/nIhy)
+    password: ENC(tbbsGbnVkScc4qhEIyupNruL0OMj1aezdQQ8yovV6si8jcawh9NxmXY/tbQI18ek)
   redis:
-#    host: r-bp1vyc4m1618jli5kwpd.redis.rds.aliyuncs.com
-    host: "#{T(com.baomidou.mybatisplus.core.toolkit.AES).decrypt('XN5INON/AmwF1fZUz1aTkk9w7R6vaidfON7/TXZzVvZYq8opET7jd7k6GMQA57xg','${key}')}"
+    host: ENC(sgH5uWn9I2RMU9XFyfK10VzQZz4IZSC2qjrsHXm+xHUi/5tBcDREySs0G/yps2789/xHNk1wziisOSLUBPVhUQM6KDdjieO4dX2n6vtZNPc=)
+    password: ENC(NAMg8xkbnNaNMZtlWd+Ph3BSjpRZuyCtNFVsLLTrN+Brww3+LD3Jt8IWmybPCgmd)
     port: 6379
     # 连接超时时间（记得添加单位，Duration）
     timeout: 10000ms
-#    password: wcj@469753862
-    password: "#{T(com.baomidou.mybatisplus.core.toolkit.AES).decrypt('uGUVwEKBLwSbWluDsF+Dlw==','${key}')}"
     # Redis默认情况下有16个分片，这里配置具体使用的分片
     # database: 0
     lettuce:
@@ -53,7 +51,7 @@ logging:
     org.springframework.security: debug
 jwt:
   config:
-    key: ${key}
+    key: ENC(6LnQKQpmSOTHAZHHq6sRC5PDEVYxrJooiTe/tJNT/cEddTj9P8gvMiiw/iCJ+FlL)
     ttl: 6000000000
     remember: 604800000
 
