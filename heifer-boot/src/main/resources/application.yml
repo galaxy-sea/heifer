@@ -39,6 +39,8 @@ custom:
         - "/api/auth/logout"
       # 需要过滤的请求，不限方法
       pattern:
+        - "/api/auth/*"
+        - "/api/auth/**"
         - "/test/*"
         - "/doc"
         - "/swagger-resources/**"

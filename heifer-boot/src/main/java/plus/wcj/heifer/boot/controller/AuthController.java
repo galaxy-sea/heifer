@@ -1,12 +1,15 @@
 package plus.wcj.heifer.boot.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import plus.wcj.heifer.boot.common.security.JwtUtil;
 import plus.wcj.heifer.boot.common.security.dto.JwtResponse;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
+import plus.wcj.heifer.boot.entity.rbac.RbacUserDo;
+import plus.wcj.heifer.boot.service.rbac.RbacUserService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,20 +34,23 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final RbacUserService rbacUserService;
 
     @Autowired
     private JwtUtil jwtUtil;
 
     /**
      * 登录
+     *
      * @return
      */
     @PostMapping("/login")
-    public JwtResponse login( @RequestBody LoginRequest loginRequest) {
+    public JwtResponse login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmailOrPhone(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -60,5 +68,25 @@ public class AuthController {
             return "Status.UNAUTHORIZED";
         }
         return "Status.LOGOUT";
+    }
+
+    @GetMapping
+    private RbacUserDo createUser() {
+
+        RbacUserDo rbacUserDo = new RbacUserDo();
+        rbacUserDo.setTenantOrgId(1L);
+        rbacUserDo.setRbacDeptId(1L);
+        rbacUserDo.setUsername("xiaowei");
+        rbacUserDo.setPhone("xaowei");
+        rbacUserDo.setEmail("xiaowei@qq.com");
+        rbacUserDo.setPassword(bCryptPasswordEncoder.encode("xiaowei"));
+        rbacUserDo.setNickname("xiaowei");
+        rbacUserDo.setIsAccountNonExpired(false);
+        rbacUserDo.setIsAccountNonLocked(false);
+        rbacUserDo.setIsCredentialsNonExpired(false);
+        rbacUserDo.setIsEnabled(false);
+
+        rbacUserService.save(rbacUserDo);
+        return rbacUserDo;
     }
 }
