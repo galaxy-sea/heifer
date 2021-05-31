@@ -17,7 +17,7 @@
 
         <commons-collections4.version>4.4</commons-collections4.version>
 
-        <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
 
         <jasypt.version>3.0.3</jasypt.version>
@@ -43,11 +43,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <dependency>
@@ -97,13 +92,14 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-
+        <!--打包时会排除-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis-plus-generator.version}</version>
+            <scope>provided</scope>
         </dependency>
-
+        <!--打包时会排除-->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
@@ -111,7 +107,6 @@
         </dependency>
 
         <!-- ORM==================⬆️ -->
-
 
 
         <!-- 加密===========⬇️ -->
@@ -162,7 +157,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <!--<version>3.8.1</version>-->
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -176,9 +171,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.3.7.RELEASE</version>
+                <!--<version>2.3.7.RELEASE</version>-->
                 <configuration>
+                    <!--制定启动方法-->
                     <mainClass>plus.wcj.heifer.boot.HeiferBootApplication</mainClass>
+                    <!--排除一些特殊依赖-->
+                    <excludes>
+                        <exclude>
+                            <groupId>com.baomidou</groupId>
+                            <artifactId>mybatis-plus-generator</artifactId>
+                        </exclude>
+                        <exclude>
+                            <groupId>org.freemarker</groupId>
+                            <artifactId>freemarker</artifactId>
+                        </exclude>
+                    </excludes>
+
                 </configuration>
                 <executions>
                     <execution>
@@ -190,6 +198,7 @@
                 </executions>
             </plugin>
 
+            <!--package时跳过测试-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -198,6 +207,7 @@
                 </configuration>
             </plugin>
 
+            <!--配置文件加密解密工具-->
             <!--mvn jasypt:encrypt-value -Djasypt.encryptor.password="password" -Djasypt.plugin.value="text"-->
             <plugin>
                 <groupId>com.github.ulisesbocchio</groupId>
