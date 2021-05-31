@@ -162,6 +162,7 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
+                    <!--排除的文件-->
                     <excludes>
                         <exclude>plus/wcj/heifer/boot/GenerateRandomKey.java</exclude>
                         <exclude>plus/wcj/heifer/boot/GeneratorCodeV2.java</exclude>
@@ -173,7 +174,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <!--<version>2.3.7.RELEASE</version>-->
                 <configuration>
-                    <!--制定启动方法-->
+                    <!--指定启动方法-->
                     <mainClass>plus.wcj.heifer.boot.HeiferBootApplication</mainClass>
                     <!--排除一些特殊依赖-->
                     <excludes>

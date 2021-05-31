@@ -15,9 +15,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class JwtConfig {
     /**
-     * jwt 加密 key，默认值：xkcoding.
+     * jwt 加密 key，默认值：xxxxxxxxxxxxxxx.
      */
-    private String key = "weichangjin";
+    private String key = "xxxxxxxxxxxxxxx";
 
     /**
      * jwt 过期时间，默认值：600000 {@code 10 分钟}.
