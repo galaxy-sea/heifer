@@ -12,6 +12,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 </#if>
+import plus.wcj.heifer.boot.common.validated.dto.CreateValidationGroup;
+import plus.wcj.heifer.boot.common.validated.dto.UpdateValidationGroup;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -34,7 +39,7 @@ import lombok.experimental.Accessors;
 @TableName("${table.name}")
 </#if>
 <#if swagger2>
-@ApiModel(value="${entity}对象", description="${table.comment!}")
+@ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
 public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
@@ -86,6 +91,11 @@ public class ${entity} implements Serializable {
     <#-- 逻辑删除注解 -->
     <#if (logicDeleteFieldName!"") == field.name>
     @TableLogic
+    </#if>
+    <#if field.keyFlag>
+    @NotNull(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "id is null")
+    <#else>
+    @NotNull(groups = {CreateValidationGroup.class}, message = "${field.propertyName} is null")
     </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>

@@ -17,6 +17,18 @@
 1. ``xxx_``前缀表示业务   
 2. ``_rel``后缀表示关系 ``一对一``、``多对多``的关系表
 
+> 建表模型
+```mysql
+CREATE TABLE `t_users1` (
+    `id` bigint(20) unsigned NOT NULL COMMENT '主键id',
+    `create_by` bigint(20) unsigned not null ,
+    `update_by` bigint(20) unsigned null ,
+    `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+    `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
+```
+
 
 ## rbac 功能权限 数据权限
 

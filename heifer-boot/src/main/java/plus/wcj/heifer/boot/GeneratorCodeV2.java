@@ -1,5 +1,6 @@
 package plus.wcj.heifer.boot;
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.AES;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -9,18 +10,30 @@ import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.IDbQuery;
+import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.querys.H2Query;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class GeneratorCodeV2 {
@@ -81,7 +94,7 @@ public class GeneratorCodeV2 {
         // 包配置
         mpg.setPackageInfo(packageConfig());
         // 自定义配置
-        mpg.setCfg(injectionConfig(mpg.getPackageInfo()));
+        mpg.setCfg(injectionConfig(mpg.getPackageInfo(), mpg.getDataSource()));
         // 配置模板
         mpg.setTemplate(templateConfig());
         // 策略配置
@@ -140,13 +153,15 @@ public class GeneratorCodeV2 {
 
     static final Pattern pattern = Pattern.compile("\\s*|\t|\r|\n");
 
-    private static InjectionConfig injectionConfig(PackageConfig packageInfo) {
+    private static InjectionConfig injectionConfig(PackageConfig packageInfo, DataSourceConfig dataSourceConfig) {
 
 
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-
+                if (super.getMap() == null) {
+                    super.setMap(new HashMap<>());
+                }
             }
 
             @Override
@@ -160,6 +175,71 @@ public class GeneratorCodeV2 {
                         field.setComment(pattern.matcher(field.getComment()).replaceAll(""));
                     }
                 }
+
+                Map<String, Object> map = super.getMap();
+                Map<String, Boolean> columnsNotNull = new HashMap<String, Boolean>();
+                map.put(tableInfo.getEntityName(), columnsNotNull);
+
+                // TODO: 2021/6/1 changjin wei(魏昌进)
+
+                DbType dbType = dataSourceConfig.getDbType();
+                IDbQuery dbQuery = dataSourceConfig.getDbQuery();
+                String tableName = tableInfo.getName();
+                Connection connection = dataSourceConfig.getConn();
+                try {
+                    String tableFieldsSql = dbQuery.tableFieldsSql();
+                    Set<String> h2PkColumns = new HashSet<>();
+                    if (DbType.POSTGRE_SQL == dbType) {
+                        tableFieldsSql = String.format(tableFieldsSql, tableName);
+                    } else if (DbType.KINGBASE_ES == dbType) {
+                        tableFieldsSql = String.format(tableFieldsSql, dataSourceConfig.getSchemaName(), tableName);
+                    } else if (DbType.DB2 == dbType) {
+                        tableFieldsSql = String.format(tableFieldsSql, dataSourceConfig.getSchemaName(), tableName);
+                    } else if (DbType.ORACLE == dbType) {
+                        tableName = tableName.toUpperCase();
+                        tableFieldsSql = String.format(tableFieldsSql.replace("#schema", dataSourceConfig.getSchemaName()), tableName);
+                    } else if (DbType.DM == dbType) {
+                        tableName = tableName.toUpperCase();
+                        tableFieldsSql = String.format(tableFieldsSql, tableName);
+                    } else if (DbType.H2 == dbType) {
+                        try (PreparedStatement pkQueryStmt = connection.prepareStatement(String.format(H2Query.PK_QUERY_SQL, tableName));
+                             ResultSet pkResults = pkQueryStmt.executeQuery()) {
+                            while (pkResults.next()) {
+                                String primaryKey = pkResults.getString(dbQuery.fieldKey());
+                                if (Boolean.parseBoolean(primaryKey)) {
+                                    h2PkColumns.add(pkResults.getString(dbQuery.fieldName()));
+                                }
+                            }
+                        }
+                        tableFieldsSql = String.format(tableFieldsSql, tableName);
+                    } else {
+                        tableFieldsSql = String.format(tableFieldsSql, tableName);
+                    }
+                    try (
+                            PreparedStatement preparedStatement = connection.prepareStatement(tableFieldsSql);
+                            ResultSet results = preparedStatement.executeQuery()) {
+                        while (results.next()) {
+                            String columnName = results.getString(dbQuery.fieldName());
+
+                            String newColumnName = columnName;
+                            IKeyWordsHandler keyWordsHandler = dataSourceConfig.getKeyWordsHandler();
+                            if (keyWordsHandler != null && keyWordsHandler.isKeyWords(columnName)) {
+                                System.err.printf("当前表[%s]存在字段[%s]为数据库关键字或保留字!%n", tableName, columnName);
+                                newColumnName = keyWordsHandler.formatColumn(columnName);
+                            }
+                            Boolean isNotNull = BooleanUtils.NO.equalsIgnoreCase(results.getString("Null"));
+                            columnsNotNull.put(newColumnName, isNotNull);
+                        }
+                    }
+                } catch (SQLException e) {
+                    System.err.println("SQL Exception：" + e.getMessage());
+                }
+            }
+
+            @Override
+            public Map<String, Object> prepareObjectMap(Map<String, Object> objectMap) {
+                objectMap.put("fieldsNotNull", super.getMap());
+                return super.prepareObjectMap(objectMap);
             }
         };
 

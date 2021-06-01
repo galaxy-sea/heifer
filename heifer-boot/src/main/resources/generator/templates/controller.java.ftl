@@ -10,6 +10,8 @@ import ${superControllerClassPackage};
 </#if>
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
+import plus.wcj.heifer.boot.common.validated.dto.PostValid;
+import plus.wcj.heifer.boot.common.validated.dto.PutValid;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,13 +61,13 @@ public class ${table.controllerName} {
 
     @PostMapping
     @ResultResponseBody
-    public boolean save(@RequestBody ${entity} ${entity?uncap_first}) {
+    public boolean save(@RequestBody ${entity} @Validated(value = PostValid.class) ${entity?uncap_first}) {
         return ${table.serviceName?uncap_first}.save(${entity?uncap_first});
     }
 
     @PutMapping
     @ResultResponseBody
-    public boolean updateById(@RequestBody ${entity} ${entity?uncap_first}) {
+    public boolean updateById(@RequestBody ${entity} @Validated(value = PutValid.class) ${entity?uncap_first}) {
         return ${table.serviceName?uncap_first}.updateById(${entity?uncap_first});
     }
 
