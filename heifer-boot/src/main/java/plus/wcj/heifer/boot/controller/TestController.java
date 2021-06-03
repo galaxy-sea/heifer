@@ -14,6 +14,7 @@ import plus.wcj.heifer.boot.common.validator.dto.PostValid;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author changjin wei(魏昌进)
@@ -34,7 +35,8 @@ public class TestController {
     @ResultResponseBody
     public Object get(Date date) {
         Haha haha = new Haha();
-        haha.setDate(date);
+        haha.setDate(new Date());
+        haha.setDate2(date);
         return haha;
     }
 }
@@ -49,5 +51,10 @@ class Haha {
     private String age;
 
     private Date date;
+    private Date date2;
+
+    private long date1 = 123123123123123L;
+
+    private List list;
 
 }

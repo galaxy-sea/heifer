@@ -34,12 +34,23 @@ spring:
     format:
       date: yyyy-MM-dd HH:mm:ss
       date-time: yyyy-MM-dd HH:mm:ss
-      time: HH:mm:ss
+      time: yyyy-MM-dd HH:mm:ss
   webflux:
     format:
       date: yyyy-MM-dd HH:mm:ss
       date-time: yyyy-MM-dd HH:mm:ss
-      time: HH:mm:ss
+      time: yyyy-MM-dd HH:mm:ss
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+    generator:
+      WRITE_NUMBERS_AS_STRINGS: true
+      WRITE_BIGDECIMAL_AS_PLAIN: true
+    serialization:
+    mapper:
+  gson:
+    date-format: yyyy-MM-dd HH:mm:ss
 custom:
   config:
     ignores:
@@ -66,5 +77,4 @@ jwt:
     key: ENC(6LnQKQpmSOTHAZHHq6sRC5PDEVYxrJooiTe/tJNT/cEddTj9P8gvMiiw/iCJ+FlL)
     ttl: 6000000000
     remember: 604800000
-
 
