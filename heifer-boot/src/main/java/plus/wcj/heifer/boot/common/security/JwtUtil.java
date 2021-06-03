@@ -68,7 +68,7 @@ public class JwtUtil {
 
         String jwt = builder.compact();
         // 将生成的JWT保存至Redis
-        stringRedisTemplate.opsForValue().set("security:jwt" + subject, jwt, ttl, TimeUnit.MILLISECONDS);
+        stringRedisTemplate.opsForValue().set("security:jwt:" + subject, jwt, ttl, TimeUnit.MILLISECONDS);
         return jwt;
     }
 
