@@ -3,14 +3,17 @@ package plus.wcj.heifer.boot.controller;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 import plus.wcj.heifer.boot.common.validator.dto.PostValid;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @author changjin wei(魏昌进)
@@ -25,6 +28,15 @@ public class TestController {
     public Object get(@RequestBody @Validated(PostValid.class) Haha haha) {
         return haha;
     }
+
+    @GetMapping("2")
+    @ResponseBody
+    @ResultResponseBody
+    public Object get(Date date) {
+        Haha haha = new Haha();
+        haha.setDate(date);
+        return haha;
+    }
 }
 
 @Data
@@ -35,5 +47,7 @@ class Haha {
 
     @NotNull(groups = PostValid.class)
     private String age;
+
+    private Date date;
 
 }

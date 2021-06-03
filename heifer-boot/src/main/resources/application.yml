@@ -30,6 +30,16 @@ spring:
         max-idle: 8
         # 连接池中的最小空闲连接 默认 0
         min-idle: 0
+  mvc:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
+  webflux:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
 custom:
   config:
     ignores:
