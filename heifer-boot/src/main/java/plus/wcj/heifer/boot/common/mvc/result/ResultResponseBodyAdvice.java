@@ -10,9 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -27,7 +28,8 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#configureMessageConverters(java.util.List)
  */
 @RestControllerAdvice
-@Controller
+@ControllerAdvice
+@Component
 @Slf4j
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 

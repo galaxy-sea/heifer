@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService;
@@ -46,6 +47,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private CustomConfig customConfig;
 
+    @Autowired
+    private HandlerExceptionResolver handlerExceptionResolver;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -57,25 +61,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwt = jwtUtil.getJwtFromRequest(request);
 
         if (StringUtils.isNotBlank(jwt)) {
-            String username = jwtUtil.getUsernameFromJWT(jwt);
+            try {
+                String username = jwtUtil.getUsernameFromJWT(jwt);
 
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            filterChain.doFilter(request, response);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                filterChain.doFilter(request, response);
+            } catch (Exception e) {
+                handlerExceptionResolver.resolveException(request, response, null, e);
+            }
         } else {
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
+            handlerExceptionResolver.resolveException(request, response, null, new ResultException(ResultStatus.UNAUTHORIZED));
         }
-
     }
 
     /**
      * 请求是否不需要进行权限拦截
      *
      * @param request 当前请求
-     *
      * @return true - 忽略，false - 不忽略
      */
     private boolean checkIgnores(HttpServletRequest request) {
