@@ -20,7 +20,7 @@ public class SecurityHandlerConfig {
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
-            throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+            throw new ResultException(ResultStatus.FORBIDDEN);
         };
     }
 

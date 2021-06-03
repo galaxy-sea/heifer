@@ -100,30 +100,30 @@ public class JwtUtil {
             // 校验redis中的JWT是否存在
             Long expire = stringRedisTemplate.getExpire(redisKey, TimeUnit.MILLISECONDS);
             if (Objects.isNull(expire) || expire <= 0) {
-                throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+                throw new ResultException(ResultStatus.UNAUTHORIZED);
             }
 
             // 校验redis中的JWT是否与当前的一致，不一致则代表用户已注销/用户在不同设备登录，均代表JWT已过期
             String redisToken = stringRedisTemplate.opsForValue().get(redisKey);
             if (!StringUtils.equals(jwt, redisToken)) {
-                throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+                throw new ResultException(ResultStatus.UNAUTHORIZED);
             }
             return claims;
         } catch (ExpiredJwtException e) {
             log.error("Token 已过期");
-            throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
         } catch (UnsupportedJwtException e) {
             log.error("不支持的 Token");
-            throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
         } catch (MalformedJwtException e) {
             log.error("Token 无效");
-            throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
         } catch (SignatureException e) {
             log.error("无效的 Token 签名");
-            throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
         } catch (IllegalArgumentException e) {
             log.error("Token 参数不存在");
-            throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
     }
 

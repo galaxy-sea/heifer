@@ -57,20 +57,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String jwt = jwtUtil.getJwtFromRequest(request);
 
         if (StringUtils.isNotBlank(jwt)) {
-            try {
-                String username = jwtUtil.getUsernameFromJWT(jwt);
+            String username = jwtUtil.getUsernameFromJWT(jwt);
 
-                UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                filterChain.doFilter(request, response);
-            } catch (SecurityException e) {
-                throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
-            }
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
         } else {
-            throw new ResultException(ResultStatus.INTERNAL_SERVER_ERROR);
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
 
     }
@@ -79,6 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * 请求是否不需要进行权限拦截
      *
      * @param request 当前请求
+     *
      * @return true - 忽略，false - 不忽略
      */
     private boolean checkIgnores(HttpServletRequest request) {

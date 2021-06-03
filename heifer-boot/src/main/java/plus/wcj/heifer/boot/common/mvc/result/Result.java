@@ -12,7 +12,7 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
 @ToString
 public class Result<T> {
     /** 业务错误码 */
-    private final Integer code;
+    private final String code;
     /** 信息描述 */
     private final String message;
     /** 返回参数 */
