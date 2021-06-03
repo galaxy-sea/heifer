@@ -13,8 +13,8 @@ spring:
     username: ENC(vLxFiSnkM5sVkZr5O+lE+KakAkXdb5KesPFTfRWHm061AFONSp5Teb7OrDQ/nIhy)
     password: ENC(tbbsGbnVkScc4qhEIyupNruL0OMj1aezdQQ8yovV6si8jcawh9NxmXY/tbQI18ek)
   redis:
-    host: ENC(sgH5uWn9I2RMU9XFyfK10VzQZz4IZSC2qjrsHXm+xHUi/5tBcDREySs0G/yps2789/xHNk1wziisOSLUBPVhUQM6KDdjieO4dX2n6vtZNPc=)
-    password: ENC(NAMg8xkbnNaNMZtlWd+Ph3BSjpRZuyCtNFVsLLTrN+Brww3+LD3Jt8IWmybPCgmd)
+    host: ENC(GQUVUG7oJgQuAx+ZgW8IY7jaDAr0lUjA4U/OUPNaHYzBUWSlpn5xG6xHtFWTlCMK)
+    password: ENC(3O0bUjnbXwrA3PSf1CdkDoPFyi4PRsFKzjR24931rb8lTjVpmGyjy329uw1s7p+X)
     port: 6379
     # 连接超时时间（记得添加单位，Duration）
     timeout: 10000ms

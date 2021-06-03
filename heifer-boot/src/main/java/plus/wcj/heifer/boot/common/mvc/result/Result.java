@@ -41,7 +41,7 @@ public class Result<T> {
 
     /** 业务异常返回业务代码,描述和返回的参数 */
     public static <T> Result<T> fail(ResultStatus resultStatus) {
-        return new Result<T>(ResultStatus.SUCCESS, null);
+        return new Result<T>(resultStatus, null);
     }
 
     /** 业务异常返回业务代码,描述和返回的参数 */

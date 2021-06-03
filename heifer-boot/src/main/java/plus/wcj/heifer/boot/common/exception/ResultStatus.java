@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 public enum ResultStatus {
     /** 请求成功 */
     SUCCESS(HttpStatus.OK, 200, "OK"),
-    /** Bad Request */
+    /** Bad Request , 请求缺少参数 */
     BAD_REQUEST(HttpStatus.BAD_REQUEST, 400, "Bad Request"),
     /** 服务器内部错误 */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "Internal Server Error"),

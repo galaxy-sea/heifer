@@ -10,6 +10,15 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:9090/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "usernameOrEmailOrPhone": "xiaowei",
+  "password": "xiaowei"
+}
+
+###
 GET  http://localhost:9876/demo/api/monitor/online/user HTTP/1.1
 Content-Type: application/json
 # Authorization: {{adminToken}}
@@ -44,3 +53,16 @@ GET  http://localhost:9876/demo/api/monitor/online/user HTTP/1.1
 Content-Type: application/json
 # Authorization: {{adminToken}}
 Authorization: {{userToken}}
+
+
+
+
+###
+POST http://localhost:9090/test/1 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "name"
+}
+
+

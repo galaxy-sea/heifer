@@ -12,8 +12,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 </#if>
-import plus.wcj.heifer.boot.common.validated.dto.CreateValidationGroup;
-import plus.wcj.heifer.boot.common.validated.dto.UpdateValidationGroup;
+import plus.wcj.heifer.boot.common.validated.dto.PutValid;
+import plus.wcj.heifer.boot.common.validated.dto.PostValid;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -93,9 +93,9 @@ public class ${entity} implements Serializable {
     @TableLogic
     </#if>
     <#if field.keyFlag>
-    @NotNull(groups = {CreateValidationGroup.class, UpdateValidationGroup.class}, message = "id is null")
+    @NotNull(groups = {PostValid.class, PutValid.class}, message = "id is null")
     <#else>
-    @NotNull(groups = {CreateValidationGroup.class}, message = "${field.propertyName} is null")
+    @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")
     </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>
