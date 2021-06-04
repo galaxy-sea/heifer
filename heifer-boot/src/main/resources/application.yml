@@ -12,6 +12,7 @@ server:
       cookie:
         # cookie最大数
         max-age: 0
+      tracking-modes:
 spring:
   application:
     name: heifer-boot
