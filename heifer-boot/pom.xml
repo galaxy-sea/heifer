@@ -121,6 +121,11 @@
             <version>${jjwt.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>

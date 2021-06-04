@@ -58,7 +58,13 @@ public class JwtUtil {
      */
     public String createJWT(Boolean rememberMe, Long id, String subject, List<String> roles, Collection<? extends GrantedAuthority> authorities) {
         Date now = new Date();
-        JwtBuilder builder = Jwts.builder().setId(id.toString()).setSubject(subject).setIssuedAt(now).signWith(SignatureAlgorithm.HS256, jwtConfig.getKey()).claim("roles", roles).claim("authorities", authorities);
+        JwtBuilder builder = Jwts.builder()
+                                 .setId(id.toString())
+                                 .setSubject(subject)
+                                 .setIssuedAt(now)
+                                 .signWith(SignatureAlgorithm.HS256, jwtConfig.getKey())
+                                 .claim("roles", roles)
+                                 .claim("authorities", authorities);
 
         // 设置过期时间
         Long ttl = rememberMe ? jwtConfig.getRemember() : jwtConfig.getTtl();
