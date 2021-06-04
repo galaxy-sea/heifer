@@ -3,6 +3,15 @@ jasypt:
     password: xxxxxxxx
 server:
   port: 9090
+  servlet:
+    session:
+      # 关闭session持久化
+      persistent: false
+      # session会话保持时间
+      timeout: 1
+      cookie:
+        # cookie最大数
+        max-age: 0
 spring:
   application:
     name: heifer-boot
@@ -47,10 +56,13 @@ spring:
     generator:
       WRITE_NUMBERS_AS_STRINGS: true
       WRITE_BIGDECIMAL_AS_PLAIN: true
-    serialization:
-    mapper:
   gson:
     date-format: yyyy-MM-dd HH:mm:ss
+  session:
+    # session 类型，
+    store-type: none
+    # session会话保持时间
+    timeout: 0
 custom:
   config:
     ignores:
@@ -68,10 +80,10 @@ custom:
         - "/swagger-ui/**"
         - "/swagger-ui/*"
         - "/v3/api-docs/**"
-logging:
-  level:
-    plus.wcj.heifer.boot.common.security: debug
-    org.springframework.security: debug
+#logging:
+#  level:
+#    plus.wcj.heifer.boot.common.security: debug
+#    org.springframework.security: debug
 jwt:
   config:
     key: ENC(6LnQKQpmSOTHAZHHq6sRC5PDEVYxrJooiTe/tJNT/cEddTj9P8gvMiiw/iCJ+FlL)
