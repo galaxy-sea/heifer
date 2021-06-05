@@ -3,7 +3,6 @@ package plus.wcj.heifer.boot;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.AES;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
@@ -259,9 +258,9 @@ public class GeneratorCodeV2 {
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
                 if (moduleName == null) {
-                    return projectPath + "/src/main/resources/mapper/" + "" + tableInfo.getXmlName() + "Mapper" + StringPool.DOT_XML;
+                    return projectPath + "/src/main/resources/mapper/" + "" + tableInfo.getXmlName() + "Mapper" + ConstVal.XML_SUFFIX;
                 }
-                return projectPath + "/src/main/resources/mapper/" + moduleName + "/" + tableInfo.getXmlName() + StringPool.DOT_XML;
+                return projectPath + "/src/main/resources/mapper/" + moduleName + "/" + tableInfo.getXmlName() + ConstVal.XML_SUFFIX;
             }
         });
 
