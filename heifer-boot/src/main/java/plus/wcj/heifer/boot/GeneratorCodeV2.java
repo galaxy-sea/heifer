@@ -117,8 +117,8 @@ public class GeneratorCodeV2 {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         // strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
         // strategy.setSuperMapperClass("你自己的父类实体,没有就不用设置!");
-        // strategy.setSuperServiceClass("你自己的父类实体,没有就不用设置!");
-        // strategy.setSuperServiceImplClass("你自己的父类实体,没有就不用设置!");
+        strategy.setSuperServiceClass("plus.wcj.heifer.boot.extension.service.IService");
+        strategy.setSuperServiceImplClass("plus.wcj.heifer.boot.extension.service.impl.ServiceImpl");
         // strategy.setSuperControllerClass("你自己的父类实体,没有就不用设置!");
         strategy.setEntitySerialVersionUID(true);
         // strategy.setEntityColumnConstant();

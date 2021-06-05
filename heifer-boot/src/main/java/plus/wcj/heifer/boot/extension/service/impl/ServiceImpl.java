@@ -80,30 +80,70 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return entityClass;
     }
 
+    /**
+     * 链式查询 普通
+     *
+     * @return QueryWrapper 的包装类
+     */
     public QueryChainWrapper<T> query() {
         return ChainWrappers.queryChain(getBaseMapper());
     }
 
+    /**
+     * 链式查询 lambda 式
+     * <p>注意：不支持 Kotlin </p>
+     *
+     * @return LambdaQueryWrapper 的包装类
+     */
     public LambdaQueryChainWrapper<T> lambdaQuery() {
         return ChainWrappers.lambdaQueryChain(getBaseMapper());
     }
 
+    /**
+     * 链式查询 lambda 式
+     * kotlin 使用
+     *
+     * @return KtQueryWrapper 的包装类
+     */
     public KtQueryChainWrapper<T> ktQuery() {
         return ChainWrappers.ktQueryChain(getBaseMapper(), getEntityClass());
     }
 
+    /**
+     * 链式查询 lambda 式
+     * kotlin 使用
+     *
+     * @return KtQueryWrapper 的包装类
+     */
     public KtUpdateChainWrapper<T> ktUpdate() {
         return ChainWrappers.ktUpdateChain(getBaseMapper(), getEntityClass());
     }
 
+    /**
+     * 链式更改 普通
+     *
+     * @return UpdateWrapper 的包装类
+     */
     public UpdateChainWrapper<T> update() {
         return ChainWrappers.updateChain(getBaseMapper());
     }
 
+    /**
+     * 链式更改 lambda 式
+     * 注意：不支持 Kotlin
+     *
+     * @return LambdaUpdateWrapper 的包装类
+     */
     public LambdaUpdateChainWrapper<T> lambdaUpdate() {
         return ChainWrappers.lambdaUpdateChain(getBaseMapper());
     }
 
+    /**
+     * 根据updateWrapper尝试更新，否继续执行saveOrUpdate(T)方法
+     * 此次修改主要是减少了此项业务代码的代码量（存在性验证之后的saveOrUpdate操作）
+     *
+     * @param entity 实体对象
+     */
     public boolean saveOrUpdate(T entity, Wrapper<T> updateWrapper) {
         return update(entity, updateWrapper) || saveOrUpdate(entity);
     }
@@ -180,14 +220,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return saveBatch(entityList, DEFAULT_BATCH_SIZE);
     }
 
-    /**
-     * 批量插入
-     *
-     * @param entityList ignore
-     * @param batchSize ignore
-     *
-     * @return ignore
-     */
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveBatch(Collection<T> entityList, int batchSize) {
@@ -214,13 +247,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return SqlHelper.getSqlStatement(mapperClass, sqlMethod);
     }
 
-    /**
-     * TableId 注解存在更新记录，否插入一条记录
-     *
-     * @param entity 实体对象
-     *
-     * @return boolean
-     */
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveOrUpdate(T entity) {
@@ -250,6 +277,12 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return getBaseMapper().selectByMap(columnMap);
     }
 
+    /**
+     * 根据 Wrapper，查询一条记录 <br/>
+     * <p>结果集，如果是多个会抛出异常，随机取一条加上限制条件 wrapper.last("LIMIT 1")</p>
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     */
     public T getOne(Wrapper<T> queryWrapper) {
         return getOne(queryWrapper, true);
     }
@@ -302,10 +335,21 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return SqlHelper.retBool(getBaseMapper().updateById(entity));
     }
 
+    /**
+     * 根据 UpdateWrapper 条件，更新记录 需要设置sqlset
+     *
+     * @param updateWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper}
+     */
     public boolean update(Wrapper<T> updateWrapper) {
         return update(null, updateWrapper);
     }
 
+    /**
+     * 根据 whereEntity 条件，更新记录
+     *
+     * @param entity 实体对象
+     * @param updateWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper}
+     */
     public boolean update(T entity, Wrapper<T> updateWrapper) {
         return SqlHelper.retBool(getBaseMapper().update(entity, updateWrapper));
     }
@@ -327,6 +371,12 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         });
     }
 
+    /**
+     * 根据 Wrapper，查询一条记录
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     * @param throwEx 有多个 result 是否抛出异常
+     */
     public T getOne(Wrapper<T> queryWrapper, boolean throwEx) {
         if (throwEx) {
             return baseMapper.selectOne(queryWrapper);
@@ -334,10 +384,21 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return SqlHelper.getObject(log, baseMapper.selectList(queryWrapper));
     }
 
+    /**
+     * 根据 Wrapper，查询一条记录
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     */
     public Map<String, Object> getMap(Wrapper<T> queryWrapper) {
         return SqlHelper.getObject(log, baseMapper.selectMaps(queryWrapper));
     }
 
+    /**
+     * 根据 Wrapper，查询一条记录
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     * @param mapper 转换函数
+     */
     public <V> V getObj(Wrapper<T> queryWrapper, Function<? super Object, V> mapper) {
         return SqlHelper.getObject(log, listObjs(queryWrapper, mapper));
     }
@@ -347,10 +408,20 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return count(Wrappers.emptyWrapper());
     }
 
+    /**
+     * 根据 Wrapper 条件，查询总记录数
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     */
     public int count(Wrapper<T> queryWrapper) {
         return SqlHelper.retCount(getBaseMapper().selectCount(queryWrapper));
     }
 
+    /**
+     * 查询列表
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     */
     public List<T> list(Wrapper<T> queryWrapper) {
         return getBaseMapper().selectList(queryWrapper);
     }
@@ -360,6 +431,12 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return list(Wrappers.emptyWrapper());
     }
 
+    /**
+     * 翻页查询
+     *
+     * @param page 翻页对象
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     */
     public <E extends IPage<T>> E page(E page, Wrapper<T> queryWrapper) {
         return getBaseMapper().selectPage(page, queryWrapper);
     }
@@ -369,6 +446,11 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return page(page, Wrappers.emptyWrapper());
     }
 
+    /**
+     * 查询列表
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     */
     public List<Map<String, Object>> listMaps(Wrapper<T> queryWrapper) {
         return getBaseMapper().selectMaps(queryWrapper);
     }
@@ -388,14 +470,31 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return listObjs(Wrappers.emptyWrapper(), mapper);
     }
 
+    /**
+     * 根据 Wrapper 条件，查询全部记录
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     */
     public List<Object> listObjs(Wrapper<T> queryWrapper) {
         return listObjs(queryWrapper, Function.identity());
     }
 
+    /**
+     * 根据 Wrapper 条件，查询全部记录
+     *
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     * @param mapper 转换函数
+     */
     public <V> List<V> listObjs(Wrapper<T> queryWrapper, Function<? super Object, V> mapper) {
         return getBaseMapper().selectObjs(queryWrapper).stream().filter(Objects::nonNull).map(mapper).collect(Collectors.toList());
     }
 
+    /**
+     * 翻页查询
+     *
+     * @param page 翻页对象
+     * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
+     */
     public <E extends IPage<Map<String, Object>>> E pageMaps(E page, Wrapper<T> queryWrapper) {
         return getBaseMapper().selectMapsPage(page, queryWrapper);
     }
