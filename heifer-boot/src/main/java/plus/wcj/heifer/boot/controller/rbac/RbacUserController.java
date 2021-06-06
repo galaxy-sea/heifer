@@ -1,25 +1,28 @@
 package plus.wcj.heifer.boot.controller.rbac;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.web.bind.annotation.RestController;
+import plus.wcj.heifer.boot.entity.rbac.RbacUserDo;
+import plus.wcj.heifer.boot.service.rbac.RbacUserService;
+import plus.wcj.heifer.boot.extension.validator.PostValid;
+import plus.wcj.heifer.boot.extension.validator.PutValid;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
-import plus.wcj.heifer.boot.entity.rbac.RbacUserDo;
-import plus.wcj.heifer.boot.service.rbac.RbacUserService;
+import lombok.RequiredArgsConstructor;
+
 /**
  * <p>
  * 用户表 前端控制器
  * </p>
  *
  * @author changjinwei
- * @since 2021-05-23
+ * @since 2021-06-06
  */
 @RestController
 @RequestMapping("/rbac-user-do")
@@ -36,18 +39,18 @@ public class RbacUserController {
     @GetMapping
     @ResultResponseBody
     public Page<RbacUserDo> page(Page<RbacUserDo> page, RbacUserDo rbacUserDo) {
-        return rbacUserService.page(page, new QueryWrapper<>(rbacUserDo));
+        return rbacUserService.page(page, rbacUserDo);
     }
 
     @PostMapping
     @ResultResponseBody
-    public boolean save(@RequestBody RbacUserDo rbacUserDo) {
+    public boolean save(@RequestBody @Validated(value = PostValid.class) RbacUserDo rbacUserDo) {
         return rbacUserService.save(rbacUserDo);
     }
 
     @PutMapping
     @ResultResponseBody
-    public boolean updateById(@RequestBody RbacUserDo rbacUserDo) {
+    public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacUserDo rbacUserDo) {
         return rbacUserService.updateById(rbacUserDo);
     }
 

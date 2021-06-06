@@ -11,11 +11,15 @@
         <result column="permission" property="permission" />
         <result column="type" property="type" />
         <result column="sort" property="sort" />
+        <result column="create_by" property="createBy" />
+        <result column="update_by" property="updateBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, parent_id, tenant_client_id, name, permission, type, sort
+        id, parent_id, tenant_client_id, name, permission, type, sort, create_by, update_by, create_time, update_time
     </sql>
 
 </mapper>

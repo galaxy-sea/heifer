@@ -3,7 +3,8 @@ package plus.wcj.heifer.boot.controller.rbac;
 import org.springframework.web.bind.annotation.RestController;
 import plus.wcj.heifer.boot.entity.rbac.RbacUserRoleRelDo;
 import plus.wcj.heifer.boot.service.rbac.RbacUserRoleRelService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import plus.wcj.heifer.boot.extension.validator.PostValid;
+import plus.wcj.heifer.boot.extension.validator.PutValid;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.annotation.Validated;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 import lombok.RequiredArgsConstructor;
+
 /**
  * <p>
  * 角色用户关系表 前端控制器
  * </p>
  *
  * @author changjinwei
- * @since 2021-05-23
+ * @since 2021-06-06
  */
 @RestController
 @RequestMapping("/rbac-user-role-rel-do")
@@ -36,18 +39,18 @@ public class RbacUserRoleRelController {
     @GetMapping
     @ResultResponseBody
     public Page<RbacUserRoleRelDo> page(Page<RbacUserRoleRelDo> page, RbacUserRoleRelDo rbacUserRoleRelDo) {
-        return rbacUserRoleRelService.page(page, new QueryWrapper<>(rbacUserRoleRelDo));
+        return rbacUserRoleRelService.page(page, rbacUserRoleRelDo);
     }
 
     @PostMapping
     @ResultResponseBody
-    public boolean save(@RequestBody RbacUserRoleRelDo rbacUserRoleRelDo) {
+    public boolean save(@RequestBody @Validated(value = PostValid.class) RbacUserRoleRelDo rbacUserRoleRelDo) {
         return rbacUserRoleRelService.save(rbacUserRoleRelDo);
     }
 
     @PutMapping
     @ResultResponseBody
-    public boolean updateById(@RequestBody RbacUserRoleRelDo rbacUserRoleRelDo) {
+    public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacUserRoleRelDo rbacUserRoleRelDo) {
         return rbacUserRoleRelService.updateById(rbacUserRoleRelDo);
     }
 

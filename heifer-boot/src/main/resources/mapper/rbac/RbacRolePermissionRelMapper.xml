@@ -5,13 +5,13 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacRolePermissionRelDo">
         <id column="id" property="id" />
-        <result column="rdac_role_id" property="rdacRoleId" />
-        <result column="rdac_permission_id" property="rdacPermissionId" />
+        <result column="rbac_role_id" property="rbacRoleId" />
+        <result column="rbac_permission_id" property="rbacPermissionId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, rdac_role_id, rdac_permission_id
+        id, rbac_role_id, rbac_permission_id
     </sql>
 
 </mapper>

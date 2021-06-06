@@ -12,11 +12,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 </#if>
-import plus.wcj.heifer.boot.common.validated.dto.PutValid;
-import plus.wcj.heifer.boot.common.validated.dto.PostValid;
+import plus.wcj.heifer.boot.extension.validator.PostValid;
+import plus.wcj.heifer.boot.extension.validator.PutValid;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -65,6 +64,11 @@ public class ${entity} implements Serializable {
         </#if>
     </#if>
     <#if field.keyFlag>
+    @NotNull(groups = {PostValid.class, PutValid.class}, message = "id is null")
+    <#else>
+    @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")
+    </#if>
+    <#if field.keyFlag>
         <#-- 主键 -->
         <#if field.keyIdentityFlag>
     @TableId(value = "${field.name}", type = IdType.AUTO)
@@ -91,11 +95,6 @@ public class ${entity} implements Serializable {
     <#-- 逻辑删除注解 -->
     <#if (logicDeleteFieldName!"") == field.name>
     @TableLogic
-    </#if>
-    <#if field.keyFlag>
-    @NotNull(groups = {PostValid.class, PutValid.class}, message = "id is null")
-    <#else>
-    @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")
     </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>

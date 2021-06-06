@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
-import plus.wcj.heifer.boot.common.validator.dto.PostValid;
+import plus.wcj.heifer.boot.extension.validator.PostValid;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;

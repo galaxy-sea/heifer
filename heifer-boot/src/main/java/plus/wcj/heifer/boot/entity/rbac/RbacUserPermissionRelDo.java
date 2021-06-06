@@ -10,6 +10,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import plus.wcj.heifer.boot.extension.validator.PostValid;
+import plus.wcj.heifer.boot.extension.validator.PutValid;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -17,27 +21,30 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author changjinwei
- * @since 2021-05-23
+ * @since 2021-06-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("rbac_user_permission_rel")
-@ApiModel(value="RbacUserPermissionRelDo对象", description="用户功能权限表")
+@ApiModel(value = "RbacUserPermissionRelDo对象", description = "用户功能权限表")
 public class RbacUserPermissionRelDo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull(groups = {PostValid.class, PutValid.class}, message = "id is null")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /** 主键id */
     @ApiModelProperty(value = "主键id")
+    @NotNull(groups = {PostValid.class}, message = "rbacUserId is null")
     @TableField("rbac_user_id")
     private Long rbacUserId;
 
     /** 功能权限id */
     @ApiModelProperty(value = "功能权限id")
+    @NotNull(groups = {PostValid.class}, message = "rbacPermissionId is null")
     @TableField("rbac_permission_id")
     private Long rbacPermissionId;
 

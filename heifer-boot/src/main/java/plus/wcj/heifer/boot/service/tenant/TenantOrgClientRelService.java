@@ -1,7 +1,7 @@
 package plus.wcj.heifer.boot.service.tenant;
 
 import plus.wcj.heifer.boot.entity.tenant.TenantOrgClientRelDo;
-import com.baomidou.mybatisplus.extension.service.IService;
+import plus.wcj.heifer.boot.extension.service.IService;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author changjinwei
- * @since 2021-05-23
+ * @since 2021-06-06
  */
 public interface TenantOrgClientRelService extends IService<TenantOrgClientRelDo> {
 

@@ -70,23 +70,23 @@ public class AuthController {
         return "Status.LOGOUT";
     }
 
-    @GetMapping
-    private RbacUserDo createUser() {
-
-        RbacUserDo rbacUserDo = new RbacUserDo();
-        rbacUserDo.setTenantOrgId(1L);
-        rbacUserDo.setRbacDeptId(1L);
-        rbacUserDo.setUsername("xiaowei");
-        rbacUserDo.setPhone("xaowei");
-        rbacUserDo.setEmail("xiaowei@qq.com");
-        rbacUserDo.setPassword(bCryptPasswordEncoder.encode("xiaowei"));
-        rbacUserDo.setNickname("xiaowei");
-        rbacUserDo.setIsAccountNonExpired(false);
-        rbacUserDo.setIsAccountNonLocked(false);
-        rbacUserDo.setIsCredentialsNonExpired(false);
-        rbacUserDo.setIsEnabled(false);
-
-        rbacUserService.save(rbacUserDo);
-        return rbacUserDo;
-    }
+    // @GetMapping
+    // private RbacUserDo createUser() {
+    //
+    //     RbacUserDo rbacUserDo = new RbacUserDo();
+    //     rbacUserDo.setTenantOrgId(1L);
+    //     rbacUserDo.setRbacDeptId(1L);
+    //     rbacUserDo.setUsername("xiaowei");
+    //     rbacUserDo.setPhone("xaowei");
+    //     rbacUserDo.setEmail("xiaowei@qq.com");
+    //     rbacUserDo.setPassword(bCryptPasswordEncoder.encode("xiaowei"));
+    //     rbacUserDo.setNickname("xiaowei");
+    //     rbacUserDo.setIsAccountNonExpired(false);
+    //     rbacUserDo.setIsAccountNonLocked(false);
+    //     rbacUserDo.setIsCredentialsNonExpired(false);
+    //     rbacUserDo.setIsEnabled(false);
+    //
+    //     rbacUserService.save(rbacUserDo);
+    //     return rbacUserDo;
+    // }
 }

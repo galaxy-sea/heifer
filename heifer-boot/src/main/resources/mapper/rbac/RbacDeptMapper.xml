@@ -8,11 +8,15 @@
         <result column="tenant_org_id" property="tenantOrgId" />
         <result column="tenant_client_id" property="tenantClientId" />
         <result column="name" property="name" />
+        <result column="create_by" property="createBy" />
+        <result column="update_by" property="updateBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, tenant_org_id, tenant_client_id, name
+        id, tenant_org_id, tenant_client_id, name, create_by, update_by, create_time, update_time
     </sql>
 
 </mapper>

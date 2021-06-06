@@ -169,6 +169,16 @@ public interface IService<T> {
     <E extends IPage<T>> E page(E page);
 
     /**
+     * entity条件翻页查询
+     *
+     * @param page 翻页对象
+     * @param entity 实体类
+     *
+     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     */
+    <E extends IPage<T>> E page(E page, T entity);
+
+    /**
      * 查询所有列表
      *
      * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()

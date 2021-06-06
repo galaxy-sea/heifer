@@ -16,6 +16,7 @@
 package plus.wcj.heifer.boot.extension.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -446,6 +447,10 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return page(page, Wrappers.emptyWrapper());
     }
 
+    @Override
+    public <E extends IPage<T>> E page(E page, T entity) {
+        return getBaseMapper().selectPage(page, new QueryWrapper<>(entity));
+    }
     /**
      * 查询列表
      *

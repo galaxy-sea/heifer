@@ -6,12 +6,12 @@
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacUserRoleRelDo">
         <id column="id" property="id" />
         <result column="rbac_user_id" property="rbacUserId" />
-        <result column="brac_role_id" property="bracRoleId" />
+        <result column="rbac_role_id" property="rbacRoleId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, rbac_user_id, brac_role_id
+        id, rbac_user_id, rbac_role_id
     </sql>
 
 </mapper>
