@@ -5,9 +5,8 @@ import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 /**
- * http异常
- * 1XX - 5XX 使用http状态码
- *
+ * http异常<br>
+ * 1XX - 5XX 使用http状态码<br>
  * A-XXXX - Z-XXXX 代表业务异常状态嘛
  *
  * @author changjin wei(魏昌进)
@@ -26,7 +25,9 @@ public enum ResultStatus {
     FORBIDDEN(HttpStatus.FORBIDDEN, "403", "Forbidden"),
     /** 服务器内部错误 */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500", "Internal Server Error"),
-    ;
+
+    /** 账号密码错误 */
+    INCORRECT_USERNAME_OR_PASSWORD(HttpStatus.OK, "200", "Incorrect username or password");
 
     /** 返回的HTTP状态码,  符合http请求 */
     private final HttpStatus httpStatus;
