@@ -23,8 +23,8 @@ CREATE TABLE `t_users1` (
     `id` bigint(20) unsigned NOT NULL COMMENT '主键id',
     `create_by` bigint(20) unsigned not null ,
     `update_by` bigint(20) unsigned null ,
-    `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
-    `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    `create_time` timestamp default CURRENT_TIMESTAMP,
+    `update_time` timestamp on update CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
 ```
