@@ -61,7 +61,7 @@ import java.util.stream.Collectors;
  * @author hubin
  * @since 2018-06-23
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked","unused"})
 public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     protected Log log = LogFactory.getLog(getClass());

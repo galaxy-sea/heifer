@@ -29,6 +29,7 @@ import java.util.function.Function;
  * @author hubin
  * @since 2018-06-23
  */
+@SuppressWarnings({"unchecked","unused"})
 public interface IService<T> {
 
     /**
