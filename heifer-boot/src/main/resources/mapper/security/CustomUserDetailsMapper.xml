@@ -23,8 +23,8 @@
         FROM rbac_permission,
              rbac_role,
              rbac_role_permission_rel
-                WHERE rbac_role.id = rbac_role_permission_rel.rdac_role_id
-                  AND rbac_permission.id = rbac_role_permission_rel.rdac_permission_id
+                WHERE rbac_role.id = rbac_role_permission_rel.rbac_role_id
+                  AND rbac_permission.id = rbac_role_permission_rel.rbac_permission_id
                   AND rbac_role.id IN
         <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
             #{item}
@@ -46,7 +46,7 @@
              rbac_user,
              rbac_user_role_rel
         WHERE rbac_user.id = rbac_user_role_rel.rbac_user_id
-          AND rbac_role.id = rbac_user_role_rel.brac_role_id
+          AND rbac_role.id = rbac_user_role_rel.rbac_role_id
           AND rbac_user.id = #{userId}
     </select>
 

@@ -7,7 +7,10 @@ import org.springframework.http.HttpStatus;
 /**
  * http异常<br>
  * 1XX - 5XX 使用http状态码<br>
- * A-XXXX - Z-XXXX 代表业务异常状态嘛
+ * A-XXXX - Z-XXXX 代表业务异常状态嘛<br>
+ *
+ *
+ * A-XXXX是框架引发异常
  *
  * @author changjin wei(魏昌进)
  * @date 2021/4/23
@@ -27,7 +30,7 @@ public enum ResultStatus {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500", "Internal Server Error"),
 
     /** 账号密码错误 */
-    INCORRECT_USERNAME_OR_PASSWORD(HttpStatus.OK, "200", "Incorrect username or password");
+    INCORRECT_USERNAME_OR_PASSWORD(HttpStatus.OK, "A-0001", "Incorrect username or password");
 
     /** 返回的HTTP状态码,  符合http请求 */
     private final HttpStatus httpStatus;

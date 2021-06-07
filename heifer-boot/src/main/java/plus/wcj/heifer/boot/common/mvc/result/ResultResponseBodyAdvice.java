@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -61,7 +61,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             ResultException.class,
             // 已知异常  虽然在这里重新添加一遍很傻逼，但是也许有个小可爱在if写了一样的代码呐
             BindException.class,
-            UsernameNotFoundException.class,
+            BadCredentialsException.class,
 
     })
     public final ResponseEntity<Result<?>> exceptionHandler(Exception ex, WebRequest request) {
@@ -77,14 +77,14 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         if (ex instanceof BindException) {
             return this.handleBindException((BindException) ex, headers, request);
         }
-        if (ex instanceof UsernameNotFoundException) {
-            return this.handleUsernameNotFoundException((UsernameNotFoundException) ex, headers, request);
+        if (ex instanceof BadCredentialsException) {
+            return this.handleBadCredentialsException((BadCredentialsException) ex, headers, request);
         }
         // TODO: 2019/10/05 galaxy 这里可以自定义其他的异常拦截
         return this.handleException(ex, headers, request);
     }
 
-    private ResponseEntity<Result<?>> handleUsernameNotFoundException(UsernameNotFoundException ex, HttpHeaders headers, WebRequest request) {
+    private ResponseEntity<Result<?>> handleBadCredentialsException(BadCredentialsException ex, HttpHeaders headers, WebRequest request) {
         Result<?> body = Result.fail(ResultStatus.INCORRECT_USERNAME_OR_PASSWORD);
         HttpStatus status = HttpStatus.OK;
         return this.handleExceptionInternal(ex, body, headers, status, request);

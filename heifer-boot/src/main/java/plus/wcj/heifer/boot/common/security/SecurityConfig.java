@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         impl.setUserDetailsService(customUserDetailsService);
         // impl.setUserDetailsPasswordService();
         // impl.setForcePrincipalAsString();
-        impl.setHideUserNotFoundExceptions(false);
+        // impl.setHideUserNotFoundExceptions(false);
         // impl.setMessageSource();
         // TODO: 2021/6/6 changjin wei(魏昌进) 需要缓存啊
         // impl.setUserCache();
