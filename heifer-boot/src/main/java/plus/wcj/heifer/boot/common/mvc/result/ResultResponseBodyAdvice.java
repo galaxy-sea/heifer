@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindException;
@@ -62,6 +63,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             // 已知异常  虽然在这里重新添加一遍很傻逼，但是也许有个小可爱在if写了一样的代码呐
             BindException.class,
             BadCredentialsException.class,
+            AccessDeniedException.class,
 
     })
     public final ResponseEntity<Result<?>> exceptionHandler(Exception ex, WebRequest request) {
@@ -80,29 +82,23 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         if (ex instanceof BadCredentialsException) {
             return this.handleBadCredentialsException((BadCredentialsException) ex, headers, request);
         }
+        if (ex instanceof AccessDeniedException){
+            return this.handleAccessDeniedException((AccessDeniedException) ex, headers, request);
+        }
         // TODO: 2019/10/05 galaxy 这里可以自定义其他的异常拦截
         return this.handleException(ex, headers, request);
+    }
+
+    private ResponseEntity<Result<?>> handleAccessDeniedException(AccessDeniedException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.FORBIDDEN);
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        return this.handleExceptionInternal(ex, body, headers, status, request);
     }
 
     private ResponseEntity<Result<?>> handleBadCredentialsException(BadCredentialsException ex, HttpHeaders headers, WebRequest request) {
         Result<?> body = Result.fail(ResultStatus.INCORRECT_USERNAME_OR_PASSWORD);
         HttpStatus status = HttpStatus.OK;
         return this.handleExceptionInternal(ex, body, headers, status, request);
-    }
-
-    /**
-     * org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler#handleExceptionInternal(java.lang.Exception, java.lang.Object, org.springframework.http.HttpHeaders, org.springframework.http.HttpStatus, org.springframework.web.context.request.WebRequest)
-     * <p>
-     * A single place to customize the response body of all exception types.
-     * <p>The default implementation sets the {@link WebUtils#ERROR_EXCEPTION_ATTRIBUTE}
-     * request attribute and creates a {@link ResponseEntity} from the given
-     * body, headers, and status.
-     */
-    protected ResponseEntity<Result<?>> handleExceptionInternal(Exception ex, Result<?> body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        // if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
-        //     request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
-        // }
-        return new ResponseEntity<>(body, headers, status);
     }
 
 
@@ -127,5 +123,22 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }
+
+    /**
+     * org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler#handleExceptionInternal(java.lang.Exception, java.lang.Object, org.springframework.http.HttpHeaders, org.springframework.http.HttpStatus, org.springframework.web.context.request.WebRequest)
+     * <p>
+     * A single place to customize the response body of all exception types.
+     * <p>The default implementation sets the {@link WebUtils#ERROR_EXCEPTION_ATTRIBUTE}
+     * request attribute and creates a {@link ResponseEntity} from the given
+     * body, headers, and status.
+     */
+    protected ResponseEntity<Result<?>> handleExceptionInternal(Exception ex, Result<?> body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        // if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
+        //     request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
+        // }
+        return new ResponseEntity<>(body, headers, status);
+    }
+
+
 }
 
