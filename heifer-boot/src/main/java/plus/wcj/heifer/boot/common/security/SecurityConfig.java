@@ -44,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
     @Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
@@ -106,7 +109,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
             // 异常处理
-            .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+            .and().exceptionHandling()
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .accessDeniedHandler(accessDeniedHandler);
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
