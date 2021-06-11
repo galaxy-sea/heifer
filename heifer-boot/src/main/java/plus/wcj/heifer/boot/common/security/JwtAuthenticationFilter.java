@@ -37,9 +37,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private CustomConfig customConfig;
-
-    @Autowired
     private HandlerExceptionResolver handlerExceptionResolver;
 
     @Override

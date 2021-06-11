@@ -125,34 +125,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) {
-        WebSecurity and = web.ignoring().and();
-
-        // 忽略 GET
-        customConfig.getIgnores().getGet().forEach(url -> and.ignoring().antMatchers(HttpMethod.GET, url));
-
-        // 忽略 POST
-        customConfig.getIgnores().getPost().forEach(url -> and.ignoring().antMatchers(HttpMethod.POST, url));
-
-        // 忽略 DELETE
-        customConfig.getIgnores().getDelete().forEach(url -> and.ignoring().antMatchers(HttpMethod.DELETE, url));
-
-        // 忽略 PUT
-        customConfig.getIgnores().getPut().forEach(url -> and.ignoring().antMatchers(HttpMethod.PUT, url));
-
-        // 忽略 HEAD
-        customConfig.getIgnores().getHead().forEach(url -> and.ignoring().antMatchers(HttpMethod.HEAD, url));
-
-        // 忽略 PATCH
-        customConfig.getIgnores().getPatch().forEach(url -> and.ignoring().antMatchers(HttpMethod.PATCH, url));
-
-        // 忽略 OPTIONS
-        customConfig.getIgnores().getOptions().forEach(url -> and.ignoring().antMatchers(HttpMethod.OPTIONS, url));
-
-        // 忽略 TRACE
-        customConfig.getIgnores().getTrace().forEach(url -> and.ignoring().antMatchers(HttpMethod.TRACE, url));
-
-        // 按照请求格式忽略
-        customConfig.getIgnores().getPattern().forEach(url -> and.ignoring().antMatchers(url));
-
+         web.ignoring()
+           .antMatchers(HttpMethod.GET, customConfig.getIgnores().getGet())
+           .antMatchers(HttpMethod.POST, customConfig.getIgnores().getPost())
+           .antMatchers(HttpMethod.DELETE, customConfig.getIgnores().getDelete())
+           .antMatchers(HttpMethod.PUT, customConfig.getIgnores().getPut())
+           .antMatchers(HttpMethod.HEAD, customConfig.getIgnores().getHead())
+           .antMatchers(HttpMethod.PATCH, customConfig.getIgnores().getPatch())
+           .antMatchers(HttpMethod.OPTIONS, customConfig.getIgnores().getOptions())
+           .antMatchers(HttpMethod.TRACE, customConfig.getIgnores().getTrace())
+           .antMatchers(customConfig.getIgnores().getPattern());
     }
 }

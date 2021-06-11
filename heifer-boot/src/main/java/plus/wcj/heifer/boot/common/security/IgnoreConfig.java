@@ -2,9 +2,6 @@ package plus.wcj.heifer.boot.common.security;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * <p>
  * 忽略配置
@@ -18,45 +15,45 @@ public class IgnoreConfig {
     /**
      * 需要忽略的 URL 格式，不考虑请求方法
      */
-    private List<String> pattern = new ArrayList<String>();
+    private String[] pattern = {};
 
     /**
      * 需要忽略的 GET 请求
      */
-    private List<String> get = new ArrayList<String>();
+    private String[] get = {};
 
     /**
      * 需要忽略的 POST 请求
      */
-    private List<String> post = new ArrayList<String>();
+    private String[] post = {};
 
     /**
      * 需要忽略的 DELETE 请求
      */
-    private List<String> delete = new ArrayList<String>();
+    private String[] delete = {};
 
     /**
      * 需要忽略的 PUT 请求
      */
-    private List<String> put = new ArrayList<String>();
+    private String[] put = {};
 
     /**
      * 需要忽略的 HEAD 请求
      */
-    private List<String> head = new ArrayList<String>();
+    private String[] head = {};
 
     /**
      * 需要忽略的 PATCH 请求
      */
-    private List<String> patch = new ArrayList<String>();
+    private String[] patch = {};
 
     /**
      * 需要忽略的 OPTIONS 请求
      */
-    private List<String> options = new ArrayList<String>();
+    private String[] options = {};
 
     /**
      * 需要忽略的 TRACE 请求
      */
-    private List<String> trace = new ArrayList<String>();
+    private String[] trace = {};
 }
