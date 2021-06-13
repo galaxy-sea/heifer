@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.security.properties.JwtProperties;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,12 +37,12 @@ import java.util.concurrent.TimeUnit;
  * @author yangkai.shen
  * @date Created in 2018-12-07 13:42
  */
-@EnableConfigurationProperties(JwtConfig.class)
+@EnableConfigurationProperties(JwtProperties.class)
 @Configuration
 @Slf4j
 public class JwtUtil {
     @Autowired
-    private JwtConfig jwtConfig;
+    private JwtProperties jwtProperties;
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -62,12 +63,12 @@ public class JwtUtil {
                                  .setId(id.toString())
                                  .setSubject(subject)
                                  .setIssuedAt(now)
-                                 .signWith(SignatureAlgorithm.HS256, jwtConfig.getKey())
+                                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getKey())
                                  .claim("roles", roles)
                                  .claim("authorities", authorities);
 
         // 设置过期时间
-        Long ttl = rememberMe ? jwtConfig.getRemember() : jwtConfig.getTtl();
+        Long ttl = rememberMe ? jwtProperties.getRemember() : jwtProperties.getTtl();
         if (ttl > 0) {
             builder.setExpiration(new Date(now.getTime() + ttl.intValue()));
         }
@@ -98,7 +99,7 @@ public class JwtUtil {
      */
     public Claims parseJWT(String jwt) {
         try {
-            Claims claims = Jwts.parser().setSigningKey(jwtConfig.getKey()).parseClaimsJws(jwt).getBody();
+            Claims claims = Jwts.parser().setSigningKey(jwtProperties.getKey()).parseClaimsJws(jwt).getBody();
 
             String username = claims.getSubject();
             String redisKey = "security:jwt:" + username;

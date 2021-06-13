@@ -1,6 +1,7 @@
-package plus.wcj.heifer.boot.common.security;
+package plus.wcj.heifer.boot.common.security.properties;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -11,12 +12,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author yangkai.shen
  * @date Created in 2018-12-07 13:42
  */
-@ConfigurationProperties(prefix = "jwt.config")
+@ConfigurationProperties(prefix = "heifer.jwt")
 @Data
-public class JwtConfig {
+public class JwtProperties {
     /**
      * jwt 加密 key，默认值：xxxxxxxxxxxxxxx.
      */
+    @Value("key")
     private String key = "xxxxxxxxxxxxxxx";
 
     /**

@@ -1,3 +1,34 @@
+heifer:
+  jasypt:
+    encryptor:
+      password: xxxxxxxx
+  jwt:
+    key: ENC(6LnQKQpmSOTHAZHHq6sRC5PDEVYxrJooiTe/tJNT/cEddTj9P8gvMiiw/iCJ+FlL)
+    ttl: 6000000000
+    remember: 604800000
+  security:
+    ignoring:
+      get:
+      post:
+        - "/api/auth/login"
+        - "/api/auth/logout"
+      delete:
+      put:
+      head:
+      patch:
+      options:
+      trace:
+      pattern:
+        - "/api/auth/*"
+        - "/api/auth/**"
+        - "/test/*"
+        - "/doc"
+        - "/swagger-resources/**"
+        - "/swagger-ui/**"
+        - "/swagger-ui/*"
+        - "/v3/api-docs/**"
+
+
 jasypt:
   encryptor:
     password: xxxxxxxx
@@ -85,9 +116,4 @@ custom:
 #  level:
 #    plus.wcj.heifer.boot.common.security: debug
 #    org.springframework.security: debug
-jwt:
-  config:
-    key: ENC(6LnQKQpmSOTHAZHHq6sRC5PDEVYxrJooiTe/tJNT/cEddTj9P8gvMiiw/iCJ+FlL)
-    ttl: 6000000000
-    remember: 604800000
 

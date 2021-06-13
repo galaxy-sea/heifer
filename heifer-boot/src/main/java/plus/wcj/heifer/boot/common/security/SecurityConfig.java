@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
 import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService;
 
 /**
@@ -29,11 +30,11 @@ import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService
  */
 @Configuration
 @EnableWebSecurity
-@EnableConfigurationProperties(CustomConfig.class)
+@EnableConfigurationProperties(IgnoreProperties.class)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private CustomConfig customConfig;
+    private IgnoreProperties ignoreProperties;
 
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
@@ -126,14 +127,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
          web.ignoring()
-           .antMatchers(HttpMethod.GET, customConfig.getIgnores().getGet())
-           .antMatchers(HttpMethod.POST, customConfig.getIgnores().getPost())
-           .antMatchers(HttpMethod.DELETE, customConfig.getIgnores().getDelete())
-           .antMatchers(HttpMethod.PUT, customConfig.getIgnores().getPut())
-           .antMatchers(HttpMethod.HEAD, customConfig.getIgnores().getHead())
-           .antMatchers(HttpMethod.PATCH, customConfig.getIgnores().getPatch())
-           .antMatchers(HttpMethod.OPTIONS, customConfig.getIgnores().getOptions())
-           .antMatchers(HttpMethod.TRACE, customConfig.getIgnores().getTrace())
-           .antMatchers(customConfig.getIgnores().getPattern());
+           .antMatchers(HttpMethod.GET, ignoreProperties.getGet())
+           .antMatchers(HttpMethod.POST, ignoreProperties.getPost())
+           .antMatchers(HttpMethod.DELETE, ignoreProperties.getDelete())
+           .antMatchers(HttpMethod.PUT, ignoreProperties.getPut())
+           .antMatchers(HttpMethod.HEAD, ignoreProperties.getHead())
+           .antMatchers(HttpMethod.PATCH, ignoreProperties.getPatch())
+           .antMatchers(HttpMethod.OPTIONS, ignoreProperties.getOptions())
+           .antMatchers(HttpMethod.TRACE, ignoreProperties.getTrace())
+           .antMatchers(ignoreProperties.getPattern());
     }
 }
