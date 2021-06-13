@@ -31,7 +31,7 @@ heifer:
 
 jasypt:
   encryptor:
-    password: xxxxxxxx
+    password: ${heifer.jasypt.encryptor.password}
 server:
   port: 9090
   servlet:
