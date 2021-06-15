@@ -91,6 +91,10 @@ public class JwtUtil {
         return createJWT(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities());
     }
 
+    public String createJWT(UserPrincipal userPrincipal, Boolean rememberMe) {
+        return createJWT(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities());
+    }
+
     /**
      * 解析JWT
      *
