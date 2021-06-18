@@ -26,9 +26,19 @@ public enum ResultStatus {
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "401", "Unauthorized"),
     /** 用户已登陆,但是无权访问该资源 */
     FORBIDDEN(HttpStatus.FORBIDDEN, "403", "Forbidden"),
+    /** 没有的方法 */
+    NOT_FOUND(HttpStatus.NOT_FOUND, "404", "Not Found"),
+    /** 不允许的方法 */
+    METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "405", "Method Not Allowed"),
+    /** 不接受请求 */
+    NOT_ACCEPTABLE(HttpStatus.NOT_ACCEPTABLE, "406", "Not Acceptable"),
+    /** 不受支持的媒体类型 */
+    UNSUPPORTED_MEDIA_TYPE(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "415", "Unsupported Media Type"),
+
     /** 服务器内部错误 */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500", "Internal Server Error"),
-
+    /** 暂停服务 */
+    SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, "503", "Service Unavailable"),
     /** 账号密码错误 */
     INCORRECT_USERNAME_OR_PASSWORD(HttpStatus.OK, "A-0001", "Incorrect username or password");
 

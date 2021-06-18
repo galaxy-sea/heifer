@@ -195,88 +195,110 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }
 
-
+    /** 所有未知异常 */
     protected ResponseEntity<Result<?>> handleException(Exception ex, HttpHeaders headers, WebRequest request) {
         Result<?> body = Result.fail(ResultStatus.INTERNAL_SERVER_ERROR);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    // TODO: 2021/6/17 changjin wei(魏昌进)
+    /** 当请求处理程序不支持特定的请求方法时抛出异常 */
     protected ResponseEntity<Result<?>> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, WebRequest request) {
-        Result<?> body = Result.fail(ResultStatus.FORBIDDEN);
+        Result<?> body = Result.fail(ResultStatus.METHOD_NOT_ALLOWED);
         HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 当客户端 POST、PUT 或 PATCH 请求处理程序不支持的类型的内容时引发异常。 */
     protected ResponseEntity<Result<?>> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex, HttpHeaders headers, WebRequest request) {
-
+        Result<?> body = Result.fail(ResultStatus.UNSUPPORTED_MEDIA_TYPE);
         HttpStatus status = HttpStatus.UNSUPPORTED_MEDIA_TYPE;
-
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 当请求处理程序无法生成客户端可接受的响应时抛出异常。 */
     protected ResponseEntity<Result<?>> handleHttpMediaTypeNotAcceptableException(HttpMediaTypeNotAcceptableException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.NOT_ACCEPTABLE);
         HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 指示从 URL 提取的 URI 变量中不存在@RequestMapping方法的方法参数中预期的路径变量。 通常，这意味着 URI 模板与方法参数上声明的路径变量名称不匹配 */
     protected ResponseEntity<Result<?>> handleMissingPathVariableException(MissingPathVariableException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.INTERNAL_SERVER_ERROR);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 表示缺少参数 */
     protected ResponseEntity<Result<?>> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.BAD_REQUEST);
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 致命绑定异常，当我们想将绑定异常视为不可恢复时抛出 */
     protected ResponseEntity<Result<?>> handleServletRequestBindingException(ServletRequestBindingException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.BAD_REQUEST);
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 当无法为 bean 属性找到合适的编辑器或转换器时抛出异常 */
     protected ResponseEntity<Result<?>> handleConversionNotSupportedException(ConversionNotSupportedException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.INTERNAL_SERVER_ERROR);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 尝试设置 bean 属性时因类型不匹配引发异常 */
     protected ResponseEntity<Result<?>> handleTypeMismatchException(TypeMismatchException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.BAD_REQUEST);
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 当HttpMessageConverter.read方法失败时由HttpMessageConverter实现抛出。 */
     protected ResponseEntity<Result<?>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.BAD_REQUEST);
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 当HttpMessageConverter.write方法失败时由HttpMessageConverter实现抛出 */
     protected ResponseEntity<Result<?>> handleHttpMessageNotWritableException(HttpMessageNotWritableException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.INTERNAL_SERVER_ERROR);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 当对用@Valid注释的参数的验证失败时抛出的异常。 从 5.3 开始扩展BindException */
     protected ResponseEntity<Result<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.BAD_REQUEST);
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 当无法找到由其名称标识的“multipart/form-data”请求的一部分时引发。<br/>这可能是因为请求不是多部分/表单数据请求，因为该部分不存在于请求中，或者因为 Web 应用程序没有正确配置来处理多部分请求，例如没有MultipartResolver */
     protected ResponseEntity<Result<?>> handleMissingServletRequestPartException(MissingServletRequestPartException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.BAD_REQUEST);
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
-
+    /** 没有这个方法 */
     protected ResponseEntity<Result<?>> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, WebRequest request) {
+        Result<?> body = Result.fail(ResultStatus.NOT_FOUND);
         HttpStatus status = HttpStatus.NOT_FOUND;
-        return handleExceptionInternal(ex, null, headers, status, request);
+        return handleExceptionInternal(ex, body, headers, status, request);
     }
 
+    /** 异步请求超时时抛出的异常。<br/> 或者，应用程序可以注册DeferredResultProcessingInterceptor或CallableProcessingInterceptor以通过 MVC Java 配置或 MVC XML 命名空间或直接通过RequestMappingHandlerAdapter属性来处理超时 */
     @Nullable
     protected ResponseEntity<Result<?>> handleAsyncRequestTimeoutException(AsyncRequestTimeoutException ex, HttpHeaders headers, WebRequest webRequest) {
-
+        Result<?> body = Result.fail(ResultStatus.SERVICE_UNAVAILABLE);
         HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
-        return handleExceptionInternal(ex, null, headers, status, webRequest);
+        return handleExceptionInternal(ex, body, headers, status, webRequest);
     }
 
 
