@@ -9,8 +9,10 @@ import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.Payload;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
+import com.nimbusds.jose.proc.SecurityContext;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import com.nimbusds.jwt.proc.DefaultJWTClaimsVerifier;
 import com.nimbusds.jwt.util.DateUtils;
 import org.junit.jupiter.api.Test;
 
@@ -61,8 +63,8 @@ public class JwtTest {
                 .issueTime(new Date())
                 .jwtID("jti")
                 .claim("my", "my")
+                .claim("data", Data.data())
                 .build();
-
         SignedJWT signedJWT = new SignedJWT(jwsHeader, claimsSet);
 
         signedJWT.sign(new MACSigner("12345678901234567890123456798012"));
@@ -76,7 +78,7 @@ public class JwtTest {
     public void test2() throws JOSEException, ParseException {
         // eyJraWQiOiJoYWhhaGFoYWgiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdWIiLCJhdWQiOiJhdWQiLCJuYmYiOjE2MjM4MjE0OTUsImlzcyI6ImlzcyIsImV4cCI6MTYyMzgzMTQ5NSwibXkiOiJteSIsImlhdCI6MTYyMzgyMTQ5NSwianRpIjoianRpIn0.ExX32qEBlx6NWcafO4uOh7alxyQR7mFJPAJMaQ-2BYY
 
-        SignedJWT jwt = SignedJWT.parse("eyJraWQiOiJoYWhhaGFoYWgiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdWIiLCJhdWQiOiJhdWQiLCJuYmYiOjE2MjM4MjM4MjYsImlzcyI6ImlzcyIsImV4cCI6MTYyMzgzMzgyNiwibXkiOiJteSIsImlhdCI6MTYyMzgyMzgyNiwianRpIjoianRpIn0.rU7rHa0p8iwyfk2RN8y5gQkzRJ1kKXFwaK1gR8YMHsI");
+        SignedJWT jwt = SignedJWT.parse("eyJraWQiOiJoYWhhaGFoYWgiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdWIiLCJhdWQiOiJhdWQiLCJuYmYiOjE2MjM4OTk3MDUsImRhdGEiOnsiYWdlIjo1NTUsIm5hbWUiOiI1NTUiLCJkYXRhIjp7ImFnZSI6MTEsIm5hbWUiOiIyMiIsImRhdGEiOm51bGx9fSwiaXNzIjoiaXNzIiwiZXhwIjoxNjIzOTA5NzA1LCJteSI6Im15IiwiaWF0IjoxNjIzODk5NzA1LCJqdGkiOiJqdGkifQ.4cBRUyQBFArK5f5Xcf8_z8_63rbxSqswSluF9hxgpk8");
 
         MACVerifier verifier = new MACVerifier("12345678901234567890123456798012");
         //校验是否有效
@@ -84,9 +86,48 @@ public class JwtTest {
         System.out.println(jwt.verify(verifier));
         // //校验超时
         Date exp = jwt.getJWTClaimsSet().getExpirationTime();
+
+
+        JWTClaimsSet jwtClaimsSet = jwt.getJWTClaimsSet();
+
+        Payload payload = jwt.getPayload();
+
+        JWSObject.State state = jwt.getState();
+
+
         System.out.println(DateUtils.isBefore(exp, new Date(), 60));
 
 
 
     }
+
+    @Test
+    public void haha(){
+        DefaultJWTClaimsVerifier<SecurityContext> securityContextDefaultJWTClaimsVerifier = new DefaultJWTClaimsVerifier<>();
+
+        securityContextDefaultJWTClaimsVerifier.verify();
+    }
+
+    @lombok.Data
+    public static class Data{
+        private Integer age;
+        private String name;
+        private Data data;
+
+        public static Data data() {
+
+            Data data = new Data();
+            data.setAge(11);
+            data.setName("22");
+
+
+            Data data2 = new Data();
+            data2.setAge(555);
+            data2.setName("555");
+            data2.setData(data);
+            return data2;
+
+        }
+    }
+
 }

@@ -88,6 +88,8 @@ spring:
     generator:
       WRITE_NUMBERS_AS_STRINGS: true
       WRITE_BIGDECIMAL_AS_PLAIN: true
+    serialization:
+      INDENT_OUTPUT: false
   gson:
     date-format: yyyy-MM-dd HH:mm:ss
   session:
