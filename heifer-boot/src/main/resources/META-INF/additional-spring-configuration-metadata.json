@@ -4,5 +4,6 @@
       "name": "heifer.jasypt.encryptor.password",
       "type": "java.lang.String",
       "description": "平台的加密密钥."
-  }
-] }
+    }
+  ]
+}

@@ -85,6 +85,8 @@ public class JwtTest {
 
         System.out.println(jwt.verify(verifier));
         // //校验超时
+        JWSHeader header = jwt.getHeader();
+
         Date exp = jwt.getJWTClaimsSet().getExpirationTime();
 
 

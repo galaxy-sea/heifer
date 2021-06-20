@@ -1,4 +1,7 @@
 heifer:
+  client:
+    id: 1
+    name: 小魏的管理端
   jasypt:
     encryptor:
       password: xxxxxxxx
@@ -27,8 +30,6 @@ heifer:
         - "/swagger-ui/**"
         - "/swagger-ui/*"
         - "/v3/api-docs/**"
-
-
 jasypt:
   encryptor:
     password: ${heifer.jasypt.encryptor.password}
@@ -97,23 +98,6 @@ spring:
     store-type: none
     # session会话保持时间
     timeout: 0
-custom:
-  config:
-    ignores:
-      # 需要过滤的 post 请求
-      post:
-        - "/api/auth/login"
-        - "/api/auth/logout"
-      # 需要过滤的请求，不限方法
-      pattern:
-        - "/api/auth/*"
-        - "/api/auth/**"
-        - "/test/*"
-        - "/doc"
-        - "/swagger-resources/**"
-        - "/swagger-ui/**"
-        - "/swagger-ui/*"
-        - "/v3/api-docs/**"
 #logging:
 #  level:
 #    plus.wcj.heifer.boot.common.security: debug

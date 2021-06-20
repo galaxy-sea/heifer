@@ -21,6 +21,8 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.properties.JwtProperties;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -73,17 +75,28 @@ public class JwtUtilCopy {
                 .issueTime(new Date())
                 // jti – JWT ID 声明
                 .jwtID(id.toString())
-                .claim("my", "my")
+                .claim("roles", roles)
+                .claim("authorities", authorities)
                 .build();
 
         return null;
     }
 
 
-    public UserPrincipal getUserPrincipal(String jwt) {
+    public UserPrincipal getUserPrincipal(String jwt) throws ParseException {
         JWTClaimsSet claimsSet = this.parseJWT(jwt);
         UserPrincipal userPrincipal = new UserPrincipal();
-        // TODO: 2021/6/18 changjin wei(魏昌进)
+        userPrincipal.setId(Long.valueOf(claimsSet.getJWTID()));
+        userPrincipal.setUsername(claimsSet.getSubject());
+        // userPrincipal.setPassword();
+        // userPrincipal.setNickname();
+        userPrincipal.setPhone();
+        userPrincipal.setEmail();
+        userPrincipal.setIsEnabled();
+        userPrincipal.setRoles(Arrays.asList(claimsSet.getStringArrayClaim("roles")));
+        // userPrincipal.setAuthorities(claimsSet.getStringArrayClaim("authorities"));
+
+
 
 
         return userPrincipal;
