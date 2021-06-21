@@ -4,6 +4,7 @@ package plus.wcj.heifer.boot.common.security;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,17 +43,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String jwt = jwtUtil.getJwtFromRequest(request);
 
-            if (StringUtils.isNotBlank(jwt)) {
+            String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+            if (StringUtils.isNotBlank(authorization)) {
 
-                String username = jwtUtil.getUsernameFromJWT(jwt);
-
-                UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+                UserDetails userDetails = jwtUtil.getUserPrincipal(authorization);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
             }
             filterChain.doFilter(request, response);
         } catch (Exception e) {

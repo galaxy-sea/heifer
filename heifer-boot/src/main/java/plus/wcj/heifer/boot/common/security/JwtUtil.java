@@ -1,178 +1,165 @@
 package plus.wcj.heifer.boot.common.security;
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JOSEObjectType;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
+import com.nimbusds.jwt.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.properties.JwtProperties;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
  * JWT 工具类
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-07 13:42
+ * @author changjin wei
+ * @date Created in 2021-06-21
  */
 @EnableConfigurationProperties(JwtProperties.class)
 @Configuration
 @Slf4j
 public class JwtUtil {
+
     @Autowired
     private JwtProperties jwtProperties;
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
-    /**
-     * 创建JWT
-     *
-     * @param rememberMe  记住我
-     * @param id          用户id
-     * @param subject     用户名
-     * @param roles       用户角色
-     * @param authorities 用户权限
-     * @return JWT
-     */
-    public String createJWT(Boolean rememberMe, Long id, String subject, List<String> roles, Collection<? extends GrantedAuthority> authorities) {
-        Date now = new Date();
-        JwtBuilder builder = Jwts.builder()
-                                 .setId(id.toString())
-                                 .setSubject(subject)
-                                 .setIssuedAt(now)
-                                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getKey())
-                                 .claim("roles", roles)
-                                 .claim("authorities", authorities);
-
-        // 设置过期时间
-        Long ttl = rememberMe ? jwtProperties.getRemember() : jwtProperties.getTtl();
-        if (ttl > 0) {
-            builder.setExpiration(new Date(now.getTime() + ttl.intValue()));
-        }
-
-        String jwt = builder.compact();
-        // 将生成的JWT保存至Redis
-        stringRedisTemplate.opsForValue().set("security:jwt:" + subject, jwt, ttl, TimeUnit.MILLISECONDS);
-        return jwt;
+    public String createJwt(@NotNull UserPrincipal userPrincipal, @NotNull Boolean rememberMe) {
+        return createJwt(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities(), userPrincipal.getIsEnabled());
     }
 
-    /**
-     * 创建JWT
-     *
-     * @param authentication 用户认证信息
-     * @param rememberMe     记住我
-     * @return JWT
-     */
-    public String createJWT(Authentication authentication, Boolean rememberMe) {
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        return createJWT(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities());
+    public String createJwt(@NotNull Authentication authentication, @NotNull Boolean rememberMe) {
+        return createJwt((UserPrincipal) authentication.getPrincipal(), rememberMe);
     }
 
-    public String createJWT(UserPrincipal userPrincipal, Boolean rememberMe) {
-        return createJWT(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities());
-    }
+    private String createJwt(Boolean rememberMe, Long id, String subject, Set<String> roles, Collection<? extends GrantedAuthority> authorities, Boolean isEnabled) {
+        //创建JWS头，设置签名算法和类型
+        JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256)
+                // 设置类型 ( typ ) 参数
+                .type(JOSEObjectType.JWT)
+                // 设置密钥 ID ( kid ) 参数。
+                // .keyID("kid")
+                .build();
 
-    /**
-     * 解析JWT
-     *
-     * @param jwt JWT
-     * @return {@link Claims}
-     */
-    public Claims parseJWT(String jwt) {
+        JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+                // iss – 发行人声明
+                .issuer("iss")
+                //sub – 主题声明
+                .subject(subject)
+                // aud – 受众声明
+                .audience("aud")
+                // exp – 过期时间
+                .expirationTime(new Date(System.currentTimeMillis() + (rememberMe ? jwtProperties.getRemember() : jwtProperties.getTtl())))
+                // nbf – 声明不可用
+                .notBeforeTime(new Date())
+                // iat – 发出的声明
+                .issueTime(new Date())
+                // jti – JWT ID 声明
+                .jwtID(id.toString())
+                .claim("roles", roles)
+                .claim("authorities", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .claim("isEnabled", isEnabled)
+                .build();
+
+        SignedJWT signedJwt = new SignedJWT(jwsHeader, claimsSet);
         try {
-            Claims claims = Jwts.parser().setSigningKey(jwtProperties.getKey()).parseClaimsJws(jwt).getBody();
-
-            String username = claims.getSubject();
-            String redisKey = "security:jwt:" + username;
-
-            // 校验redis中的JWT是否存在
-            Long expire = stringRedisTemplate.getExpire(redisKey, TimeUnit.MILLISECONDS);
-            if (Objects.isNull(expire) || expire <= 0) {
-                throw new ResultException(ResultStatus.UNAUTHORIZED);
-            }
-
-            // 校验redis中的JWT是否与当前的一致，不一致则代表用户已注销/用户在不同设备登录，均代表JWT已过期
-            String redisToken = stringRedisTemplate.opsForValue().get(redisKey);
-            if (!StringUtils.equals(jwt, redisToken)) {
-                throw new ResultException(ResultStatus.UNAUTHORIZED);
-            }
-            return claims;
-        } catch (ExpiredJwtException e) {
-            log.error("Token 已过期");
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
-        } catch (UnsupportedJwtException e) {
-            log.error("不支持的 Token");
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
-        } catch (MalformedJwtException e) {
-            log.error("Token 无效");
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
-        } catch (SignatureException e) {
-            log.error("无效的 Token 签名");
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
-        } catch (IllegalArgumentException e) {
-            log.error("Token 参数不存在");
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
+            signedJwt.sign(new MACSigner(jwtProperties.getKey()));
+        } catch (JOSEException e) {
+            throw new ResultException(ResultStatus.JOSE_Exception);
         }
+
+        return signedJwt.serialize();
     }
+
 
     /**
      * 设置JWT过期
-     *
-     * @param request 请求
      */
-    public void invalidateJWT(HttpServletRequest request) {
-        String jwt = getJwtFromRequest(request);
-        String username = getUsernameFromJWT(jwt);
-        // 从redis中清除JWT
-        stringRedisTemplate.delete("security:jwt:" + username);
+    public void invalidateJwt(@NotEmpty String authorization) {
+        // String jwt = authorization.startsWith("Bearer ") ? authorization.substring("Bearer ".length()) : authorization;
+        // String username = getUsernameFromJWT(jwt);
+        // return;
     }
 
-    /**
-     * 根据 jwt 获取用户名
-     *
-     * @param jwt JWT
-     * @return 用户名
-     */
-    public String getUsernameFromJWT(String jwt) {
-        Claims claims = parseJWT(jwt);
-        return claims.getSubject();
-    }
 
-    /**
-     * 从 request 的 header 中获取 JWT
-     *
-     * @param request 请求
-     * @return JWT
-     */
-    public String getJwtFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+    public UserPrincipal getUserPrincipal(@NotEmpty String authorization) {
+        String jwt = authorization.startsWith("Bearer ") ? authorization.substring("Bearer ".length()) : authorization;
+        JWTClaimsSet claimsSet = this.parseJwt(jwt);
+        UserPrincipal userPrincipal = new UserPrincipal();
+        userPrincipal.setId(Long.valueOf(claimsSet.getJWTID()));
+        userPrincipal.setUsername(claimsSet.getSubject());
+        // userPrincipal.setPassword();
+        // userPrincipal.setNickname();
+        // userPrincipal.setPhone();
+        // userPrincipal.setEmail();
+        try {
+            userPrincipal.setIsEnabled(claimsSet.getBooleanClaim("isEnabled"));
+            userPrincipal.setRoles(new HashSet<>(claimsSet.getStringListClaim("roles")));
+            userPrincipal.setAuthorities(claimsSet.getStringListClaim("authorities").stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet()));
+
+        } catch (ParseException e) {
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
-        return null;
+
+        return userPrincipal;
     }
 
+    private JWTClaimsSet parseJwt(String jwt) {
+
+
+        try {
+            SignedJWT signedJwt = SignedJWT.parse(jwt);
+            MACVerifier verifier = new MACVerifier(jwtProperties.getKey());
+
+            this.verify(signedJwt, verifier);
+            return signedJwt.getJWTClaimsSet();
+        } catch (JOSEException | ParseException e) {
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
+        }
+    }
+
+
+    private void verify(SignedJWT signedJwt, MACVerifier verifier) throws ParseException, JOSEException {
+
+        if (!signedJwt.verify(verifier)) {
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
+        }
+        JWTClaimsSet claimsSet = signedJwt.getJWTClaimsSet();
+
+        // throw new ResultException(ResultStatus.UNAUTHORIZED);
+        final Date now = new Date();
+        final Date exp = claimsSet.getExpirationTime();
+
+        if (exp == null || !DateUtils.isAfter(exp, now, 60)) {
+            throw new ResultException(ResultStatus.EXPIRED_TOKEN);
+        }
+
+        final Date nbf = claimsSet.getNotBeforeTime();
+        if (nbf == null || !DateUtils.isBefore(nbf, now, 60)) {
+            throw new ResultException(ResultStatus.TOKEN_BEFORE_USE_TIME);
+        }
+    }
 }

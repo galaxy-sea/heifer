@@ -107,7 +107,6 @@ public class JwtTest {
     public void haha(){
         DefaultJWTClaimsVerifier<SecurityContext> securityContextDefaultJWTClaimsVerifier = new DefaultJWTClaimsVerifier<>();
 
-        securityContextDefaultJWTClaimsVerifier.verify();
     }
 
     @lombok.Data

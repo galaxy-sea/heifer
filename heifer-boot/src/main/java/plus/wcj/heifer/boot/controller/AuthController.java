@@ -1,9 +1,11 @@
 package plus.wcj.heifer.boot.controller;
 
 
+import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -51,12 +53,12 @@ public class AuthController {
      * @return
      */
     @PostMapping("/login")
-    public JwtResponse login(@RequestBody LoginRequest loginRequest) {
+    public JwtResponse login(@RequestBody LoginRequest loginRequest) throws JOSEException {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmailOrPhone(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtUtil.createJWT(authentication, loginRequest.getRememberMe());
+        String jwt = jwtUtil.createJwt(authentication, loginRequest.getRememberMe());
         return new JwtResponse(jwt);
     }
 
@@ -66,20 +68,19 @@ public class AuthController {
      * @return
      */
     @PostMapping("/login/test")
-    public JwtResponse login() {
+    public JwtResponse login() throws JOSEException {
         UserPrincipal admin = (UserPrincipal) customUserDetailsService.loadUserByUsername("admin");
-        String jwt = jwtUtil.createJWT(admin, true);
+        String jwt = jwtUtil.createJwt(admin, true);
         return new JwtResponse(jwt);
     }
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
-        try {
-            // 设置JWT过期
-            jwtUtil.invalidateJWT(request);
-        } catch (SecurityException e) {
-            return "Status.UNAUTHORIZED";
-        }
+        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        // 设置JWT过期
+        jwtUtil.invalidateJwt(header);
+
         return "Status.LOGOUT";
     }
 

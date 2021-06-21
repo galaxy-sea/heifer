@@ -1,7 +1,6 @@
 package plus.wcj.heifer.boot.common.security.properties;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -18,7 +17,6 @@ public class JwtProperties {
     /**
      * jwt 加密 key，默认值：xxxxxxxxxxxxxxx.
      */
-    @Value("key")
     private String key = "xxxxxxxxxxxxxxx";
 
     /**

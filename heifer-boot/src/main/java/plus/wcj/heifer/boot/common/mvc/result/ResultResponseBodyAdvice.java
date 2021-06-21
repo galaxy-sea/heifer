@@ -80,7 +80,9 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             ResultException.class,
 
             // 已知异常  虽然在这里重新添加一遍很傻逼，但是也许有个小可爱在if写了一样的代码呐
+            // validation
             BindException.class,
+            // security
             BadCredentialsException.class,
             AccessDeniedException.class,
 

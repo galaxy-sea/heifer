@@ -21,7 +21,6 @@
         <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
 
         <jasypt.version>3.0.3</jasypt.version>
-        <jjwt.version>0.9.1</jjwt.version>
 
         <springfox.version>3.0.0</springfox.version>
 
@@ -140,13 +139,6 @@
 
 
         <!-- 加密===========⬇️ -->
-        <!--未来准备替换-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>

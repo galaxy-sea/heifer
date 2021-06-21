@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -65,18 +66,21 @@ public class UserPrincipal implements UserDetails {
     /**
      * 用户角色列表
      */
-    private List<String> roles;
+    private Set<String> roles;
 
     /**
      * 用户权限列表
      */
-    private Collection<? extends GrantedAuthority> authorities;
+    private Set<? extends GrantedAuthority> authorities;
 
 
     public static UserPrincipal create(RbacUserDto user, List<RbacRoleDto> roles, List<RbacPermissionDto> permissions) {
-        List<String> roleNames = roles.stream().map(RbacRoleDto::getName).collect(Collectors.toList());
+        Set<String> roleNames = roles.stream().map(RbacRoleDto::getName).collect(Collectors.toSet());
 
-        List<GrantedAuthority> authorities = permissions.stream().filter(permission -> StringUtils.isNotBlank(permission.getPermission())).map(permission -> new SimpleGrantedAuthority(permission.getPermission())).collect(Collectors.toList());
+        Set<GrantedAuthority> authorities = permissions.stream()
+                                                       .filter(permission -> StringUtils.isNotBlank(permission.getPermission()))
+                                                       .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+                                                       .collect(Collectors.toSet());
 
         return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getIsEnabled(), roleNames, authorities);
     }

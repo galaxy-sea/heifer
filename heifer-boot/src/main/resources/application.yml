@@ -6,8 +6,11 @@ heifer:
     encryptor:
       password: xxxxxxxx
   jwt:
-    key: ENC(6LnQKQpmSOTHAZHHq6sRC5PDEVYxrJooiTe/tJNT/cEddTj9P8gvMiiw/iCJ+FlL)
-    ttl: 6000000000
+    # 至少需要32个字符哦
+    key: ENC(cq4oLNrwaJ07l9fK8d9Ms9m1h2jaJ3VHLKGes8CU3NwuRQNEqkzaJd6TGs5vcgvAIacFdGtJsGPxFq9jcBh471T964aT9I/2KrvKZhiDzQ4=)
+    # 10分钟 毫秒（millisecond）
+    ttl: 600000
+    # 7天 毫秒（millisecond）
     remember: 604800000
   security:
     ignoring:
