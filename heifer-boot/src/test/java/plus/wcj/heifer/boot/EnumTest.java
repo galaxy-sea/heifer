@@ -55,23 +55,9 @@ class User {
     private GradeEnum grade;
 }
 
-
-interface JsonValueOf<T extends Enum>{
-
-    T[] values();
-
-    default T jsonValueOf(String value) {
-        T[] values = this.values();
-        for (T t : values) {
-            t.
-        }
-    }
-
-}
-
 @Getter
 @ToString
-enum GradeEnum implements JsonValueOf{
+enum GradeEnum{
 
     // @JsonProperty("小学")
     PRIMARY(1, "小学"),
@@ -83,7 +69,7 @@ enum GradeEnum implements JsonValueOf{
     private final String descp;
 
     @EnumValue//标记数据库存的值是code
-    @JsonValue
+    // @JsonValue
     private final int code;
 
     GradeEnum(int code, String descp) {
@@ -93,8 +79,9 @@ enum GradeEnum implements JsonValueOf{
 
 
 
-    public String data(){
+    public GradeEnum[] data(){
         GradeEnum[] values = GradeEnum.values();
+        return values;
     }
 
 
