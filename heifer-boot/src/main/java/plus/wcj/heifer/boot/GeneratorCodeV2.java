@@ -14,10 +14,13 @@ import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.H2Query;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
+import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
+import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.commons.lang3.BooleanUtils;
@@ -289,7 +292,7 @@ public class GeneratorCodeV2 {
         dsc.setDriverName(driverName);
         dsc.setUsername(AES.decrypt(username, key));
         dsc.setPassword(AES.decrypt(password, key));
-        // dsc.setTypeConvert();
+        // dsc.setTypeConvert(new TypeConvert());
         return dsc;
     }
 
@@ -322,4 +325,18 @@ public class GeneratorCodeV2 {
         gc.setIdType(IdType.ASSIGN_ID);
         return gc;
     }
+
+    static class TypeConvert extends MySqlTypeConvert {
+        @Override
+        public IColumnType processTypeConvert(GlobalConfig config, String fieldType) {
+            if ("int(11) unsigned".equals(fieldType) || "int unsigned".equals(fieldType)) {
+                return DbColumnType.LONG;
+            }
+            return super.processTypeConvert(config, fieldType);
+        }
+    }
+
+
 }
+
+
