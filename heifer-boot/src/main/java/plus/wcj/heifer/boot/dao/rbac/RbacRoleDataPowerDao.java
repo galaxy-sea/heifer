@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author changjinwei
- * @since 2021-06-06
+ * @since 2021-06-23
  */
 public interface RbacRoleDataPowerDao extends BaseMapper<RbacRoleDataPowerDo> {
 

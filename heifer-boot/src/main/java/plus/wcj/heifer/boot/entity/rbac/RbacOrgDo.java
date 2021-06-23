@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.entity.tenant;
+package plus.wcj.heifer.boot.entity.rbac;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -22,14 +22,14 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author changjinwei
- * @since 2021-06-06
+ * @since 2021-06-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tenant_org")
-@ApiModel(value = "TenantOrgDo对象", description = "租户")
-public class TenantOrgDo implements Serializable {
+@TableName("rbac_org")
+@ApiModel(value = "RbacOrgDo对象", description = "租户")
+public class RbacOrgDo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

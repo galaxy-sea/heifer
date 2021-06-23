@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacUserDo">
         <id column="id" property="id" />
-        <result column="tenant_org_id" property="tenantOrgId" />
+        <result column="rbac_org_id" property="rbacOrgId" />
         <result column="rbac_dept_id" property="rbacDeptId" />
         <result column="username" property="username" />
         <result column="phone" property="phone" />
@@ -24,7 +24,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, tenant_org_id, rbac_dept_id, username, phone, email, password, nickname, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, create_by, update_by, create_time, update_time
+        id, rbac_org_id, rbac_dept_id, username, phone, email, password, nickname, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, create_by, update_by, create_time, update_time
     </sql>
 
 </mapper>

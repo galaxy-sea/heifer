@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacPermissionDo">
         <id column="id" property="id" />
         <result column="parent_id" property="parentId" />
-        <result column="tenant_client_id" property="tenantClientId" />
         <result column="name" property="name" />
         <result column="permission" property="permission" />
         <result column="type" property="type" />
@@ -19,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, parent_id, tenant_client_id, name, permission, type, sort, create_by, update_by, create_time, update_time
+        id, parent_id, name, permission, type, sort, create_by, update_by, create_time, update_time
     </sql>
 
 </mapper>

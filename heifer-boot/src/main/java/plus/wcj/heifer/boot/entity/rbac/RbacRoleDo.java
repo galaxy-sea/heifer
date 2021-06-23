@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author changjinwei
- * @since 2021-06-06
+ * @since 2021-06-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -41,9 +41,9 @@ public class RbacRoleDo implements Serializable {
 
     /** 租户id */
     @ApiModelProperty(value = "租户id")
-    @NotNull(groups = {PostValid.class}, message = "tenantOrgId is null")
-    @TableField("tenant_org_id")
-    private Long tenantOrgId;
+    @NotNull(groups = {PostValid.class}, message = "rbacOrgId is null")
+    @TableField("rbac_org_id")
+    private Long rbacOrgId;
 
     /** 名称 */
     @ApiModelProperty(value = "名称")

@@ -45,22 +45,20 @@ public class GeneratorCodeV2 {
 
 
     /** 模块名 */
-    private static String moduleName = "abc";
+    private static String moduleName = "rbac";
 
     /** 要生成的表名 */
     private static String[] tables = {
-            // "rbac_dept",
-            // "rbac_permission",
-            // "rbac_role",
-            // "rbac_role_data_power",
-            // "rbac_role_permission_rel",
-            // "rbac_user",
-            // "rbac_user_data_power",
-            // "rbac_user_permission_rel",
-            // "rbac_user_role_rel",
-            // "tenant_client",
-            // "tenant_org",
-            "test_hahah",
+            "rbac_dept",
+            "rbac_org",
+            "rbac_permission",
+            "rbac_role",
+            "rbac_role_data_power",
+            "rbac_role_permission_rel",
+            "rbac_user",
+            "rbac_user_data_power",
+            "rbac_user_permission_rel",
+            "rbac_user_role_rel",
     };
 
     /** 表的前缀 */
@@ -292,7 +290,7 @@ public class GeneratorCodeV2 {
         dsc.setDriverName(driverName);
         dsc.setUsername(AES.decrypt(username, key));
         dsc.setPassword(AES.decrypt(password, key));
-        // dsc.setTypeConvert(new TypeConvert());
+        dsc.setTypeConvert(new TypeConvert());
         return dsc;
     }
 

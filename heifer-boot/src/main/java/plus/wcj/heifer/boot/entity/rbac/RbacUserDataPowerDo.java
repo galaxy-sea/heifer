@@ -1,10 +1,9 @@
 package plus.wcj.heifer.boot.entity.rbac;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,6 +13,8 @@ import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -21,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author changjinwei
- * @since 2021-06-06
+ * @since 2021-06-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -47,6 +48,22 @@ public class RbacUserDataPowerDo implements Serializable {
     @NotNull(groups = {PostValid.class}, message = "rbacDeptId is null")
     @TableField("rbac_dept_id")
     private Long rbacDeptId;
+
+    @NotNull(groups = {PostValid.class}, message = "createBy is null")
+    @TableField("create_by")
+    private Long createBy;
+
+    @NotNull(groups = {PostValid.class}, message = "updateBy is null")
+    @TableField("update_by")
+    private Long updateBy;
+
+    @NotNull(groups = {PostValid.class}, message = "createTime is null")
+    @TableField("create_time")
+    private Date createTime;
+
+    @NotNull(groups = {PostValid.class}, message = "updateTime is null")
+    @TableField("update_time")
+    private Date updateTime;
 
 
 }

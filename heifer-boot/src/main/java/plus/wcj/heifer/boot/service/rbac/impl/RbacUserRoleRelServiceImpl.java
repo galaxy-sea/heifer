@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author changjinwei
- * @since 2021-06-06
+ * @since 2021-06-23
  */
 @Service
 public class RbacUserRoleRelServiceImpl extends ServiceImpl<RbacUserRoleRelDao, RbacUserRoleRelDo> implements RbacUserRoleRelService {

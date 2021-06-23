@@ -1,20 +1,21 @@
 package plus.wcj.heifer.boot.entity.rbac;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import plus.wcj.heifer.boot.entity.rbac.enums.PermissionTypeEnum;
 import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -22,7 +23,7 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author changjinwei
- * @since 2021-06-06
+ * @since 2021-06-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -45,12 +46,6 @@ public class RbacPermissionDo implements Serializable {
     @TableField("parent_id")
     private Long parentId;
 
-    /** 客户端id */
-    @ApiModelProperty(value = "客户端id")
-    @NotNull(groups = {PostValid.class}, message = "tenantClientId is null")
-    @TableField("tenant_client_id")
-    private Long tenantClientId;
-
     /** 权限名称 */
     @ApiModelProperty(value = "权限名称")
     @NotNull(groups = {PostValid.class}, message = "name is null")
@@ -63,11 +58,11 @@ public class RbacPermissionDo implements Serializable {
     @TableField("permission")
     private String permission;
 
-    /** 1：菜单，2：按钮 */
-    @ApiModelProperty(value = "1：菜单，2：按钮")
+    /** 1：客户端，2：菜单，3：按钮 */
+    @ApiModelProperty(value = "1：客户端，2：菜单，3：按钮")
     @NotNull(groups = {PostValid.class}, message = "type is null")
     @TableField("type")
-    private Integer type;
+    private PermissionTypeEnum type;
 
     /** 排序，默认asc */
     @ApiModelProperty(value = "排序，默认asc")

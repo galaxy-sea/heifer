@@ -9,7 +9,7 @@ import plus.wcj.heifer.boot.extension.service.IService;
  * </p>
  *
  * @author changjinwei
- * @since 2021-06-06
+ * @since 2021-06-23
  */
 public interface RbacDeptService extends IService<RbacDeptDo> {
 

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import plus.wcj.heifer.boot.entity.rbac.enums.PermissionTypeEnum;
 
 import java.io.Serializable;
 
@@ -24,7 +25,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("rbac_permission")
-@ApiModel(value="RbacPermissionDo对象", description="功能权限")
+@ApiModel(value = "RbacPermissionDo对象", description = "功能权限")
 public class RbacPermissionDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,11 +40,6 @@ public class RbacPermissionDto implements Serializable {
     @TableField("parent_id")
     private Long parentId;
 
-    /** 客户端id */
-    @ApiModelProperty(value = "客户端id")
-    @TableField("tenant_client_id")
-    private Long tenantClientId;
-
     /** 权限名称 */
     @ApiModelProperty(value = "权限名称")
     @TableField("name")
@@ -54,10 +50,10 @@ public class RbacPermissionDto implements Serializable {
     @TableField("permission")
     private String permission;
 
-    /** 1：菜单，2：按钮 */
-    @ApiModelProperty(value = "1：菜单，2：按钮")
+    /** 1：客户端，2：菜单，3：按钮 */
+    @ApiModelProperty(value = "1：客户端，2：菜单，3：按钮")
     @TableField("type")
-    private Integer type;
+    private PermissionTypeEnum type;
 
     /** 排序，默认asc */
     @ApiModelProperty(value = "排序，默认asc")

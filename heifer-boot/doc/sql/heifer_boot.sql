@@ -24,7 +24,7 @@ CREATE TABLE `rbac_permission` (
     `parent_id` bigint(0) UNSIGNED NOT NULL COMMENT '父节点名称',
     `name` varchar(50) NOT NULL COMMENT '权限名称',
     `permission` varchar(50) NOT NULL COMMENT '权限表达式，用:分割',
-    `type` tinyint(0) UNSIGNED NOT NULL COMMENT '1：客户端 ，2：菜单，3：按钮',
+    `type` char(10) NOT NULL COMMENT 'client：客户端 ，menu：菜单，button：按钮',
     `sort` tinyint(0) UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序，默认asc',
     `create_by` bigint(20) UNSIGNED NOT NULL,
     `update_by` bigint(20) UNSIGNED NULL,
@@ -59,10 +59,6 @@ CREATE TABLE `rbac_role_permission_rel` (
     `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键ID',
     `rbac_role_id` bigint(0) UNSIGNED NOT NULL COMMENT '角色id',
     `rbac_permission_id` bigint(0) UNSIGNED NOT NULL COMMENT '功能权限id',
-    `create_by` bigint(20) UNSIGNED NOT NULL,
-    `update_by` bigint(20) UNSIGNED NULL,
-    `create_time` timestamp DEFAULT CURRENT_TIMESTAMP,
-    `update_time` timestamp ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) COMMENT = '角色功能权限关系表';
 
@@ -101,10 +97,6 @@ CREATE TABLE `rbac_user_permission_rel` (
     `id` bigint(0) UNSIGNED NOT NULL,
     `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
     `rbac_permission_id` bigint(0) UNSIGNED NOT NULL COMMENT '功能权限id',
-    `create_by` bigint(20) UNSIGNED NOT NULL,
-    `update_by` bigint(20) UNSIGNED NULL,
-    `create_time` timestamp DEFAULT CURRENT_TIMESTAMP,
-    `update_time` timestamp ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) COMMENT = '用户功能权限表';
 
@@ -112,10 +104,6 @@ CREATE TABLE `rbac_user_role_rel` (
     `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
     `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
     `rbac_role_id` bigint(0) UNSIGNED NOT NULL COMMENT '角色id',
-    `create_by` bigint(20) UNSIGNED NOT NULL,
-    `update_by` bigint(20) UNSIGNED NULL,
-    `create_time` timestamp DEFAULT CURRENT_TIMESTAMP,
-    `update_time` timestamp ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) COMMENT = '角色用户关系表';
 

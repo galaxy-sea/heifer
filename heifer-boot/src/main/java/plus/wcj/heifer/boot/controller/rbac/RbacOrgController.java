@@ -1,8 +1,8 @@
-package plus.wcj.heifer.boot.controller.tenant;
+package plus.wcj.heifer.boot.controller.rbac;
 
 import org.springframework.web.bind.annotation.RestController;
-import plus.wcj.heifer.boot.entity.tenant.TenantOrgDo;
-import plus.wcj.heifer.boot.service.tenant.TenantOrgService;
+import plus.wcj.heifer.boot.entity.rbac.RbacOrgDo;
+import plus.wcj.heifer.boot.service.rbac.RbacOrgService;
 import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,41 +22,41 @@ import lombok.RequiredArgsConstructor;
  * </p>
  *
  * @author changjinwei
- * @since 2021-06-06
+ * @since 2021-06-23
  */
 @RestController
-@RequestMapping("/tenant-org-do")
+@RequestMapping("/rbac-org-do")
 @RequiredArgsConstructor
-public class TenantOrgController {
-    private final TenantOrgService tenantOrgService;
+public class RbacOrgController {
+    private final RbacOrgService rbacOrgService;
 
     @GetMapping(params = "id")
     @ResultResponseBody
-    public TenantOrgDo getById(Long id) {
-        return tenantOrgService.getById(id);
+    public RbacOrgDo getById(Long id) {
+        return rbacOrgService.getById(id);
     }
 
     @GetMapping
     @ResultResponseBody
-    public Page<TenantOrgDo> page(Page<TenantOrgDo> page, TenantOrgDo tenantOrgDo) {
-        return tenantOrgService.page(page, tenantOrgDo);
+    public Page<RbacOrgDo> page(Page<RbacOrgDo> page, RbacOrgDo rbacOrgDo) {
+        return rbacOrgService.page(page, rbacOrgDo);
     }
 
     @PostMapping
     @ResultResponseBody
-    public boolean save(@RequestBody @Validated(value = PostValid.class) TenantOrgDo tenantOrgDo) {
-        return tenantOrgService.save(tenantOrgDo);
+    public boolean save(@RequestBody @Validated(value = PostValid.class) RbacOrgDo rbacOrgDo) {
+        return rbacOrgService.save(rbacOrgDo);
     }
 
     @PutMapping
     @ResultResponseBody
-    public boolean updateById(@RequestBody @Validated(value = PutValid.class) TenantOrgDo tenantOrgDo) {
-        return tenantOrgService.updateById(tenantOrgDo);
+    public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacOrgDo rbacOrgDo) {
+        return rbacOrgService.updateById(rbacOrgDo);
     }
 
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(Long id) {
-        return tenantOrgService.removeById(id);
+        return rbacOrgService.removeById(id);
     }
 }

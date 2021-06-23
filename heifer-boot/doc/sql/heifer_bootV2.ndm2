@@ -2037,8 +2037,8 @@
               {
                 "objectType": "TableField_MYSQL",
                 "name": "type",
-                "type": "tinyint",
-                "length": 0,
+                "type": "char",
+                "length": 10,
                 "decimals": 0,
                 "isUnsigned": true,
                 "isZeroFill": false,
@@ -2051,7 +2051,7 @@
                 "defaultValue": "",
                 "isOnUpdateCurrentTimestamp": false,
                 "isAutoInc": false,
-                "comment": "1：客户端 ，2：菜单，3：按钮",
+                "comment": "client：客户端 ，menu：菜单，button：按钮",
                 "columnFormat": "",
                 "storage": "",
                 "isVirtual": false,
@@ -2179,9 +2179,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_permission",
-          "x": 1180,
+          "x": 1170,
           "y": 1010,
-          "width": 370,
+          "width": 388,
           "height": 198,
           "isBold": false,
           "titleColor": {
@@ -2624,7 +2624,7 @@
               "y": 1110
             },
             {
-              "x": 1565,
+              "x": 1573,
               "y": 1110
             }
           ],
