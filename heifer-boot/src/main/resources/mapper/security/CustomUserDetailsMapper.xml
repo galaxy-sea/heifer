@@ -32,13 +32,13 @@
 
     <resultMap id="RoleBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto">
         <id column="id" property="id"/>
-        <result column="tenant_org_id" property="tenantOrgId"/>
+        <result column="rbac_org_id" property="rbacOrgId"/>
         <result column="name" property="name"/>
     </resultMap>
 
     <select id="selectRoleByUserId" resultMap="RoleBaseResultMap">
         SELECT rbac_role.id,
-               rbac_role.tenant_org_id,
+               rbac_role.rbac_org_id,
                rbac_role.name
         FROM rbac_role,
              rbac_user,
@@ -51,7 +51,7 @@
 
     <resultMap id="UserBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto">
         <id column="id" property="id"/>
-        <result column="tenant_org_id" property="tenantOrgId"/>
+        <result column="rbac_org_id" property="rbacOrgId"/>
         <result column="rbac_dept_id" property="rbacDeptId"/>
         <result column="username" property="username"/>
         <result column="phone" property="phone"/>
@@ -66,7 +66,7 @@
 
     <select id="findUserByUsernameOrEmailOrPhone" resultMap="UserBaseResultMap">
         select rbac_user.id,
-               rbac_user.tenant_org_id,
+               rbac_user.rbac_org_id,
                rbac_user.rbac_dept_id,
                rbac_user.username,
                rbac_user.phone,
@@ -85,7 +85,7 @@
 
     <select id="findUserByUsernameIn" resultMap="UserBaseResultMap">
         select rbac_user.id,
-               rbac_user.tenant_org_id,
+               rbac_user.rbac_org_id,
                rbac_user.rbac_dept_id,
                rbac_user.username,
                rbac_user.phone,

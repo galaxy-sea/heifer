@@ -1,13 +1,13 @@
 package plus.wcj.heifer.boot.common.security.userdetails;
 
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
 import plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto;
@@ -15,6 +15,7 @@ import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 import plus.wcj.heifer.boot.common.tenant.ClientProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,8 +41,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         // TODO: 2021/5/23 changjin wei(魏昌进) 修改表结构
         RbacUserDto user = customUserDetailsDao.findUserByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
         List<RbacRoleDto> roles = customUserDetailsDao.selectRoleByUserId(user.getId());
-        List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());
-        List<RbacPermissionDto> permissions = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
+        List<RbacPermissionDto> permissions;
+        if (CollectionUtils.isEmpty(roles)) {
+            permissions = new ArrayList<RbacPermissionDto>();
+        }else{
+            List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());
+            permissions = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
+
+        }
         return UserPrincipal.create(user, roles, permissions);
     }
 }

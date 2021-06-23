@@ -36,8 +36,8 @@ public class RbacUserDto implements Serializable {
 
     /** 租户id */
     @ApiModelProperty(value = "租户id")
-    @TableField("tenant_org_id")
-    private Long tenantOrgId;
+    @TableField("rbac_org_id")
+    private Long rbacOrgId;
 
     /** 部门id */
     @ApiModelProperty(value = "部门id")
