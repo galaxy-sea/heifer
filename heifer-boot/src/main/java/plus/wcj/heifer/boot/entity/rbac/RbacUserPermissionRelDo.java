@@ -42,6 +42,11 @@ public class RbacUserPermissionRelDo implements Serializable {
     @TableField("rbac_user_id")
     private Long rbacUserId;
 
+    /** 租户id */
+    @ApiModelProperty(value = "租户id")
+    @TableField("rbac_org_id")
+    private Long rbacOrgId;
+
     /** 功能权限id */
     @ApiModelProperty(value = "功能权限id")
     @NotNull(groups = {PostValid.class}, message = "rbacPermissionId is null")

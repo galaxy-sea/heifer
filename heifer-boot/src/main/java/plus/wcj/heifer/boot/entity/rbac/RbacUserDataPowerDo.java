@@ -49,6 +49,11 @@ public class RbacUserDataPowerDo implements Serializable {
     @TableField("rbac_dept_id")
     private Long rbacDeptId;
 
+    /** 租户id */
+    @ApiModelProperty(value = "租户id")
+    @TableField("rbac_org_id")
+    private Long rbacOrgId;
+
     @NotNull(groups = {PostValid.class}, message = "createBy is null")
     @TableField("create_by")
     private Long createBy;

@@ -6,12 +6,13 @@
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacUserPermissionRelDo">
         <id column="id" property="id" />
         <result column="rbac_user_id" property="rbacUserId" />
+        <result column="rbac_org_id" property="rbacOrgId" />
         <result column="rbac_permission_id" property="rbacPermissionId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, rbac_user_id, rbac_permission_id
+        id, rbac_user_id, rbac_permission_id, rbac_org_id
     </sql>
 
 </mapper>

@@ -1,11 +1,9 @@
 package plus.wcj.heifer.boot.entity.rbac;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,6 +13,8 @@ import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -50,6 +50,11 @@ public class RbacRoleDataPowerDo implements Serializable {
     @NotNull(groups = {PostValid.class}, message = "rbacDeptId is null")
     @TableField("rbac_dept_id")
     private Long rbacDeptId;
+
+    /** 租户id */
+    @ApiModelProperty(value = "租户id")
+    @TableField("rbac_org_id")
+    private Long rbacOrgId;
 
     @NotNull(groups = {PostValid.class}, message = "createBy is null")
     @TableField("create_by")

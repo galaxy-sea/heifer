@@ -37,6 +37,11 @@ public class RbacDeptDo implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
+    /** 父节点名称 */
+    @ApiModelProperty(value = "父节点名称")
+    @TableField("parent_id")
+    private Long parentId;
+
     /** 租户id */
     @ApiModelProperty(value = "租户id")
     @NotNull(groups = {PostValid.class}, message = "rbacOrgId is null")

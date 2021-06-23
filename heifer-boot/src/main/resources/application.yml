@@ -54,7 +54,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(WALyQUsObPa17M8MI3PbKjty4Wp+u7eMZHbstE6dP6d5hLBdgK9KiDrRMk/f5ceLvEed3HW0oO2HEROHiP16NzcKY2H9gJK9BDevM2aRpdBemUrnC35WSxf1FoW9BSwW)
+    url: ENC(L8toQe28qdXvVbRCPViYlPL/A3sQcwrFDOy5sMy7ItGB1bIlPB5Blt27XMVzVlkbp0RHTfcdW/Sophry1G84bZTCyZCHDDPpoHCC/Cp6D3cUou543p3r+AiR2H0bGpX/)
     username: ENC(vLxFiSnkM5sVkZr5O+lE+KakAkXdb5KesPFTfRWHm061AFONSp5Teb7OrDQ/nIhy)
     password: ENC(tbbsGbnVkScc4qhEIyupNruL0OMj1aezdQQ8yovV6si8jcawh9NxmXY/tbQI18ek)
   redis:

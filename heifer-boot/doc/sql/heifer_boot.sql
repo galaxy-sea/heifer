@@ -1,5 +1,6 @@
 CREATE TABLE `rbac_dept` (
     `id` bigint(0) UNSIGNED NOT NULL,
+    `parent_id` bigint(0) UNSIGNED NOT NULL COMMENT '父节点名称',
     `rbac_org_id` bigint(0) UNSIGNED NOT NULL COMMENT '租户id',
     `name` varchar(50) NOT NULL COMMENT '部门名称',
     `create_by` bigint(20) UNSIGNED NOT NULL,
@@ -48,6 +49,7 @@ CREATE TABLE `rbac_role_data_power` (
     `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
     `rbac_role_id` bigint(0) UNSIGNED NOT NULL COMMENT '角色id',
     `rbac_dept_id` bigint(0) UNSIGNED NOT NULL COMMENT '部门id',
+    `rbac_org_id` bigint(0) UNSIGNED NOT NULL COMMENT '租户id',
     `create_by` bigint(20) UNSIGNED NOT NULL,
     `update_by` bigint(20) UNSIGNED NULL,
     `create_time` timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -86,6 +88,7 @@ CREATE TABLE `rbac_user_data_power` (
     `id` bigint(0) UNSIGNED NOT NULL,
     `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
     `rbac_dept_id` bigint(0) UNSIGNED NOT NULL COMMENT '部门id',
+    `rbac_org_id` bigint(0) UNSIGNED NOT NULL COMMENT '租户id',
     `create_by` bigint(20) UNSIGNED NOT NULL,
     `update_by` bigint(20) UNSIGNED NULL,
     `create_time` timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -96,6 +99,7 @@ CREATE TABLE `rbac_user_data_power` (
 CREATE TABLE `rbac_user_permission_rel` (
     `id` bigint(0) UNSIGNED NOT NULL,
     `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
+    `rbac_org_id` bigint(0) UNSIGNED NOT NULL COMMENT '租户id',
     `rbac_permission_id` bigint(0) UNSIGNED NOT NULL COMMENT '功能权限id',
     PRIMARY KEY (`id`)
 ) COMMENT = '用户功能权限表';
@@ -115,6 +119,8 @@ ALTER TABLE `rbac_role_data_power`
     ADD CONSTRAINT `a19` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
 ALTER TABLE `rbac_role_data_power`
     ADD CONSTRAINT `a20` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
+ALTER TABLE `rbac_role_data_power`
+    ADD CONSTRAINT `a22` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
 ALTER TABLE `rbac_role_permission_rel`
     ADD CONSTRAINT `a9` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
 ALTER TABLE `rbac_role_permission_rel`
@@ -127,10 +133,14 @@ ALTER TABLE `rbac_user_data_power`
     ADD CONSTRAINT `a17` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
 ALTER TABLE `rbac_user_data_power`
     ADD CONSTRAINT `a18` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
+ALTER TABLE `rbac_user_data_power`
+    ADD CONSTRAINT `a21` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
 ALTER TABLE `rbac_user_permission_rel`
     ADD CONSTRAINT `a11` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
 ALTER TABLE `rbac_user_permission_rel`
     ADD CONSTRAINT `a12` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
+ALTER TABLE `rbac_user_permission_rel`
+    ADD CONSTRAINT `a23` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
 ALTER TABLE `rbac_user_role_rel`
     ADD CONSTRAINT `a3` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
 ALTER TABLE `rbac_user_role_rel`

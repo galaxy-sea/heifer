@@ -7,6 +7,7 @@
         <id column="id" property="id" />
         <result column="rbac_role_id" property="rbacRoleId" />
         <result column="rbac_dept_id" property="rbacDeptId" />
+        <result column="rbac_org_id" property="rbacOrgId" />
         <result column="create_by" property="createBy" />
         <result column="update_by" property="updateBy" />
         <result column="create_time" property="createTime" />
@@ -15,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, rbac_role_id, rbac_dept_id, create_by, update_by, create_time, update_time
+        id, rbac_role_id, rbac_dept_id, rbac_org_id, create_by, update_by, create_time, update_time
     </sql>
 
 </mapper>
