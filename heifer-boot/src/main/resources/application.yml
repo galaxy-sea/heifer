@@ -2,9 +2,6 @@ heifer:
   client:
     id: 1
     name: 小魏的管理端
-  jasypt:
-    encryptor:
-      password: xxxxxxxx
   jwt:
     # 至少需要32个字符哦
     key: ENC(cq4oLNrwaJ07l9fK8d9Ms9m1h2jaJ3VHLKGes8CU3NwuRQNEqkzaJd6TGs5vcgvAIacFdGtJsGPxFq9jcBh471T964aT9I/2KrvKZhiDzQ4=)
@@ -35,7 +32,7 @@ heifer:
         - "/v3/api-docs/**"
 jasypt:
   encryptor:
-    password: ${heifer.jasypt.encryptor.password}
+    password: xxxxxxxxx
 server:
   port: 9090
   servlet:
@@ -106,3 +103,6 @@ spring:
 #    plus.wcj.heifer.boot.common.security: debug
 #    org.springframework.security: debug
 
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
