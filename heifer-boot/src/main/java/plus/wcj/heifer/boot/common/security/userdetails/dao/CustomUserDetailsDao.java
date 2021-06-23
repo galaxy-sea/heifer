@@ -21,6 +21,16 @@ public interface CustomUserDetailsDao {
      * @return 权限列表
      */
     List<RbacPermissionDto> selectPermissionByRoleIdList(@Param("ids") List<Long> ids);
+
+    /**
+     * 根据用户查询权限列表
+     *
+     * @param userId 用户列表
+     *
+     * @return 权限列表
+     */
+    List<RbacPermissionDto> selectPermissionByUserId(@Param("userId") Long userId);
+
     /**
      * 根据用户id 查询角色列表
      *
@@ -49,4 +59,6 @@ public interface CustomUserDetailsDao {
      * @return 用户列表
      */
     List<RbacUserDto> findUserByUsernameIn(@Param("usernameList") List<String> usernameList);
+
+
 }

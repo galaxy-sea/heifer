@@ -41,14 +41,29 @@ public class CustomUserDetailsService implements UserDetailsService {
         // TODO: 2021/5/23 changjin wei(魏昌进) 修改表结构
         RbacUserDto user = customUserDetailsDao.findUserByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
         List<RbacRoleDto> roles = customUserDetailsDao.selectRoleByUserId(user.getId());
-        List<RbacPermissionDto> permissions;
+        List<RbacPermissionDto> permissions = listPermission(roles, user.getId());
         if (CollectionUtils.isEmpty(roles)) {
             permissions = new ArrayList<RbacPermissionDto>();
-        }else{
+        } else {
             List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());
             permissions = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
-
         }
         return UserPrincipal.create(user, roles, permissions);
+    }
+
+    private List<RbacPermissionDto> listPermission(List<RbacRoleDto> roles, Long userId) {
+        List<RbacPermissionDto> allPermissions = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(roles)) {
+            List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());
+            List<RbacPermissionDto> rolePermission = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
+            if (CollectionUtils.isNotEmpty(rolePermission)) {
+                allPermissions = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
+            }
+        }
+        List<RbacPermissionDto> userPermission = customUserDetailsDao.selectPermissionByUserId(userId);
+        if (CollectionUtils.isNotEmpty(userPermission)) {
+            allPermissions.addAll(customUserDetailsDao.selectPermissionByUserId(userId));
+        }
+        return allPermissions;
     }
 }

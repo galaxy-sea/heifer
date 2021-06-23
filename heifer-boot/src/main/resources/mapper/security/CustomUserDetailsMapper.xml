@@ -29,6 +29,19 @@
         </foreach>
     </select>
 
+    <select id="selectPermissionByUserId" resultMap="PermissionBaseResultMap">
+        select DISTINCT rbac_permission.id,
+                        rbac_permission.parent_id,
+                        rbac_permission.name,
+                        rbac_permission.permission,
+                        rbac_permission.type,
+                        rbac_permission.sort
+        from rbac_permission rp
+        where exists(select 1 from rbac_user_permission_rel rupr where rp.id = rupr.rbac_permission_id and rupr.rbac_user_id = #{userId});
+    </select>
+
+
+
 
     <resultMap id="RoleBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto">
         <id column="id" property="id"/>
