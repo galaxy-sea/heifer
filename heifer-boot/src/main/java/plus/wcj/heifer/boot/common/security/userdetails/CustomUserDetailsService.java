@@ -42,12 +42,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         RbacUserDto user = customUserDetailsDao.findUserByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
         List<RbacRoleDto> roles = customUserDetailsDao.selectRoleByUserId(user.getId());
         List<RbacPermissionDto> permissions = listPermission(roles, user.getId());
-        if (CollectionUtils.isEmpty(roles)) {
-            permissions = new ArrayList<RbacPermissionDto>();
-        } else {
-            List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());
-            permissions = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
-        }
         return UserPrincipal.create(user, roles, permissions);
     }
 
@@ -62,7 +56,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         List<RbacPermissionDto> userPermission = customUserDetailsDao.selectPermissionByUserId(userId);
         if (CollectionUtils.isNotEmpty(userPermission)) {
-            allPermissions.addAll(customUserDetailsDao.selectPermissionByUserId(userId));
+            allPermissions.addAll(userPermission);
         }
         return allPermissions;
     }

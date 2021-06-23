@@ -27,6 +27,20 @@ public class SecurityController {
         return new Date();
     }
 
+    @GetMapping("testRole")
+    @ResultResponseBody
+    @PreAuthorize("hasAuthority('page:test:role')")
+    public Date testRole(){
+        return new Date();
+    }
+
+    @GetMapping("testUser")
+    @ResultResponseBody
+    @PreAuthorize("hasAuthority('page:test:user')")
+    public Date testUser(){
+        return new Date();
+    }
+
     @GetMapping("3")
     @ResultResponseBody
     @PreAuthorize("hasAuthority('page:not')")
