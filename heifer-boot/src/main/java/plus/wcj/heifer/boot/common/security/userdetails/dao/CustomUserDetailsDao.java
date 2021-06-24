@@ -20,7 +20,7 @@ public interface CustomUserDetailsDao {
      *
      * @return 权限列表
      */
-    List<RbacPermissionDto> selectPermissionByRoleIdList(@Param("ids") List<Long> ids);
+    List<RbacPermissionDto> selectPermissionByRoleIdList(@Param("roleIds") List<Long> roleIds);
 
     /**
      * 根据用户查询权限列表
@@ -51,4 +51,13 @@ public interface CustomUserDetailsDao {
      */
     Optional<RbacUserDto> findUserByUsernameOrEmailOrPhone(@Param("username") String username, @Param("email") String email, @Param("phone") String phone);
 
+    /**
+     * 根据用户名列表查询用户列表
+     *
+     * @param roleIds 角色
+     * @param userId 用户
+     *
+     * @return 可查看的部门Id
+     */
+    List<Long> selectDataPower(@Param("roleIds") List<Long> roleIds, @Param("userId") Long userId);
 }

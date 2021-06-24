@@ -41,23 +41,29 @@ public class CustomUserDetailsService implements UserDetailsService {
         // TODO: 2021/5/23 changjin wei(魏昌进) 修改表结构
         RbacUserDto user = customUserDetailsDao.findUserByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
         List<RbacRoleDto> roles = customUserDetailsDao.selectRoleByUserId(user.getId());
-        List<RbacPermissionDto> permissions = listPermission(roles, user.getId());
-        return UserPrincipal.create(user, roles, permissions);
+        List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());
+
+        List<RbacPermissionDto> permissions = listPermission(roleIds, user.getId());
+        List<Long> dataPowers = listDataPower(roleIds, user.getId());
+
+        return UserPrincipal.create(user, roles, permissions, dataPowers);
     }
 
-    private List<RbacPermissionDto> listPermission(List<RbacRoleDto> roles, Long userId) {
+    private List<Long> listDataPower(List<Long> roleIds, Long userId) {
+        return customUserDetailsDao.selectDataPower(roleIds, userId);
+    }
+
+    private List<RbacPermissionDto> listPermission(List<Long> roleIds, Long userId) {
         List<RbacPermissionDto> allPermissions = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(roles)) {
-            List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());
-            List<RbacPermissionDto> rolePermission = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
-            if (CollectionUtils.isNotEmpty(rolePermission)) {
-                allPermissions = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
-            }
+        if (CollectionUtils.isNotEmpty(roleIds)) {
+            allPermissions = customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
         }
+
         List<RbacPermissionDto> userPermission = customUserDetailsDao.selectPermissionByUserId(userId);
         if (CollectionUtils.isNotEmpty(userPermission)) {
             allPermissions.addAll(userPermission);
         }
+
         return allPermissions;
     }
 }

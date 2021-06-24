@@ -10,7 +10,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -73,8 +76,15 @@ public class UserPrincipal implements UserDetails {
      */
     private Set<? extends GrantedAuthority> authorities;
 
+    private Set<Long> dataPowers;
+
 
     public static UserPrincipal create(RbacUserDto user, List<RbacRoleDto> roles, List<RbacPermissionDto> permissions) {
+        return create(user, roles, permissions, new ArrayList<Long>());
+    }
+
+    public static UserPrincipal create(@NotNull RbacUserDto user, List<RbacRoleDto> roles, List<RbacPermissionDto> permissions, List<Long> dataPowers) {
+
         Set<String> roleNames = roles.stream().map(RbacRoleDto::getName).collect(Collectors.toSet());
 
         Set<GrantedAuthority> authorities = permissions.stream()
@@ -82,7 +92,9 @@ public class UserPrincipal implements UserDetails {
                                                        .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
                                                        .collect(Collectors.toSet());
 
-        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getIsEnabled(), roleNames, authorities);
+        Set<Long> setDataPower = new HashSet<Long>(dataPowers);
+
+        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getIsEnabled(), roleNames, authorities, setDataPower);
     }
 
     @Override

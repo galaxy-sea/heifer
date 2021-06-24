@@ -22,7 +22,7 @@
                 WHERE EXISTS(SELECT 1
                              FROM rbac_role_permission_rel rrpr
                 WHERE rrpr.rbac_role_id IN
-        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+        <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
             #{item}
         </foreach>
         AND rp.id = rrpr.rbac_permission_id)
@@ -95,5 +95,20 @@
         WHERE username = #{username}
            OR email = #{email}
            OR phone = #{phone}
+    </select>
+
+    <select id="selectDataPower" resultType="java.lang.Long">
+        SELECT rudp.rbac_dept_id
+        FROM rbac_user_data_power rudp
+        WHERE rudp.rbac_user_id = 1
+        <if test="roleIds != null and roleIds.size() != 0">
+            UNION
+            SELECT rrdp.rbac_dept_id
+            FROM rbac_role_data_power rrdp
+            WHERE rrdp.rbac_role_id IN
+            <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
     </select>
 </mapper>

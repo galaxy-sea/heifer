@@ -48,14 +48,14 @@ public class JwtUtil {
     private JwtProperties jwtProperties;
 
     public String createJwt(@NotNull UserPrincipal userPrincipal, @NotNull Boolean rememberMe) {
-        return createJwt(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities(), userPrincipal.getIsEnabled());
+        return createJwt(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities(), userPrincipal.getDataPowers(), userPrincipal.getIsEnabled());
     }
 
     public String createJwt(@NotNull Authentication authentication, @NotNull Boolean rememberMe) {
         return createJwt((UserPrincipal) authentication.getPrincipal(), rememberMe);
     }
 
-    private String createJwt(Boolean rememberMe, Long id, String subject, Set<String> roles, Collection<? extends GrantedAuthority> authorities, Boolean isEnabled) {
+    private String createJwt(Boolean rememberMe, Long id, String subject, Set<String> roles, Collection<? extends GrantedAuthority> authorities, Set<Long> dataPowers, Boolean isEnabled) {
         //创建JWS头，设置签名算法和类型
         JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256)
                 // 设置类型 ( typ ) 参数
@@ -81,9 +81,9 @@ public class JwtUtil {
                 .jwtID(id.toString())
                 .claim("roles", roles)
                 .claim("authorities", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .claim("dataPowers", dataPowers)
                 .claim("isEnabled", isEnabled)
                 .build();
-
         SignedJWT signedJwt = new SignedJWT(jwsHeader, claimsSet);
         try {
             signedJwt.sign(new MACSigner(jwtProperties.getKey()));
@@ -119,7 +119,7 @@ public class JwtUtil {
             userPrincipal.setIsEnabled(claimsSet.getBooleanClaim("isEnabled"));
             userPrincipal.setRoles(new HashSet<>(claimsSet.getStringListClaim("roles")));
             userPrincipal.setAuthorities(claimsSet.getStringListClaim("authorities").stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet()));
-
+            userPrincipal.setDataPowers(claimsSet.getStringListClaim("dataPowers").stream().map(Long::new).collect(Collectors.toSet()));
         } catch (ParseException e) {
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
