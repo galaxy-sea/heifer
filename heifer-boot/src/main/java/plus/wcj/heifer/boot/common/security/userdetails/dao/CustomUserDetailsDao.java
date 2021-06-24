@@ -51,14 +51,4 @@ public interface CustomUserDetailsDao {
      */
     Optional<RbacUserDto> findUserByUsernameOrEmailOrPhone(@Param("username") String username, @Param("email") String email, @Param("phone") String phone);
 
-    /**
-     * 根据用户名列表查询用户列表
-     *
-     * @param usernameList 用户名列表
-     *
-     * @return 用户列表
-     */
-    List<RbacUserDto> findUserByUsernameIn(@Param("usernameList") List<String> usernameList);
-
-
 }

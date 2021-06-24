@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao">
-
-    <resultMap id="PermissionBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto">
+    <resultMap id="PermissionBaseResultMap"
+               type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto">
         <id column="id" property="id" />
         <result column="parent_id" property="parentId" />
         <result column="name" property="name" />
@@ -12,75 +12,74 @@
     </resultMap>
 
     <select id="selectPermissionByRoleIdList" resultMap="PermissionBaseResultMap">
-        SELECT DISTINCT rbac_permission.id,
-                        rbac_permission.parent_id,
-                        rbac_permission.name,
-                        rbac_permission.permission,
-                        rbac_permission.type,
-                        rbac_permission.sort
-        FROM rbac_permission,
-             rbac_role,
-             rbac_role_permission_rel
-                WHERE rbac_role.id = rbac_role_permission_rel.rbac_role_id
-                  AND rbac_permission.id = rbac_role_permission_rel.rbac_permission_id
-                  AND rbac_role.id IN
-        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
-
-    <select id="selectPermissionByUserId" resultMap="PermissionBaseResultMap">
-        select DISTINCT rp.id,
+        SELECT DISTINCT rp.id,
                         rp.parent_id,
                         rp.name,
                         rp.permission,
                         rp.type,
                         rp.sort
-        from rbac_permission rp
-        where exists(select 1
-                     from rbac_user_permission_rel rupr
-                     where rp.id = rupr.rbac_permission_id and rupr.rbac_user_id = #{userId});
+        FROM rbac_permission rp
+                WHERE EXISTS(SELECT 1
+                             FROM rbac_role_permission_rel rrpr
+                WHERE rrpr.rbac_role_id IN
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND rp.id = rrpr.rbac_permission_id)
+    </select>
+
+    <select id="selectPermissionByUserId" resultMap="PermissionBaseResultMap">
+        SELECT DISTINCT rp.id,
+                        rp.parent_id,
+                        rp.name,
+                        rp.permission,
+                        rp.type,
+                        rp.sort
+        FROM rbac_permission rp
+        WHERE EXISTS(SELECT 1
+                     FROM rbac_user_permission_rel rupr
+                     WHERE rp.id = rupr.rbac_permission_id
+                       AND rupr.rbac_user_id = #{userId}
+                      )
     </select>
 
 
-
-
     <resultMap id="RoleBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto">
-        <id column="id" property="id"/>
-        <result column="rbac_org_id" property="rbacOrgId"/>
-        <result column="name" property="name"/>
+        <id column="id" property="id" />
+        <result column="rbac_org_id" property="rbacOrgId" />
+        <result column="name" property="name" />
     </resultMap>
 
     <select id="selectRoleByUserId" resultMap="RoleBaseResultMap">
-        SELECT rbac_role.id,
-               rbac_role.rbac_org_id,
-               rbac_role.name
-        FROM rbac_role,
-             rbac_user,
-             rbac_user_role_rel
-        WHERE rbac_user.id = rbac_user_role_rel.rbac_user_id
-          AND rbac_role.id = rbac_user_role_rel.rbac_role_id
-          AND rbac_user.id = #{userId}
+        SELECT rr.id,
+               rr.rbac_org_id,
+               rr.name
+        FROM rbac_role rr
+        WHERE EXISTS(SELECT 1
+                     FROM rbac_user_role_rel rurr
+                     WHERE rr.id = rurr.rbac_role_id
+                       AND rurr.rbac_user_id = #{userId}
+                      )
     </select>
 
 
     <resultMap id="UserBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto">
-        <id column="id" property="id"/>
-        <result column="rbac_org_id" property="rbacOrgId"/>
-        <result column="rbac_dept_id" property="rbacDeptId"/>
-        <result column="username" property="username"/>
-        <result column="phone" property="phone"/>
-        <result column="email" property="email"/>
-        <result column="password" property="password"/>
-        <result column="nickname" property="nickname"/>
-        <result column="is_account_non_expired" property="isAccountNonExpired"/>
-        <result column="is_account_non_locked" property="isAccountNonLocked"/>
-        <result column="is_credentials_non_expired" property="isCredentialsNonExpired"/>
-        <result column="is_enabled" property="isEnabled"/>
+        <id column="id" property="id" />
+        <result column="rbac_org_id" property="rbacOrgId" />
+        <result column="rbac_dept_id" property="rbacDeptId" />
+        <result column="username" property="username" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="password" property="password" />
+        <result column="nickname" property="nickname" />
+        <result column="is_account_non_expired" property="isAccountNonExpired" />
+        <result column="is_account_non_locked" property="isAccountNonLocked" />
+        <result column="is_credentials_non_expired" property="isCredentialsNonExpired" />
+        <result column="is_enabled" property="isEnabled" />
     </resultMap>
 
     <select id="findUserByUsernameOrEmailOrPhone" resultMap="UserBaseResultMap">
-        select rbac_user.id,
+        SELECT rbac_user.id,
                rbac_user.rbac_org_id,
                rbac_user.rbac_dept_id,
                rbac_user.username,
@@ -92,29 +91,9 @@
                rbac_user.is_account_non_locked,
                rbac_user.is_credentials_non_expired,
                rbac_user.is_enabled
-        from rbac_user
-        where username = #{username}
-           or email = #{email}
-           or phone = #{phone}
-    </select>
-
-    <select id="findUserByUsernameIn" resultMap="UserBaseResultMap">
-        select rbac_user.id,
-               rbac_user.rbac_org_id,
-               rbac_user.rbac_dept_id,
-               rbac_user.username,
-               rbac_user.phone,
-               rbac_user.email,
-               rbac_user.password,
-               rbac_user.nickname,
-               rbac_user.is_account_non_expired,
-               rbac_user.is_account_non_locked,
-               rbac_user.is_credentials_non_expired,
-               rbac_user.is_enabled
-        from rbac_user
-                where username in
-        <foreach collection="usernameList" item="username" index="index" open="(" close=")" separator=",">
-            #{username}
-        </foreach>
+        FROM rbac_user
+        WHERE username = #{username}
+           OR email = #{email}
+           OR phone = #{phone}
     </select>
 </mapper>
