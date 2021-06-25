@@ -119,7 +119,7 @@ public class JwtUtil {
             userPrincipal.setIsEnabled(claimsSet.getBooleanClaim("isEnabled"));
             userPrincipal.setRoles(new HashSet<>(claimsSet.getStringListClaim("roles")));
             userPrincipal.setAuthorities(claimsSet.getStringListClaim("authorities").stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet()));
-            userPrincipal.setDataPowers(claimsSet.getStringListClaim("dataPowers").stream().map(Long::new).collect(Collectors.toSet()));
+            userPrincipal.setDataPowers(new HashSet((Collection) claimsSet.getClaim("dataPowers")));
         } catch (ParseException e) {
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }

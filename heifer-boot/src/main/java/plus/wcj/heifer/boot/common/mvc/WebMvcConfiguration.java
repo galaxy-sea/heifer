@@ -7,6 +7,7 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import plus.wcj.heifer.boot.common.mvc.resolver.tenant.TenantMethodArgumentResolver;
+import plus.wcj.heifer.boot.common.mvc.resolver.user.UserMethodArgumentResolver;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer, WebMvcRegistration
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new TenantMethodArgumentResolver());
+        argumentResolvers.add(new UserMethodArgumentResolver());
     }
 
 
