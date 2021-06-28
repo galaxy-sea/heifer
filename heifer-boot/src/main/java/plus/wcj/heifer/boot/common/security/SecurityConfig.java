@@ -18,7 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
-import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService;
+import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsServiceImpl;
 
 /**
  * <p>
@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AccessDeniedHandler accessDeniedHandler;
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -69,16 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
         impl.setPasswordEncoder(encoder());
-        impl.setUserDetailsService(customUserDetailsService);
-        // impl.setUserDetailsPasswordService();
-        // impl.setForcePrincipalAsString();
-        // impl.setHideUserNotFoundExceptions(false);
-        // impl.setMessageSource();
+        impl.setUserDetailsService(customUserDetailsServiceImpl);
+
         // TODO: 2021/6/6 changjin wei(魏昌进) 需要缓存啊
-        // impl.setUserCache();
-        // impl.setPreAuthenticationChecks();
-        // impl.setPostAuthenticationChecks();
-        // impl.setAuthoritiesMapper();
+
         return impl;
     }
 
@@ -126,7 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) {
-         web.ignoring()
+        web.ignoring()
            .antMatchers(HttpMethod.GET, ignoreProperties.getGet())
            .antMatchers(HttpMethod.POST, ignoreProperties.getPost())
            .antMatchers(HttpMethod.DELETE, ignoreProperties.getDelete())

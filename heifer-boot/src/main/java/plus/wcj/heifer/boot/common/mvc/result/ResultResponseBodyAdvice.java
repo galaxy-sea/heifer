@@ -313,9 +313,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
      * body, headers, and status.
      */
     protected ResponseEntity<Result<?>> handleExceptionInternal(Exception ex, Result<?> body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        // if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
-        //     request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
-        // }
+        // TODO: 2021/6/28 changjin wei(魏昌进) 可以增加一些通用逻辑
         return new ResponseEntity<>(body, headers, status);
     }
 

@@ -8,9 +8,11 @@ import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 
 import java.util.Date;
 
+/**
+ * @author changjin wei(魏昌进)
+ */
 @RestController
 @RequestMapping("security")
-// @PreAuthorize("hasAuthority('page:not')")
 public class SecurityController {
 
     @GetMapping("1")

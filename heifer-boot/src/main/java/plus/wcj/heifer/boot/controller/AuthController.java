@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import plus.wcj.heifer.boot.common.security.JwtUtil;
 import plus.wcj.heifer.boot.common.security.dto.JwtResponse;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
-import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService;
+import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsServiceImpl;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 import plus.wcj.heifer.boot.service.rbac.RbacUserService;
 
@@ -43,7 +43,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RbacUserService rbacUserService;
-    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -70,7 +70,7 @@ public class AuthController {
      */
     @PostMapping("/login/test")
     public JwtResponse login() throws JOSEException {
-        UserPrincipal admin = (UserPrincipal) customUserDetailsService.loadUserByUsername("admin");
+        UserPrincipal admin = (UserPrincipal) customUserDetailsServiceImpl.loadUserByUsername("admin");
         String jwt = jwtUtil.createJwt(admin, true);
         return new JwtResponse(jwt);
     }

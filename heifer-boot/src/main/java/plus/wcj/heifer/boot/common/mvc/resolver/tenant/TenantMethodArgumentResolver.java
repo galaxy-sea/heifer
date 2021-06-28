@@ -1,13 +1,16 @@
 package plus.wcj.heifer.boot.common.mvc.resolver.tenant;
 
 import org.springframework.core.MethodParameter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+import plus.wcj.heifer.boot.common.exception.ResultException;
+import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author changjin wei(魏昌进)
@@ -18,16 +21,25 @@ public class TenantMethodArgumentResolver implements HandlerMethodArgumentResolv
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(TenantId.class);
+        return Tenant.class.isAssignableFrom(parameter.getParameterType());
     }
 
-    // TODO: 2021/4/25 changjin wei(魏昌进) 多租户未开发
-
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-        String todo = request.getHeader("TODO");
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+        UserPrincipal userDetails = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return "TODO  MyMethodArgumentResolver";
+        if (userDetails == null) {
+            throw new ResultException(ResultStatus.UNAUTHORIZED);
+        }
+
+        Tenant tenant = new Tenant().setUserId(userDetails.getId())
+                                    .setUsername(userDetails.getUsername())
+                                    .setOrgId(userDetails.getOrgId())
+                                    .setDeptId(userDetails.getDeptId())
+                                    .setDataPowers(userDetails.getDataPowers());
+        // .authority(userDetails.getAuthorities())
+        // TODO: 2021/6/28 changjin wei(魏昌进) 考虑是否可以增加Authorities
+
+        return tenant;
     }
 }

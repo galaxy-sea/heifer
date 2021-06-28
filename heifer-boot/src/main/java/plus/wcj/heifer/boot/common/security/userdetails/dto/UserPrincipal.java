@@ -30,52 +30,40 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserPrincipal implements UserDetails {
-    /**
-     * 主键
-     */
+    /** 主键 */
     private Long id;
 
-    /**
-     * 用户名
-     */
+    /** 用户名 */
     private String username;
 
-    /**
-     * 密码
-     */
+    /** 密码 */
     @JsonIgnore
     private String password;
 
-    /**
-     * 昵称
-     */
+    /** 昵称 */
     private String nickname;
 
-    /**
-     * 手机
-     */
+    /** 手机 */
     private String phone;
 
-    /**
-     * 邮箱
-     */
+    /** 邮箱 */
     private String email;
 
-    /**
-     * 状态，启用-1，禁用-0
-     */
+    /** 状态，启用-1，禁用-0 */
     private Boolean isEnabled;
 
-    /**
-     * 用户角色列表
-     */
+    /** 组织id */
+    private Long orgId;
+
+    /** 部门id */
+    private Long deptId;
+
+    /** 用户角色列表 */
     private Set<String> roles;
 
-    /**
-     * 用户权限列表
-     */
+    /** 功能权限 */
     private Set<? extends GrantedAuthority> authorities;
-
+    /** 数据权限 */
     private Set<Long> dataPowers;
 
 
@@ -94,7 +82,7 @@ public class UserPrincipal implements UserDetails {
 
         Set<Long> setDataPower = new HashSet<Long>(dataPowers);
 
-        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getIsEnabled(), roleNames, authorities, setDataPower);
+        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getIsEnabled(), null, null, roleNames, authorities, setDataPower);
     }
 
     @Override

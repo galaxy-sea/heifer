@@ -28,7 +28,6 @@ import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -44,19 +43,21 @@ import java.util.stream.Collectors;
 @Slf4j
 public class JwtUtil {
 
+    public static final String ROLES = "roles";
+    public static final String AUTHORITIES = "authorities";
+    public static final String DATA_POWERS = "dataPowers";
+    public static final String IS_ENABLED = "isEnabled";
+    public static final String DEPT_ID = "deptId";
+    public static final String ORG_ID = "orgId";
+    public static final String BEARER = "Bearer ";
+
+    public static final Long MAX_CLOCK_SKEW_SECONDS = 60L;
     @Autowired
     private JwtProperties jwtProperties;
 
     public String createJwt(@NotNull UserPrincipal userPrincipal, @NotNull Boolean rememberMe) {
-        return createJwt(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities(), userPrincipal.getDataPowers(), userPrincipal.getIsEnabled());
-    }
 
-    public String createJwt(@NotNull Authentication authentication, @NotNull Boolean rememberMe) {
-        return createJwt((UserPrincipal) authentication.getPrincipal(), rememberMe);
-    }
-
-    private String createJwt(Boolean rememberMe, Long id, String subject, Set<String> roles, Collection<? extends GrantedAuthority> authorities, Set<Long> dataPowers, Boolean isEnabled) {
-        //创建JWS头，设置签名算法和类型
+        // 创建JWS头，设置签名算法和类型
         JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256)
                 // 设置类型 ( typ ) 参数
                 .type(JOSEObjectType.JWT)
@@ -68,7 +69,7 @@ public class JwtUtil {
                 // iss – 发行人声明
                 .issuer("iss")
                 //sub – 主题声明
-                .subject(subject)
+                .subject(userPrincipal.getUsername())
                 // aud – 受众声明
                 .audience("aud")
                 // exp – 过期时间
@@ -78,12 +79,15 @@ public class JwtUtil {
                 // iat – 发出的声明
                 .issueTime(new Date())
                 // jti – JWT ID 声明
-                .jwtID(id.toString())
-                .claim("roles", roles)
-                .claim("authorities", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .claim("dataPowers", dataPowers)
-                .claim("isEnabled", isEnabled)
+                .jwtID(userPrincipal.getId().toString())
+                .claim(ROLES, userPrincipal.getRoles())
+                .claim(AUTHORITIES, userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .claim(DATA_POWERS, userPrincipal.getDataPowers())
+                .claim(IS_ENABLED, userPrincipal.getIsEnabled())
+                .claim(DEPT_ID, userPrincipal.getDeptId())
+                .claim(ORG_ID, userPrincipal.getOrgId())
                 .build();
+
         SignedJWT signedJwt = new SignedJWT(jwsHeader, claimsSet);
         try {
             signedJwt.sign(new MACSigner(jwtProperties.getKey()));
@@ -92,6 +96,12 @@ public class JwtUtil {
         }
 
         return signedJwt.serialize();
+
+
+    }
+
+    public String createJwt(@NotNull Authentication authentication, @NotNull Boolean rememberMe) {
+        return createJwt((UserPrincipal) authentication.getPrincipal(), rememberMe);
     }
 
 
@@ -106,20 +116,19 @@ public class JwtUtil {
 
 
     public UserPrincipal getUserPrincipal(@NotEmpty String authorization) {
-        String jwt = authorization.startsWith("Bearer ") ? authorization.substring("Bearer ".length()) : authorization;
+        String jwt = authorization.startsWith(BEARER) ? authorization.substring("Bearer ".length()) : authorization;
         JWTClaimsSet claimsSet = this.parseJwt(jwt);
         UserPrincipal userPrincipal = new UserPrincipal();
         userPrincipal.setId(Long.valueOf(claimsSet.getJWTID()));
         userPrincipal.setUsername(claimsSet.getSubject());
-        // userPrincipal.setPassword();
-        // userPrincipal.setNickname();
-        // userPrincipal.setPhone();
-        // userPrincipal.setEmail();
+
         try {
-            userPrincipal.setIsEnabled(claimsSet.getBooleanClaim("isEnabled"));
-            userPrincipal.setRoles(new HashSet<>(claimsSet.getStringListClaim("roles")));
-            userPrincipal.setAuthorities(claimsSet.getStringListClaim("authorities").stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet()));
-            userPrincipal.setDataPowers(new HashSet((Collection) claimsSet.getClaim("dataPowers")));
+            userPrincipal.setDeptId(claimsSet.getLongClaim(DEPT_ID));
+            userPrincipal.setOrgId(claimsSet.getLongClaim(ORG_ID));
+            userPrincipal.setIsEnabled(claimsSet.getBooleanClaim(IS_ENABLED));
+            userPrincipal.setRoles(new HashSet<>(claimsSet.getStringListClaim(ROLES)));
+            userPrincipal.setAuthorities(claimsSet.getStringListClaim(AUTHORITIES).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet()));
+            userPrincipal.setDataPowers(new HashSet<>((Collection<Long>) claimsSet.getClaim(DATA_POWERS)));
         } catch (ParseException e) {
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
@@ -153,12 +162,12 @@ public class JwtUtil {
         final Date now = new Date();
         final Date exp = claimsSet.getExpirationTime();
 
-        if (exp == null || !DateUtils.isAfter(exp, now, 60)) {
+        if (exp == null || !DateUtils.isAfter(exp, now, MAX_CLOCK_SKEW_SECONDS)) {
             throw new ResultException(ResultStatus.EXPIRED_TOKEN);
         }
 
         final Date nbf = claimsSet.getNotBeforeTime();
-        if (nbf == null || !DateUtils.isBefore(nbf, now, 60)) {
+        if (nbf == null || !DateUtils.isBefore(nbf, now, MAX_CLOCK_SKEW_SECONDS)) {
             throw new ResultException(ResultStatus.TOKEN_BEFORE_USE_TIME);
         }
     }
