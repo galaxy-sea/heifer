@@ -29,7 +29,7 @@ import java.util.function.Function;
  * @author hubin
  * @since 2018-06-23
  */
-@SuppressWarnings({"unchecked","unused"})
+@SuppressWarnings({"unused", "AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc"})
 public interface IService<T> {
 
     /**

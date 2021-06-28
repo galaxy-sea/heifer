@@ -1,9 +1,8 @@
 package plus.wcj.heifer.boot.common.security.userdetails;
 
 
+import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +12,6 @@ import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
-import plus.wcj.heifer.boot.common.tenant.ClientProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +26,14 @@ import java.util.stream.Collectors;
  * @date Created in 2018-12-10 10:29
  */
 @Service
-@EnableConfigurationProperties(ClientProperties.class)
-public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
-    private CustomUserDetailsDao customUserDetailsDao;
-    @Autowired
-    private ClientProperties clientProperties;
+@AllArgsConstructor
+public class CustomUserDetailsServiceImpl implements UserDetailsService {
+    private final CustomUserDetailsDao customUserDetailsDao;
 
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmailOrPhone) throws UsernameNotFoundException {
-        // TODO: 2021/5/23 changjin wei(魏昌进) 修改表结构
+        // TODO: 2021/5/23 changjin wei(魏昌进) 修改表结构 增加部分参数
         RbacUserDto user = customUserDetailsDao.findUserByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
         List<RbacRoleDto> roles = customUserDetailsDao.selectRoleByUserId(user.getId());
         List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());

@@ -1,5 +1,7 @@
 package plus.wcj.heifer.boot.common.mvc.resolver.tenant;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,6 +15,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Deprecated
 public @interface TenantId {
 
 }

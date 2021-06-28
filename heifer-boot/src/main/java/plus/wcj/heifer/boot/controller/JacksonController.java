@@ -1,6 +1,5 @@
 package plus.wcj.heifer.boot.controller;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import lombok.Data;
@@ -13,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author changjin wei(魏昌进)
+ */
 @RestController
 @RequestMapping("jackson")
 public class JacksonController {
