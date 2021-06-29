@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.security;
+package plus.wcj.heifer.boot.common.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -17,6 +17,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import plus.wcj.heifer.boot.common.exception.ResultException;
+import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.security.config.bean.JwtAuthenticationEntryPoint;
+import plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter;
 import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
 import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsServiceImpl;
 
@@ -35,9 +39,6 @@ import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IgnoreProperties ignoreProperties;
-
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
 
     @Autowired
     private CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
@@ -106,7 +107,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // 异常处理
             .and().exceptionHandling()
             .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-            .accessDeniedHandler(accessDeniedHandler);
+            .accessDeniedHandler((request, response, accessDeniedException) -> {
+                throw new ResultException(ResultStatus.FORBIDDEN);
+            });
         // @formatter:on
 
         // 添加自定义 JWT 过滤器

@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.security;
+package plus.wcj.heifer.boot.common.security.jwt;
 
 
 import com.nimbusds.jose.JOSEException;

@@ -54,24 +54,24 @@ spring:
     url: ENC(WALyQUsObPa17M8MI3PbKjty4Wp+u7eMZHbstE6dP6d5hLBdgK9KiDrRMk/f5ceLvEed3HW0oO2HEROHiP16NzcKY2H9gJK9BDevM2aRpdBemUrnC35WSxf1FoW9BSwW)
     username: ENC(vLxFiSnkM5sVkZr5O+lE+KakAkXdb5KesPFTfRWHm061AFONSp5Teb7OrDQ/nIhy)
     password: ENC(tbbsGbnVkScc4qhEIyupNruL0OMj1aezdQQ8yovV6si8jcawh9NxmXY/tbQI18ek)
-  redis:
-    host: ENC(GQUVUG7oJgQuAx+ZgW8IY7jaDAr0lUjA4U/OUPNaHYzBUWSlpn5xG6xHtFWTlCMK)
-    password: ENC(3O0bUjnbXwrA3PSf1CdkDoPFyi4PRsFKzjR24931rb8lTjVpmGyjy329uw1s7p+X)
-    port: 6379
-    # 连接超时时间（记得添加单位，Duration）
-    timeout: 10000ms
-    # Redis默认情况下有16个分片，这里配置具体使用的分片
-    # database: 0
-    lettuce:
-      pool:
-        # 连接池最大连接数（使用负值表示没有限制） 默认 8
-        max-active: 8
-        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
-        max-wait: -1ms
-        # 连接池中的最大空闲连接 默认 8
-        max-idle: 8
-        # 连接池中的最小空闲连接 默认 0
-        min-idle: 0
+#  redis:
+#    host: ENC(GQUVUG7oJgQuAx+ZgW8IY7jaDAr0lUjA4U/OUPNaHYzBUWSlpn5xG6xHtFWTlCMK)
+#    password: ENC(3O0bUjnbXwrA3PSf1CdkDoPFyi4PRsFKzjR24931rb8lTjVpmGyjy329uw1s7p+X)
+#    port: 6379
+#    # 连接超时时间（记得添加单位，Duration）
+#    timeout: 10000ms
+#    # Redis默认情况下有16个分片，这里配置具体使用的分片
+#    # database: 0
+#    lettuce:
+#      pool:
+#        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+#        max-active: 8
+#        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+#        max-wait: -1ms
+#        # 连接池中的最大空闲连接 默认 8
+#        max-idle: 8
+#        # 连接池中的最小空闲连接 默认 0
+#        min-idle: 0
   mvc:
     format:
       date: yyyy-MM-dd HH:mm:ss

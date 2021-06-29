@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import plus.wcj.heifer.boot.common.security.JwtUtil;
+import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.dto.JwtResponse;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
 import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsServiceImpl;

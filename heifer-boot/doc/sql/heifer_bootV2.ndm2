@@ -280,7 +280,7 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a25",
+                "name": "a15",
                 "fields": [
                   "rbac_user_id"
                 ],
@@ -297,7 +297,7 @@
               },
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a26",
+                "name": "a16",
                 "fields": [
                   "rbac_dept_id"
                 ],
@@ -578,7 +578,7 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a24",
+                "name": "a14",
                 "fields": [
                   "rbac_user_id"
                 ],
@@ -925,7 +925,7 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a15",
+                "name": "a9",
                 "fields": [
                   "rbac_org_id"
                 ],
@@ -1862,360 +1862,6 @@
           },
           {
             "objectType": "Table_MYSQL",
-            "name": "tbac_user_manage",
-            "comment": "用户是否拥有全部数据权限和功能权限",
-            "engine": "",
-            "characterSet": "",
-            "collation": "",
-            "autoIncrement": 0,
-            "tablespace": "",
-            "storage": "",
-            "insertMethod": "",
-            "connection": "",
-            "checksum": false,
-            "rowFormat": "",
-            "avgRowLength": 0,
-            "maxRows": 0,
-            "minRows": 0,
-            "keyBlockSize": 0,
-            "packKeys": "",
-            "delayKeyWrite": false,
-            "dataDirectory": "",
-            "indexDirectory": "",
-            "statsAutoRecalc": "",
-            "statsPersistent": "",
-            "statsSamplePages": 0,
-            "union": "",
-            "pageCheckSum": false,
-            "transactional": false,
-            "compression": "",
-            "oldName": "",
-            "encryption": false,
-            "createOptions": "",
-            "createTime": "",
-            "checkTime": "",
-            "dataFree": 0,
-            "dataLength": 0,
-            "indexLength": 0,
-            "maxDataLength": 0,
-            "rows": 0,
-            "updateTime": "",
-            "DDL": "",
-            "partitionBy": "",
-            "partitionByExpr": "",
-            "partitions": 0,
-            "partitionKeyAlgorithm": "",
-            "subPartitionBy": "",
-            "subPartitionByExpr": "",
-            "subPartitions": 0,
-            "subPartitionKeyAlgorithm": "",
-            "fields": [
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "主键id",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "rbac_user_id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "用户id",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "rbac_user_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "is_all_power",
-                "type": "bit",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "0",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "全部数据权限，T全部，F部分",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "is_all_power"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "is_all_permission",
-                "type": "bit",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "0",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "全部功能权限，T全部，F部分",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "is_all_permission"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_time",
-                "type": "timestamp",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "CURRENT_TIMESTAMP",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_time"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_by",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_by"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "update_time",
-                "type": "timestamp",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": true,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "update_time"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "update_by",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "update_by"
-              }
-            ],
-            "indexes": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_MYSQL",
-              "name": "",
-              "fields": [
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "id",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                }
-              ],
-              "oldName": "",
-              "indexMethod": "",
-              "comment": ""
-            },
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a27",
-                "fields": [
-                  "rbac_user_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "rbac_user",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "OneAndOnlyOneRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              }
-            ],
-            "triggers": [],
-            "tablePartitions": []
-          },
-          {
-            "objectType": "Table_MYSQL",
             "name": "rbac_user",
             "comment": "用户表",
             "engine": "",
@@ -2972,7 +2618,7 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a17",
+                "name": "a10",
                 "fields": [
                   "rbac_dept_id"
                 ],
@@ -2989,7 +2635,7 @@
               },
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a18",
+                "name": "a11",
                 "fields": [
                   "rbac_user_id"
                 ],
@@ -3223,7 +2869,7 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a19",
+                "name": "a12",
                 "fields": [
                   "rbac_role_id"
                 ],
@@ -3240,263 +2886,12 @@
               },
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a20",
+                "name": "a13",
                 "fields": [
                   "rbac_dept_id"
                 ],
                 "referenceSchema": "Default",
                 "referenceTable": "rbac_dept",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              }
-            ],
-            "triggers": [],
-            "tablePartitions": []
-          },
-          {
-            "objectType": "Table_MYSQL",
-            "name": "rbac_user_authority",
-            "comment": "用户拥有功能权限表",
-            "engine": "",
-            "characterSet": "",
-            "collation": "",
-            "autoIncrement": 0,
-            "tablespace": "",
-            "storage": "",
-            "insertMethod": "",
-            "connection": "",
-            "checksum": false,
-            "rowFormat": "",
-            "avgRowLength": 0,
-            "maxRows": 0,
-            "minRows": 0,
-            "keyBlockSize": 0,
-            "packKeys": "",
-            "delayKeyWrite": false,
-            "dataDirectory": "",
-            "indexDirectory": "",
-            "statsAutoRecalc": "",
-            "statsPersistent": "",
-            "statsSamplePages": 0,
-            "union": "",
-            "pageCheckSum": false,
-            "transactional": false,
-            "compression": "",
-            "oldName": "",
-            "encryption": false,
-            "createOptions": "",
-            "createTime": "",
-            "checkTime": "",
-            "dataFree": 0,
-            "dataLength": 0,
-            "indexLength": 0,
-            "maxDataLength": 0,
-            "rows": 0,
-            "updateTime": "",
-            "DDL": "",
-            "partitionBy": "",
-            "partitionByExpr": "",
-            "partitions": 0,
-            "partitionKeyAlgorithm": "",
-            "subPartitionBy": "",
-            "subPartitionByExpr": "",
-            "subPartitions": 0,
-            "subPartitionKeyAlgorithm": "",
-            "fields": [
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "rbac_user_id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "用户id",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "rbac_user_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "rbac_permission_id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "功能权限id",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "rbac_permission_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_time",
-                "type": "timestamp",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "CURRENT_TIMESTAMP",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_time"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_by",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_by"
-              }
-            ],
-            "indexes": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_MYSQL",
-              "name": "",
-              "fields": [
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "id",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                }
-              ],
-              "oldName": "",
-              "indexMethod": "",
-              "comment": ""
-            },
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a11",
-                "fields": [
-                  "rbac_user_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "rbac_user",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a12",
-                "fields": [
-                  "rbac_permission_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "rbac_permission",
                 "referenceFields": [
                   "id"
                 ],
@@ -3732,7 +3127,7 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a9",
+                "name": "a5",
                 "fields": [
                   "rbac_role_id"
                 ],
@@ -3749,7 +3144,7 @@
               },
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a10",
+                "name": "a6",
                 "fields": [
                   "rbac_permission_id"
                 ],
@@ -4018,6 +3413,883 @@
             ],
             "triggers": [],
             "tablePartitions": []
+          },
+          {
+            "objectType": "Table_MYSQL",
+            "name": "rbac_user_manage",
+            "comment": "用户是否拥有全部数据权限和功能权限",
+            "engine": "",
+            "characterSet": "",
+            "collation": "",
+            "autoIncrement": 0,
+            "tablespace": "",
+            "storage": "",
+            "insertMethod": "",
+            "connection": "",
+            "checksum": false,
+            "rowFormat": "",
+            "avgRowLength": 0,
+            "maxRows": 0,
+            "minRows": 0,
+            "keyBlockSize": 0,
+            "packKeys": "",
+            "delayKeyWrite": false,
+            "dataDirectory": "",
+            "indexDirectory": "",
+            "statsAutoRecalc": "",
+            "statsPersistent": "",
+            "statsSamplePages": 0,
+            "union": "",
+            "pageCheckSum": false,
+            "transactional": false,
+            "compression": "",
+            "oldName": "",
+            "encryption": false,
+            "createOptions": "",
+            "createTime": "",
+            "checkTime": "",
+            "dataFree": 0,
+            "dataLength": 0,
+            "indexLength": 0,
+            "maxDataLength": 0,
+            "rows": 0,
+            "updateTime": "",
+            "DDL": "",
+            "partitionBy": "",
+            "partitionByExpr": "",
+            "partitions": 0,
+            "partitionKeyAlgorithm": "",
+            "subPartitionBy": "",
+            "subPartitionByExpr": "",
+            "subPartitions": 0,
+            "subPartitionKeyAlgorithm": "",
+            "fields": [
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "主键id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "rbac_user_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "用户id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "rbac_user_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "is_all_power",
+                "type": "bit",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "全部数据权限，T全部，F部分",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "is_all_power"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "is_all_permission",
+                "type": "bit",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "0",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "全部功能权限，T全部，F部分",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "is_all_permission"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_time",
+                "type": "timestamp",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_by",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_by"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "update_time",
+                "type": "timestamp",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": true,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "update_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "update_by",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "update_by"
+              }
+            ],
+            "indexes": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_MYSQL",
+              "name": "",
+              "fields": [
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "id",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                }
+              ],
+              "oldName": "",
+              "indexMethod": "",
+              "comment": ""
+            },
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a17",
+                "fields": [
+                  "rbac_user_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "rbac_user",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "OneAndOnlyOneRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              }
+            ],
+            "triggers": [],
+            "tablePartitions": []
+          },
+          {
+            "objectType": "Table_MYSQL",
+            "name": "rbac_user_authority",
+            "comment": "用户拥有功能权限表",
+            "engine": "",
+            "characterSet": "",
+            "collation": "",
+            "autoIncrement": 0,
+            "tablespace": "",
+            "storage": "",
+            "insertMethod": "",
+            "connection": "",
+            "checksum": false,
+            "rowFormat": "",
+            "avgRowLength": 0,
+            "maxRows": 0,
+            "minRows": 0,
+            "keyBlockSize": 0,
+            "packKeys": "",
+            "delayKeyWrite": false,
+            "dataDirectory": "",
+            "indexDirectory": "",
+            "statsAutoRecalc": "",
+            "statsPersistent": "",
+            "statsSamplePages": 0,
+            "union": "",
+            "pageCheckSum": false,
+            "transactional": false,
+            "compression": "",
+            "oldName": "",
+            "encryption": false,
+            "createOptions": "",
+            "createTime": "",
+            "checkTime": "",
+            "dataFree": 0,
+            "dataLength": 0,
+            "indexLength": 0,
+            "maxDataLength": 0,
+            "rows": 0,
+            "updateTime": "",
+            "DDL": "",
+            "partitionBy": "",
+            "partitionByExpr": "",
+            "partitions": 0,
+            "partitionKeyAlgorithm": "",
+            "subPartitionBy": "",
+            "subPartitionByExpr": "",
+            "subPartitions": 0,
+            "subPartitionKeyAlgorithm": "",
+            "fields": [
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "rbac_user_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "用户id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "rbac_user_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "rbac_permission_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "功能权限id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "rbac_permission_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_time",
+                "type": "timestamp",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_by",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_by"
+              }
+            ],
+            "indexes": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_MYSQL",
+              "name": "",
+              "fields": [
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "id",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                }
+              ],
+              "oldName": "",
+              "indexMethod": "",
+              "comment": ""
+            },
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a7",
+                "fields": [
+                  "rbac_user_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "rbac_user",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a8",
+                "fields": [
+                  "rbac_permission_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "rbac_permission",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              }
+            ],
+            "triggers": [],
+            "tablePartitions": []
+          },
+          {
+            "objectType": "Table_MYSQL",
+            "name": "rbac_org_authority",
+            "comment": "租户拥有的权限",
+            "engine": "",
+            "characterSet": "",
+            "collation": "",
+            "autoIncrement": 0,
+            "tablespace": "",
+            "storage": "",
+            "insertMethod": "",
+            "connection": "",
+            "checksum": false,
+            "rowFormat": "",
+            "avgRowLength": 0,
+            "maxRows": 0,
+            "minRows": 0,
+            "keyBlockSize": 0,
+            "packKeys": "",
+            "delayKeyWrite": false,
+            "dataDirectory": "",
+            "indexDirectory": "",
+            "statsAutoRecalc": "",
+            "statsPersistent": "",
+            "statsSamplePages": 0,
+            "union": "",
+            "pageCheckSum": false,
+            "transactional": false,
+            "compression": "",
+            "oldName": "",
+            "encryption": false,
+            "createOptions": "",
+            "createTime": "",
+            "checkTime": "",
+            "dataFree": 0,
+            "dataLength": 0,
+            "indexLength": 0,
+            "maxDataLength": 0,
+            "rows": 0,
+            "updateTime": "",
+            "DDL": "",
+            "partitionBy": "",
+            "partitionByExpr": "",
+            "partitions": 0,
+            "partitionKeyAlgorithm": "",
+            "subPartitionBy": "",
+            "subPartitionByExpr": "",
+            "subPartitions": 0,
+            "subPartitionKeyAlgorithm": "",
+            "fields": [
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "rbac_org_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "组织id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "rbac_org_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "rbac_permission_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "功能权限id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "rbac_permission_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_time",
+                "type": "timestamp",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_by",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_by"
+              }
+            ],
+            "indexes": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_MYSQL",
+              "name": "",
+              "fields": [
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "id",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                }
+              ],
+              "oldName": "",
+              "indexMethod": "",
+              "comment": ""
+            },
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a18",
+                "fields": [
+                  "rbac_org_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "rbac_org",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a19",
+                "fields": [
+                  "rbac_permission_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "rbac_permission",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              }
+            ],
+            "triggers": [],
+            "tablePartitions": []
           }
         ],
         "views": []
@@ -4027,8 +4299,8 @@
   "diagrams": [
     {
       "name": "Diagram 1",
-      "paperWidth": 5,
-      "paperHeight": 2,
+      "paperWidth": 6,
+      "paperHeight": 3,
       "tableFont": "Arial Unicode MS",
       "tableFontSize": 14,
       "isBalckWhite": false,
@@ -4043,7 +4315,7 @@
           "schemaName": "Default",
           "tableName": "rbac_user",
           "x": 210,
-          "y": 1020,
+          "y": 1220,
           "width": 639,
           "height": 387,
           "isBold": false,
@@ -4058,8 +4330,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_role",
-          "x": 1320,
-          "y": 420,
+          "x": 1230,
+          "y": 1120,
           "width": 273,
           "height": 219,
           "isBold": false,
@@ -4074,8 +4346,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_user_role_rel",
-          "x": 690,
-          "y": 450,
+          "x": 900,
+          "y": 1140,
           "width": 279,
           "height": 177,
           "isBold": false,
@@ -4090,8 +4362,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_permission",
-          "x": 1290,
-          "y": 970,
+          "x": 1190,
+          "y": 560,
           "width": 342,
           "height": 282,
           "isBold": false,
@@ -4106,8 +4378,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_role_authority",
-          "x": 1290,
-          "y": 740,
+          "x": 1200,
+          "y": 890,
           "width": 337,
           "height": 177,
           "isBold": false,
@@ -4122,8 +4394,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_user_authority",
-          "x": 900,
-          "y": 1020,
+          "x": 810,
+          "y": 270,
           "width": 337,
           "height": 177,
           "isBold": false,
@@ -4138,8 +4410,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_org",
-          "x": 2160,
-          "y": 270,
+          "x": 2120,
+          "y": 1130,
           "width": 232,
           "height": 198,
           "isBold": false,
@@ -4154,8 +4426,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_dept",
-          "x": 2130,
-          "y": 560,
+          "x": 2090,
+          "y": 1370,
           "width": 286,
           "height": 240,
           "isBold": false,
@@ -4170,8 +4442,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_user_data_power",
-          "x": 2460,
-          "y": 590,
+          "x": 2430,
+          "y": 1410,
           "width": 279,
           "height": 177,
           "isBold": false,
@@ -4186,8 +4458,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_role_data_power",
-          "x": 1800,
-          "y": 590,
+          "x": 1760,
+          "y": 1410,
           "width": 279,
           "height": 177,
           "isBold": false,
@@ -4202,8 +4474,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_admin",
-          "x": 2130,
-          "y": 1360,
+          "x": 2100,
+          "y": 1730,
           "width": 279,
           "height": 219,
           "isBold": false,
@@ -4218,8 +4490,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "rbac_customer",
-          "x": 2130,
-          "y": 1620,
+          "x": 2100,
+          "y": 1990,
           "width": 279,
           "height": 198,
           "isBold": false,
@@ -4233,11 +4505,27 @@
         {
           "type": "table",
           "schemaName": "Default",
-          "tableName": "tbac_user_manage",
-          "x": 650,
-          "y": 670,
+          "tableName": "rbac_user_manage",
+          "x": 2060,
+          "y": 2240,
           "width": 358,
           "height": 240,
+          "isBold": false,
+          "titleColor": {
+            "r": 55,
+            "g": 131,
+            "b": 192,
+            "a": 1
+          }
+        },
+        {
+          "type": "table",
+          "schemaName": "Default",
+          "tableName": "rbac_org_authority",
+          "x": 1200,
+          "y": 270,
+          "width": 337,
+          "height": 177,
           "isBold": false,
           "titleColor": {
             "r": 55,
@@ -4252,8 +4540,8 @@
           "name": "rbac模型",
           "x": 100,
           "y": 100,
-          "width": 1588,
-          "height": 1429,
+          "width": 1553,
+          "height": 2057,
           "layerColor": {
             "r": 100,
             "g": 234,
@@ -4271,10 +4559,10 @@
         },
         {
           "name": "组织架构",
-          "x": 1740,
-          "y": 220,
+          "x": 1710,
+          "y": 1070,
           "width": 1054,
-          "height": 1721,
+          "height": 1525,
           "layerColor": {
             "r": 251,
             "g": 2,
@@ -4292,10 +4580,10 @@
         },
         {
           "name": "rbac扩展",
-          "x": 590,
-          "y": 390,
-          "width": 468,
-          "height": 577,
+          "x": 760,
+          "y": 220,
+          "width": 834,
+          "height": 287,
           "layerColor": {
             "r": 100,
             "g": 234,
@@ -4313,10 +4601,10 @@
         },
         {
           "name": "用户扩展",
-          "x": 2080,
-          "y": 1300,
-          "width": 389,
-          "height": 577,
+          "x": 2000,
+          "y": 1670,
+          "width": 468,
+          "height": 867,
           "layerColor": {
             "r": 251,
             "g": 1,
@@ -4342,25 +4630,29 @@
           "visible": true,
           "vertices": [
             {
-              "x": 520,
-              "y": 1005
+              "x": 530,
+              "y": 1205
             },
             {
-              "x": 520,
+              "x": 530,
               "y": 160
             },
             {
-              "x": 2270,
+              "x": 2410,
               "y": 160
             },
             {
-              "x": 2270,
-              "y": 255
+              "x": 2410,
+              "y": 1230
+            },
+            {
+              "x": 2367,
+              "y": 1230
             }
           ],
           "label": {
-            "x": 343,
-            "y": 945,
+            "x": 373,
+            "y": 1105,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4384,21 +4676,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1460,
-              "y": 405
+              "x": 1518,
+              "y": 1230
             },
             {
-              "x": 1460,
-              "y": 370
-            },
-            {
-              "x": 2145,
-              "y": 370
+              "x": 2105,
+              "y": 1230
             }
           ],
           "label": {
-            "x": 1386,
-            "y": 290,
+            "x": 1442,
+            "y": 1157,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4422,17 +4710,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 984,
-              "y": 530
+              "x": 1194,
+              "y": 1230
             },
             {
-              "x": 1305,
-              "y": 530
+              "x": 1215,
+              "y": 1230
             }
           ],
           "label": {
-            "x": 1155,
-            "y": 390,
+            "x": 1495,
+            "y": 1050,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4456,21 +4744,161 @@
           "visible": true,
           "vertices": [
             {
-              "x": 675,
-              "y": 530
+              "x": 885,
+              "y": 1230
             },
             {
-              "x": 530,
-              "y": 530
-            },
-            {
-              "x": 530,
-              "y": 1005
+              "x": 864,
+              "y": 1230
             }
           ],
           "label": {
-            "x": 621,
-            "y": 390,
+            "x": 841,
+            "y": 1110,
+            "width": 50,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "a5",
+          "sourceTableName": "rbac_role_authority",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1370,
+              "y": 1082
+            },
+            {
+              "x": 1370,
+              "y": 1105
+            }
+          ],
+          "label": {
+            "x": 1168,
+            "y": 990,
+            "width": 50,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "a6",
+          "sourceTableName": "rbac_role_authority",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 1370,
+              "y": 875
+            },
+            {
+              "x": 1370,
+              "y": 857
+            }
+          ],
+          "label": {
+            "x": 1323,
+            "y": 703,
+            "width": 50,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "a7",
+          "sourceTableName": "rbac_user_authority",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 795,
+              "y": 360
+            },
+            {
+              "x": 530,
+              "y": 360
+            },
+            {
+              "x": 530,
+              "y": 1205
+            }
+          ],
+          "label": {
+            "x": 43,
+            "y": 85,
+            "width": 50,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "a8",
+          "sourceTableName": "rbac_user_authority",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 980,
+              "y": 462
+            },
+            {
+              "x": 980,
+              "y": 700
+            },
+            {
+              "x": 1175,
+              "y": 700
+            }
+          ],
+          "label": {
+            "x": 0,
+            "y": 240,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4488,23 +4916,23 @@
         },
         {
           "name": "a9",
-          "sourceTableName": "rbac_role_authority",
+          "sourceTableName": "rbac_dept",
           "sourceSchemaName": "Default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 1460,
-              "y": 725
+              "x": 2240,
+              "y": 1355
             },
             {
-              "x": 1460,
-              "y": 654
+              "x": 2240,
+              "y": 1343
             }
           ],
           "label": {
-            "x": 1248,
-            "y": 623,
+            "x": 2680,
+            "y": 1384,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4522,23 +4950,23 @@
         },
         {
           "name": "a10",
-          "sourceTableName": "rbac_role_authority",
+          "sourceTableName": "rbac_user_data_power",
           "sourceSchemaName": "Default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 1460,
-              "y": 932
+              "x": 2415,
+              "y": 1490
             },
             {
-              "x": 1460,
-              "y": 955
+              "x": 2391,
+              "y": 1490
             }
           ],
           "label": {
-            "x": 1403,
-            "y": 780,
+            "x": 2321,
+            "y": 1202,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4556,23 +4984,31 @@
         },
         {
           "name": "a11",
-          "sourceTableName": "rbac_user_authority",
+          "sourceTableName": "rbac_user_data_power",
           "sourceSchemaName": "Default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 885,
-              "y": 1110
+              "x": 2570,
+              "y": 1395
             },
             {
-              "x": 864,
-              "y": 1110
+              "x": 2570,
+              "y": 40
+            },
+            {
+              "x": 520,
+              "y": 40
+            },
+            {
+              "x": 520,
+              "y": 1205
             }
           ],
           "label": {
-            "x": 811,
-            "y": 1015,
+            "x": 2929,
+            "y": 1183,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4590,23 +5026,99 @@
         },
         {
           "name": "a12",
-          "sourceTableName": "rbac_user_authority",
+          "sourceTableName": "rbac_role_data_power",
           "sourceSchemaName": "Default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 1252,
-              "y": 1110
+              "x": 1745,
+              "y": 1490
             },
             {
-              "x": 1275,
-              "y": 1110
+              "x": 1370,
+              "y": 1490
+            },
+            {
+              "x": 1370,
+              "y": 1354
             }
           ],
           "label": {
-            "x": 1070,
-            "y": 1080,
+            "x": 1845,
+            "y": 1240,
+            "width": 50,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "a13",
+          "sourceTableName": "rbac_role_data_power",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 2054,
+              "y": 1490
+            },
+            {
+              "x": 2075,
+              "y": 1490
+            }
+          ],
+          "label": {
+            "x": 2134,
+            "y": 1112,
+            "width": 50,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "a14",
+          "sourceTableName": "rbac_customer",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 2085,
+              "y": 2090
+            },
+            {
+              "x": 840,
+              "y": 2090
+            },
+            {
+              "x": 840,
+              "y": 1622
+            }
+          ],
+          "label": {
+            "x": 4038,
+            "y": 2170,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4624,23 +5136,61 @@
         },
         {
           "name": "a15",
-          "sourceTableName": "rbac_dept",
+          "sourceTableName": "rbac_admin",
           "sourceSchemaName": "Default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 2270,
-              "y": 545
+              "x": 2085,
+              "y": 1830
             },
             {
-              "x": 2270,
-              "y": 483
+              "x": 840,
+              "y": 1830
+            },
+            {
+              "x": 840,
+              "y": 1622
             }
           ],
           "label": {
-            "x": 2710,
-            "y": 574,
+            "x": 3898,
+            "y": 1798,
+            "width": 50,
+            "height": 40,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "a16",
+          "sourceTableName": "rbac_admin",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 2240,
+              "y": 1715
+            },
+            {
+              "x": 2240,
+              "y": 1625
+            }
+          ],
+          "label": {
+            "x": 4003,
+            "y": 1733,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4658,23 +5208,27 @@
         },
         {
           "name": "a17",
-          "sourceTableName": "rbac_user_data_power",
+          "sourceTableName": "rbac_user_manage",
           "sourceSchemaName": "Default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 2445,
-              "y": 680
+              "x": 2045,
+              "y": 2360
             },
             {
-              "x": 2431,
-              "y": 680
+              "x": 530,
+              "y": 2360
+            },
+            {
+              "x": 530,
+              "y": 1622
             }
           ],
           "label": {
-            "x": 2351,
-            "y": 392,
+            "x": 3272,
+            "y": 1967,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4692,31 +5246,27 @@
         },
         {
           "name": "a18",
-          "sourceTableName": "rbac_user_data_power",
+          "sourceTableName": "rbac_org_authority",
           "sourceSchemaName": "Default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 2600,
-              "y": 575
+              "x": 1552,
+              "y": 360
             },
             {
-              "x": 2600,
-              "y": 40
+              "x": 2240,
+              "y": 360
             },
             {
-              "x": 520,
-              "y": 40
-            },
-            {
-              "x": 520,
-              "y": 1005
+              "x": 2240,
+              "y": 1115
             }
           ],
           "label": {
-            "x": 2839,
-            "y": 363,
+            "x": 612,
+            "y": 282,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4734,211 +5284,25 @@
         },
         {
           "name": "a19",
-          "sourceTableName": "rbac_role_data_power",
+          "sourceTableName": "rbac_org_authority",
           "sourceSchemaName": "Default",
           "lineWidth": 1,
           "visible": true,
           "vertices": [
             {
-              "x": 1810,
-              "y": 575
+              "x": 1370,
+              "y": 462
             },
             {
-              "x": 1810,
-              "y": 530
-            },
-            {
-              "x": 1608,
-              "y": 530
+              "x": 1370,
+              "y": 545
             }
           ],
           "label": {
-            "x": 1902,
-            "y": 273,
-            "width": 50,
-            "height": 40,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a20",
-          "sourceTableName": "rbac_role_data_power",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 2094,
-              "y": 680
-            },
-            {
-              "x": 2115,
-              "y": 680
-            }
-          ],
-          "label": {
-            "x": 2174,
+            "x": 310,
             "y": 302,
             "width": 50,
             "height": 40,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a24",
-          "sourceTableName": "rbac_customer",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 2115,
-              "y": 1720
-            },
-            {
-              "x": 530,
-              "y": 1720
-            },
-            {
-              "x": 530,
-              "y": 1422
-            }
-          ],
-          "label": {
-            "x": 2728,
-            "y": 1617,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a25",
-          "sourceTableName": "rbac_admin",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 2115,
-              "y": 1460
-            },
-            {
-              "x": 840,
-              "y": 1460
-            },
-            {
-              "x": 840,
-              "y": 1422
-            }
-          ],
-          "label": {
-            "x": 2708,
-            "y": 1377,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a26",
-          "sourceTableName": "rbac_admin",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 2270,
-              "y": 1345
-            },
-            {
-              "x": 2270,
-              "y": 815
-            }
-          ],
-          "label": {
-            "x": 2703,
-            "y": 1229,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a27",
-          "sourceTableName": "tbac_user_manage",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 635,
-              "y": 790
-            },
-            {
-              "x": 530,
-              "y": 790
-            },
-            {
-              "x": 530,
-              "y": 1005
-            }
-          ],
-          "label": {
-            "x": 642,
-            "y": 594,
-            "width": 50,
-            "height": 31,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
             "fontColor": {

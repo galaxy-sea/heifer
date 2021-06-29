@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.security;
+package plus.wcj.heifer.boot.common.security.config.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;

@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.security;
+package plus.wcj.heifer.boot.common.security.filter;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsServiceImpl;
+import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

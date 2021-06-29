@@ -41,6 +41,15 @@ CREATE TABLE `rbac_org`  (
   PRIMARY KEY (`id`)
 ) COMMENT = '租户';
 
+CREATE TABLE `rbac_org_authority`  (
+  `id` bigint(0) UNSIGNED NOT NULL,
+  `rbac_org_id` bigint(0) UNSIGNED NOT NULL COMMENT '组织id',
+  `rbac_permission_id` bigint(0) UNSIGNED NOT NULL COMMENT '功能权限id',
+  `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `create_by` bigint(0) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) COMMENT = '租户拥有的权限';
+
 CREATE TABLE `rbac_permission`  (
   `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键ID',
   `parent_id` bigint(0) UNSIGNED NOT NULL COMMENT '父节点名称',
@@ -121,16 +130,7 @@ CREATE TABLE `rbac_user_data_power`  (
   PRIMARY KEY (`id`)
 ) COMMENT = '用户数据权限';
 
-CREATE TABLE `rbac_user_role_rel`  (
-  `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
-  `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
-  `rbac_role_id` bigint(0) UNSIGNED NOT NULL COMMENT '角色id',
-  `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `create_by` bigint(0) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
-) COMMENT = '用户拥有角色关系表';
-
-CREATE TABLE `tbac_user_manage`  (
+CREATE TABLE `rbac_user_manage`  (
   `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
   `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
   `is_all_power` bit NOT NULL DEFAULT 0 COMMENT '全部数据权限，T全部，F部分',
@@ -142,21 +142,32 @@ CREATE TABLE `tbac_user_manage`  (
   PRIMARY KEY (`id`)
 ) COMMENT = '用户是否拥有全部数据权限和功能权限';
 
-ALTER TABLE `rbac_admin` ADD CONSTRAINT `a25` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
-ALTER TABLE `rbac_admin` ADD CONSTRAINT `a26` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
-ALTER TABLE `rbac_customer` ADD CONSTRAINT `a24` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
-ALTER TABLE `rbac_dept` ADD CONSTRAINT `a15` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
+CREATE TABLE `rbac_user_role_rel`  (
+  `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
+  `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
+  `rbac_role_id` bigint(0) UNSIGNED NOT NULL COMMENT '角色id',
+  `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `create_by` bigint(0) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) COMMENT = '用户拥有角色关系表';
+
+ALTER TABLE `rbac_admin` ADD CONSTRAINT `a15` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
+ALTER TABLE `rbac_admin` ADD CONSTRAINT `a16` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
+ALTER TABLE `rbac_customer` ADD CONSTRAINT `a14` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
+ALTER TABLE `rbac_dept` ADD CONSTRAINT `a9` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
+ALTER TABLE `rbac_org_authority` ADD CONSTRAINT `a18` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
+ALTER TABLE `rbac_org_authority` ADD CONSTRAINT `a19` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
 ALTER TABLE `rbac_role` ADD CONSTRAINT `a2` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
-ALTER TABLE `rbac_role_authority` ADD CONSTRAINT `a9` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
-ALTER TABLE `rbac_role_authority` ADD CONSTRAINT `a10` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
-ALTER TABLE `rbac_role_data_power` ADD CONSTRAINT `a19` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
-ALTER TABLE `rbac_role_data_power` ADD CONSTRAINT `a20` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
+ALTER TABLE `rbac_role_authority` ADD CONSTRAINT `a5` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
+ALTER TABLE `rbac_role_authority` ADD CONSTRAINT `a6` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
+ALTER TABLE `rbac_role_data_power` ADD CONSTRAINT `a12` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
+ALTER TABLE `rbac_role_data_power` ADD CONSTRAINT `a13` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
 ALTER TABLE `rbac_user` ADD CONSTRAINT `a1` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
-ALTER TABLE `rbac_user_authority` ADD CONSTRAINT `a11` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
-ALTER TABLE `rbac_user_authority` ADD CONSTRAINT `a12` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
-ALTER TABLE `rbac_user_data_power` ADD CONSTRAINT `a17` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
-ALTER TABLE `rbac_user_data_power` ADD CONSTRAINT `a18` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
+ALTER TABLE `rbac_user_authority` ADD CONSTRAINT `a7` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
+ALTER TABLE `rbac_user_authority` ADD CONSTRAINT `a8` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
+ALTER TABLE `rbac_user_data_power` ADD CONSTRAINT `a10` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
+ALTER TABLE `rbac_user_data_power` ADD CONSTRAINT `a11` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
+ALTER TABLE `rbac_user_manage` ADD CONSTRAINT `a17` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
 ALTER TABLE `rbac_user_role_rel` ADD CONSTRAINT `a3` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
 ALTER TABLE `rbac_user_role_rel` ADD CONSTRAINT `a4` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
-ALTER TABLE `tbac_user_manage` ADD CONSTRAINT `a27` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
 
