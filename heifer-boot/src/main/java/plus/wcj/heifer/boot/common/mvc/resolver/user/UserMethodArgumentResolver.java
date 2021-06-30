@@ -21,8 +21,9 @@ public class UserMethodArgumentResolver implements HandlerMethodArgumentResolver
         return UserDetails.class.isAssignableFrom(parameter.getParameterType());
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getPrincipal();
     }

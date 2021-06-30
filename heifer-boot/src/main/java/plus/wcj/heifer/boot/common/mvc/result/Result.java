@@ -10,6 +10,7 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
  */
 @Getter
 @ToString
+@SuppressWarnings("unused")
 public class Result<T> {
     /** 业务错误码 */
     private final String code;
@@ -26,26 +27,26 @@ public class Result<T> {
 
     /** 业务成功返回业务代码和描述信息 */
     public static Result<Void> success() {
-        return new Result<Void>(ResultStatus.SUCCESS, null);
+        return new Result<>(ResultStatus.SUCCESS, null);
     }
 
     /** 业务成功返回业务代码,描述和返回的参数 */
     public static <T> Result<T> success(T data) {
-        return new Result<T>(ResultStatus.SUCCESS, data);
+        return new Result<>(ResultStatus.SUCCESS, data);
     }
 
     /** 业务成功返回业务代码,描述和返回的参数 */
     public static <T> Result<T> success(ResultStatus resultStatus, T data) {
-        return new Result<T>(resultStatus, data);
+        return new Result<>(resultStatus, data);
     }
 
     /** 业务异常返回业务代码,描述和返回的参数 */
     public static <T> Result<T> fail(ResultStatus resultStatus) {
-        return new Result<T>(resultStatus, null);
+        return new Result<>(resultStatus, null);
     }
 
     /** 业务异常返回业务代码,描述和返回的参数 */
     public static <T> Result<T> fail(ResultStatus resultStatus, T data) {
-        return new Result<T>(resultStatus, data);
+        return new Result<>(resultStatus, data);
     }
 }

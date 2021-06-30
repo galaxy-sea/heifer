@@ -1,27 +1,23 @@
 package plus.wcj.heifer.boot.controller;
 
 
-import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.dto.JwtResponse;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
+import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsServiceImpl;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
-import plus.wcj.heifer.boot.service.rbac.RbacUserService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,20 +37,14 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final RbacUserService rbacUserService;
     private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
-
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
     /**
      * 登录
-     *
-     * @return
      */
     @PostMapping("/login")
-    public JwtResponse login(@RequestBody LoginRequest loginRequest) throws JOSEException {
+    public JwtResponse login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmailOrPhone(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -65,17 +55,16 @@ public class AuthController {
 
     /**
      * 登录
-     *
-     * @return
      */
     @PostMapping("/login/test")
-    public JwtResponse login() throws JOSEException {
+    public JwtResponse login() {
         UserPrincipal admin = (UserPrincipal) customUserDetailsServiceImpl.loadUserByUsername("admin");
         String jwt = jwtUtil.createJwt(admin, true);
         return new JwtResponse(jwt);
     }
 
     @PostMapping("/logout")
+    @SuppressWarnings("all")
     public String logout(HttpServletRequest request) {
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -91,23 +80,4 @@ public class AuthController {
         return userPrincipal;
     }
 
-    // @GetMapping
-    // private RbacUserDo createUser() {
-    //
-    //     RbacUserDo rbacUserDo = new RbacUserDo();
-    //     rbacUserDo.setTenantOrgId(1L);
-    //     rbacUserDo.setRbacDeptId(1L);
-    //     rbacUserDo.setUsername("xiaowei");
-    //     rbacUserDo.setPhone("xaowei");
-    //     rbacUserDo.setEmail("xiaowei@qq.com");
-    //     rbacUserDo.setPassword(bCryptPasswordEncoder.encode("xiaowei"));
-    //     rbacUserDo.setNickname("xiaowei");
-    //     rbacUserDo.setIsAccountNonExpired(false);
-    //     rbacUserDo.setIsAccountNonLocked(false);
-    //     rbacUserDo.setIsCredentialsNonExpired(false);
-    //     rbacUserDo.setIsEnabled(false);
-    //
-    //     rbacUserService.save(rbacUserDo);
-    //     return rbacUserDo;
-    // }
 }

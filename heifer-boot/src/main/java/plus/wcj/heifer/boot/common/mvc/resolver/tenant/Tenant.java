@@ -1,7 +1,6 @@
 package plus.wcj.heifer.boot.common.mvc.resolver.tenant;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -30,8 +29,8 @@ public class Tenant {
     /** 数据权限 */
     private Collection<Long> dataPowers;
 
-    @Deprecated
     /** 功能权限 */
+    @Deprecated
     private Collection<String> authority;
 
 }

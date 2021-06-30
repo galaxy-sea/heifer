@@ -1,10 +1,10 @@
 package plus.wcj.heifer.boot.service.rbac.impl;
 
-import plus.wcj.heifer.boot.entity.rbac.RbacRolePermissionRelDo;
-import plus.wcj.heifer.boot.dao.rbac.RbacRolePermissionRelDao;
-import plus.wcj.heifer.boot.service.rbac.RbacRolePermissionRelService;
-import plus.wcj.heifer.boot.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import plus.wcj.heifer.boot.dao.rbac.RbacRolePermissionRelDao;
+import plus.wcj.heifer.boot.entity.rbac.RbacRolePermissionRelDo;
+import plus.wcj.heifer.boot.extension.service.impl.ServiceImpl;
+import plus.wcj.heifer.boot.service.rbac.RbacRolePermissionRelService;
 
 /**
  * <p>

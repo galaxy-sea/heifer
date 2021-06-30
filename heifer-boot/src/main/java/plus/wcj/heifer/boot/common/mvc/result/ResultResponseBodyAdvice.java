@@ -44,6 +44,7 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
  * @date 2021/4/23
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#configureMessageConverters(java.util.List)
  */
+@SuppressWarnings({"NullableProblems", "unused"})
 @RestControllerAdvice
 @ControllerAdvice
 @Component
@@ -312,6 +313,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
      * request attribute and creates a {@link ResponseEntity} from the given
      * body, headers, and status.
      */
+
     protected ResponseEntity<Result<?>> handleExceptionInternal(Exception ex, Result<?> body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         // TODO: 2021/6/28 changjin wei(魏昌进) 可以增加一些通用逻辑
         return new ResponseEntity<>(body, headers, status);

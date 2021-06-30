@@ -14,6 +14,7 @@ public class ResultException extends RuntimeException {
      */
     ResultStatus resultStatus;
 
+    @SuppressWarnings("unused")
     public ResultException() {
         this(ResultStatus.INTERNAL_SERVER_ERROR);
     }

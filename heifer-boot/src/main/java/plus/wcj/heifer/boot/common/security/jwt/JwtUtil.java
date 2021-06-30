@@ -10,8 +10,8 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.nimbusds.jwt.util.DateUtils;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
 @EnableConfigurationProperties(JwtProperties.class)
 @Configuration
 @Slf4j
+@AllArgsConstructor
 public class JwtUtil {
 
     public static final String ROLES = "roles";
@@ -52,8 +53,7 @@ public class JwtUtil {
     public static final String BEARER = "Bearer ";
 
     public static final Long MAX_CLOCK_SKEW_SECONDS = 60L;
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final JwtProperties jwtProperties;
 
     public String createJwt(@NotNull UserPrincipal userPrincipal, @NotNull Boolean rememberMe) {
 
@@ -108,10 +108,8 @@ public class JwtUtil {
     /**
      * 设置JWT过期
      */
+    @SuppressWarnings({"unused", "EmptyMethod"})
     public void invalidateJwt(@NotEmpty String authorization) {
-        // String jwt = authorization.startsWith("Bearer ") ? authorization.substring("Bearer ".length()) : authorization;
-        // String username = getUsernameFromJWT(jwt);
-        // return;
     }
 
 
@@ -128,6 +126,7 @@ public class JwtUtil {
             userPrincipal.setIsEnabled(claimsSet.getBooleanClaim(IS_ENABLED));
             userPrincipal.setRoles(new HashSet<>(claimsSet.getStringListClaim(ROLES)));
             userPrincipal.setAuthorities(claimsSet.getStringListClaim(AUTHORITIES).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet()));
+            //noinspection unchecked
             userPrincipal.setDataPowers(new HashSet<>((Collection<Long>) claimsSet.getClaim(DATA_POWERS)));
         } catch (ParseException e) {
             throw new ResultException(ResultStatus.UNAUTHORIZED);

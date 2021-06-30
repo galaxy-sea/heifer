@@ -1,7 +1,7 @@
 package plus.wcj.heifer.boot.dao.rbac;
 
-import plus.wcj.heifer.boot.entity.rbac.RbacOrgDo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import plus.wcj.heifer.boot.entity.rbac.RbacOrgDo;
 
 /**
  * <p>

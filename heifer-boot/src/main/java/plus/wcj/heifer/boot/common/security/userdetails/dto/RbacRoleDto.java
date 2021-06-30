@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -21,10 +20,9 @@ import java.io.Serializable;
  * @since 2021-05-23
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("rbac_role")
-@ApiModel(value="RbacRoleDo对象", description="角色表")
+@ApiModel(value = "RbacRoleDo对象", description = "角色表")
 public class RbacRoleDto implements Serializable {
 
     private static final long serialVersionUID = 1L;

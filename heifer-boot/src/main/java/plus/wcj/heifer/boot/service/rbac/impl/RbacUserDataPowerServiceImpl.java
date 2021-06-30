@@ -1,10 +1,10 @@
 package plus.wcj.heifer.boot.service.rbac.impl;
 
-import plus.wcj.heifer.boot.entity.rbac.RbacUserDataPowerDo;
-import plus.wcj.heifer.boot.dao.rbac.RbacUserDataPowerDao;
-import plus.wcj.heifer.boot.service.rbac.RbacUserDataPowerService;
-import plus.wcj.heifer.boot.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import plus.wcj.heifer.boot.dao.rbac.RbacUserDataPowerDao;
+import plus.wcj.heifer.boot.entity.rbac.RbacUserDataPowerDo;
+import plus.wcj.heifer.boot.extension.service.impl.ServiceImpl;
+import plus.wcj.heifer.boot.service.rbac.RbacUserDataPowerService;
 
 /**
  * <p>

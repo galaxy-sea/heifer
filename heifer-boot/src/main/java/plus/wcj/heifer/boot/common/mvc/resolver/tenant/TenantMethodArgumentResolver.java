@@ -24,6 +24,7 @@ public class TenantMethodArgumentResolver implements HandlerMethodArgumentResolv
         return Tenant.class.isAssignableFrom(parameter.getParameterType());
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         UserPrincipal userDetails = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -32,14 +33,13 @@ public class TenantMethodArgumentResolver implements HandlerMethodArgumentResolv
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
 
-        Tenant tenant = new Tenant().setUserId(userDetails.getId())
-                                    .setUsername(userDetails.getUsername())
-                                    .setOrgId(userDetails.getOrgId())
-                                    .setDeptId(userDetails.getDeptId())
-                                    .setDataPowers(userDetails.getDataPowers());
         // .authority(userDetails.getAuthorities())
         // TODO: 2021/6/28 changjin wei(魏昌进) 考虑是否可以增加Authorities
 
-        return tenant;
+        return new Tenant().setUserId(userDetails.getId())
+                           .setUsername(userDetails.getUsername())
+                           .setOrgId(userDetails.getOrgId())
+                           .setDeptId(userDetails.getDeptId())
+                           .setDataPowers(userDetails.getDataPowers());
     }
 }

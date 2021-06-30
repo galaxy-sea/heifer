@@ -41,10 +41,11 @@ public enum ResultStatus {
     SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, "503", "Service Unavailable"),
     /** 账号密码错误 */
     INCORRECT_USERNAME_OR_PASSWORD(HttpStatus.OK, "security-0001", "Incorrect username or password"),
-    /**过期的token */
+    /** 过期的token */
     EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "security-0002", "Expired token"),
     /** 未启用的token */
     TOKEN_BEFORE_USE_TIME(HttpStatus.UNAUTHORIZED, "security-0003", "token before use time"),
+    /** jwt解析token异常 */
     JOSE_Exception(HttpStatus.INTERNAL_SERVER_ERROR, "security-0004", "Javascript Object Signing and Encryption (JOSE) exception"),
     ;
     /** 返回的HTTP状态码,  符合http请求 */

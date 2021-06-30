@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import plus.wcj.heifer.boot.entity.rbac.enums.PermissionTypeEnum;
 import plus.wcj.heifer.boot.extension.validator.PostValid;
@@ -26,7 +25,6 @@ import java.util.Date;
  * @since 2021-06-23
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("rbac_permission")
 @ApiModel(value = "RbacPermissionDo对象", description = "功能权限")

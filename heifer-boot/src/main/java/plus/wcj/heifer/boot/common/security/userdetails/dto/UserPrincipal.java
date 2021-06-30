@@ -11,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -66,11 +65,6 @@ public class UserPrincipal implements UserDetails {
     /** 数据权限 */
     private Set<Long> dataPowers;
 
-
-    public static UserPrincipal create(RbacUserDto user, List<RbacRoleDto> roles, List<RbacPermissionDto> permissions) {
-        return create(user, roles, permissions, new ArrayList<Long>());
-    }
-
     public static UserPrincipal create(@NotNull RbacUserDto user, List<RbacRoleDto> roles, List<RbacPermissionDto> permissions, List<Long> dataPowers) {
 
         Set<String> roleNames = roles.stream().map(RbacRoleDto::getName).collect(Collectors.toSet());
@@ -80,7 +74,7 @@ public class UserPrincipal implements UserDetails {
                                                        .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
                                                        .collect(Collectors.toSet());
 
-        Set<Long> setDataPower = new HashSet<Long>(dataPowers);
+        Set<Long> setDataPower = new HashSet<>(dataPowers);
 
         return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getIsEnabled(), null, null, roleNames, authorities, setDataPower);
     }

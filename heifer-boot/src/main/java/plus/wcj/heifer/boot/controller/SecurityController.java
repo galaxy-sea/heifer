@@ -17,7 +17,7 @@ public class SecurityController {
 
     @GetMapping("1")
     @ResultResponseBody
-    public Date test1(){
+    public Date test1() {
         return new Date();
     }
 
@@ -25,28 +25,28 @@ public class SecurityController {
     @GetMapping("2")
     @ResultResponseBody
     @PreAuthorize("hasAuthority('page:test')")
-    public Date test2(){
+    public Date test2() {
         return new Date();
     }
 
     @GetMapping("testRole")
     @ResultResponseBody
     @PreAuthorize("hasAuthority('page:test:role')")
-    public Date testRole(){
+    public Date testRole() {
         return new Date();
     }
 
     @GetMapping("testUser")
     @ResultResponseBody
     @PreAuthorize("hasAuthority('page:test:user')")
-    public Date testUser(){
+    public Date testUser() {
         return new Date();
     }
 
     @GetMapping("3")
     @ResultResponseBody
     @PreAuthorize("hasAuthority('page:not')")
-    public Date test3(){
+    public Date test3() {
         return new Date();
     }
 }

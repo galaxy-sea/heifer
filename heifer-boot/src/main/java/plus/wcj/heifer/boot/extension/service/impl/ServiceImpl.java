@@ -62,11 +62,12 @@ import java.util.stream.Collectors;
  * @author hubin
  * @since 2018-06-23
  */
-@SuppressWarnings({"unchecked","unused"})
+@SuppressWarnings({"unchecked", "unused"})
 public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     protected Log log = LogFactory.getLog(getClass());
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     protected M baseMapper;
 
@@ -451,6 +452,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     public <E extends IPage<T>> E page(E page, T entity) {
         return getBaseMapper().selectPage(page, new QueryWrapper<>(entity));
     }
+
     /**
      * 查询列表
      *

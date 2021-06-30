@@ -17,6 +17,7 @@ import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 @Controller
 @RequestMapping("/hello")
 @RequiredArgsConstructor
+@SuppressWarnings("all")
 public class HelloController {
 
 
@@ -25,6 +26,7 @@ public class HelloController {
     public Object get(Long id) {
         return "aaaaaa";
     }
+
     @GetMapping
     @ResultResponseBody
     public Object get() {
@@ -33,13 +35,13 @@ public class HelloController {
 
     @PostMapping
     @ResultResponseBody
-    public Object post(@RequestBody Object o){
+    public Object post(@RequestBody Object o) {
         return null;
     }
 
     @PutMapping
     @ResultResponseBody
-    public Object put(@RequestBody Object o){
+    public Object put(@RequestBody Object o) {
         return null;
     }
 

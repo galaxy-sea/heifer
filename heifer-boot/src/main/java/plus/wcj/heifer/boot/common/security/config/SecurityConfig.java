@@ -1,6 +1,6 @@
 package plus.wcj.heifer.boot.common.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,19 +32,16 @@ import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService
  */
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 @EnableConfigurationProperties(IgnoreProperties.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private IgnoreProperties ignoreProperties;
+    private final IgnoreProperties ignoreProperties;
 
-    @Autowired
-    private CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
+    private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     public BCryptPasswordEncoder encoder() {

@@ -42,7 +42,7 @@ CREATE TABLE `rbac_org`  (
 ) COMMENT = '租户';
 
 CREATE TABLE `rbac_org_authority`  (
-  `id` bigint(0) UNSIGNED NOT NULL,
+  `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键ID',
   `rbac_org_id` bigint(0) UNSIGNED NOT NULL COMMENT '组织id',
   `rbac_permission_id` bigint(0) UNSIGNED NOT NULL COMMENT '功能权限id',
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
@@ -113,7 +113,7 @@ CREATE TABLE `rbac_user`  (
 ) COMMENT = '用户表';
 
 CREATE TABLE `rbac_user_authority`  (
-  `id` bigint(0) UNSIGNED NOT NULL,
+  `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键ID',
   `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
   `rbac_permission_id` bigint(0) UNSIGNED NOT NULL COMMENT '功能权限id',
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
@@ -122,7 +122,7 @@ CREATE TABLE `rbac_user_authority`  (
 ) COMMENT = '用户拥有功能权限表';
 
 CREATE TABLE `rbac_user_data_power`  (
-  `id` bigint(0) UNSIGNED NOT NULL,
+  `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键ID',
   `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
   `rbac_dept_id` bigint(0) UNSIGNED NOT NULL COMMENT '部门id',
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
@@ -134,7 +134,7 @@ CREATE TABLE `rbac_user_manage`  (
   `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
   `rbac_user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户id',
   `is_all_power` bit NOT NULL DEFAULT 0 COMMENT '全部数据权限，T全部，F部分',
-  `is_all_permission` bit NOT NULL DEFAULT 0 COMMENT '全部功能权限，T全部，F部分',
+  `is_all_authority` bit NOT NULL DEFAULT 0 COMMENT '全部功能权限，T全部，F部分',
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `create_by` bigint(0) UNSIGNED NOT NULL,
   `update_time` timestamp(0) NULL ON UPDATE CURRENT_TIMESTAMP(0),
