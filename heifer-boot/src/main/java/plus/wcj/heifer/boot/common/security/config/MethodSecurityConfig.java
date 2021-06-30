@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot.common.security.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import plus.wcj.heifer.boot.common.security.config.bean.MethodSecurityExpressionHandler;
 
@@ -9,6 +10,7 @@ import plus.wcj.heifer.boot.common.security.config.bean.MethodSecurityExpression
  * @since 2021/6/29
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Override
