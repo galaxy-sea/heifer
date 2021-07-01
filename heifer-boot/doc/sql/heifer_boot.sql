@@ -20,7 +20,7 @@ CREATE TABLE `rbac_customer`  (
 ) COMMENT = '顾客信息';
 
 CREATE TABLE `rbac_dept`  (
-  `id` bigint(0) UNSIGNED NOT NULL,
+  `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键id',
   `parent_id` bigint(0) UNSIGNED NOT NULL COMMENT '父节点名称',
   `rbac_org_id` bigint(0) UNSIGNED NOT NULL COMMENT '租户id',
   `name` varchar(50) NOT NULL COMMENT '部门名称',
