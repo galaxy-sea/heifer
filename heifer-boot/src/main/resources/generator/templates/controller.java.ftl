@@ -23,6 +23,8 @@ import org.springframework.validation.annotation.Validated;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 import lombok.RequiredArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * ${table.comment!} 前端控制器
@@ -48,34 +50,41 @@ public class ${table.controllerName} {
 </#if>
     private final ${table.serviceName} ${table.serviceName?uncap_first};
 
+    /** id查询 */
     @GetMapping(params = "id")
     @ResultResponseBody
-    public ${entity} getById(Long id) {
+    public ${entity} getById(@NotNull Long id) {
         return ${table.serviceName?uncap_first}.getById(id);
     }
 
+    /** 分页查询 */
     @GetMapping
     @ResultResponseBody
     public Page<${entity}> page(Page<${entity}> page, ${entity} ${entity?uncap_first}) {
         return ${table.serviceName?uncap_first}.page(page, ${entity?uncap_first});
     }
 
+    /** 保存 */
     @PostMapping
     @ResultResponseBody
     public boolean save(@RequestBody @Validated(value = PostValid.class) ${entity} ${entity?uncap_first}) {
         return ${table.serviceName?uncap_first}.save(${entity?uncap_first});
     }
 
+    /** 修改 */
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) ${entity} ${entity?uncap_first}) {
         return ${table.serviceName?uncap_first}.updateById(${entity?uncap_first});
     }
 
+    /** id删除 */
     @DeleteMapping(params = "id")
     @ResultResponseBody
-    public boolean removeById(Long id) {
+    public boolean removeById(@NotNull Long id) {
         return ${table.serviceName?uncap_first}.removeById(id);
     }
+
+    // TODO: ${date} ${author} 补充其他接口
 }
 </#if>

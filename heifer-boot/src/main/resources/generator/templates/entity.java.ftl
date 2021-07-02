@@ -66,7 +66,9 @@ public class ${entity} implements Serializable {
     <#if field.keyFlag>
     @NotNull(groups = {PostValid.class, PutValid.class}, message = "id is null")
     <#else>
-    @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")
+        <#if fieldsNotNull[keyPropertyName]>
+            @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")
+        </#if>
     </#if>
     <#if field.keyFlag>
         <#-- 主键 -->

@@ -42,24 +42,34 @@ import java.util.regex.Pattern;
 public class GeneratorCodeV2 {
 
 
-    private static String key = "xxxxxx";
+    private static String key = "thisForYinjuanLi";
 
+    // 环境变量自己设置 Duser_name 参数，反正我觉得USER参数很傻逼
+    private static String author = System.getenv("Duser_name") != null ? System.getenv("Duser_name") : System.getenv("USER");
 
     /** 模块名 */
-    private static String moduleName = "rbac";
+    private static String moduleName = "rbac.user";
 
     /** 要生成的表名 */
     private static String[] tables = {
-            "rbac_dept",
-            "rbac_org",
-            "rbac_permission",
-            "rbac_role",
-            "rbac_role_data_power",
-            "rbac_role_permission_rel",
+
+            // "rbac_dept",
+            // "rbac_org",
+            // "rbac_org_authority",
+            //
+            // "rbac_permission",
+            //
+            // "rbac_role",
+            // "rbac_role_authority",
+            // "rbac_role_data_power",
+            //
             "rbac_user",
+            "rbac_user_authority",
             "rbac_user_data_power",
-            "rbac_user_permission_rel",
+            "rbac_user_manage",
             "rbac_user_role_rel",
+            "rbac_admin",
+            "rbac_customer",
     };
 
     /** 表的前缀 */
@@ -100,6 +110,7 @@ public class GeneratorCodeV2 {
         mpg.setTemplate(templateConfig());
         // 策略配置
         mpg.setStrategy(strategyConfig());
+        // TODO: 2021/7/2 changjin wei(魏昌进)
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
@@ -177,9 +188,9 @@ public class GeneratorCodeV2 {
                     }
                 }
 
-                Map<String, Object> map = super.getMap();
-                Map<String, Boolean> columnsNotNull = new HashMap<String, Boolean>();
-                map.put(tableInfo.getEntityName(), columnsNotNull);
+                // Map<String, Object> map = super.getMap();
+                Map<String, Object> columnsNotNull = super.getMap();
+                // map.put(tableInfo.getEntityName(), columnsNotNull);
 
                 // TODO: 2021/6/1 changjin wei(魏昌进)
 
@@ -247,7 +258,7 @@ public class GeneratorCodeV2 {
         String projectPath = System.getProperty("user.dir");
 
         // 如果模板引擎是 freemarker
-        String templatePath = "templates/mapper.xml.ftl";
+        String templatePath = "generator/templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
         // String templatePath = "/templates/mapper.xml.vm";
 
@@ -262,6 +273,7 @@ public class GeneratorCodeV2 {
                 if (moduleName == null) {
                     return projectPath + "/src/main/resources/mapper/" + "" + tableInfo.getXmlName() + "Mapper" + ConstVal.XML_SUFFIX;
                 }
+                moduleName = moduleName.replace(".", "/");
                 return projectPath + "/src/main/resources/mapper/" + moduleName + "/" + tableInfo.getXmlName() + ConstVal.XML_SUFFIX;
             }
         });
@@ -308,14 +320,14 @@ public class GeneratorCodeV2 {
         gc.setFileOverride(true);
         gc.setOpen(false);
         gc.setEnableCache(false);
-        gc.setAuthor(System.getenv().get("USER"));
+        gc.setAuthor(author);
         gc.setKotlin(false);
         gc.setSwagger2(true);
         // gc.setActiveRecord();
         gc.setBaseResultMap(true);
         gc.setDateType(DateType.ONLY_DATE);
         gc.setBaseColumnList(true);
-        gc.setEntityName("%sDo");
+        // gc.setEntityName("%sDo");
         gc.setMapperName("%sDao");
         // gc.setXmlName();
         gc.setServiceName("%s" + ConstVal.SERVICE);
