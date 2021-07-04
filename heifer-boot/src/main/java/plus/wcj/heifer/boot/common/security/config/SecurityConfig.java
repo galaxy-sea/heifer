@@ -20,7 +20,7 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.config.bean.JwtAuthenticationEntryPoint;
 import plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter;
 import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
-import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsServiceImpl;
+import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 
 /**
  * <p>
@@ -37,7 +37,7 @@ import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsService
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final IgnoreProperties ignoreProperties;
 
-    private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
+    private final HeiferUserDetailsServiceImpl heiferUserDetailsServiceImpl;
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
         impl.setPasswordEncoder(encoder());
-        impl.setUserDetailsService(customUserDetailsServiceImpl);
+        impl.setUserDetailsService(heiferUserDetailsServiceImpl);
 
         // TODO: 2021/6/6 changjin wei(魏昌进) 需要缓存啊
 

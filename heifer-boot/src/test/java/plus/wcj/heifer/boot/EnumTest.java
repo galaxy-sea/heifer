@@ -1,9 +1,6 @@
 package plus.wcj.heifer.boot;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.fasterxml.jackson.annotation.JsonClassDescription;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;

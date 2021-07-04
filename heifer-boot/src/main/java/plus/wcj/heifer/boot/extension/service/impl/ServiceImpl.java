@@ -218,22 +218,22 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveBatch(Collection<T> entityList) {
-        return saveBatch(entityList, DEFAULT_BATCH_SIZE);
+    public boolean save(Collection<T> entityList) {
+        return save(entityList, DEFAULT_BATCH_SIZE);
     }
 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveBatch(Collection<T> entityList, int batchSize) {
+    public boolean save(Collection<T> entityList, int batchSize) {
         String sqlStatement = getSqlStatement(SqlMethod.INSERT_ONE);
         return executeBatch(entityList, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveOrUpdateBatch(Collection<T> entityList) {
-        return saveOrUpdateBatch(entityList, DEFAULT_BATCH_SIZE);
+    public boolean saveOrUpdate(Collection<T> entityList) {
+        return saveOrUpdate(entityList, DEFAULT_BATCH_SIZE);
     }
 
     /**
@@ -259,23 +259,28 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
             String keyProperty = tableInfo.getKeyProperty();
             Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
             Object idVal = ReflectionKit.getFieldValue(entity, tableInfo.getKeyProperty());
-            return StringUtils.checkValNull(idVal) || Objects.isNull(getById((Serializable) idVal)) ? save(entity) : updateById(entity);
+            return StringUtils.checkValNull(idVal) || Objects.isNull(get((Serializable) idVal)) ? save(entity) : updateById(entity);
         }
         return false;
     }
 
     @Override
-    public T getById(Serializable id) {
+    public T get(T entity) {
+        return getBaseMapper().selectOne(new QueryWrapper<>(entity));
+    }
+
+    @Override
+    public T get(Serializable id) {
         return getBaseMapper().selectById(id);
     }
 
     @Override
-    public List<T> listByIds(Collection<? extends Serializable> idList) {
+    public List<T> list(Collection<? extends Serializable> idList) {
         return getBaseMapper().selectBatchIds(idList);
     }
 
     @Override
-    public List<T> listByMap(Map<String, Object> columnMap) {
+    public List<T> list(Map<String, Object> columnMap) {
         return getBaseMapper().selectByMap(columnMap);
     }
 
@@ -291,7 +296,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveOrUpdateBatch(Collection<T> entityList, int batchSize) {
+    public boolean saveOrUpdate(Collection<T> entityList, int batchSize) {
         TableInfo tableInfo = TableInfoHelper.getTableInfo(entityClass);
         Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!");
         String keyProperty = tableInfo.getKeyProperty();
@@ -308,13 +313,13 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     }
 
     @Override
-    public boolean removeById(Serializable id) {
+    public boolean remove(Serializable id) {
         return SqlHelper.retBool(getBaseMapper().deleteById(id));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean removeByMap(Map<String, Object> columnMap) {
+    public boolean remove(Map<String, Object> columnMap) {
         return SqlHelper.retBool(getBaseMapper().deleteByMap(columnMap));
     }
 
@@ -325,7 +330,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean removeByIds(Collection<? extends Serializable> idList) {
+    public boolean remove(Collection<? extends Serializable> idList) {
         if (CollectionUtils.isEmpty(idList)) {
             return false;
         }
@@ -358,13 +363,13 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateBatchById(Collection<T> entityList) {
-        return updateBatchById(entityList, DEFAULT_BATCH_SIZE);
+    public boolean updateById(Collection<T> entityList) {
+        return updateById(entityList, DEFAULT_BATCH_SIZE);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateBatchById(Collection<T> entityList, int batchSize) {
+    public boolean updateById(Collection<T> entityList, int batchSize) {
         String sqlStatement = getSqlStatement(SqlMethod.UPDATE_BY_ID);
         return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
             MapperMethod.ParamMap<T> param = new MapperMethod.ParamMap<>();

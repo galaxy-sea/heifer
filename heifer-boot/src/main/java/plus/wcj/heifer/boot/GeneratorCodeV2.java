@@ -1,6 +1,5 @@
 package plus.wcj.heifer.boot;
 
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.AES;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -9,46 +8,35 @@ import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.IDbQuery;
-import com.baomidou.mybatisplus.generator.config.IKeyWordsHandler;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.querys.H2Query;
+import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("all")
 public class GeneratorCodeV2 {
 
 
-    private static String key = "thisForYinjuanLi";
+    private static String key = "xxxxxx";
 
     // 环境变量自己设置 Duser_name 参数，反正我觉得USER参数很傻逼
     private static String author = System.getenv("Duser_name") != null ? System.getenv("Duser_name") : System.getenv("USER");
 
     /** 模块名 */
-    private static String moduleName = "rbac.user";
+    private static String moduleName = "rbac";
 
     /** 要生成的表名 */
     private static String[] tables = {
@@ -63,13 +51,13 @@ public class GeneratorCodeV2 {
             // "rbac_role_authority",
             // "rbac_role_data_power",
             //
-            "rbac_user",
-            "rbac_user_authority",
-            "rbac_user_data_power",
-            "rbac_user_manage",
-            "rbac_user_role_rel",
-            "rbac_admin",
-            "rbac_customer",
+            // "rbac_user",
+            // "rbac_user_authority",
+            // "rbac_user_data_power",
+            // "rbac_user_manage",
+            // "rbac_user_role_rel",
+            // "rbac_admin",
+            // "rbac_customer",
     };
 
     /** 表的前缀 */
@@ -171,16 +159,13 @@ public class GeneratorCodeV2 {
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                if (super.getMap() == null) {
-                    super.setMap(new HashMap<>());
-                }
+                // to do nothing
             }
 
             @Override
             public void initTableMap(TableInfo tableInfo) {
                 super.initTableMap(tableInfo);
 
-                // tableInfo.setServiceName(tableInfo.getServiceName().substring(1));
                 tableInfo.setComment(pattern.matcher(tableInfo.getComment()).replaceAll(""));
                 for (TableField field : tableInfo.getFields()) {
                     if (StringUtils.isNotEmpty(field.getComment())) {
@@ -188,70 +173,6 @@ public class GeneratorCodeV2 {
                     }
                 }
 
-                // Map<String, Object> map = super.getMap();
-                Map<String, Object> columnsNotNull = super.getMap();
-                // map.put(tableInfo.getEntityName(), columnsNotNull);
-
-                // TODO: 2021/6/1 changjin wei(魏昌进)
-
-                DbType dbType = dataSourceConfig.getDbType();
-                IDbQuery dbQuery = dataSourceConfig.getDbQuery();
-                String tableName = tableInfo.getName();
-                Connection connection = dataSourceConfig.getConn();
-                try {
-                    String tableFieldsSql = dbQuery.tableFieldsSql();
-                    Set<String> h2PkColumns = new HashSet<>();
-                    if (DbType.POSTGRE_SQL == dbType) {
-                        tableFieldsSql = String.format(tableFieldsSql, tableName);
-                    } else if (DbType.KINGBASE_ES == dbType) {
-                        tableFieldsSql = String.format(tableFieldsSql, dataSourceConfig.getSchemaName(), tableName);
-                    } else if (DbType.DB2 == dbType) {
-                        tableFieldsSql = String.format(tableFieldsSql, dataSourceConfig.getSchemaName(), tableName);
-                    } else if (DbType.ORACLE == dbType) {
-                        tableName = tableName.toUpperCase();
-                        tableFieldsSql = String.format(tableFieldsSql.replace("#schema", dataSourceConfig.getSchemaName()), tableName);
-                    } else if (DbType.DM == dbType) {
-                        tableName = tableName.toUpperCase();
-                        tableFieldsSql = String.format(tableFieldsSql, tableName);
-                    } else if (DbType.H2 == dbType) {
-                        try (PreparedStatement pkQueryStmt = connection.prepareStatement(String.format(H2Query.PK_QUERY_SQL, tableName));
-                             ResultSet pkResults = pkQueryStmt.executeQuery()) {
-                            while (pkResults.next()) {
-                                String primaryKey = pkResults.getString(dbQuery.fieldKey());
-                                if (Boolean.parseBoolean(primaryKey)) {
-                                    h2PkColumns.add(pkResults.getString(dbQuery.fieldName()));
-                                }
-                            }
-                        }
-                        tableFieldsSql = String.format(tableFieldsSql, tableName);
-                    } else {
-                        tableFieldsSql = String.format(tableFieldsSql, tableName);
-                    }
-                    try (
-                            PreparedStatement preparedStatement = connection.prepareStatement(tableFieldsSql);
-                            ResultSet results = preparedStatement.executeQuery()) {
-                        while (results.next()) {
-                            String columnName = results.getString(dbQuery.fieldName());
-
-                            String newColumnName = columnName;
-                            IKeyWordsHandler keyWordsHandler = dataSourceConfig.getKeyWordsHandler();
-                            if (keyWordsHandler != null && keyWordsHandler.isKeyWords(columnName)) {
-                                System.err.printf("当前表[%s]存在字段[%s]为数据库关键字或保留字!%n", tableName, columnName);
-                                newColumnName = keyWordsHandler.formatColumn(columnName);
-                            }
-                            Boolean isNotNull = BooleanUtils.NO.equalsIgnoreCase(results.getString("Null"));
-                            columnsNotNull.put(newColumnName, isNotNull);
-                        }
-                    }
-                } catch (SQLException e) {
-                    System.err.println("SQL Exception：" + e.getMessage());
-                }
-            }
-
-            @Override
-            public Map<String, Object> prepareObjectMap(Map<String, Object> objectMap) {
-                objectMap.put("fieldsNotNull", super.getMap());
-                return super.prepareObjectMap(objectMap);
             }
         };
 
@@ -304,6 +225,13 @@ public class GeneratorCodeV2 {
         dsc.setUsername(AES.decrypt(username, key));
         dsc.setPassword(AES.decrypt(password, key));
         dsc.setTypeConvert(new TypeConvert());
+
+        dsc.setDbQuery(new MySqlQuery() {
+            @Override
+            public String[] fieldCustom() {
+                return new String[]{"NULL"};
+            }
+        });
         return dsc;
     }
 

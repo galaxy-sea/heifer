@@ -65,7 +65,11 @@ public class UserPrincipal implements UserDetails {
     /** 数据权限 */
     private Set<Long> dataPowers;
 
-    public static UserPrincipal create(@NotNull RbacUserDto user, List<RbacRoleDto> roles, List<RbacPermissionDto> permissions, List<Long> dataPowers) {
+    private RbacAdminDto admin;
+    private RbacCustomerDto customer;
+    private RbacUserManageDto userManage;
+
+    public static UserPrincipal create(@NotNull RbacUserDto user, List<RbacRoleDto> roles, RbacAdminDto admin, RbacCustomerDto customer, RbacUserManageDto userManage, List<RbacPermissionDto> permissions, List<Long> dataPowers) {
 
         Set<String> roleNames = roles.stream().map(RbacRoleDto::getName).collect(Collectors.toSet());
 
@@ -76,7 +80,13 @@ public class UserPrincipal implements UserDetails {
 
         Set<Long> setDataPower = new HashSet<>(dataPowers);
 
-        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getNickname(), user.getPhone(), user.getEmail(), user.getIsEnabled(), null, null, roleNames, authorities, setDataPower);
+        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(),
+                                 user.getNickname(), user.getPhone(), user.getEmail(),
+                                 user.getIsEnabled(),
+                                 null, null, roleNames,
+                                 authorities, setDataPower,
+                                 admin, customer, userManage
+        );
     }
 
     @Override

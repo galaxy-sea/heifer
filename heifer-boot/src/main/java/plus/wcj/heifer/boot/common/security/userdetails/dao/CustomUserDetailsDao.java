@@ -1,9 +1,12 @@
 package plus.wcj.heifer.boot.common.security.userdetails.dao;
 
 import org.apache.ibatis.annotations.Param;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAdminDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacCustomerDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserManageDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +33,15 @@ public interface CustomUserDetailsDao {
      * @return 权限列表
      */
     List<RbacPermissionDto> selectPermissionByUserId(@Param("userId") Long userId);
+
+    /**
+     * 根据租户查询权限列表
+     *
+     * @param orgId 租户id
+     *
+     * @return 权限列表
+     */
+    List<RbacPermissionDto> selectPermissionByrOrgId(@Param("orgId") Long orgId);
 
     /**
      * 根据用户id 查询角色列表
@@ -60,4 +72,43 @@ public interface CustomUserDetailsDao {
      * @return 可查看的部门Id
      */
     List<Long> selectDataPower(@Param("roleIds") List<Long> roleIds, @Param("userId") Long userId);
+
+    /**
+     * 根据租户查找数据权限
+     *
+     * @param orgId 租户id
+     *
+     * @return 可查看的部门Id
+     */
+    List<Long> selectDataPowerByOrgId(@Param("orgId") Long orgId);
+
+
+    /**
+     * 获取当前用户 admin信息
+     *
+     * @param userId 用户id
+     *
+     * @return admin用户信息
+     */
+    RbacAdminDto findAdmin(@Param("userId") Long userId);
+
+    /**
+     * 获取当前用户 Customer信息
+     *
+     * @param userId 用户id
+     *
+     * @return Customer信息
+     */
+    RbacCustomerDto findCustomer(@Param("userId") Long userId);
+
+    /**
+     * 获取用户 UserManage信息
+     *
+     * @param userId 用户id
+     *
+     * @return UserManage信息
+     */
+    RbacUserManageDto findUserManage(@Param("userId") Long userId);
+
+
 }

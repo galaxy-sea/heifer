@@ -37,11 +37,6 @@ public class RbacUserDto implements Serializable {
     @TableField("rbac_org_id")
     private Long rbacOrgId;
 
-    /** 部门id */
-    @ApiModelProperty(value = "部门id")
-    @TableField("rbac_dept_id")
-    private Long rbacDeptId;
-
     /** 用户名 */
     @ApiModelProperty(value = "用户名")
     @TableField("username")

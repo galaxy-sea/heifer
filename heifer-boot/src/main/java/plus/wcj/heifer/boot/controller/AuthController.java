@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import plus.wcj.heifer.boot.common.security.dto.JwtResponse;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
-import plus.wcj.heifer.boot.common.security.userdetails.CustomUserDetailsServiceImpl;
+import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
+import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
+import plus.wcj.heifer.boot.service.rbac.user.RbacUserService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,14 +39,17 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
+    private final HeiferUserDetailsServiceImpl heiferUserDetailsServiceImpl;
     private final JwtUtil jwtUtil;
+
+    private final RbacUserService userService;
 
     /**
      * 登录
      */
     @PostMapping("/login")
     public JwtResponse login(@RequestBody LoginRequest loginRequest) {
+        RbacUser rbacUser = userService.get(new RbacUser().setNickname(loginRequest.getUsernameOrEmailOrPhone()).setRbacOrgId(1L));
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmailOrPhone(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -58,7 +63,7 @@ public class AuthController {
      */
     @PostMapping("/login/test")
     public JwtResponse login() {
-        UserPrincipal admin = (UserPrincipal) customUserDetailsServiceImpl.loadUserByUsername("admin");
+        UserPrincipal admin = (UserPrincipal) heiferUserDetailsServiceImpl.loadUserByUsername("1");
         String jwt = jwtUtil.createJwt(admin, true);
         return new JwtResponse(jwt);
     }

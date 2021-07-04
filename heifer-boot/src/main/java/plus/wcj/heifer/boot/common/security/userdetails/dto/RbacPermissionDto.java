@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import plus.wcj.heifer.boot.entity.rbac.enums.PermissionTypeEnum;
+import plus.wcj.heifer.boot.entity.rbac.RbacPermission;
 
 import java.io.Serializable;
 
@@ -51,7 +51,7 @@ public class RbacPermissionDto implements Serializable {
     /** 1：客户端，2：菜单，3：按钮 */
     @ApiModelProperty(value = "1：客户端，2：菜单，3：按钮")
     @TableField("type")
-    private PermissionTypeEnum type;
+    private RbacPermission.TypeEnum type;
 
     /** 排序，默认asc */
     @ApiModelProperty(value = "排序，默认asc")
