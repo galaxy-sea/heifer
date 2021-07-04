@@ -12,6 +12,7 @@ import com.nimbusds.jwt.SignedJWT;
 import com.nimbusds.jwt.util.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
@@ -25,9 +26,8 @@ import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.stream.Collectors;
 
 /**
@@ -80,14 +80,13 @@ public class JwtUtil {
                 .issueTime(new Date())
                 // jti – JWT ID 声明
                 .jwtID(userPrincipal.getId().toString())
-                .claim(ROLES, userPrincipal.getRoles())
-                .claim(AUTHORITIES, userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .claim(DATA_POWERS, userPrincipal.getDataPowers())
+                .claim(ROLES, String.join(",", userPrincipal.getRoles()))
+                .claim(AUTHORITIES, userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
+                .claim(DATA_POWERS, StringUtils.join(userPrincipal.getDataPowers(), ","))
                 .claim(IS_ENABLED, userPrincipal.getIsEnabled())
                 .claim(DEPT_ID, userPrincipal.getDeptId())
                 .claim(ORG_ID, userPrincipal.getOrgId())
                 .build();
-
         SignedJWT signedJwt = new SignedJWT(jwsHeader, claimsSet);
         try {
             signedJwt.sign(new MACSigner(jwtProperties.getKey()));
@@ -124,10 +123,9 @@ public class JwtUtil {
             userPrincipal.setDeptId(claimsSet.getLongClaim(DEPT_ID));
             userPrincipal.setOrgId(claimsSet.getLongClaim(ORG_ID));
             userPrincipal.setIsEnabled(claimsSet.getBooleanClaim(IS_ENABLED));
-            userPrincipal.setRoles(new HashSet<>(claimsSet.getStringListClaim(ROLES)));
-            userPrincipal.setAuthorities(claimsSet.getStringListClaim(AUTHORITIES).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet()));
-            //noinspection unchecked
-            userPrincipal.setDataPowers(new HashSet<>((Collection<Long>) claimsSet.getClaim(DATA_POWERS)));
+            userPrincipal.setRoles(Arrays.asList(StringUtils.split(claimsSet.getStringClaim(ROLES), ",")));
+            userPrincipal.setAuthorities(Arrays.stream(claimsSet.getStringClaim(AUTHORITIES).split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+            userPrincipal.setDataPowers(Arrays.stream(claimsSet.getStringClaim(DATA_POWERS).split(",")).map(Long::valueOf).collect(Collectors.toList()));
         } catch (ParseException e) {
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }

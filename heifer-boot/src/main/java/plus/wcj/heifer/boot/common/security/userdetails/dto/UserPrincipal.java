@@ -58,12 +58,12 @@ public class UserPrincipal implements UserDetails {
     private Long deptId;
 
     /** 用户角色列表 */
-    private Set<String> roles;
+    private Collection<String> roles;
 
     /** 功能权限 */
-    private Set<? extends GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities;
     /** 数据权限 */
-    private Set<Long> dataPowers;
+    private Collection<Long> dataPowers;
 
     private RbacAdminDto admin;
     private RbacCustomerDto customer;
