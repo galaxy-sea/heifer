@@ -26,20 +26,21 @@ public class TenantMethodArgumentResolver implements HandlerMethodArgumentResolv
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+    public Tenant resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         UserPrincipal userDetails = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (userDetails == null) {
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
 
-        // .authority(userDetails.getAuthorities())
-        // TODO: 2021/6/28 changjin wei(魏昌进) 考虑是否可以增加Authorities
+        Tenant tenant = new Tenant();
+        tenant.setUserId(userDetails.getId());
+        tenant.setUsername(userDetails.getUsername());
+        tenant.setOrgId(userDetails.getOrgId());
+        tenant.setDeptId(userDetails.getAdmin().getRbacDeptId());
+        tenant.setDataPowers(userDetails.getDataPowers());
+        tenant.setAllPower(userDetails.getUserManage().getAllPower());
 
-        return new Tenant().setUserId(userDetails.getId())
-                           .setUsername(userDetails.getUsername())
-                           .setOrgId(userDetails.getOrgId())
-                           .setDeptId(userDetails.getDeptId())
-                           .setDataPowers(userDetails.getDataPowers());
+        return tenant;
     }
 }

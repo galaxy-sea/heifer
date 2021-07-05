@@ -37,7 +37,6 @@ public class HeiferUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmailOrPhone) throws UsernameNotFoundException {
-        // TODO: 2021/5/23 changjin wei(魏昌进) 修改表结构 增加部分参数
         RbacUserDto user = customUserDetailsDao.findUserByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
         RbacAdminDto admin = customUserDetailsDao.findAdmin(user.getId());
         RbacCustomerDto customer = customUserDetailsDao.findCustomer(user.getId());

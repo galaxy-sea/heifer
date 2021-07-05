@@ -47,7 +47,7 @@ public class MethodSecurityExpressionRoot implements MethodSecurityExpressionOpe
 
     @Override
     public boolean hasAuthority(String authority) {
-        System.out.println("todo");
+        System.out.println("toto 权限表达式，增加新功能");
         // TODO: 2021/6/30 changjin wei(魏昌进) 权限表达式，增加新功能
         return methodSecurityExpressionOperations.hasAuthority(authority);
     }

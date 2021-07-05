@@ -21,6 +21,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.properties.JwtProperties;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAdminDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacCustomerDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserManageDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
 import javax.validation.constraints.NotEmpty;
@@ -50,6 +53,9 @@ public class JwtUtil {
     public static final String IS_ENABLED = "isEnabled";
     public static final String DEPT_ID = "deptId";
     public static final String ORG_ID = "orgId";
+    public static final String ADMIN = "a";
+    public static final String CUSTOMER = "c";
+    public static final String MANAGE = "m";
     public static final String BEARER = "Bearer ";
 
     public static final Long MAX_CLOCK_SKEW_SECONDS = 60L;
@@ -80,12 +86,18 @@ public class JwtUtil {
                 .issueTime(new Date())
                 // jti – JWT ID 声明
                 .jwtID(userPrincipal.getId().toString())
+
                 .claim(ROLES, String.join(",", userPrincipal.getRoles()))
                 .claim(AUTHORITIES, userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
                 .claim(DATA_POWERS, StringUtils.join(userPrincipal.getDataPowers(), ","))
+
                 .claim(IS_ENABLED, userPrincipal.getIsEnabled())
-                .claim(DEPT_ID, userPrincipal.getDeptId())
+                // .claim(DEPT_ID, userPrincipal.getDeptId())
                 .claim(ORG_ID, userPrincipal.getOrgId())
+
+                .claim(ADMIN, userPrincipal.getAdmin().serialize())
+                .claim(CUSTOMER, userPrincipal.getCustomer().serialize())
+                .claim(MANAGE, userPrincipal.getUserManage().serialize())
                 .build();
         SignedJWT signedJwt = new SignedJWT(jwsHeader, claimsSet);
         try {
@@ -120,12 +132,18 @@ public class JwtUtil {
         userPrincipal.setUsername(claimsSet.getSubject());
 
         try {
-            userPrincipal.setDeptId(claimsSet.getLongClaim(DEPT_ID));
+            // userPrincipal.setDeptId(claimsSet.getLongClaim(DEPT_ID));
             userPrincipal.setOrgId(claimsSet.getLongClaim(ORG_ID));
             userPrincipal.setIsEnabled(claimsSet.getBooleanClaim(IS_ENABLED));
+
             userPrincipal.setRoles(Arrays.asList(StringUtils.split(claimsSet.getStringClaim(ROLES), ",")));
             userPrincipal.setAuthorities(Arrays.stream(claimsSet.getStringClaim(AUTHORITIES).split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
             userPrincipal.setDataPowers(Arrays.stream(claimsSet.getStringClaim(DATA_POWERS).split(",")).map(Long::valueOf).collect(Collectors.toList()));
+
+            userPrincipal.setAdmin(new RbacAdminDto().deserialization(claimsSet.getJSONObjectClaim(ADMIN)));
+            userPrincipal.setCustomer(new RbacCustomerDto().deserialization(claimsSet.getJSONObjectClaim(CUSTOMER)));
+            userPrincipal.setUserManage(new RbacUserManageDto().deserialization(claimsSet.getJSONObjectClaim(MANAGE)));
+
         } catch (ParseException e) {
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }

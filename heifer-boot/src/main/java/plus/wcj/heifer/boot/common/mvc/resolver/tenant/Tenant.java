@@ -29,8 +29,7 @@ public class Tenant {
     /** 数据权限 */
     private Collection<Long> dataPowers;
 
-    /** 功能权限 */
-    @Deprecated
-    private Collection<String> authority;
+    /** org权限下的全部数据权限 */
+    private boolean allPower;
 
 }

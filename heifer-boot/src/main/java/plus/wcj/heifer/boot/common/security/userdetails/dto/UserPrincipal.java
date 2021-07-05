@@ -54,8 +54,6 @@ public class UserPrincipal implements UserDetails {
     /** 组织id */
     private Long orgId;
 
-    /** 部门id */
-    private Long deptId;
 
     /** 用户角色列表 */
     private Collection<String> roles;
@@ -83,7 +81,7 @@ public class UserPrincipal implements UserDetails {
         return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(),
                                  user.getNickname(), user.getPhone(), user.getEmail(),
                                  user.getIsEnabled(),
-                                 null, null, roleNames,
+                                 user.getRbacOrgId(), roleNames,
                                  authorities, setDataPower,
                                  admin, customer, userManage
         );

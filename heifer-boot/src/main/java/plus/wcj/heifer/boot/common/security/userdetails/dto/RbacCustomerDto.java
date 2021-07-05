@@ -7,8 +7,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.apache.commons.collections4.MapUtils;
+import plus.wcj.heifer.boot.common.security.jwt.JwtClaim;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -23,7 +27,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @TableName("rbac_customer")
 @ApiModel(value = "RbacCustomer对象", description = "顾客信息")
-public class RbacCustomerDto implements Serializable {
+public class RbacCustomerDto implements Serializable, JwtClaim<RbacCustomerDto> {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,4 +42,16 @@ public class RbacCustomerDto implements Serializable {
     @TableField("rbac_user_id")
     private Long rbacUserId;
 
+    @Override
+    public Map<String, String> serialize() {
+        Map<String, String> map = new HashMap<>(2);
+        map.put("rbacDeptId", this.getRbacUserId().toString());
+        return map;
+    }
+
+    @Override
+    public RbacCustomerDto deserialization(Map<String, Object> map) {
+        this.setRbacUserId(MapUtils.getLong(map, "rbacDeptId"));
+        return this;
+    }
 }
