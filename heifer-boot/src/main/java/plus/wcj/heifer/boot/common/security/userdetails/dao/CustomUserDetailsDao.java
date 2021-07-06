@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot.common.security.userdetails.dao;
 
 import org.apache.ibatis.annotations.Param;
+import plus.wcj.heifer.boot.common.mvc.resolver.tenant.Tenant;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAdminDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacCustomerDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto;
@@ -110,5 +111,6 @@ public interface CustomUserDetailsDao {
      */
     RbacUserManageDto findUserManage(@Param("userId") Long userId);
 
-
+    // TODO: 2021/7/6 changjin wei(魏昌进)
+    RbacUserManageDto findUserManageTest(@Param("tenant") Tenant tenant);
 }

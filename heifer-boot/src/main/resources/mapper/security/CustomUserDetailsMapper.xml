@@ -51,7 +51,7 @@
                         rp.type,
                         rp.sort
         FROM rbac_permission rp
-        WHERE exists(SELECT 1
+        WHERE EXISTS(SELECT 1
                      FROM rbac_org_authority roa
                      WHERE rp.id = roa.rbac_permission_id
                        AND roa.rbac_org_id = #{orgId}
@@ -162,5 +162,28 @@
                is_all_authority
         FROM rbac_user_manage
         WHERE rbac_user_id = #{userId}
+    </select>
+
+
+
+    <select id="findUserManageTest" resultMap="UserManageBaseResultMap">
+
+        SELECT
+            *
+        FROM rbac_user_manage dada
+        WHERE
+
+        <include refid="plus.wcj.heifer.boot.extension.dao.SqlTemplate.Tenant">
+            <property name="tableAlias" value="" />
+        </include>
+
+        dada.ten
+
+        <include refid="plus.wcj.heifer.boot.extension.dao.SqlTemplate.Tenant">
+            <property name="tableAlias" value="" />
+        </include>
+
+
+
     </select>
 </mapper>
