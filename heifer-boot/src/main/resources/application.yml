@@ -15,6 +15,7 @@ heifer:
       post:
         - "/api/auth/login"
         - "/api/auth/logout"
+        - "/api/auth/sign-on"
       delete:
       put:
       head:

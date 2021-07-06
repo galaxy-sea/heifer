@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import plus.wcj.heifer.boot.common.mvc.result.Result;
 import plus.wcj.heifer.boot.common.security.dto.JwtResponse;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
@@ -44,6 +45,8 @@ public class AuthController {
 
     private final RbacUserService userService;
 
+    private final HeiferUserDetailsServiceImpl userDetailsService;
+
     /**
      * 登录
      */
@@ -58,14 +61,11 @@ public class AuthController {
         return new JwtResponse(jwt);
     }
 
-    /**
-     * 登录
-     */
-    @PostMapping("/login/test")
-    public JwtResponse login() {
-        UserPrincipal admin = (UserPrincipal) heiferUserDetailsServiceImpl.loadUserByUsername("1");
-        String jwt = jwtUtil.createJwt(admin, true);
-        return new JwtResponse(jwt);
+
+    @PostMapping("/sign-up")
+    public Result<Void> signUp(@RequestBody LoginRequest loginRequest) {
+        userService.signUp(loginRequest);
+        return Result.success();
     }
 
     @PostMapping("/logout")
@@ -79,6 +79,16 @@ public class AuthController {
         return "Status.LOGOUT";
     }
 
+
+    /**
+     * 登录
+     */
+    @PostMapping("/login/test")
+    public JwtResponse login() {
+        UserPrincipal admin = (UserPrincipal) heiferUserDetailsServiceImpl.loadUserByUsername("1");
+        String jwt = jwtUtil.createJwt(admin, true);
+        return new JwtResponse(jwt);
+    }
 
     @GetMapping("/user")
     public UserPrincipal logout(UserPrincipal userPrincipal) {

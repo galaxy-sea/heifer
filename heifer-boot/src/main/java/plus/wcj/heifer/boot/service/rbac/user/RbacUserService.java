@@ -1,5 +1,6 @@
 package plus.wcj.heifer.boot.service.rbac.user;
 
+import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
 import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
 import plus.wcj.heifer.boot.extension.service.IService;
 
@@ -13,4 +14,5 @@ import plus.wcj.heifer.boot.extension.service.IService;
  */
 public interface RbacUserService extends IService<RbacUser> {
 
+    void signUp(LoginRequest loginRequest);
 }
