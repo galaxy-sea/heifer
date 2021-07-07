@@ -51,14 +51,41 @@ CREATE TABLE `t_users1` (
 -- ) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
 ```
 
-> 数据权限sql书写
+> 数据权限sql
 ```sql
-SELECT *
-FROM xxx
-WHERE xxx.rbac_org_id = ?
-  AND xxx.rbac_dept_id IN (?)
+SELECT user.*
+FROM t_users1 user
+WHERE user.rbac_org_id = ?
+  AND user.rbac_dept_id IN (?)
 ```
+> 数据权限MyBatis
+```mybatisognl
 
+List<Object> selectUser(@Param("tenant") Tenant tenant)
+
+
+<sql id="Tenant">
+    <choose>
+        <when test="tenant.allPower"> 
+            ${tableAlias}.rbac_org_id = #{tenant.orgId}
+        </when>
+        <otherwise>
+            ${tableAlias}.rbac_dept_id IN
+            <foreach item="item" index="index" collection="tenant.dataPowers" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </otherwise> 
+    </choose>
+</sql>
+
+<select id="selectUser">
+    select user.*
+    from t_users1 user
+    <include refid="plus.wcj.heifer.boot.extension.dao.SqlTemplate.Tenant">
+        <property name="tableAlias" value="user" />
+    </include>
+</select>
+```
 
 
 

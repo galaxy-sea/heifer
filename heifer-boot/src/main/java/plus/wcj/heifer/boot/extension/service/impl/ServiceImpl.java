@@ -77,6 +77,8 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     protected Class<T> entityClass = currentModelClass();
 
+    protected Class<T> mapperClass = currentMapperClass();
+
     @Override
     public Class<T> getEntityClass() {
         return entityClass;
@@ -149,8 +151,6 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     public boolean saveOrUpdate(T entity, Wrapper<T> updateWrapper) {
         return update(entity, updateWrapper) || saveOrUpdate(entity);
     }
-
-    protected Class<T> mapperClass = currentMapperClass();
 
     /**
      * 判断数据库操作是否成功
