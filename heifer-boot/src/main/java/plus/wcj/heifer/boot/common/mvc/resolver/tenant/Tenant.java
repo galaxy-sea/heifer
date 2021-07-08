@@ -1,35 +1,32 @@
 package plus.wcj.heifer.boot.common.mvc.resolver.tenant;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-
-import java.util.Collection;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * @author changjin wei(魏昌进)
  * @since 2021/6/28
  */
-@Data
-@Accessors(chain = true)
-@NoArgsConstructor
+@Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class Tenant {
     /** 用户id */
-    private Long userId;
+    private final Long userId;
 
     /** 用户id */
-    private String username;
+    private final String username;
 
     /** 组织id */
-    private Long orgId;
+    private final Long orgId;
 
     /** 部门id */
-    private Long deptId;
+    private final Long deptId;
 
     /** 数据权限 */
-    private Collection<Long> dataPowers;
+    private final String dataPowers;
 
     /** org权限下的全部数据权限 */
-    private boolean allPower;
-
+    private final boolean allPower;
 }

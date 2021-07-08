@@ -12,26 +12,18 @@ import com.nimbusds.jwt.SignedJWT;
 import com.nimbusds.jwt.util.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.properties.JwtProperties;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAdminDto;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacCustomerDto;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserManageDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -48,28 +40,29 @@ import java.util.stream.Collectors;
 public class JwtUtil {
 
     public static final String ROLES = "roles";
-    public static final String AUTHORITIES = "authorities";
+    public static final String PERMISSIONS = "permissions";
     public static final String DATA_POWERS = "dataPowers";
     public static final String IS_ENABLED = "isEnabled";
     public static final String DEPT_ID = "deptId";
     public static final String ORG_ID = "orgId";
-    public static final String ADMIN = "a";
-    public static final String CUSTOMER = "c";
-    public static final String MANAGE = "m";
+    public static final String ALL_POWER = "ap";
+    public static final String ALL_AUTHORITY = "aa";
+
     public static final String BEARER = "Bearer ";
 
     public static final Long MAX_CLOCK_SKEW_SECONDS = 60L;
     private final JwtProperties jwtProperties;
 
-    public String createJwt(@NotNull UserPrincipal userPrincipal, @NotNull Boolean rememberMe) {
 
-        // 创建JWS头，设置签名算法和类型
-        JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256)
-                // 设置类型 ( typ ) 参数
-                .type(JOSEObjectType.JWT)
-                // 设置密钥 ID ( kid ) 参数。
-                // .keyID("kid")
-                .build();
+    /** 创建JWS头，设置签名算法和类型 */
+    private final JWSHeader  jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256)
+            // 设置类型 ( typ ) 参数
+            .type(JOSEObjectType.JWT)
+            // 设置密钥 ID ( kid ) 参数。
+            // .keyID("kid")
+            .build();
+
+    public String createJwt(@NotNull UserPrincipal userPrincipal, @NotNull Boolean rememberMe) {
 
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 // iss – 发行人声明
@@ -87,17 +80,17 @@ public class JwtUtil {
                 // jti – JWT ID 声明
                 .jwtID(userPrincipal.getId().toString())
 
-                .claim(ROLES, String.join(",", userPrincipal.getRoles()))
-                .claim(AUTHORITIES, userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
-                .claim(DATA_POWERS, StringUtils.join(userPrincipal.getDataPowers(), ","))
+                .claim(ROLES, userPrincipal.getRoles())
+                .claim(PERMISSIONS, userPrincipal.getPermissions())
+                .claim(DATA_POWERS, userPrincipal.getDataPowers())
 
                 .claim(IS_ENABLED, userPrincipal.getIsEnabled())
-                // .claim(DEPT_ID, userPrincipal.getDeptId())
+                .claim(DEPT_ID, userPrincipal.getDeptId())
                 .claim(ORG_ID, userPrincipal.getOrgId())
 
-                .claim(ADMIN, userPrincipal.getAdmin().serialize())
-                .claim(CUSTOMER, userPrincipal.getCustomer().serialize())
-                .claim(MANAGE, userPrincipal.getUserManage().serialize())
+                .claim(ALL_POWER, userPrincipal.getAllPower())
+                .claim(ALL_AUTHORITY, userPrincipal.getAllAuthority())
+
                 .build();
         SignedJWT signedJwt = new SignedJWT(jwsHeader, claimsSet);
         try {
@@ -127,28 +120,24 @@ public class JwtUtil {
     public UserPrincipal getUserPrincipal(@NotEmpty String authorization) {
         String jwt = authorization.startsWith(BEARER) ? authorization.substring("Bearer ".length()) : authorization;
         JWTClaimsSet claimsSet = this.parseJwt(jwt);
-        UserPrincipal userPrincipal = new UserPrincipal();
-        userPrincipal.setId(Long.valueOf(claimsSet.getJWTID()));
-        userPrincipal.setUsername(claimsSet.getSubject());
-
         try {
-            // userPrincipal.setDeptId(claimsSet.getLongClaim(DEPT_ID));
-            userPrincipal.setOrgId(claimsSet.getLongClaim(ORG_ID));
-            userPrincipal.setIsEnabled(claimsSet.getBooleanClaim(IS_ENABLED));
-
-            userPrincipal.setRoles(Arrays.asList(StringUtils.split(claimsSet.getStringClaim(ROLES), ",")));
-            userPrincipal.setAuthorities(Arrays.stream(claimsSet.getStringClaim(AUTHORITIES).split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-            userPrincipal.setDataPowers(Arrays.stream(claimsSet.getStringClaim(DATA_POWERS).split(",")).map(Long::valueOf).collect(Collectors.toList()));
-
-            userPrincipal.setAdmin(new RbacAdminDto().deserialization(claimsSet.getJSONObjectClaim(ADMIN)));
-            userPrincipal.setCustomer(new RbacCustomerDto().deserialization(claimsSet.getJSONObjectClaim(CUSTOMER)));
-            userPrincipal.setUserManage(new RbacUserManageDto().deserialization(claimsSet.getJSONObjectClaim(MANAGE)));
-
+            return new UserPrincipal(
+                    Long.valueOf(claimsSet.getJWTID()),
+                    claimsSet.getSubject(),
+                    null,
+                    claimsSet.getBooleanClaim(IS_ENABLED),
+                    claimsSet.getLongClaim(ORG_ID),
+                    claimsSet.getLongClaim(DEPT_ID),
+                    claimsSet.getBooleanClaim(ALL_POWER),
+                    claimsSet.getBooleanClaim(ALL_AUTHORITY),
+                    claimsSet.getStringClaim(ROLES),
+                    claimsSet.getStringClaim(PERMISSIONS),
+                    claimsSet.getStringClaim(DATA_POWERS),
+                    null
+            );
         } catch (ParseException e) {
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
-
-        return userPrincipal;
     }
 
     private JWTClaimsSet parseJwt(String jwt) {

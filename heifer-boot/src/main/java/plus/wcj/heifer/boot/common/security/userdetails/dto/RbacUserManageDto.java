@@ -7,13 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.BooleanUtils;
-import plus.wcj.heifer.boot.common.security.jwt.JwtClaim;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>
@@ -28,7 +23,7 @@ import java.util.Map;
 @Accessors(chain = true)
 @TableName("rbac_user_manage")
 @ApiModel(value = "RbacUserManage对象", description = "用户是否拥有全部数据权限和功能权限")
-public class RbacUserManageDto implements Serializable, JwtClaim<RbacUserManageDto> {
+public class RbacUserManageDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,19 +38,4 @@ public class RbacUserManageDto implements Serializable, JwtClaim<RbacUserManageD
     @TableField("is_all_authority")
     private Boolean allAuthority;
 
-
-    @Override
-    public Map<String, String> serialize() {
-        Map<String, String> map = new HashMap<>(5);
-        map.put("allPower", BooleanUtils.toStringTrueFalse(this.getAllPower()));
-        map.put("allAuthority", BooleanUtils.toStringTrueFalse(this.getAllAuthority()));
-        return map;
-    }
-
-    @Override
-    public RbacUserManageDto deserialization(Map<String, Object> map) {
-        this.setAllPower(BooleanUtils.toBoolean(MapUtils.getBoolean(map, "allPower")));
-        this.setAllAuthority(BooleanUtils.toBoolean(MapUtils.getBoolean(map, "allAuthority")));
-        return this;
-    }
 }

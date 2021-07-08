@@ -99,12 +99,9 @@ spring:
     store-type: none
     # session会话保持时间
     timeout: 0
+  profiles:
+    active: dev
 #logging:
 #  level:
 #    plus.wcj.heifer.boot.common.security: debug
 #    org.springframework.security: debug
-
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#  mapper-locations: classpath*:/mapper/**/*.xml

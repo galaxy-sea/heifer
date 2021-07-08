@@ -33,14 +33,12 @@ public class TenantMethodArgumentResolver implements HandlerMethodArgumentResolv
             throw new ResultException(ResultStatus.UNAUTHORIZED);
         }
 
-        Tenant tenant = new Tenant();
-        tenant.setUserId(userDetails.getId());
-        tenant.setUsername(userDetails.getUsername());
-        tenant.setOrgId(userDetails.getOrgId());
-        tenant.setDeptId(userDetails.getAdmin().getRbacDeptId());
-        tenant.setDataPowers(userDetails.getDataPowers());
-        tenant.setAllPower(userDetails.getUserManage().getAllPower());
-
-        return tenant;
+        return new Tenant(userDetails.getId(),
+                          userDetails.getUsername(),
+                          userDetails.getOrgId(),
+                          userDetails.getDeptId(),
+                          userDetails.getDataPowers(),
+                          userDetails.getAllPower()
+                                   );
     }
 }

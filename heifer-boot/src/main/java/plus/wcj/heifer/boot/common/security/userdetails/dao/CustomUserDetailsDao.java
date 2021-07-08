@@ -111,6 +111,4 @@ public interface CustomUserDetailsDao {
      */
     RbacUserManageDto findUserManage(@Param("userId") Long userId);
 
-    // TODO: 2021/7/6 changjin wei(魏昌进)
-    RbacUserManageDto findUserManageTest(@Param("tenant") Tenant tenant);
 }
