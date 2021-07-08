@@ -39,12 +39,12 @@ import java.util.Date;
 @AllArgsConstructor
 public class JwtUtil {
 
-    public static final String ROLES = "roles";
-    public static final String PERMISSIONS = "permissions";
-    public static final String DATA_POWERS = "dataPowers";
-    public static final String IS_ENABLED = "isEnabled";
-    public static final String DEPT_ID = "deptId";
-    public static final String ORG_ID = "orgId";
+    public static final String ROLES = "r";
+    public static final String PERMISSIONS = "p";
+    public static final String DATA_POWERS = "d";
+    public static final String IS_ENABLED = "ie";
+    public static final String DEPT_ID = "di";
+    public static final String ORG_ID = "oi";
     public static final String ALL_POWER = "ap";
     public static final String ALL_AUTHORITY = "aa";
 
