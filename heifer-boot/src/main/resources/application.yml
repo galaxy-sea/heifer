@@ -101,7 +101,3 @@ spring:
     timeout: 0
   profiles:
     active: dev
-#logging:
-#  level:
-#    plus.wcj.heifer.boot.common.security: debug
-#    org.springframework.security: debug
