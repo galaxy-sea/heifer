@@ -101,3 +101,26 @@ spring:
     timeout: 0
   profiles:
     active: dev
+
+mybatis-plus:
+  # 检查配置文件
+  check-config-location: true
+  # xml影射路径
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: false
+    # 关闭一级缓存
+    local-cache-scope: statement
+    # 关闭二级缓存
+    cache-enabled: false
+    # 枚举类型处理方式
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    # MyBatis 自动映射时未知列或未知属性处理策略
+    auto-mapping-unknown-column-behavior: failing
+  global-config:
+    db-config:
+      # id生成类型
+      id-type: assign_id
+      # 表名是否使用驼峰转下划线命名,只对表名生效
+      table-underline: false

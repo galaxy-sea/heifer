@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.mvc.resolver.tenant;
+package plus.wcj.heifer.boot.extension.tenant;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -39,7 +39,6 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
 @RestControllerAdvice
 public class ResultResponseEntityExceptionHandler {
 
-
     @SuppressWarnings("unused")
     protected ResponseEntity<Result<?>> handleExceptionInternal(Exception ex, Result<?> body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         log.error("{}: {}", ex.getClass(), ex.getMessage());

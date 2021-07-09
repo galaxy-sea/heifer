@@ -4,7 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>puls.wcj</groupId>
     <artifactId>heifer-boot</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <!--版本号采用年份版本   年份版本.主版本.修复版本-->
+    <version>2021.1.1-SNAPSHOT</version>
     <name>heifer-boot</name>
     <description>Demo project for Spring Boot</description>
 

@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.mvc.resolver.tenant;
+package plus.wcj.heifer.boot.common.mvc.resolver;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +10,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
+import plus.wcj.heifer.boot.extension.tenant.Tenant;
 
 
 /**
@@ -39,6 +40,6 @@ public class TenantMethodArgumentResolver implements HandlerMethodArgumentResolv
                           userDetails.getDeptId(),
                           userDetails.getDataPowers(),
                           userDetails.getAllPower()
-                                   );
+        );
     }
 }

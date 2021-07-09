@@ -1,7 +1,7 @@
 package plus.wcj.heifer.boot.dao;
 
 import org.apache.ibatis.annotations.Param;
-import plus.wcj.heifer.boot.common.mvc.resolver.tenant.Tenant;
+import plus.wcj.heifer.boot.extension.tenant.Tenant;
 
 import java.util.List;
 
@@ -12,8 +12,5 @@ import java.util.List;
 public interface TestDao {
 
     List<Long> test1(@Param("tenant") Tenant tenant);
-
-    List<Long> test2(@Param("hahah") Long[] hahah);
-
 
 }

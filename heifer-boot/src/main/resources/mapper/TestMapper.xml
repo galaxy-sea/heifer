@@ -3,17 +3,13 @@
 
 <mapper namespace="plus.wcj.heifer.boot.dao.TestDao">
     <select id="test1" resultType="java.lang.Long">
-        SELECT *
-        FROM
-        <include refid="plus.wcj.heifer.boot.extension.dao.SqlTemplate.tenant">
-            <property name="tableAlias" value="rbac_user_manage" />
-        </include>
-    </select>
-
-
-    <select id="test2" resultType="java.lang.Long">
         SELECT id
-        FROM rbac_user
-        WHERE id IN #{hahah,jdbcType=ARRAY}
+        FROM rbac_user_manage rum
+        WHERE
+        <include refid="plus.wcj.heifer.boot.extension.dao.SqlTemplate.tenant">
+            <property name="tableAlias" value="rum" />
+        </include>
+
     </select>
+
 </mapper>

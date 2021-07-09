@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.common.mvc.resolver.user;
+package plus.wcj.heifer.boot.common.mvc.resolver;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;

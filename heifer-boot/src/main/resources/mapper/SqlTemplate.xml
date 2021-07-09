@@ -8,7 +8,7 @@
                 ${tableAlias}.rbac_org_id = #{tenant.orgId}
             </when>
             <otherwise>
-                ${tableAlias}.rbac_dept_id IN ${tenant.dataPowers}
+                ${tableAlias}.rbac_dept_id IN (${tenant.dataPowers})
             </otherwise>
         </choose>
     </sql>

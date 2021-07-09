@@ -4,7 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import plus.wcj.heifer.boot.common.mvc.resolver.tenant.Tenant;
+import plus.wcj.heifer.boot.extension.tenant.Tenant;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 
 import java.util.Date;
@@ -18,8 +18,8 @@ public class SecurityController {
 
     @GetMapping("1")
     @ResultResponseBody
-    public Date test1() {
-        return new Date();
+    public Tenant test1(Tenant tenant) {
+        return tenant;
     }
 
 

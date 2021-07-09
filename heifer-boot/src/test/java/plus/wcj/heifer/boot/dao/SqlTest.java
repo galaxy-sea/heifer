@@ -3,8 +3,8 @@ package plus.wcj.heifer.boot.dao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import plus.wcj.heifer.boot.extension.tenant.Tenant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +25,10 @@ public class SqlTest {
 
     @Test
     public void testSql2() {
+        Tenant name = new Tenant(1L, "name", 1L, 1L, "1,2,3", false);
+        List<Long> longs = testDao.test1(name);
 
-
-
-        List list = testDao.test2(new Long[]{1L,2L,3L});
-        System.out.println(list);
+        System.out.println(longs);
 
     }
 
