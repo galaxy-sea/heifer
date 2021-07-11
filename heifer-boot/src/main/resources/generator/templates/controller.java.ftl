@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.validation.annotation.Validated;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
+import plus.wcj.heifer.boot.extension.tenant.Tenant;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotNull;
@@ -60,14 +61,14 @@ public class ${table.controllerName} {
     /** 分页查询 */
     @GetMapping
     @ResultResponseBody
-    public Page<${entity}> page(Page<${entity}> page, ${entity} ${entity?uncap_first}) {
+    public Page<${entity}> page(Page<${entity}> page, ${entity} ${entity?uncap_first}, Tenant tenant) {
         return ${table.serviceName?uncap_first}.page(page, ${entity?uncap_first});
     }
 
     /** 保存 */
     @PostMapping
     @ResultResponseBody
-    public boolean save(@RequestBody @Validated(value = PostValid.class) ${entity} ${entity?uncap_first}) {
+    public boolean save(@RequestBody @Validated(value = PostValid.class) ${entity} ${entity?uncap_first}, Tenant tenant) {
         return ${table.serviceName?uncap_first}.save(${entity?uncap_first});
     }
 
