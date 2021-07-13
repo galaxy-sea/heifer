@@ -46,7 +46,7 @@ public enum ResultStatus {
     /** 未启用的token */
     TOKEN_BEFORE_USE_TIME(HttpStatus.UNAUTHORIZED, "security-0003", "token before use time"),
     /** jwt解析token异常 */
-    JOSE_Exception(HttpStatus.INTERNAL_SERVER_ERROR, "security-0004", "Javascript Object Signing and Encryption (JOSE) exception"),
+    JOSE_Exception(HttpStatus.UNAUTHORIZED, "security-0004", "Javascript Object Signing and Encryption (JOSE) exception"),
     ;
     /** 返回的HTTP状态码,  符合http请求 */
     private final HttpStatus httpStatus;
