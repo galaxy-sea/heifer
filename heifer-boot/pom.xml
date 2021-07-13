@@ -14,6 +14,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <spring-boot.run.main-class>plus.wcj.heifer.boot.HeiferBootApplication</spring-boot.run.main-class>
+
+        <!--surefire plugin方式跳过maven test, 等同$ mvn package -DskipTests-->
+        <skipTests>true</skipTests>
+        <!--maven方式跳过maven test, 等同$ mvn package -Dmaven.test.skip=true-->
+        <maven.test.skip>true</maven.test.skip>
+
+
         <spring-boot.version>2.5.0</spring-boot.version>
 
         <commons-collections4.version>4.4</commons-collections4.version>
@@ -203,8 +211,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <!--<version>2.3.7.RELEASE</version>-->
                 <configuration>
-                    <!--指定启动方法-->
-                    <mainClass>plus.wcj.heifer.boot.HeiferBootApplication</mainClass>
                     <!--排除一些特殊依赖-->
                     <excludes>
                         <exclude>
@@ -228,14 +234,6 @@
                 </executions>
             </plugin>
 
-            <!--package时跳过测试-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
 
             <!--配置文件加密解密工具-->
             <!--mvn jasypt:encrypt-value -Djasypt.encryptor.password="the password" -Djasypt.plugin.value="theValueYouWantToEncrypt"-->
