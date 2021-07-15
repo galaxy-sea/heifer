@@ -1,6 +1,5 @@
 package plus.wcj.heifer.boot.common.mvc;
 
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -16,7 +15,7 @@ import java.util.List;
  * @date 2021/4/23
  */
 @Configuration
-public class WebMvcConfiguration implements WebMvcConfigurer, WebMvcRegistrations {
+public class WebMvcConfiguration implements WebMvcConfigurer {
 
     // WebMvcConfigurer start
 
@@ -31,16 +30,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer, WebMvcRegistration
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.removeIf(httpMessageConverter -> StringHttpMessageConverter.class.equals(httpMessageConverter.getClass()));
     }
-    // WebMvcConfigurer end
-
-    // WebMvcRegistrations start
-
-    // @Override
-    // public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
-    //     return new ApiVersionRequestMappingHandlerMapping();
-    // }
-
-    // WebMvcRegistrations end
 
 
 }
