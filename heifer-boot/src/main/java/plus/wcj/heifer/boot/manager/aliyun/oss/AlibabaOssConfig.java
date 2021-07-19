@@ -25,8 +25,8 @@ import java.util.Map;
 public class AlibabaOssConfig {
 
     public static void main(String[] args) throws ParseException, FileNotFoundException {
-        String accessId = "LTAI5tFHbYfReKAUyNHEeZG7"; // 请填写您的AccessKeyId。
-        String accessKey = "C9HtKXOPGhXGY3GIlnVnBMBDfHUIb2"; // 请填写您的AccessKeySecret。
+        String accessId = "xxxx"; // 请填写您的AccessKeyId。
+        String accessKey = "xxx"; // 请填写您的AccessKeySecret。
         String endpoint = "oss-cn-hangzhou.aliyuncs.com"; // 请填写您的 endpoint。
         String bucket = "heifer.oss-cn-hangzhou.aliyuncs.com"; // 请填写您的 bucketname 。
         String host = "https://" + bucket + "." + endpoint; // host的格式为 bucketname.endpoint
