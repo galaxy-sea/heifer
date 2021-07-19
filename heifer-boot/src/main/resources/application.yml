@@ -9,6 +9,16 @@ heifer:
     ttl: 600000
     # 7天 毫秒（millisecond）
     remember: 604800000
+  aliyun:
+    accessId: xxxx
+    accessKey: xxxx
+    oss:
+      accessId: xxxx
+      accessKey: xxxx
+      bucket: heifer.oss-cn-hangzhou.aliyuncs.com
+      endpoint: oss-cn-hangzhou.aliyuncs.com
+      host: https://${heifer.aliyun.bucket}.${heifer.aliyun.endpoint}
+
   security:
     ignoring:
       get:
