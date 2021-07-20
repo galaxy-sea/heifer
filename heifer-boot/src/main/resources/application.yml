@@ -47,12 +47,7 @@ heifer:
         - "/swagger-ui/*"
         - "/v3/api-docs/**"
         # 静态文件
-        - "/favicon.ico"
-        - "/index.html"
-        - "/style.css"
-        - "/upload.js"
-        - "/lib/*"
-        - "/lib/**"
+        - "/oss/**"
 jasypt:
   encryptor:
     password: xxxxxxxxx
