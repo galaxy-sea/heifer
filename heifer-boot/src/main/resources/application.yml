@@ -10,14 +10,15 @@ heifer:
     # 7天 毫秒（millisecond）
     remember: 604800000
   aliyun:
-    accessId: xxxx
-    accessKey: xxxx
+    access-id: xxxx
+    access-key: xxxx
     oss:
-      accessId: xxxx
-      accessKey: xxxx
+      access-id: ${heifer.aliyun.access-id}
+      access-key: ${heifer.aliyun.access-key}
       bucket: heifer.oss-cn-hangzhou.aliyuncs.com
       endpoint: oss-cn-hangzhou.aliyuncs.com
       host: https://${heifer.aliyun.bucket}.${heifer.aliyun.endpoint}
+      expire: 600000
 
   security:
     ignoring:
