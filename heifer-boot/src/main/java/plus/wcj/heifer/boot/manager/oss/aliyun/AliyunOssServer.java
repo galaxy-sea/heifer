@@ -5,6 +5,7 @@ import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import plus.wcj.heifer.boot.manager.oss.OssServer;
@@ -21,15 +22,20 @@ import java.util.Map;
  * @since 2021/7/16
  */
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableConfigurationProperties(AliyunOssProperties.class)
-public class AliyunOssServer implements OssServer {
+public class AliyunOssServer implements OssServer<AliyunOssProperties> {
 
     private final OSS ossClient;
     private final AliyunOssProperties aliyunOssProperties;
 
     @Override
     public Map<String, String> policy(String dir) {
+        return this.policy(dir, aliyunOssProperties);
+    }
+
+    @Override
+    public Map<String, String> policy(String dir, AliyunOssProperties aliyunOssProperties) {
         long expireEndTime = System.currentTimeMillis() + aliyunOssProperties.getExpire();
         Date expiration = new Date(expireEndTime);
         // PostObject请求最大可支持的文件大小为5 GB，即CONTENT_LENGTH_RANGE为5*1024*1024*1024。

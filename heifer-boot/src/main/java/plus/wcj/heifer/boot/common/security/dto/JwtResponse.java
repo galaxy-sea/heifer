@@ -1,8 +1,7 @@
 package plus.wcj.heifer.boot.common.security.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
@@ -12,9 +11,8 @@ import lombok.NoArgsConstructor;
  * @author yangkai.shen
  * @date Created in 2018-12-10 16:01
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class JwtResponse {
     /**
      * token 字段

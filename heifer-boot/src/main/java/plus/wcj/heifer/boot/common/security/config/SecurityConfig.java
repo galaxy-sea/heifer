@@ -1,6 +1,6 @@
 package plus.wcj.heifer.boot.common.security.config;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +37,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableConfigurationProperties(IgnoreProperties.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final IgnoreProperties ignoreProperties;

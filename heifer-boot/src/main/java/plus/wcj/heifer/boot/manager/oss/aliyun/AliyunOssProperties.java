@@ -3,6 +3,7 @@ package plus.wcj.heifer.boot.manager.oss.aliyun;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import plus.wcj.heifer.boot.manager.oss.OssProperties;
 
 /**
  * @author changjinwei
@@ -11,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "heifer.aliyun.oss")
-public class AliyunOssProperties {
+public class AliyunOssProperties implements OssProperties {
     /** 阿里云账号 accessId */
     private String accessId;
     /** 阿里云账号 accessKey */

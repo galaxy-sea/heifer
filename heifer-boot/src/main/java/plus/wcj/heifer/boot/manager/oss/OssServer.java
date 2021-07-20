@@ -9,7 +9,7 @@ import java.util.Map;
  * @since 2021/7/19
  */
 
-public interface OssServer {
+public interface OssServer<OP extends OssProperties> {
 
     /**
      * 基于Post Policy的使用规则在服务端通过各种语言代码完成签名，并且设置上传回调，然后通过表单直传数据到OSS
@@ -19,5 +19,15 @@ public interface OssServer {
      * @return 授权信息
      */
     Map<String, String> policy(String dir);
+
+    /**
+     * 基于Post Policy的使用规则在服务端通过各种语言代码完成签名，并且设置上传回调，然后通过表单直传数据到OSS
+     *
+     * @param dir 用户上传文件时指定的前缀。
+     * @param ossProperties 配置信息
+     *
+     * @return 授权信息
+     */
+    Map<String, String> policy(String dir, OP ossProperties);
 
 }

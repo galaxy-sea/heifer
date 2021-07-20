@@ -1,7 +1,7 @@
 package plus.wcj.heifer.boot.common.security.userdetails;
 
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * @date Created in 2018-12-10 10:29
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HeiferUserDetailsServiceImpl implements UserDetailsService {
     private final CustomUserDetailsDao customUserDetailsDao;
 

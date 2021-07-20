@@ -1,8 +1,8 @@
 package plus.wcj.heifer.boot.extension.tenant;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author changjin wei(魏昌进)
@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @EqualsAndHashCode
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Tenant {
     /** 用户id */
     private final Long userId;

@@ -1,6 +1,6 @@
 package plus.wcj.heifer.boot.service.rbac.user.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
@@ -18,7 +18,7 @@ import plus.wcj.heifer.boot.service.rbac.user.RbacUserService;
  * @since 2021-07-03
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> implements RbacUserService {
 
     private final PasswordEncoder passwordEncoder;

@@ -10,7 +10,7 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.nimbusds.jwt.util.DateUtils;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +36,7 @@ import java.util.Date;
 @EnableConfigurationProperties(JwtProperties.class)
 @Configuration
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JwtUtil {
 
     public static final String ROLES = "r";

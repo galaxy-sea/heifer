@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot.common.security.config.bean;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2021/6/11
  */
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private final HandlerExceptionResolver handlerExceptionResolver;

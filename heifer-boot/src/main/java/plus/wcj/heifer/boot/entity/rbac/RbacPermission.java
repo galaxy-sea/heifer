@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
@@ -86,7 +86,7 @@ public class RbacPermission implements Serializable {
 
 
     @Getter
-    @AllArgsConstructor
+    @RequiredArgsConstructor
     public enum TypeEnum {
         /** 客户端 */
         CLIENT("客户端", 1),
