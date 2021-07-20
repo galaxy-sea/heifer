@@ -10,12 +10,13 @@ heifer:
     # 7天 毫秒（millisecond）
     remember: 604800000
   aliyun:
-    access-id: ENC(S5jsw9UyufrIWIZ4/BmF2SNUxO5lqV4HYGoqEMYRRWNWIld+5GNIITYp0ghA05veIERGesNfGS5XPGeEaLcZVQ==)
-    access-key: ENC(xpQb9sNL2qR2pnmPo0+CirLg9EG8qVCVRD76wbuLzjlOI/e614n5eWi5iAPnoFCwGZKSFq3rpILr0zaRxflpTA==)
+    access-id: ENC(8VepeRaPD2ZwpYvIaJidQ3IDLVPb6niDIkuHcsmzgi6IJXWU8a4gjTUi50gi28XpWmZ0Tm8mrgR10BniiqOZgg==)
+    access-key: ENC(PAv8lWyP2dzZQDhrN/RGAFhOP0dILshK9DTdhIRoyNk4jh37pYEEQ+WCMpiQ3ITP7noI2EO+p2TgxUmrofaeNA==)
     oss:
       access-id: ${heifer.aliyun.access-id}
       access-key: ${heifer.aliyun.access-key}
-      bucket: heifer.oss-cn-hangzhou.aliyuncs.com
+      bucket: heifer    # 这个便宜呀,用这个
+#      bucket: beautiful-senior   # 这个贵呀,不要用这个
       endpoint: oss-cn-hangzhou.aliyuncs.com
       host: https://${heifer.aliyun.oss.bucket}.${heifer.aliyun.oss.endpoint}
       expire: 600000
@@ -23,6 +24,8 @@ heifer:
   security:
     ignoring:
       get:
+        # oss 授权测试
+        - "/oss/policy"
       post:
         - "/api/auth/login"
         - "/api/auth/logout"
@@ -34,6 +37,7 @@ heifer:
       options:
       trace:
       pattern:
+        # swagger
         - "/api/auth/*"
         - "/api/auth/**"
         - "/test/*"
@@ -42,6 +46,13 @@ heifer:
         - "/swagger-ui/**"
         - "/swagger-ui/*"
         - "/v3/api-docs/**"
+        # 静态文件
+        - "/favicon.ico"
+        - "/index.html"
+        - "/style.css"
+        - "/upload.js"
+        - "/lib/*"
+        - "/lib/**"
 jasypt:
   encryptor:
     password: xxxxxxxxx
