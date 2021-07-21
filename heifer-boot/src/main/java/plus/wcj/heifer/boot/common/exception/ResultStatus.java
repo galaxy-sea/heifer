@@ -40,6 +40,9 @@ public enum ResultStatus {
     INTERNAL_SERVER_ERROR(HttpURLConnection.HTTP_INTERNAL_ERROR, "500", "Internal Server Error"),
     /** 暂停服务 */
     SERVICE_UNAVAILABLE(HttpURLConnection.HTTP_UNAVAILABLE, "503", "Service Unavailable"),
+
+    ////////////////////////////////////////
+
     /** 账号密码错误 */
     INCORRECT_USERNAME_OR_PASSWORD(HttpURLConnection.HTTP_OK, "security-0001", "Incorrect username or password"),
     /** 过期的token */
@@ -47,7 +50,15 @@ public enum ResultStatus {
     /** 未启用的token */
     TOKEN_BEFORE_USE_TIME(HttpURLConnection.HTTP_UNAUTHORIZED, "security-0003", "token before use time"),
     /** jwt解析token异常 */
-    JOSE_Exception(HttpURLConnection.HTTP_UNAUTHORIZED, "security-0004", "Javascript Object Signing and Encryption (JOSE) exception"),
+    JOSE_EXCEPTION(HttpURLConnection.HTTP_UNAUTHORIZED, "security-0004", "Javascript Object Signing and Encryption (JOSE) exception"),
+
+    ////////////////////////////////////////////////////
+    /** sms服务商网络异常 */
+    SMS_NETWORK_EXCEPTION(HttpURLConnection.HTTP_INTERNAL_ERROR, "sms-0001", "Short message service network Exception"),
+    /** @see <a href="https://help.aliyun.com/document_detail/101346.html?spm=a2c4g.11186623.6.629.38335ebf8Fi7vd">首页 > 短信服务 > 开发指南 > API参考 > 错误码 > API 错误码</a> */
+    SMS_SEND_FAIL(HttpURLConnection.HTTP_INTERNAL_ERROR, "sms-0002", "Short message send fail"),
+
+
     ;
     /** 返回的HTTP状态码,  符合http请求 */
     private final int httpStatus;

@@ -20,7 +20,10 @@ heifer:
       endpoint: oss-cn-hangzhou.aliyuncs.com
       host: https://${heifer.aliyun.oss.bucket}.${heifer.aliyun.oss.endpoint}
       expire: 600000
-
+    sms:
+      access-id: ENC(6Aw37mPcUYV3kRC0m/co12SP506ng/QvpDCur4sYJFUK09GLxNs52zCNICjw3M2jTaAq8CAt2gbKp9+nbDVLiA==)
+      access-key: ENC(HeHGeO5dD0VRZbmKSqVUVKATaB7m9e0Q1OGXPHRoS5QGrAY3uBp8LNv1mgu08y+JWXS+Y6V9Gqo3uW8rjgsufA==)
+      sign-name: 简氏科技
   security:
     ignoring:
       get:

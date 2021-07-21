@@ -23,4 +23,9 @@ public class ResultException extends RuntimeException {
         super(resultStatus.getMessage());
         this.resultStatus = resultStatus;
     }
+
+    public ResultException(ResultStatus resultStatus, String originalMessage) {
+        super(resultStatus.getMessage() + "\n originalMessage" + originalMessage);
+        this.resultStatus = resultStatus;
+    }
 }

@@ -96,7 +96,7 @@ public class JwtUtil {
         try {
             signedJwt.sign(new MACSigner(jwtProperties.getKey()));
         } catch (JOSEException e) {
-            throw new ResultException(ResultStatus.JOSE_Exception);
+            throw new ResultException(ResultStatus.JOSE_EXCEPTION);
         }
 
         return signedJwt.serialize();

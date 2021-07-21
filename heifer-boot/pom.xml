@@ -156,7 +156,12 @@
             <version>${aliyun-sdk-oss.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>dysmsapi20170525</artifactId>
+            <version>2.0.4</version>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -211,7 +216,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <!--<version>3.8.1</version>-->
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -226,7 +231,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--<version>2.3.7.RELEASE</version>-->
+                <version>2.3.7.RELEASE</version>
                 <configuration>
                     <!--排除一些特殊依赖-->
                     <excludes>
@@ -265,7 +270,18 @@
 
     <repositories>
         <repository>
-            <id>spring</id>
+            <id>aliyun-public</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>aliyun-spring</id>
             <url>https://maven.aliyun.com/repository/spring</url>
             <releases>
                 <enabled>true</enabled>

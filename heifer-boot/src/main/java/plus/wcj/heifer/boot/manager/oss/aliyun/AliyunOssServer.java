@@ -4,7 +4,6 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -31,7 +30,7 @@ public class AliyunOssServer implements OssServer<AliyunOssProperties> {
 
     @Override
     public Map<String, String> policy(String dir) {
-        return this.policy(dir, aliyunOssProperties);
+        return this.policy(dir, this.aliyunOssProperties);
     }
 
     @Override
@@ -43,10 +42,10 @@ public class AliyunOssServer implements OssServer<AliyunOssProperties> {
         policyConditions.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
         policyConditions.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, dir);
 
-        String postPolicy = ossClient.generatePostPolicy(expiration, policyConditions);
+        String postPolicy = this.ossClient.generatePostPolicy(expiration, policyConditions);
         byte[] binaryData = postPolicy.getBytes(StandardCharsets.UTF_8);
         String encodedPolicy = BinaryUtil.toBase64String(binaryData);
-        String postSignature = ossClient.calculatePostSignature(postPolicy);
+        String postSignature = this.ossClient.calculatePostSignature(postPolicy);
 
         Map<String, String> respMap = new LinkedHashMap<>();
         //noinspection SpellCheckingInspection
