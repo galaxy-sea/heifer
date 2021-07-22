@@ -246,6 +246,15 @@
     </profiles>
 
     <build>
+        <resources>
+            <resource>
+                <!--指定resources插件处理哪个目录下的资源文件-->
+                <directory>src/main/resources</directory>
+                <!--打开资源过滤功能-->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
