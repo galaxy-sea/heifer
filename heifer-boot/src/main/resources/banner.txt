@@ -4,4 +4,4 @@ ${AnsiColor.BLUE} | |__| |   ___   _  | |_    ___   _ __  ${AnsiColor.BRIGHT_GRE
 ${AnsiColor.BLUE} |  __  |  / _ \ | | |  _|  / _ \ | '__| ${AnsiColor.BRIGHT_GREEN}  |  _ <   / _ \   / _ \  | __|
 ${AnsiColor.BLUE} | |  | | |  __/ | | | |   |  __/ | |    ${AnsiColor.BRIGHT_GREEN}  | |_) | | (_) | | (_) | | |_
 ${AnsiColor.BLUE} |_|  |_|  \___| |_| |_|    \___| |_|    ${AnsiColor.BRIGHT_GREEN}  |____/   \___/   \___/   \__|
-                                                                        
+${AnsiColor.BRIGHT_CYAN}-.-- .. -. .--- ..- .- -.   .-.. ..   ..   -- .. ... ...   -.-- --- ..-

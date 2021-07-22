@@ -25,6 +25,7 @@
         <spring-boot.version>2.5.0</spring-boot.version>
 
         <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-io.version>2.11.0</commons-io.version>
 
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
@@ -34,6 +35,7 @@
         <springfox.version>3.0.0</springfox.version>
 
         <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
+        <dysmsapi20170525.version>2.0.4</dysmsapi20170525.version>
         <fastjson.version>1.2.76</fastjson.version>
 
     </properties>
@@ -99,6 +101,11 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
         <!-- apache==============⬆️-->
 
         <!-- ORM==================⬇️ -->
@@ -150,6 +157,7 @@
         <!-- ORM==================⬆️ -->
 
 
+        <!-- aliyun==================⬇️ -->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
@@ -167,6 +175,7 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+        <!-- aliyun==================⬆️ -->
 
 
         <!-- 加密===========⬇️ -->
