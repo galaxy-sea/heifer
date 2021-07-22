@@ -36,35 +36,35 @@ public class RbacRoleController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public RbacRole getById(@NotNull Long id) {
-        return rbacRoleService.get(id);
+        return this.rbacRoleService.get(id);
     }
 
     /** 分页查询 */
     @GetMapping
     @ResultResponseBody
     public Page<RbacRole> page(Page<RbacRole> page, RbacRole rbacRole) {
-        return rbacRoleService.page(page, rbacRole);
+        return this.rbacRoleService.page(page, rbacRole);
     }
 
     /** 保存 */
     @PostMapping
     @ResultResponseBody
     public boolean save(@RequestBody @Validated(value = PostValid.class) RbacRole rbacRole) {
-        return rbacRoleService.save(rbacRole);
+        return this.rbacRoleService.save(rbacRole);
     }
 
     /** 修改 */
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacRole rbacRole) {
-        return rbacRoleService.updateById(rbacRole);
+        return this.rbacRoleService.updateById(rbacRole);
     }
 
     /** id删除 */
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return rbacRoleService.remove(id);
+        return this.rbacRoleService.remove(id);
     }
 
     // TODO: 2021-07-03 changjin wei(魏昌进) 补充其他接口

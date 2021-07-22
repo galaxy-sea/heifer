@@ -56,23 +56,21 @@ import java.util.stream.Collectors;
  */
 public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
-    protected Log log = LogFactory.getLog(getClass());
+    protected final Log log = LogFactory.getLog(this.getClass());
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     protected M baseMapper;
+    protected final Class<T> entityClass = this.currentModelClass();
+    protected final Class<T> mapperClass = this.currentMapperClass();
 
     public M getBaseMapper() {
-        return baseMapper;
+        return this.baseMapper;
     }
-
-    protected Class<T> entityClass = currentModelClass();
-
-    protected Class<T> mapperClass = currentMapperClass();
 
     @Override
     public Class<T> getEntityClass() {
-        return entityClass;
+        return this.entityClass;
     }
 
 
@@ -93,11 +91,11 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     }
 
     protected Class<T> currentMapperClass() {
-        return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 0);
+        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 0);
     }
 
     protected Class<T> currentModelClass() {
-        return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 1);
+        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 1);
     }
 
     /**
@@ -107,7 +105,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
      */
     @Deprecated
     protected SqlSession sqlSessionBatch() {
-        return SqlHelper.sqlSessionBatch(entityClass);
+        return SqlHelper.sqlSessionBatch(this.entityClass);
     }
 
     /**
@@ -119,7 +117,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
      */
     @Deprecated
     protected void closeSqlSession(SqlSession sqlSession) {
-        SqlSessionUtils.closeSqlSession(sqlSession, GlobalConfigUtils.currentSessionFactory(entityClass));
+        SqlSessionUtils.closeSqlSession(sqlSession, GlobalConfigUtils.currentSessionFactory(this.entityClass));
     }
 
     /**
@@ -134,32 +132,32 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
      */
     @Deprecated
     protected String sqlStatement(SqlMethod sqlMethod) {
-        return SqlHelper.table(entityClass).getSqlStatement(sqlMethod.getMethod());
+        return SqlHelper.table(this.entityClass).getSqlStatement(sqlMethod.getMethod());
     }
 
     @Override
     public boolean save(T entity) {
-        return SqlHelper.retBool(getBaseMapper().insert(entity));
+        return SqlHelper.retBool(this.getBaseMapper().insert(entity));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean save(Collection<T> entityList) {
-        return save(entityList, DEFAULT_BATCH_SIZE);
+        return this.save(entityList, DEFAULT_BATCH_SIZE);
     }
 
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean save(Collection<T> entityList, int batchSize) {
-        String sqlStatement = getSqlStatement(SqlMethod.INSERT_ONE);
-        return executeBatch(entityList, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
+        String sqlStatement = this.getSqlStatement(SqlMethod.INSERT_ONE);
+        return this.executeBatch(entityList, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveOrUpdate(Collection<T> entityList) {
-        return saveOrUpdate(entityList, DEFAULT_BATCH_SIZE);
+        return this.saveOrUpdate(entityList, DEFAULT_BATCH_SIZE);
     }
 
     /**
@@ -172,7 +170,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
      * @since 3.4.0
      */
     protected String getSqlStatement(SqlMethod sqlMethod) {
-        return SqlHelper.getSqlStatement(mapperClass, sqlMethod);
+        return SqlHelper.getSqlStatement(this.mapperClass, sqlMethod);
     }
 
 
@@ -185,58 +183,58 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
             String keyProperty = tableInfo.getKeyProperty();
             Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
             Object idVal = ReflectionKit.getFieldValue(entity, tableInfo.getKeyProperty());
-            return StringUtils.checkValNull(idVal) || Objects.isNull(get((Serializable) idVal)) ? save(entity) : updateById(entity);
+            return StringUtils.checkValNull(idVal) || Objects.isNull(this.get((Serializable) idVal)) ? this.save(entity) : this.updateById(entity);
         }
         return false;
     }
 
     @Override
     public T get(T entity) {
-        return getBaseMapper().selectOne(new QueryWrapper<>(entity));
+        return this.getBaseMapper().selectOne(new QueryWrapper<>(entity));
     }
 
     @Override
     public T get(Serializable id) {
-        return getBaseMapper().selectById(id);
+        return this.getBaseMapper().selectById(id);
     }
 
     @Override
     public List<T> list(Collection<? extends Serializable> idList) {
-        return getBaseMapper().selectBatchIds(idList);
+        return this.getBaseMapper().selectBatchIds(idList);
     }
 
     @Override
     public List<T> list(Map<String, Object> columnMap) {
-        return getBaseMapper().selectByMap(columnMap);
+        return this.getBaseMapper().selectByMap(columnMap);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveOrUpdate(Collection<T> entityList, int batchSize) {
-        TableInfo tableInfo = TableInfoHelper.getTableInfo(entityClass);
+        TableInfo tableInfo = TableInfoHelper.getTableInfo(this.entityClass);
         Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!");
         String keyProperty = tableInfo.getKeyProperty();
         Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
         return SqlHelper.saveOrUpdateBatch(this.entityClass, this.mapperClass, this.log, entityList, batchSize, (sqlSession, entity) -> {
             Object idVal = ReflectionKit.getFieldValue(entity, keyProperty);
             return StringUtils.checkValNull(idVal)
-                    || CollectionUtils.isEmpty(sqlSession.selectList(getSqlStatement(SqlMethod.SELECT_BY_ID), entity));
+                    || CollectionUtils.isEmpty(sqlSession.selectList(this.getSqlStatement(SqlMethod.SELECT_BY_ID), entity));
         }, (sqlSession, entity) -> {
             MapperMethod.ParamMap<T> param = new MapperMethod.ParamMap<>();
             param.put(Constants.ENTITY, entity);
-            sqlSession.update(getSqlStatement(SqlMethod.UPDATE_BY_ID), param);
+            sqlSession.update(this.getSqlStatement(SqlMethod.UPDATE_BY_ID), param);
         });
     }
 
     @Override
     public boolean remove(Serializable id) {
-        return SqlHelper.retBool(getBaseMapper().deleteById(id));
+        return SqlHelper.retBool(this.getBaseMapper().deleteById(id));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean remove(Map<String, Object> columnMap) {
-        return SqlHelper.retBool(getBaseMapper().deleteByMap(columnMap));
+        return SqlHelper.retBool(this.getBaseMapper().deleteByMap(columnMap));
     }
 
     @Override
@@ -245,25 +243,25 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         if (CollectionUtils.isEmpty(idList)) {
             return false;
         }
-        return SqlHelper.retBool(getBaseMapper().deleteBatchIds(idList));
+        return SqlHelper.retBool(this.getBaseMapper().deleteBatchIds(idList));
     }
 
     @Override
     public boolean updateById(T entity) {
-        return SqlHelper.retBool(getBaseMapper().updateById(entity));
+        return SqlHelper.retBool(this.getBaseMapper().updateById(entity));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateById(Collection<T> entityList) {
-        return updateById(entityList, DEFAULT_BATCH_SIZE);
+        return this.updateById(entityList, DEFAULT_BATCH_SIZE);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateById(Collection<T> entityList, int batchSize) {
-        String sqlStatement = getSqlStatement(SqlMethod.UPDATE_BY_ID);
-        return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
+        String sqlStatement = this.getSqlStatement(SqlMethod.UPDATE_BY_ID);
+        return this.executeBatch(entityList, batchSize, (sqlSession, entity) -> {
             MapperMethod.ParamMap<T> param = new MapperMethod.ParamMap<>();
             param.put(Constants.ENTITY, entity);
             sqlSession.update(sqlStatement, param);
@@ -273,47 +271,47 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     @Override
     public int count() {
-        return SqlHelper.retCount(getBaseMapper().selectCount(Wrappers.emptyWrapper()));
+        return SqlHelper.retCount(this.getBaseMapper().selectCount(Wrappers.emptyWrapper()));
     }
 
 
     public int count(T entity) {
-        return SqlHelper.retCount(getBaseMapper().selectCount(new QueryWrapper<>(entity)));
+        return SqlHelper.retCount(this.getBaseMapper().selectCount(new QueryWrapper<>(entity)));
     }
 
     @Override
     public List<T> list() {
-        return getBaseMapper().selectList(Wrappers.emptyWrapper());
+        return this.getBaseMapper().selectList(Wrappers.emptyWrapper());
     }
 
     @Override
     public <E extends IPage<T>> E page(E page) {
-        return getBaseMapper().selectPage(page, Wrappers.emptyWrapper());
+        return this.getBaseMapper().selectPage(page, Wrappers.emptyWrapper());
     }
 
     @Override
     public <E extends IPage<T>> E page(E page, T entity) {
-        return getBaseMapper().selectPage(page, new QueryWrapper<>(entity));
+        return this.getBaseMapper().selectPage(page, new QueryWrapper<>(entity));
     }
 
     @Override
     public List<Map<String, Object>> listMaps() {
-        return getBaseMapper().selectMaps(Wrappers.emptyWrapper());
+        return this.getBaseMapper().selectMaps(Wrappers.emptyWrapper());
     }
 
     @Override
     public List<Object> listObjs() {
-        return listObjs(Function.identity());
+        return this.listObjs(Function.identity());
     }
 
     @Override
     public <V> List<V> listObjs(Function<? super Object, V> mapper) {
-        return getBaseMapper().selectObjs(Wrappers.emptyWrapper()).stream().filter(Objects::nonNull).map(mapper).collect(Collectors.toList());
+        return this.getBaseMapper().selectObjs(Wrappers.emptyWrapper()).stream().filter(Objects::nonNull).map(mapper).collect(Collectors.toList());
     }
 
     @Override
     public <E extends IPage<Map<String, Object>>> E pageMaps(E page) {
-        return getBaseMapper().selectMapsPage(page, Wrappers.emptyWrapper());
+        return this.getBaseMapper().selectMapsPage(page, Wrappers.emptyWrapper());
     }
 
     /**

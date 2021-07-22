@@ -21,7 +21,7 @@ public class OssController {
 
     @GetMapping("policy")
     public Map<String, String> policy() {
-        return ossServer.policy("test/");
+        return this.ossServer.policy("test/");
     }
 
 }

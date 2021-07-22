@@ -36,35 +36,35 @@ public class RbacPermissionController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public RbacPermission getById(@NotNull Long id) {
-        return rbacPermissionService.get(id);
+        return this.rbacPermissionService.get(id);
     }
 
     /** 分页查询 */
     @GetMapping
     @ResultResponseBody
     public Page<RbacPermission> page(Page<RbacPermission> page, RbacPermission rbacPermission) {
-        return rbacPermissionService.page(page, rbacPermission);
+        return this.rbacPermissionService.page(page, rbacPermission);
     }
 
     /** 保存 */
     @PostMapping
     @ResultResponseBody
     public boolean save(@RequestBody @Validated(value = PostValid.class) RbacPermission rbacPermission) {
-        return rbacPermissionService.save(rbacPermission);
+        return this.rbacPermissionService.save(rbacPermission);
     }
 
     /** 修改 */
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacPermission rbacPermission) {
-        return rbacPermissionService.updateById(rbacPermission);
+        return this.rbacPermissionService.updateById(rbacPermission);
     }
 
     /** id删除 */
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return rbacPermissionService.remove(id);
+        return this.rbacPermissionService.remove(id);
     }
 
     // TODO: 2021-07-03 changjin wei(魏昌进) 补充其他接口

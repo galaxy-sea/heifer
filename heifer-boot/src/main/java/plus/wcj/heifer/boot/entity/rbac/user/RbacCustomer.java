@@ -25,7 +25,7 @@ import java.util.Date;
  * @since 2021-07-03
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode()
 @Accessors(chain = true)
 @TableName("rbac_customer")
 @ApiModel(value = "RbacCustomer对象", description = "顾客信息")

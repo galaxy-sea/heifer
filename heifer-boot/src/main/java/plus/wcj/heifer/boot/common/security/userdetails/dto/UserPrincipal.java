@@ -101,12 +101,12 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     @Override
@@ -126,6 +126,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return BooleanUtils.isTrue(isEnabled);
+        return BooleanUtils.isTrue(this.isEnabled);
     }
 }

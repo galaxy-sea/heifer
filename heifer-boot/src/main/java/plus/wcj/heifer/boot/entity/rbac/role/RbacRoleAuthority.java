@@ -25,7 +25,7 @@ import java.util.Date;
  * @since 2021-07-03
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode()
 @Accessors(chain = true)
 @TableName("rbac_role_authority")
 @ApiModel(value = "RbacRoleAuthority对象", description = "角色拥有功能权限关系表")

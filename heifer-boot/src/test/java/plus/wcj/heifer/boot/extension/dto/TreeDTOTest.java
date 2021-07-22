@@ -24,18 +24,22 @@ class TreeDTOTest {
 
     @Test
     public void sortTest() throws JsonProcessingException {
-        List<RbacDept> depts = new ArrayList() {{
-            add(new RbacDept().setId(1L).setParentId(0L));
-            add(new RbacDept().setId(2L).setParentId(1L));
-            add(new RbacDept().setId(3L).setParentId(1L));
-            add(new RbacDept().setId(4L).setParentId(2L));
-            add(new RbacDept().setId(5L).setParentId(2L));
-            add(new RbacDept().setId(6L).setParentId(10L));
-        }};
+        List<RbacDept> depts = new ArrayList<RbacDept>() {
+            private static final long serialVersionUID = -4453462510012035398L;
+
+            {
+                this.add(new RbacDept().setId(1L).setParentId(0L));
+                this.add(new RbacDept().setId(2L).setParentId(1L));
+                this.add(new RbacDept().setId(3L).setParentId(1L));
+                this.add(new RbacDept().setId(4L).setParentId(2L));
+                this.add(new RbacDept().setId(5L).setParentId(2L));
+                this.add(new RbacDept().setId(6L).setParentId(10L));
+            }
+        };
         List<TreeDTO<RbacDept>> elements = depts.stream().map(user -> new TreeDTO<>(user.getId(), user.getParentId(), user)).collect(Collectors.toList());
 
-        System.out.println(objectMapper.writeValueAsString(TreeDTO.terr(elements)));
-        System.out.println(objectMapper.writeValueAsString(TreeDTO.zTerr(elements)));
+        System.out.println(this.objectMapper.writeValueAsString(TreeDTO.terr(elements)));
+        System.out.println(this.objectMapper.writeValueAsString(TreeDTO.zTerr(elements)));
 
     }
 }

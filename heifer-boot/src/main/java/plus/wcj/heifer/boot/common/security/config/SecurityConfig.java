@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         String encodingId = "bcrypt";
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
+        Map<String, PasswordEncoder> encoders = new HashMap<>(8);
 
         encoders.put(encodingId, bCryptPasswordEncoder);
 
@@ -91,8 +91,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
-        impl.setPasswordEncoder(encoder());
-        impl.setUserDetailsService(heiferUserDetailsServiceImpl);
+        impl.setPasswordEncoder(this.encoder());
+        impl.setUserDetailsService(this.heiferUserDetailsServiceImpl);
 
         // TODO: 2021/6/6 changjin wei(魏昌进) 需要缓存啊
 
@@ -128,14 +128,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             // 异常处理
             .and().exceptionHandling()
-            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
             .accessDeniedHandler((request, response, accessDeniedException) -> {
                 throw new ResultException(ResultStatus.FORBIDDEN);
             });
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     /**
@@ -146,14 +146,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
-           .antMatchers(HttpMethod.GET, ignoreProperties.getGet())
-           .antMatchers(HttpMethod.POST, ignoreProperties.getPost())
-           .antMatchers(HttpMethod.DELETE, ignoreProperties.getDelete())
-           .antMatchers(HttpMethod.PUT, ignoreProperties.getPut())
-           .antMatchers(HttpMethod.HEAD, ignoreProperties.getHead())
-           .antMatchers(HttpMethod.PATCH, ignoreProperties.getPatch())
-           .antMatchers(HttpMethod.OPTIONS, ignoreProperties.getOptions())
-           .antMatchers(HttpMethod.TRACE, ignoreProperties.getTrace())
-           .antMatchers(ignoreProperties.getPattern());
+           .antMatchers(HttpMethod.GET, this.ignoreProperties.getGet())
+           .antMatchers(HttpMethod.POST, this.ignoreProperties.getPost())
+           .antMatchers(HttpMethod.DELETE, this.ignoreProperties.getDelete())
+           .antMatchers(HttpMethod.PUT, this.ignoreProperties.getPut())
+           .antMatchers(HttpMethod.HEAD, this.ignoreProperties.getHead())
+           .antMatchers(HttpMethod.PATCH, this.ignoreProperties.getPatch())
+           .antMatchers(HttpMethod.OPTIONS, this.ignoreProperties.getOptions())
+           .antMatchers(HttpMethod.TRACE, this.ignoreProperties.getTrace())
+           .antMatchers(this.ignoreProperties.getPattern());
     }
 }

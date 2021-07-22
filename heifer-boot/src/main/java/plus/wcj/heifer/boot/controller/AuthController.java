@@ -52,19 +52,19 @@ public class AuthController {
      */
     @PostMapping("/login")
     public JwtResponse login(@RequestBody LoginRequest loginRequest) {
-        RbacUser rbacUser = userService.get(new RbacUser().setNickname(loginRequest.getUsernameOrEmailOrPhone()).setRbacOrgId(1L));
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmailOrPhone(), loginRequest.getPassword()));
+        RbacUser rbacUser = this.userService.get(new RbacUser().setNickname(loginRequest.getUsernameOrEmailOrPhone()).setRbacOrgId(1L));
+        Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmailOrPhone(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtUtil.createJwt(authentication, loginRequest.getRememberMe());
+        String jwt = this.jwtUtil.createJwt(authentication, loginRequest.getRememberMe());
         return new JwtResponse(jwt);
     }
 
 
     @PostMapping("/sign-up")
     public Result<Void> signUp(@RequestBody LoginRequest loginRequest) {
-        userService.signUp(loginRequest);
+        this.userService.signUp(loginRequest);
         return Result.success();
     }
 
@@ -85,8 +85,8 @@ public class AuthController {
      */
     @PostMapping("/login/test")
     public JwtResponse login() {
-        UserPrincipal admin = (UserPrincipal) heiferUserDetailsServiceImpl.loadUserByUsername("1");
-        String jwt = jwtUtil.createJwt(admin, true);
+        UserPrincipal admin = (UserPrincipal) this.heiferUserDetailsServiceImpl.loadUserByUsername("1");
+        String jwt = this.jwtUtil.createJwt(admin, true);
         return new JwtResponse(jwt);
     }
 

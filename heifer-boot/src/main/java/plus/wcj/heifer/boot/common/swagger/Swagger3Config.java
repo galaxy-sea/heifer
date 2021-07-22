@@ -20,7 +20,7 @@ public class Swagger3Config {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
-                .apiInfo(apiInfo())
+                .apiInfo(this.apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())

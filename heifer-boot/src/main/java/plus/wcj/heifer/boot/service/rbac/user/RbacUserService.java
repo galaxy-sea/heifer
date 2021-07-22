@@ -14,5 +14,10 @@ import plus.wcj.heifer.boot.extension.service.IService;
  */
 public interface RbacUserService extends IService<RbacUser> {
 
+    /**
+     * 注册接口
+     *
+     * @param loginRequest 用户注册信息
+     */
     void signUp(LoginRequest loginRequest);
 }

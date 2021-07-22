@@ -36,35 +36,35 @@ public class RbacDeptController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public RbacDept getById(@NotNull Long id) {
-        return rbacDeptService.get(id);
+        return this.rbacDeptService.get(id);
     }
 
     /** 分页查询 */
     @GetMapping
     @ResultResponseBody
     public Page<RbacDept> page(Page<RbacDept> page, RbacDept rbacDept) {
-        return rbacDeptService.page(page, rbacDept);
+        return this.rbacDeptService.page(page, rbacDept);
     }
 
     /** 保存 */
     @PostMapping
     @ResultResponseBody
     public boolean save(@RequestBody @Validated(value = PostValid.class) RbacDept rbacDept) {
-        return rbacDeptService.save(rbacDept);
+        return this.rbacDeptService.save(rbacDept);
     }
 
     /** 修改 */
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacDept rbacDept) {
-        return rbacDeptService.updateById(rbacDept);
+        return this.rbacDeptService.updateById(rbacDept);
     }
 
     /** id删除 */
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return rbacDeptService.remove(id);
+        return this.rbacDeptService.remove(id);
     }
 
     // TODO: 2021-07-03 changjin wei(魏昌进) 补充其他接口

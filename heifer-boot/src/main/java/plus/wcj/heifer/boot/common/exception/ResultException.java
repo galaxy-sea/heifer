@@ -12,7 +12,7 @@ public class ResultException extends RuntimeException {
     /**
      * 业务异常信息信息
      */
-    ResultStatus resultStatus;
+    final ResultStatus resultStatus;
 
     @SuppressWarnings("unused")
     public ResultException() {

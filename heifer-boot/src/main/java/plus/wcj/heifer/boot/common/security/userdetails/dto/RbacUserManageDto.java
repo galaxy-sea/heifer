@@ -19,7 +19,7 @@ import java.io.Serializable;
  * @since 2021-07-03
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode()
 @Accessors(chain = true)
 @TableName("rbac_user_manage")
 @ApiModel(value = "RbacUserManage对象", description = "用户是否拥有全部数据权限和功能权限")

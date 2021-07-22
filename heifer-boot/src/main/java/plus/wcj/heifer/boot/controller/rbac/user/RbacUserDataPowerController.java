@@ -36,35 +36,35 @@ public class RbacUserDataPowerController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public RbacUserDataPower getById(@NotNull Long id) {
-        return rbacUserDataPowerService.get(id);
+        return this.rbacUserDataPowerService.get(id);
     }
 
     /** 分页查询 */
     @GetMapping
     @ResultResponseBody
     public Page<RbacUserDataPower> page(Page<RbacUserDataPower> page, RbacUserDataPower rbacUserDataPower) {
-        return rbacUserDataPowerService.page(page, rbacUserDataPower);
+        return this.rbacUserDataPowerService.page(page, rbacUserDataPower);
     }
 
     /** 保存 */
     @PostMapping
     @ResultResponseBody
     public boolean save(@RequestBody @Validated(value = PostValid.class) RbacUserDataPower rbacUserDataPower) {
-        return rbacUserDataPowerService.save(rbacUserDataPower);
+        return this.rbacUserDataPowerService.save(rbacUserDataPower);
     }
 
     /** 修改 */
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacUserDataPower rbacUserDataPower) {
-        return rbacUserDataPowerService.updateById(rbacUserDataPower);
+        return this.rbacUserDataPowerService.updateById(rbacUserDataPower);
     }
 
     /** id删除 */
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return rbacUserDataPowerService.remove(id);
+        return this.rbacUserDataPowerService.remove(id);
     }
 
     // TODO: 2021-07-03 changjin wei(魏昌进) 补充其他接口

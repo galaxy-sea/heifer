@@ -72,7 +72,7 @@ public class JwtUtil {
                 // aud – 受众声明
                 .audience("aud")
                 // exp – 过期时间
-                .expirationTime(new Date(System.currentTimeMillis() + (rememberMe ? jwtProperties.getRemember() : jwtProperties.getTtl())))
+                .expirationTime(new Date(System.currentTimeMillis() + (rememberMe ? this.jwtProperties.getRemember() : this.jwtProperties.getTtl())))
                 // nbf – 声明不可用
                 .notBeforeTime(new Date())
                 // iat – 发出的声明
@@ -92,9 +92,9 @@ public class JwtUtil {
                 .claim(ALL_AUTHORITY, userPrincipal.getAllAuthority())
 
                 .build();
-        SignedJWT signedJwt = new SignedJWT(jwsHeader, claimsSet);
+        SignedJWT signedJwt = new SignedJWT(this.jwsHeader, claimsSet);
         try {
-            signedJwt.sign(new MACSigner(jwtProperties.getKey()));
+            signedJwt.sign(new MACSigner(this.jwtProperties.getKey()));
         } catch (JOSEException e) {
             throw new ResultException(ResultStatus.JOSE_EXCEPTION);
         }
@@ -105,7 +105,7 @@ public class JwtUtil {
     }
 
     public String createJwt(@NotNull Authentication authentication, @NotNull Boolean rememberMe) {
-        return createJwt((UserPrincipal) authentication.getPrincipal(), rememberMe);
+        return this.createJwt((UserPrincipal) authentication.getPrincipal(), rememberMe);
     }
 
 
@@ -145,7 +145,7 @@ public class JwtUtil {
 
         try {
             SignedJWT signedJwt = SignedJWT.parse(jwt);
-            MACVerifier verifier = new MACVerifier(jwtProperties.getKey());
+            MACVerifier verifier = new MACVerifier(this.jwtProperties.getKey());
 
             this.verify(signedJwt, verifier);
             return signedJwt.getJWTClaimsSet();

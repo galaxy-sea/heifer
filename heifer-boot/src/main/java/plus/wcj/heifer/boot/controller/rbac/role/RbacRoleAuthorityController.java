@@ -36,35 +36,35 @@ public class RbacRoleAuthorityController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public RbacRoleAuthority getById(@NotNull Long id) {
-        return rbacRoleAuthorityService.get(id);
+        return this.rbacRoleAuthorityService.get(id);
     }
 
     /** 分页查询 */
     @GetMapping
     @ResultResponseBody
     public Page<RbacRoleAuthority> page(Page<RbacRoleAuthority> page, RbacRoleAuthority rbacRoleAuthority) {
-        return rbacRoleAuthorityService.page(page, rbacRoleAuthority);
+        return this.rbacRoleAuthorityService.page(page, rbacRoleAuthority);
     }
 
     /** 保存 */
     @PostMapping
     @ResultResponseBody
     public boolean save(@RequestBody @Validated(value = PostValid.class) RbacRoleAuthority rbacRoleAuthority) {
-        return rbacRoleAuthorityService.save(rbacRoleAuthority);
+        return this.rbacRoleAuthorityService.save(rbacRoleAuthority);
     }
 
     /** 修改 */
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacRoleAuthority rbacRoleAuthority) {
-        return rbacRoleAuthorityService.updateById(rbacRoleAuthority);
+        return this.rbacRoleAuthorityService.updateById(rbacRoleAuthority);
     }
 
     /** id删除 */
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return rbacRoleAuthorityService.remove(id);
+        return this.rbacRoleAuthorityService.remove(id);
     }
 
     // TODO: 2021-07-03 changjin wei(魏昌进) 补充其他接口

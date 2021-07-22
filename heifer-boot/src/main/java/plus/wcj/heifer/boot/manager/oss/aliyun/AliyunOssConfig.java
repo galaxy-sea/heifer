@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
+/**
+ * 阿里云对象存储的相关bean配置
+ *
+ * @author changjin wei(魏昌进)
+ */
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(AliyunOssProperties.class)

@@ -102,7 +102,7 @@ spring:
     # session会话保持时间
     timeout: 0
   profiles:
-    active: dev
+    active: @spring.profiles.active@
 
 mybatis-plus:
   # 检查配置文件

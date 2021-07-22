@@ -66,6 +66,5 @@ public class AliyunSmsServer implements SmsServer {
 
         /** 验证码 */
         SMS_185520034,
-        ;
     }
 }

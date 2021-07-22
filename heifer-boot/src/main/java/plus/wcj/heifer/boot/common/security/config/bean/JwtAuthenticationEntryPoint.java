@@ -1,6 +1,5 @@
 package plus.wcj.heifer.boot.common.security.config.bean;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -25,6 +24,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
-        handlerExceptionResolver.resolveException(request, response, null, new ResultException(ResultStatus.UNAUTHORIZED));
+        this.handlerExceptionResolver.resolveException(request, response, null, new ResultException(ResultStatus.UNAUTHORIZED));
     }
 }
