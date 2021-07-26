@@ -41,6 +41,13 @@ public enum ResultStatus {
     /** 暂停服务 */
     SERVICE_UNAVAILABLE(HttpURLConnection.HTTP_UNAVAILABLE, "503", "Service Unavailable"),
 
+
+    ////////////////////////////////////////
+    /** 枚举类型非法参数 */
+    ENUM_ILLEGAL_ARGUMENT(HttpURLConnection.HTTP_INTERNAL_ERROR, "enum-0001", "Illegal Argument"),
+
+
+
     ////////////////////////////////////////
 
     /** 账号密码错误 */
