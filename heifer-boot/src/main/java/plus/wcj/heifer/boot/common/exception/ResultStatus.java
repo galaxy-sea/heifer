@@ -58,6 +58,10 @@ public enum ResultStatus {
     /** @see <a href="https://help.aliyun.com/document_detail/101346.html?spm=a2c4g.11186623.6.629.38335ebf8Fi7vd">首页 > 短信服务 > 开发指南 > API参考 > 错误码 > API 错误码</a> */
     SMS_SEND_FAIL(HttpURLConnection.HTTP_INTERNAL_ERROR, "sms-0002", "Short message send fail"),
 
+    ////////////////////////////////////////////////////
+
+    /** 分布式锁异常 */
+    LOCK_EXCEPTION(HttpURLConnection.HTTP_INTERNAL_ERROR, "lock-0001", "lock exception"),
 
     ;
     /** 返回的HTTP状态码,  符合http请求 */

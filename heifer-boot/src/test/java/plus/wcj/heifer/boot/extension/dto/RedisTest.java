@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.integration.redis.util.RedisLockRegistry;
 import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
+
+import java.util.concurrent.locks.Lock;
 
 /**
  * @author changjin wei(魏昌进)
@@ -16,6 +19,7 @@ import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
 public class RedisTest {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisLockRegistry redisLockRegistry;
 
 
     @Test
@@ -34,6 +38,14 @@ public class RedisTest {
     public void getValue() {
         System.out.println(redisTemplate.opsForValue().get("string"));
         System.out.println(redisTemplate.opsForValue().get("user"));
+    }
+
+    @Test
+    public void lockTest() {
+        Lock lock = redisLockRegistry.obtain("test");
+        lock.lock();
+
+
     }
 
 }
