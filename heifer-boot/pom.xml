@@ -25,10 +25,8 @@
         <!--maven方式跳过maven test, 等同$ mvn package -Dmaven.test.skip=true-->
         <maven.test.skip>true</maven.test.skip>
 
-        <repackage.classifier/>
 
         <spring-boot.version>2.5.0</spring-boot.version>
-        <spring-native.version>0.10.2-SNAPSHOT</spring-native.version>
 
 
         <commons-collections4.version>4.4</commons-collections4.version>
@@ -75,14 +73,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.experimental</groupId>
-            <artifactId>spring-native</artifactId>
-            <version>${spring-native.version}</version>
-        </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -256,49 +246,8 @@
         <profile>
             <id>test</id>
             <properties>
-                <activatedProperties>test</activatedProperties>
+                <spring.profiles.active>test</spring.profiles.active>
             </properties>
-        </profile>
-
-        <profile>
-            <id>native</id>
-            <properties>
-                <repackage.classifier>exec</repackage.classifier>
-                <native-buildtools.version>0.9.1</native-buildtools.version>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.graalvm.buildtools</groupId>
-                    <artifactId>junit-platform-native</artifactId>
-                    <version>${native-buildtools.version}</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.graalvm.buildtools</groupId>
-                        <artifactId>native-maven-plugin</artifactId>
-                        <version>${native-buildtools.version}</version>
-                        <executions>
-                            <execution>
-                                <id>test-native</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>build-native</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 
@@ -345,15 +294,6 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
-
-                        <classifier>${repackage.classifier}</classifier>
-                        <image>
-                            <builder>paketobuildpacks/builder:tiny</builder>
-                            <env>
-                                <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                            </env>
-                        </image>
-
                     </excludes>
 
                 </configuration>
@@ -366,29 +306,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
-            <plugin>
-                <groupId>org.springframework.experimental</groupId>
-                <artifactId>spring-aot-maven-plugin</artifactId>
-                <version>${spring-native.version}</version>
-                <executions>
-                    <execution>
-                        <id>test-generate</id>
-                        <goals>
-                            <goal>test-generate</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>generate</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-
 
 
             <!--配置文件加密解密工具-->
