@@ -95,6 +95,14 @@ spring:
         max-idle: 8
         # 连接池中的最小空闲连接 默认 0
         min-idle: 0
+  data:
+    mongodb:
+      min-connections-per-host: 1
+      host: ENC(ROwRdy9aQJocAtpf3YxfttoXm4/ScpnToJN0EN2aGU2/v4KsqbZd8GuDxPTGu1Av)
+      port: 27017
+      username: ENC(t/UD+GZh+a7Ta8fPAwe6+GR3aUPgA4fBk5k/AIFWMiBTESZysnK4gkdAe2FSKwNS)
+      password: ENC(7i2Yc1/ewoTKmauyaLtooXzrOz4mSzyaDtuakmMxlZBxfdSPJsA0vEYO8KudMfHb)
+      database: ENC(WsNUKnnlO68E2qsfzfq+xOeW7R714+n7t0l2AtAQsxTISkHG9ndMTFWkXQBmnEvN)
   mvc:
     format:
       date: yyyy-MM-dd HH:mm:ss
