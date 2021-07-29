@@ -212,6 +212,7 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
+            <optional>true</optional>
             <version>${springfox.version}</version>
         </dependency>
         <!-- api doc=========⬇️ -->
@@ -254,6 +255,65 @@
                 <spring.profiles.active>test</spring.profiles.active>
             </properties>
         </profile>
+
+
+        <profile>
+            <id>exclude</id>
+            <activation>
+                <!-- 默认环境 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <!--排除的文件-->
+                            <excludes>
+                                <exclude>plus/wcj/heifer/boot/GenerateRandomKey.java</exclude>
+                                <exclude>plus/wcj/heifer/boot/GeneratorCodeV2.java</exclude>
+                                <exclude>plus/wcj/heifer/boot/common/swagger/Swagger3Config.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <!--排除一些特殊依赖-->
+                            <excludeGroupIds>
+                                <!-- springfox 的相关依赖-->
+                                io.springfox,
+                                org.mapstruct,
+                                io.swagger,
+                                io.swagger.core.v3,
+                                io.github.classgraph,
+                                net.bytebuddy
+                            </excludeGroupIds>
+
+                            <excludes>
+                                <exclude>
+                                    <groupId>com.baomidou</groupId>
+                                    <artifactId>mybatis-plus-generator</artifactId>
+                                </exclude>
+                                <exclude>
+                                    <groupId>org.freemarker</groupId>
+                                    <artifactId>freemarker</artifactId>
+                                </exclude>
+                                <exclude>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </exclude>
+                            </excludes>
+
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 
@@ -272,36 +332,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
-                <configuration>
-                    <!--排除的文件-->
-                    <excludes>
-                        <exclude>plus/wcj/heifer/boot/GenerateRandomKey.java</exclude>
-                        <exclude>plus/wcj/heifer/boot/GeneratorCodeV2.java</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
-                <configuration>
-                    <!--排除一些特殊依赖-->
-                    <excludes>
-                        <exclude>
-                            <groupId>com.baomidou</groupId>
-                            <artifactId>mybatis-plus-generator</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.freemarker</groupId>
-                            <artifactId>freemarker</artifactId>
-                        </exclude>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-
-                </configuration>
                 <executions>
                     <execution>
                         <id>repackage</id>
@@ -311,8 +346,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
             <!--配置文件加密解密工具-->
             <!--mvn jasypt:encrypt-value -Djasypt.encryptor.password="the password" -Djasypt.plugin.value="theValueYouWantToEncrypt"-->
             <!--mvn jasypt:decrypt-value -Djasypt.encryptor.password="the password" -Djasypt.plugin.value="DbG1GppXOsFa2G69PnmADvQFIEhJYbaEIKCcEO5C85JEqGFMGnoRFf"-->
@@ -381,7 +414,6 @@
             <url>https://repo.spring.io/snapshot</url>
         </pluginRepository>
     </pluginRepositories>
-
 
 
 </project>
