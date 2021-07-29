@@ -64,17 +64,9 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     protected final Class<T> entityClass = this.currentModelClass();
     protected final Class<T> mapperClass = this.currentMapperClass();
 
-    public M getBaseMapper() {
+    protected M getBaseMapper() {
         return this.baseMapper;
     }
-
-    @Override
-    public Class<T> getEntityClass() {
-        return this.entityClass;
-    }
-
-
-
 
     /**
      * 判断数据库操作是否成功
@@ -275,6 +267,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     }
 
 
+    @Override
     public int count(T entity) {
         return SqlHelper.retCount(this.getBaseMapper().selectCount(new QueryWrapper<>(entity)));
     }
@@ -282,6 +275,11 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     @Override
     public List<T> list() {
         return this.getBaseMapper().selectList(Wrappers.emptyWrapper());
+    }
+
+    @Override
+    public List<T> list(T entity) {
+        return this.getBaseMapper().selectList(new QueryWrapper<>(entity));
     }
 
     @Override
