@@ -16,11 +16,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.config.bean.JwtAuthenticationEntryPoint;
 import plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter;
+import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
 import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 
@@ -41,12 +42,10 @@ import java.util.Map;
 @EnableConfigurationProperties(IgnoreProperties.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final IgnoreProperties ignoreProperties;
-
     private final HeiferUserDetailsServiceImpl heiferUserDetailsServiceImpl;
-
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtUtil jwtUtil;
+    private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Bean
     @SuppressWarnings({"AlibabaRemoveCommentedCode", "CommentedOutCode"})
@@ -135,7 +134,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
-        http.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil, handlerExceptionResolver)).httpBasic();
     }
 
     /**

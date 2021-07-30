@@ -4,6 +4,20 @@ logging:
     org.springframework.security: debug
     plus.wcj.heifer.boot.common.mvc.result.ResultResponseEntityExceptionHandler: debug
     org.apache.ibatis.logging.stdout.StdOutImpl: debug
-
+heifer:
+  security:
+    ignoring:
+      pattern:
+        # swagger
+        - "/api/auth/*"
+        - "/api/auth/**"
+        - "/test/*"
+        - "/doc"
+        - "/swagger-resources/**"
+        - "/swagger-ui/**"
+        - "/swagger-ui/*"
+        - "/v3/api-docs/**"
+        # 静态文件
+        - "/oss/**"
 
 

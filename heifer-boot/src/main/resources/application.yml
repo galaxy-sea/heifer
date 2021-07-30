@@ -29,6 +29,7 @@ heifer:
       get:
         # oss 授权测试
         - "/oss/policy"
+        - "/favicon.ico"
       post:
         - "/api/auth/login"
         - "/api/auth/logout"
@@ -40,17 +41,6 @@ heifer:
       options:
       trace:
       pattern:
-        # swagger
-        - "/api/auth/*"
-        - "/api/auth/**"
-        - "/test/*"
-        - "/doc"
-        - "/swagger-resources/**"
-        - "/swagger-ui/**"
-        - "/swagger-ui/*"
-        - "/v3/api-docs/**"
-        # 静态文件
-        - "/oss/**"
 jasypt:
   encryptor:
     password: xxxxxxxxx
@@ -66,6 +56,7 @@ server:
         # cookie最大数
         max-age: 0
       tracking-modes:
+#  tomcat: 需要后期调优
 spring:
   application:
     name: heifer-boot
@@ -97,7 +88,6 @@ spring:
         min-idle: 0
   data:
     mongodb:
-      min-connections-per-host: 1
       host: ENC(ROwRdy9aQJocAtpf3YxfttoXm4/ScpnToJN0EN2aGU2/v4KsqbZd8GuDxPTGu1Av)
       port: 27017
       username: ENC(t/UD+GZh+a7Ta8fPAwe6+GR3aUPgA4fBk5k/AIFWMiBTESZysnK4gkdAe2FSKwNS)
