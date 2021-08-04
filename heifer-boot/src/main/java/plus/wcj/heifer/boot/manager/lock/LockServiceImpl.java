@@ -19,19 +19,19 @@ public class LockServiceImpl implements LockService {
 
     @Override
     public void lock(String lockKey) {
-        Lock lock = redisLockRegistry.obtain(lockKey);
+        Lock lock = this.redisLockRegistry.obtain(lockKey);
         lock.lock();
     }
 
     @Override
     public boolean tryLock(String lockKey) {
-        Lock lock = redisLockRegistry.obtain(lockKey);
+        Lock lock = this.redisLockRegistry.obtain(lockKey);
         return lock.tryLock();
     }
 
     @Override
     public boolean tryLock(String lockKey, long time, TimeUnit unit) {
-        Lock lock = redisLockRegistry.obtain(lockKey);
+        Lock lock = this.redisLockRegistry.obtain(lockKey);
         try {
             return lock.tryLock(time, unit);
         } catch (InterruptedException e) {
@@ -41,7 +41,7 @@ public class LockServiceImpl implements LockService {
 
     @Override
     public void unlock(String lockKey) {
-        Lock lock = redisLockRegistry.obtain(lockKey);
+        Lock lock = this.redisLockRegistry.obtain(lockKey);
         lock.unlock();
     }
 }

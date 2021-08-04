@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
-import plus.wcj.heifer.boot.common.security.config.bean.JwtAuthenticationEntryPoint;
 import plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
@@ -43,7 +42,6 @@ import java.util.Map;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final IgnoreProperties ignoreProperties;
     private final HeiferUserDetailsServiceImpl heiferUserDetailsServiceImpl;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper;
 
@@ -127,14 +125,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             // 异常处理
             .and().exceptionHandling()
-            .authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
+            .authenticationEntryPoint((request, response, authException) -> {
+                throw new ResultException(ResultStatus.UNAUTHORIZED);
+            })
             .accessDeniedHandler((request, response, accessDeniedException) -> {
                 throw new ResultException(ResultStatus.FORBIDDEN);
             });
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
-        http.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil, objectMapper)).httpBasic();
+        http.addFilter(new JwtAuthenticationFilter(this.authenticationManager(), this.jwtUtil, this.objectMapper)).httpBasic();
     }
 
     /**

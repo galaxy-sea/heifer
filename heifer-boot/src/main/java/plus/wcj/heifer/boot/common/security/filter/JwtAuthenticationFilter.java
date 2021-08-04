@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot.common.security.filter;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +37,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper;
 
+    private static final String DATA401 = "{\"code\":\"" + ResultStatus.UNAUTHORIZED.getCode() + "\",\"message\":\"" + ResultStatus.UNAUTHORIZED.getMessage() + "\"}";
+    private static final String DATA403 = "{\"code\":\"" + ResultStatus.FORBIDDEN.getCode() + "\",\"message\":\"" + ResultStatus.FORBIDDEN.getMessage() + "\"}";
+    private static final String DATA500 = "{\"code\":\"" + ResultStatus.INTERNAL_SERVER_ERROR.getCode() + "\",\"message\":\"" + ResultStatus.INTERNAL_SERVER_ERROR.getMessage() + "\"}";
+
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, ObjectMapper objectMapper) {
         super(authenticationManager);
@@ -44,7 +49,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws JsonProcessingException {
         try {
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
             if (StringUtils.isNotBlank(authorization)) {
@@ -61,21 +66,27 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
 
-    private void print(HttpServletResponse response, Exception ex) {
-        Result<?> result;
+    private void print(HttpServletResponse response, Exception ex) throws JsonProcessingException {
 
+        String result;
         if (ex instanceof ResultException) {
             ResultStatus resultStatus = ((ResultException) ex).getResultStatus();
-            result = Result.fail(resultStatus);
+            if (resultStatus == ResultStatus.UNAUTHORIZED) {
+                result = DATA401;
+            } else if (resultStatus == ResultStatus.FORBIDDEN) {
+                result = DATA403;
+            } else {
+                Result<Object> fail = Result.fail(resultStatus);
+                result = this.objectMapper.writeValueAsString(fail);
+            }
             response.setStatus(resultStatus.getHttpStatus());
         } else {
-            result = Result.fail(ResultStatus.INTERNAL_SERVER_ERROR);
+            result = DATA500;
             response.setStatus(ResultStatus.INTERNAL_SERVER_ERROR.getHttpStatus());
         }
 
         try (ServletOutputStream outputStream = response.getOutputStream()) {
-            String s = objectMapper.writeValueAsString(result);
-            outputStream.print(s);
+            outputStream.print(result);
             outputStream.flush();
         } catch (IOException e) {
             log.error(ex.getMessage());

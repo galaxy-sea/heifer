@@ -24,25 +24,25 @@ public class RedisTest {
 
     @Test
     public void setValue() {
-        redisTemplate.opsForValue().set("string", "test");
-        redisTemplate.opsForValue().set("user", new RbacUser().setId(1L).setNickname("nickname"));
+        this.redisTemplate.opsForValue().set("string", "test");
+        this.redisTemplate.opsForValue().set("user", new RbacUser().setId(1L).setNickname("nickname"));
 
 
-        redisTemplate.opsForList().rightPush("Lists", 1);
-        redisTemplate.opsForList().rightPush("Lists", 2);
-        redisTemplate.opsForList().rightPush("Lists", 3);
+        this.redisTemplate.opsForList().rightPush("Lists", 1);
+        this.redisTemplate.opsForList().rightPush("Lists", 2);
+        this.redisTemplate.opsForList().rightPush("Lists", 3);
 
     }
 
     @Test
     public void getValue() {
-        System.out.println(redisTemplate.opsForValue().get("string"));
-        System.out.println(redisTemplate.opsForValue().get("user"));
+        System.out.println(this.redisTemplate.opsForValue().get("string"));
+        System.out.println(this.redisTemplate.opsForValue().get("user"));
     }
 
     @Test
     public void lockTest() {
-        Lock lock = redisLockRegistry.obtain("test");
+        Lock lock = this.redisLockRegistry.obtain("test");
         lock.lock();
 
 

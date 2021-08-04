@@ -24,7 +24,7 @@ public class mongodbTest {
         demo.setId(1112);
         demo.setName("xiapweio");
 
-        Demo insert = mongoTemplate.insert(demo);
+        Demo insert = this.mongoTemplate.insert(demo);
 
 
     }

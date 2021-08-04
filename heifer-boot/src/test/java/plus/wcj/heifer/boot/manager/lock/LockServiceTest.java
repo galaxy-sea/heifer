@@ -28,7 +28,7 @@ class LockServiceTest {
         for (int i = 0; i < 10; i++) {
             int finalI = i;
             new Thread(() -> {
-                lockService.lock(key);
+                this.lockService.lock(key);
                 try {
                     Thread.sleep(3000L);
                 } catch (InterruptedException e) {
@@ -36,7 +36,7 @@ class LockServiceTest {
                 }
                 log.info(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
                 log.info(String.valueOf(finalI));
-                lockService.unlock(key);
+                this.lockService.unlock(key);
             }
             ).start();
         }
@@ -53,7 +53,7 @@ class LockServiceTest {
         for (int i = 0; i < 10; i++) {
             int finalI = i;
             new Thread(() -> {
-                if (lockService.tryLock(key)) {
+                if (this.lockService.tryLock(key)) {
                     try {
                         log.info(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
                         log.info(String.valueOf(finalI));
@@ -62,7 +62,7 @@ class LockServiceTest {
                         e.printStackTrace();
                     } finally {
 
-                        lockService.unlock(key);
+                        this.lockService.unlock(key);
                     }
                 } else {
                     log.info("傻逼");
