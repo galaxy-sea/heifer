@@ -1,5 +1,6 @@
 package plus.wcj.heifer.boot.common.security.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 import plus.wcj.heifer.boot.common.exception.ResultException;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
 import plus.wcj.heifer.boot.common.security.config.bean.JwtAuthenticationEntryPoint;
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final HeiferUserDetailsServiceImpl heiferUserDetailsServiceImpl;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtUtil jwtUtil;
-    private final HandlerExceptionResolver handlerExceptionResolver;
+    private final ObjectMapper objectMapper;
 
     @Bean
     @SuppressWarnings({"AlibabaRemoveCommentedCode", "CommentedOutCode"})
@@ -134,7 +134,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
-        http.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil, handlerExceptionResolver)).httpBasic();
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil, objectMapper)).httpBasic();
     }
 
     /**

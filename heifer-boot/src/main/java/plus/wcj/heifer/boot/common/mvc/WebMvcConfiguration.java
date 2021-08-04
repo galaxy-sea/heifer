@@ -17,12 +17,10 @@ import java.util.List;
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    // WebMvcConfigurer start
-
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new TenantMethodArgumentResolver());
-        argumentResolvers.add(new UserMethodArgumentResolver());
+        argumentResolvers.add(0, new TenantMethodArgumentResolver());
+        argumentResolvers.add(1, new UserMethodArgumentResolver());
     }
 
 
@@ -30,6 +28,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.removeIf(httpMessageConverter -> StringHttpMessageConverter.class.equals(httpMessageConverter.getClass()));
     }
-
 
 }
