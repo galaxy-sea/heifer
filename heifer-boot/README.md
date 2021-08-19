@@ -3,17 +3,12 @@
 
 - [1. 工程简介](#1-工程简介)
 - [2. 数据库](#2-数据库)
-   - [2.1. 命名规范](#21-命名规范)
-   - [2.2. 说明](#22-说明)
-   - [2.3. rbac 多租户 功能权限 数据权限](#23-rbac-多租户-功能权限-数据权限)
-      - [2.3.1. rbac 基础表](#231-rbac-基础表)
-      - [2.3.2. rbac扩展表](#232-rbac扩展表)
-- [3. 框架搭建](#3-框架搭建)
-   - [3.1. todo](#31-todo)
-   - [3.2. ing](#32-ing)
-   - [3.3. end](#33-end)
-- [4. 架构](#4-架构)
-   - [4.1. rbac模型](#41-rbac模型)
+    - [2.1. 命名规范](#21-命名规范)
+    - [2.2. 说明](#22-说明)
+    - [2.3. rbac 多租户 功能权限 数据权限](#23-rbac-多租户-功能权限-数据权限)
+        - [2.3.1. rbac 基础表](#231-rbac-基础表)
+        - [2.3.2. rbac扩展表](#232-rbac扩展表)
+- [3. 框架列表](#3-框架列表)
 
 <!-- /TOC -->
 
@@ -59,32 +54,33 @@ WHERE user.rbac_org_id = ?
   AND user.rbac_dept_id IN (?)
 ```
 > 数据权限MyBatis
+
 ```mybatisognl
 
-List<Object> selectUser(@Param("tenant") Tenant tenant)
+List< Object > selectUser(@Param("tenant") Tenant tenant)
 
 
-<sql id="Tenant">
-    <choose>
-        <when test="tenant.allPower"> 
-            ${tableAlias}.rbac_org_id = #{tenant.orgId}
-        </when>
-        <otherwise>
-            ${tableAlias}.rbac_dept_id IN
-            <foreach item="item" index="index" collection="tenant.dataPowers" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </otherwise> 
-    </choose>
-</sql>
+< sql id="Tenant" >
+<choose >
+< when test="tenant.allPower" >
+${tableAlias}.rbac_org_id = #{tenant.orgId}
+< /when >
+< otherwise >
+${tableAlias}.rbac_dept_id IN
+< foreach item="item" index="index" collection="tenant.dataPowers" open="(" separator="," close=")" >
+#{item}
+< /foreach >
+< /otherwise >
+< /choose >
+< /sql >
 
-<select id="selectUser">
-    select user.*
-    from t_users1 user
-    <include refid="plus.wcj.heifer.boot.extension.dao.SqlTemplate.Tenant">
-        <property name="tableAlias" value="user" />
-    </include>
-</select>
+< select id="selectUser" >
+select user.*
+from t_users1 user
+<include refid="plus.wcj.heifer.boot.extension.dao.SqlTemplate.Tenant" >
+< property name="tableAlias" value="user" / >
+< /include >
+</select >
 ```
 
 
@@ -114,25 +110,32 @@ List<Object> selectUser(@Param("tenant") Tenant tenant)
 | rbac_user_data_power | 用户数据权限表 | 继承``role``的权限,两者需要合并权限                                             |
 | rbac_user_manage     | 用户权限管理   | 用户是否拥有``org``的全部``authority``和``power``                               |
 
+# 3. 框架列表
 
-
-
-# 3. 框架搭建
-## 3.1. todo
-
-1. mybatis plus 顶级类封装
-
-## 3.2. ing
-
-2. resolver//多租户还未开发
-
-## 3.3. end
-1. result返回封装
-2. swagger
-3. mybatis Generator
-4. 分布式id
-5. rbac
-6. jwt
-7. security
-8. validator
-
+1. spring
+    1. [spring-boot](https://github.com/spring-projects/spring-boot)
+        1. spring-boot-starter-web
+        2. spring-boot-starter-validation
+        3. spring-boot-configuration-processor
+        4. spring-boot-starter-test
+    2. [spring-security](https://github.com/spring-projects/spring-security)
+    3. [spring-data-redis](https://github.com/spring-projects/spring-data-redis)
+    4. [spring-integration](https://github.com/spring-projects/spring-integration)
+    5. [spring-data-mongodb](https://github.com/spring-projects/spring-data-mongodb)
+1. ORM
+    1. [mybatis-plus](https://github.com/baomidou/mybatis-plus)
+    2. [mybatis-3](https://github.com/mybatis/mybatis-3)
+    3. [mysql-connector-java](https://github.com/mysql/mysql-connector-j)
+2. encryption
+    1. [jasypt-spring-boot](https://github.com/ulisesbocchio/jasypt-spring-boot)
+    2. [Nimbus-JWT](https://github.com/Connect2id/Nimbus-JWT)
+3. Apache commons
+    1. [commons-collections](https://github.com/apache/commons-collections)
+    2. [commons-lang3](https://github.com/apache/commons-lang)
+    3. [commons-pool2](https://github.com/apache/commons-pool)
+    4. [freemarker](https://github.com/apache/freemarker)
+4. other commons
+    1. [xk-time](https://github.com/xkzhangsan/xk-time)
+    2. [lombok](https://github.com/projectlombok/lombok)
+5. api doc
+    1. [springfox](https://github.com/springfox/springfox)
