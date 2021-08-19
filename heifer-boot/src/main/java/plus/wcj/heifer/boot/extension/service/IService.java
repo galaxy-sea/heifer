@@ -20,8 +20,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 /**
  * 顶级 Service
@@ -29,7 +27,7 @@ import java.util.function.Function;
  * @author hubin
  * @since 2018-06-23
  */
-@SuppressWarnings({"unused", "AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc"})
+@SuppressWarnings("unused")
 public interface IService<T> {
 
     /**
@@ -37,18 +35,19 @@ public interface IService<T> {
      */
     int DEFAULT_BATCH_SIZE = 1000;
 
-
     /**
      * 查询总记录数
      *
-     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     * @return 记录数
      */
     int count();
 
     /**
      * 查询总记录数
      *
-     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     * @param entity 实体类
+     *
+     * @return 记录数
      */
     int count(T entity);
 
@@ -56,6 +55,8 @@ public interface IService<T> {
      * 根据 ID 查询
      *
      * @param id 主键ID
+     *
+     * @return 实体类
      */
     T get(Serializable id);
 
@@ -63,13 +64,15 @@ public interface IService<T> {
      * 根据 entity 查询
      *
      * @param entity 对象
+     *
+     * @return 实体类
      */
     T get(T entity);
 
     /**
      * 查询所有
      *
-     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     * @return 实体类
      */
     List<T> list();
 
@@ -77,48 +80,26 @@ public interface IService<T> {
      * 查询（根据ID 批量查询）
      *
      * @param idList 主键ID列表
+     *
+     * @return 实体类
      */
     List<T> list(Collection<? extends Serializable> idList);
 
     /**
-     * 查询（根据 columnMap 条件）
-     *
-     * @param columnMap 表字段 map 对象
-     */
-    List<T> list(Map<String, Object> columnMap);
-
-    /**
      * 查询所有
      *
-     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     * @param entity 实体类
+     *
+     * @return 实体类
      */
     List<T> list(T entity);
-
-    /**
-     * 查询全部记录
-     */
-    List<Object> listObjs();
-
-    /**
-     * 查询全部记录
-     *
-     * @param mapper 转换函数
-     */
-    <V> List<V> listObjs(Function<? super Object, V> mapper);
-
-    /**
-     * 查询所有列表
-     *
-     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
-     */
-    List<Map<String, Object>> listMaps();
 
     /**
      * 无条件翻页查询
      *
      * @param page 翻页对象
      *
-     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     * @return 翻页对象
      */
     <E extends IPage<T>> E page(E page);
 
@@ -128,37 +109,25 @@ public interface IService<T> {
      * @param page 翻页对象
      * @param entity 实体类
      *
-     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     * @return 翻页查询
      */
     <E extends IPage<T>> E page(E page, T entity);
-
-    /**
-     * 无条件翻页查询
-     *
-     * @param page 翻页对象
-     *
-     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
-     */
-    <E extends IPage<Map<String, Object>>> E pageMaps(E page);
 
     /**
      * 根据 ID 删除
      *
      * @param id 主键ID
+     *
+     * @return true删除成功，false删除失败
      */
     boolean remove(Serializable id);
-
-    /**
-     * 根据 columnMap 条件，删除记录
-     *
-     * @param columnMap 表字段 map 对象
-     */
-    boolean remove(Map<String, Object> columnMap);
 
     /**
      * 删除（根据ID 批量删除）
      *
      * @param idList 主键ID列表
+     *
+     * @return true删除成功，false删除失败
      */
     boolean remove(Collection<? extends Serializable> idList);
 
@@ -166,6 +135,8 @@ public interface IService<T> {
      * 插入一条记录（选择字段，策略插入）
      *
      * @param entity 实体对象
+     *
+     * @return true保存成功，false保存失败
      */
     boolean save(T entity);
 
@@ -173,6 +144,8 @@ public interface IService<T> {
      * 插入（批量）
      *
      * @param entityList 实体对象集合
+     *
+     * @return true保存成功，false保存失败
      */
     boolean save(Collection<T> entityList);
 
@@ -181,6 +154,8 @@ public interface IService<T> {
      *
      * @param entityList 实体对象集合
      * @param batchSize 插入批次数量
+     *
+     * @return true保存成功，false保存失败
      */
     boolean save(Collection<T> entityList, int batchSize);
 
@@ -188,6 +163,8 @@ public interface IService<T> {
      * TableId 注解存在更新记录，否插入一条记录
      *
      * @param entity 实体对象
+     *
+     * @return true保存成功，false保存失败
      */
     boolean saveOrUpdate(T entity);
 
@@ -195,6 +172,8 @@ public interface IService<T> {
      * 批量修改插入
      *
      * @param entityList 实体对象集合
+     *
+     * @return true保存成功，false保存失败
      */
     boolean saveOrUpdate(Collection<T> entityList);
 
@@ -203,6 +182,8 @@ public interface IService<T> {
      *
      * @param entityList 实体对象集合
      * @param batchSize 每次的数量
+     *
+     * @return true保存成功，false保存失败
      */
     boolean saveOrUpdate(Collection<T> entityList, int batchSize);
 
@@ -210,6 +191,8 @@ public interface IService<T> {
      * 根据 ID 选择修改
      *
      * @param entity 实体对象
+     *
+     * @return true更新成功，false更新失败
      */
     boolean updateById(T entity);
 
@@ -217,6 +200,8 @@ public interface IService<T> {
      * 根据ID 批量更新
      *
      * @param entityList 实体对象集合
+     *
+     * @return true更新成功，false更新失败
      */
     boolean updateById(Collection<T> entityList);
 
@@ -225,6 +210,8 @@ public interface IService<T> {
      *
      * @param entityList 实体对象集合
      * @param batchSize 更新批次数量
+     *
+     * @return true更新成功，false更新失败
      */
     boolean updateById(Collection<T> entityList, int batchSize);
 }

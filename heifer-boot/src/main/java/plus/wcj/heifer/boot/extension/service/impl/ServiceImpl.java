@@ -24,7 +24,6 @@ import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -33,7 +32,6 @@ import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import plus.wcj.heifer.boot.extension.service.IService;
@@ -41,12 +39,8 @@ import plus.wcj.heifer.boot.extension.service.IService;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * IService 实现类（ 泛型：M 是 mapper 对象，T 是实体 ）
@@ -58,73 +52,24 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     protected final Log log = LogFactory.getLog(this.getClass());
 
+    @SuppressWarnings("unchecked")
+    private final Class<T> entityClass = (Class<T>) this.currentModelClass();
+    @SuppressWarnings("unchecked")
+    private final Class<T> mapperClass = (Class<T>) this.currentMapperClass();
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    protected M baseMapper;
-    protected final Class<T> entityClass = this.currentModelClass();
-    protected final Class<T> mapperClass = this.currentMapperClass();
+    private M baseMapper;
 
     protected M getBaseMapper() {
         return this.baseMapper;
     }
 
-    /**
-     * 判断数据库操作是否成功
-     *
-     * @param result 数据库操作返回影响条数
-     *
-     * @return boolean
-     *
-     * @deprecated 3.3.1
-     */
-    @Deprecated
-    protected boolean retBool(Integer result) {
-        return SqlHelper.retBool(result);
+    private Class<?> currentMapperClass() {
+        return ReflectionKit.getSuperClassGenericType(this.getClass(), 0);
     }
 
-    protected Class<T> currentMapperClass() {
-        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 0);
-    }
-
-    protected Class<T> currentModelClass() {
-        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 1);
-    }
-
-    /**
-     * 批量操作 SqlSession
-     *
-     * @deprecated 3.3.0
-     */
-    @Deprecated
-    protected SqlSession sqlSessionBatch() {
-        return SqlHelper.sqlSessionBatch(this.entityClass);
-    }
-
-    /**
-     * 释放sqlSession
-     *
-     * @param sqlSession session
-     *
-     * @deprecated 3.3.0
-     */
-    @Deprecated
-    protected void closeSqlSession(SqlSession sqlSession) {
-        SqlSessionUtils.closeSqlSession(sqlSession, GlobalConfigUtils.currentSessionFactory(this.entityClass));
-    }
-
-    /**
-     * 获取 SqlStatement
-     *
-     * @param sqlMethod ignore
-     *
-     * @return ignore
-     *
-     * @see #getSqlStatement(com.baomidou.mybatisplus.core.enums.SqlMethod)
-     * @deprecated 3.4.0
-     */
-    @Deprecated
-    protected String sqlStatement(SqlMethod sqlMethod) {
-        return SqlHelper.table(this.entityClass).getSqlStatement(sqlMethod.getMethod());
+    private Class<?> currentModelClass() {
+        return ReflectionKit.getSuperClassGenericType(this.getClass(), 1);
     }
 
     @Override
@@ -196,11 +141,6 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     }
 
     @Override
-    public List<T> list(Map<String, Object> columnMap) {
-        return this.getBaseMapper().selectByMap(columnMap);
-    }
-
-    @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveOrUpdate(Collection<T> entityList, int batchSize) {
         TableInfo tableInfo = TableInfoHelper.getTableInfo(this.entityClass);
@@ -221,12 +161,6 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     @Override
     public boolean remove(Serializable id) {
         return SqlHelper.retBool(this.getBaseMapper().deleteById(id));
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean remove(Map<String, Object> columnMap) {
-        return SqlHelper.retBool(this.getBaseMapper().deleteByMap(columnMap));
     }
 
     @Override
@@ -292,39 +226,6 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
         return this.getBaseMapper().selectPage(page, new QueryWrapper<>(entity));
     }
 
-    @Override
-    public List<Map<String, Object>> listMaps() {
-        return this.getBaseMapper().selectMaps(Wrappers.emptyWrapper());
-    }
-
-    @Override
-    public List<Object> listObjs() {
-        return this.listObjs(Function.identity());
-    }
-
-    @Override
-    public <V> List<V> listObjs(Function<? super Object, V> mapper) {
-        return this.getBaseMapper().selectObjs(Wrappers.emptyWrapper()).stream().filter(Objects::nonNull).map(mapper).collect(Collectors.toList());
-    }
-
-    @Override
-    public <E extends IPage<Map<String, Object>>> E pageMaps(E page) {
-        return this.getBaseMapper().selectMapsPage(page, Wrappers.emptyWrapper());
-    }
-
-    /**
-     * 执行批量操作
-     *
-     * @param consumer consumer
-     *
-     * @since 3.3.0
-     * @deprecated 3.3.1 后面我打算移除掉 {@link #executeBatch(java.util.Collection, int, java.util.function.BiConsumer)} }.
-     */
-    @Deprecated
-    protected boolean executeBatch(Consumer<SqlSession> consumer) {
-        return SqlHelper.executeBatch(this.entityClass, this.log, consumer);
-    }
-
     /**
      * 执行批量操作
      *
@@ -340,6 +241,5 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
     protected <E> boolean executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
         return SqlHelper.executeBatch(this.entityClass, this.log, list, batchSize, consumer);
     }
-
 
 }

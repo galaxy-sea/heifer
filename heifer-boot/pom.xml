@@ -26,7 +26,7 @@
         <maven.test.skip>true</maven.test.skip>
 
 
-        <spring-boot.version>2.5.0</spring-boot.version>
+        <spring-boot.version>2.5.3</spring-boot.version>
 
 
         <commons-collections4.version>4.4</commons-collections4.version>
