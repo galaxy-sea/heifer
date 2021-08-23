@@ -165,24 +165,4 @@ CREATE TABLE rbac_user_role_rel (
     PRIMARY KEY (id)
 ) COMMENT = '用户拥有角色关系表';
 
-ALTER TABLE rbac_admin
-    ADD CONSTRAINT a15 FOREIGN KEY (rbac_user_id) REFERENCES rbac_user (id);
-ALTER TABLE `rbac_admin` ADD CONSTRAINT `a16` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
-ALTER TABLE `rbac_customer` ADD CONSTRAINT `a14` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
-ALTER TABLE `rbac_dept` ADD CONSTRAINT `a9` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
-ALTER TABLE `rbac_org_authority` ADD CONSTRAINT `a18` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
-ALTER TABLE `rbac_org_authority` ADD CONSTRAINT `a19` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
-ALTER TABLE `rbac_role` ADD CONSTRAINT `a2` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
-ALTER TABLE `rbac_role_authority` ADD CONSTRAINT `a5` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
-ALTER TABLE `rbac_role_authority` ADD CONSTRAINT `a6` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
-ALTER TABLE `rbac_role_data_power` ADD CONSTRAINT `a12` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
-ALTER TABLE `rbac_role_data_power` ADD CONSTRAINT `a13` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
-ALTER TABLE `rbac_user` ADD CONSTRAINT `a1` FOREIGN KEY (`rbac_org_id`) REFERENCES `rbac_org` (`id`);
-ALTER TABLE `rbac_user_authority` ADD CONSTRAINT `a7` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
-ALTER TABLE `rbac_user_authority` ADD CONSTRAINT `a8` FOREIGN KEY (`rbac_permission_id`) REFERENCES `rbac_permission` (`id`);
-ALTER TABLE `rbac_user_data_power` ADD CONSTRAINT `a10` FOREIGN KEY (`rbac_dept_id`) REFERENCES `rbac_dept` (`id`);
-ALTER TABLE `rbac_user_data_power` ADD CONSTRAINT `a11` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
-ALTER TABLE `rbac_user_manage` ADD CONSTRAINT `a17` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
-ALTER TABLE `rbac_user_role_rel` ADD CONSTRAINT `a3` FOREIGN KEY (`rbac_role_id`) REFERENCES `rbac_role` (`id`);
-ALTER TABLE `rbac_user_role_rel` ADD CONSTRAINT `a4` FOREIGN KEY (`rbac_user_id`) REFERENCES `rbac_user` (`id`);
 
