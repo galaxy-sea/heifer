@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("all")
-public class GeneratorCodeV2 {
+public class GeneratorCode {
 
 
-    private static String key = "xxxxxx";
+    private static String key = "xxxxxxx";
 
     // 环境变量自己设置 Duser_name 参数，反正我觉得USER参数很傻逼
     private static String author = System.getenv("Duser_name") != null ? System.getenv("Duser_name") : System.getenv("USER");
@@ -41,7 +41,7 @@ public class GeneratorCodeV2 {
     /** 要生成的表名 */
     private static String[] tables = {
 
-            // "rbac_dept",
+            "rbac_dept",
             // "rbac_org",
             // "rbac_org_authority",
             //
@@ -147,6 +147,7 @@ public class GeneratorCodeV2 {
         // templateConfig.setServiceImpl("/generator/templates/serviceImpl.java");
         // templateConfig.setMapper();
         templateConfig.setXml(null);
+        templateConfig.setMapper("/generator/templates/mapper.java");
         templateConfig.setController("/generator/templates/controller.java");
         return templateConfig;
     }

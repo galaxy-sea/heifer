@@ -38,4 +38,15 @@
     </sql>
 
 </#if>
+<#list table.fields as field>
+    <#if field.name?ends_with("_id")>
+        <select id="selectBy${field.propertyName?cap_first}" resultMap="BaseResultMap">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM ${table.name}
+            WHERE ${field.name} = ${'#{'+field.propertyName+'}'}
+        </select>
+
+    </#if>
+</#list>
 </mapper>
