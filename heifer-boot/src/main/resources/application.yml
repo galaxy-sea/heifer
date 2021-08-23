@@ -119,6 +119,11 @@ spring:
     store-type: none
     # session会话保持时间
     timeout: 0
+  sql:
+    init:
+      schema-locations: sql/heifer_boot_schema.sql
+      data-locations: sql/heifer_boot_data.sql
+      mode: never
 mybatis-plus:
   # 检查配置文件
   check-config-location: true
