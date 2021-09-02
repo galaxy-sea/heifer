@@ -55,35 +55,35 @@ public class ${table.controllerName} extends ${superControllerClass} {
     @GetMapping(params = "id")
     @ResultResponseBody
     public ${entity} getById(@NotNull Long id) {
-    return ${table.serviceName?uncap_first}.get(id);
+        return ${table.serviceName?uncap_first}.get(id);
     }
 
     /** 分页查询 */
     @GetMapping
     @ResultResponseBody
     public Page<${entity}> page(Page<${entity}> page, ${entity} ${entity?uncap_first}, Tenant tenant) {
-    return ${table.serviceName?uncap_first}.page(page, ${entity?uncap_first});
+        return ${table.serviceName?uncap_first}.page(page, ${entity?uncap_first});
     }
 
     /** 保存 */
     @PostMapping
     @ResultResponseBody
     public boolean save(@RequestBody @Validated(value = PostValid.class) ${entity} ${entity?uncap_first}, Tenant tenant) {
-    return ${table.serviceName?uncap_first}.save(${entity?uncap_first});
+        return ${table.serviceName?uncap_first}.save(${entity?uncap_first});
     }
 
     /** 修改 */
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) ${entity} ${entity?uncap_first}) {
-    return ${table.serviceName?uncap_first}.updateById(${entity?uncap_first});
+        return ${table.serviceName?uncap_first}.updateById(${entity?uncap_first});
     }
 
     /** id删除 */
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-    return ${table.serviceName?uncap_first}.remove(id);
+        return ${table.serviceName?uncap_first}.remove(id);
     }
 
     // TODO: ${date} ${author} 补充其他接口
