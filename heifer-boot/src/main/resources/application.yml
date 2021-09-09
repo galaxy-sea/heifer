@@ -123,7 +123,10 @@ spring:
     init:
       schema-locations: classpath*:/sql/heifer_boot_schema.sql
       data-locations: classpath*:/sql/heifer_boot_data.sql
-      mode: always
+      mode: never
+  cache:
+    redis:
+      cache-null-values: true
 mybatis-plus:
   # 检查配置文件
   check-config-location: true

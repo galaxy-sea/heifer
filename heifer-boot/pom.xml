@@ -29,6 +29,7 @@
         <spring-boot.version>2.5.3</spring-boot.version>
 
 
+
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-io.version>2.11.0</commons-io.version>
 
@@ -62,6 +63,11 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
@@ -71,10 +77,10 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>org.springframework.boot</groupId>-->
+        <!--    <artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -277,7 +283,7 @@
                             <!--排除的文件-->
                             <excludes>
                                 <exclude>plus/wcj/heifer/boot/GenerateRandomKey.java</exclude>
-                                <exclude>plus/wcj/heifer/boot/GeneratorCodeV2.java</exclude>
+                                <exclude>plus/wcj/heifer/boot/GeneratorCode.java</exclude>
                                 <exclude>plus/wcj/heifer/boot/common/swagger/Swagger3Config.java</exclude>
                             </excludes>
                         </configuration>

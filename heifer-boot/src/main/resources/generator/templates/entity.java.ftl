@@ -12,6 +12,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 </#if>
+<#if cfg.RedisHash>
+import org.springframework.data.redis.core.RedisHash;
+</#if>
+<#list cfg.implements as implement>
+import ${implement.getCanonicalName()};
+</#list>
+
+
 import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
 
@@ -34,6 +42,9 @@ import javax.validation.constraints.NotNull;
     </#if>
 @Accessors(chain = true)
 </#if>
+<#if cfg.RedisHash>
+@RedisHash("${entity}")
+</#if>
 <#if table.convert>
 @TableName("${table.name}")
 </#if>
@@ -41,11 +52,11 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
-public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
+public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> implements<#list cfg.implements as implement>, ${implement.getSimpleName()}</#list> {
 <#elseif activeRecord>
-public class ${entity} extends Model<${entity}> {
+public class ${entity} extends Model<${entity}> implements<#list cfg.implements as implement>, ${implement.getSimpleName()}</#list> {
 <#else>
-public class ${entity} implements Serializable {
+public class ${entity} implements Serializable<#list cfg.implements as implement>, ${implement.getSimpleName()}</#list> {
 </#if>
 
 <#if entitySerialVersionUID>

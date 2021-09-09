@@ -23,25 +23,27 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("all")
 public class GeneratorCode {
 
 
-    private static String key = "xxxxxxx";
+    private static String key = "thisForYinjuanLi";
 
     // 环境变量自己设置 Duser_name 参数，反正我觉得USER参数很傻逼
     private static String author = System.getenv("Duser_name") != null ? System.getenv("Duser_name") : System.getenv("USER");
 
     /** 模块名 */
-    private static String moduleName = "rbac";
+    private static String moduleName = "rbacaawdsdasd";
 
     /** 要生成的表名 */
     private static String[] tables = {
 
-            "rbac_dept",
+            "rbac_user",
             // "rbac_org",
             // "rbac_org_authority",
             //
@@ -74,6 +76,12 @@ public class GeneratorCode {
     private static String schemaName = "public";
 
     private static String parent = "plus.wcj.heifer.boot";
+
+
+    private static Map<String, Object> map = new LinkedHashMap<String, Object>() {{
+        put("RedisHash", true);
+        put("implements", new Class[]{});
+    }};
 
 
     // public static void main(String[] args) {
@@ -160,6 +168,8 @@ public class GeneratorCode {
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
+                this.setMap(map);
+
                 // to do nothing
             }
 

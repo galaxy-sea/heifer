@@ -9,8 +9,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
+import plus.wcj.heifer.boot.manager.redis.RedisTimeToLive;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -27,9 +30,10 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode()
 @Accessors(chain = true)
+@RedisHash("RbacUser")
 @TableName("rbac_user")
 @ApiModel(value = "RbacUser对象", description = "用户表")
-public class RbacUser implements Serializable {
+public class RbacUser implements Serializable, RedisTimeToLive {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,6 +53,7 @@ public class RbacUser implements Serializable {
     @ApiModelProperty(value = "用户名")
     @NotNull(groups = {PostValid.class}, message = "username is null")
     @TableField("username")
+    @Indexed
     private String username;
 
     /** 手机号 */
