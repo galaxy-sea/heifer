@@ -12,7 +12,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @EnableOpenApi
 @SpringBootApplication
 @EnableEncryptableProperties
-@MapperScan({"plus.wcj.heifer.boot.dao.**", "plus.wcj.heifer.boot.common.security.userdetails.dao"})
+@MapperScan({"plus.wcj.heifer.boot.repository.dao.**", "plus.wcj.heifer.boot.common.security.userdetails.dao"})
 public class HeiferBootApplication {
 
     public static void main(String[] args) {

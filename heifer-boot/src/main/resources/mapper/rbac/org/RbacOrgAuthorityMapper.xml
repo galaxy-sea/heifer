@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=changjin wei(魏昌进) -->
 <!-- since=2021-07-03 -->
-<mapper namespace="plus.wcj.heifer.boot.dao.rbac.org.RbacOrgAuthorityDao">
+<mapper namespace="plus.wcj.heifer.boot.repository.dao.rbac.org.RbacOrgAuthorityDao">
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.org.RbacOrgAuthority">
         <id column="id" property="id" />

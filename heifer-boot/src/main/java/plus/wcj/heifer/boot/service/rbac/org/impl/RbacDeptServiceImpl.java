@@ -1,7 +1,7 @@
 package plus.wcj.heifer.boot.service.rbac.org.impl;
 
 import org.springframework.stereotype.Service;
-import plus.wcj.heifer.boot.dao.rbac.org.RbacDeptDao;
+import plus.wcj.heifer.boot.repository.dao.rbac.org.RbacDeptDao;
 import plus.wcj.heifer.boot.entity.rbac.org.RbacDept;
 import plus.wcj.heifer.boot.extension.service.impl.ServiceImpl;
 import plus.wcj.heifer.boot.service.rbac.org.RbacDeptService;

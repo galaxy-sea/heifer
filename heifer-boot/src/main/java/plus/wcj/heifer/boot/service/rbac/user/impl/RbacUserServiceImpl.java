@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
-import plus.wcj.heifer.boot.dao.rbac.user.RbacUserDao;
+import plus.wcj.heifer.boot.repository.dao.rbac.user.RbacUserDao;
 import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
 import plus.wcj.heifer.boot.extension.service.impl.ServiceImpl;
 import plus.wcj.heifer.boot.service.rbac.user.RbacUserService;

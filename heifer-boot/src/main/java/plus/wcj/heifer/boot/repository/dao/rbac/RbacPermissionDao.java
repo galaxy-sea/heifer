@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.dao.rbac;
+package plus.wcj.heifer.boot.repository.dao.rbac;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import plus.wcj.heifer.boot.entity.rbac.RbacPermission;

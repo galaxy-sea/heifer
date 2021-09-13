@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.dao.rbac.role;
+package plus.wcj.heifer.boot.repository.dao.rbac.role;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import plus.wcj.heifer.boot.entity.rbac.role.RbacRoleAuthority;

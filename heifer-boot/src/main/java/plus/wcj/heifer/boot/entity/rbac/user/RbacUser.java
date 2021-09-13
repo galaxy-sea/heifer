@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 import plus.wcj.heifer.boot.extension.validator.PostValid;
@@ -30,6 +31,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode()
 @Accessors(chain = true)
+@Document("RbacUser")
 @RedisHash("RbacUser")
 @TableName("rbac_user")
 @ApiModel(value = "RbacUser对象", description = "用户表")

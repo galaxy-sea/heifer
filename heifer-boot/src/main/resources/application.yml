@@ -16,7 +16,7 @@ heifer:
       access-id: ${heifer.aliyun.access-id}
       access-key: ${heifer.aliyun.access-key}
       bucket: heifer    # 这个便宜呀,用这个
-#      bucket: beautiful-senior   # 这个贵呀,不要用这个
+      #      bucket: beautiful-senior   # 这个贵呀,不要用这个
       endpoint: oss-cn-hangzhou.aliyuncs.com
       host: https://${heifer.aliyun.oss.bucket}.${heifer.aliyun.oss.endpoint}
       expire: 600000
@@ -127,6 +127,8 @@ spring:
   cache:
     redis:
       cache-null-values: true
+  main:
+    allow-bean-definition-overriding: true
 mybatis-plus:
   # 检查配置文件
   check-config-location: true
