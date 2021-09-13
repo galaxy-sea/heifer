@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.manager.mongodb;
+package plus.wcj.heifer.boot.manager.mongo;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;

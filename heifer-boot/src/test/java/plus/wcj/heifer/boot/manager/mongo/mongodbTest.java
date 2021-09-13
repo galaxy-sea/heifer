@@ -1,13 +1,9 @@
-package plus.wcj.heifer.boot.manager.mongodb;
-import java.util.Date;
+package plus.wcj.heifer.boot.manager.mongo;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
 import plus.wcj.heifer.boot.repository.mongo.RbacUserMongo;
 
