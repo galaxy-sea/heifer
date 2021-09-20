@@ -119,11 +119,11 @@ spring:
     store-type: none
     # session会话保持时间
     timeout: 0
-  sql:
-    init:
-      schema-locations: classpath*:/sql/heifer_boot_schema.sql
-      data-locations: classpath*:/sql/heifer_boot_data.sql
-      mode: never
+#  sql:
+#    init:
+#      schema-locations: classpath*:/sql/heifer_boot_schema.sql
+#      data-locations: classpath*:/sql/heifer_boot_data.sql
+#      mode: never
   cache:
     redis:
       cache-null-values: true
