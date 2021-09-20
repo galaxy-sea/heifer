@@ -13,11 +13,14 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
 @SuppressWarnings("unused")
 public class Result<T> {
     /** 业务错误码 */
-    private final String code;
+    private String code;
     /** 信息描述 */
-    private final String message;
+    private String message;
     /** 返回参数 */
-    private final T data;
+    private T data;
+
+    private Result() {
+    }
 
     private Result(ResultStatus resultStatus, T data) {
         this.code = resultStatus.getCode();
