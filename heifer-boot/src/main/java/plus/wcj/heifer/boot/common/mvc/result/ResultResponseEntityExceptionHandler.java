@@ -255,7 +255,8 @@ public class ResultResponseEntityExceptionHandler {
 
     /** 当对用@Valid注释的参数的验证失败时抛出的异常。 从 5.3 开始扩展BindException */
     protected ResponseEntity<Result<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, HttpHeaders headers, WebRequest request) {
-        Result<?> body = Result.fail(ResultStatus.BAD_REQUEST);
+        ObjectError objectError = ex.getAllErrors().get(0);
+        Result<?> body = Result.fail(ResultStatus.BAD_REQUEST, objectError.getDefaultMessage());
         HttpStatus status = HttpStatus.BAD_REQUEST;
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }
