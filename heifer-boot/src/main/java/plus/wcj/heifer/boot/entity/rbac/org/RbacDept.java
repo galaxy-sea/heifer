@@ -11,9 +11,11 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
+import plus.wcj.heifer.boot.utils.TreeUtils;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -29,7 +31,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("rbac_dept")
 @ApiModel(value = "RbacDept对象", description = "部门")
-public class RbacDept implements Serializable {
+public class RbacDept implements Serializable, TreeUtils.Tree<RbacDept> {
 
     private static final long serialVersionUID = 1L;
 
@@ -70,5 +72,26 @@ public class RbacDept implements Serializable {
     @TableField("update_by")
     private Long updateBy;
 
+    private Collection<RbacDept> treeNode;
 
+
+    @Override
+    public Object treeId() {
+        return this.id;
+    }
+
+    @Override
+    public Object treeParentId() {
+        return this.parentId;
+    }
+
+    @Override
+    public Collection<RbacDept> treeNode() {
+        return this.treeNode;
+    }
+
+    @Override
+    public void treeNode(Collection<RbacDept> node) {
+        this.treeNode = node;
+    }
 }
