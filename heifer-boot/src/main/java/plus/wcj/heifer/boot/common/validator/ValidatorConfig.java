@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot.common.validator;
 
 
+import org.springframework.boot.validation.MessageInterpolatorFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -16,9 +17,11 @@ public class ValidatorConfig {
 
     @Bean
     public LocalValidatorFactoryBean getValidatorFactory() {
-        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
-        localValidatorFactoryBean.getValidationPropertyMap().put("hibernate.validator.fail_fast", "true");
-        return localValidatorFactoryBean;
-    }
+        LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
+        factoryBean.getValidationPropertyMap().put("hibernate.validator.fail_fast", "true");
 
+        MessageInterpolatorFactory interpolatorFactory = new MessageInterpolatorFactory();
+        factoryBean.setMessageInterpolator(interpolatorFactory.getObject());
+        return factoryBean;
+    }
 }
