@@ -123,6 +123,15 @@ public interface IService<T> {
     boolean remove(Serializable id);
 
     /**
+     * 根据 entity条件 删除
+     *
+     * @param entity 条件
+     *
+     * @return true删除成功，false删除失败
+     */
+    boolean remove(T entity);
+
+    /**
      * 删除（根据ID 批量删除）
      *
      * @param idList 主键ID列表
