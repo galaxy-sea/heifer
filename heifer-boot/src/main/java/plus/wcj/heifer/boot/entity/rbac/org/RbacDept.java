@@ -31,7 +31,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("rbac_dept")
 @ApiModel(value = "RbacDept对象", description = "部门")
-public class RbacDept implements Serializable, TreeUtils.Tree<RbacDept> {
+public class RbacDept implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -73,25 +73,4 @@ public class RbacDept implements Serializable, TreeUtils.Tree<RbacDept> {
     private Long updateBy;
 
     private Collection<RbacDept> treeNode;
-
-
-    @Override
-    public Object treeId() {
-        return this.id;
-    }
-
-    @Override
-    public Object treeParentId() {
-        return this.parentId;
-    }
-
-    @Override
-    public Collection<RbacDept> treeNode() {
-        return this.treeNode;
-    }
-
-    @Override
-    public void treeNode(Collection<RbacDept> node) {
-        this.treeNode = node;
-    }
 }

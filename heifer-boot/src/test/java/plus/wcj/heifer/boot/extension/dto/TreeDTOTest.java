@@ -28,11 +28,20 @@ class TreeDTOTest {
                 this.add(new RbacDept().setId(4L).setParentId(2L));
                 this.add(new RbacDept().setId(5L).setParentId(2L));
                 this.add(new RbacDept().setId(6L).setParentId(10L));
+                this.add(new RbacDept().setId(7L).setParentId(null));
+                this.add(new RbacDept().setId(8L).setParentId(6L));
+                this.add(new RbacDept().setId(9L).setParentId(2L));
+                this.add(new RbacDept().setId(10L).setParentId(9L));
+                this.add(new RbacDept().setId(11L).setParentId(null));
+                this.add(new RbacDept().setId(12L).setParentId(null));
+                this.add(new RbacDept().setId(13L).setParentId(12L));
+
+                this.add(new RbacDept().setId(14L).setParentId(14L));
+                this.add(new RbacDept().setId(15L).setParentId(16L));
+
             }
         };
-
-        System.out.println(new ObjectMapper().writeValueAsString(TreeUtils.terr(depts)));
-        System.out.println(new ObjectMapper().writeValueAsString(TreeUtils.zTerr(depts)));
+        System.out.println(new ObjectMapper().writeValueAsString(TreeUtils.tree(depts, RbacDept::getId, RbacDept::getParentId, RbacDept::setTreeNode)));
 
     }
 }

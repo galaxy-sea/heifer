@@ -1,8 +1,11 @@
 package plus.wcj.heifer.boot.utils;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
  * @author changjin wei(魏昌进)
@@ -14,85 +17,35 @@ public class TreeUtils {
     }
 
     /**
-     * 找不到 Parent 节点的元素 删除<br/>
-     * A<br/>
-     * AB<br/>
-     * BA BB BC<br/>
+     *
+     * @param collection this is a collection of elements
+     * @param getId this is a getId Function
+     * @param getParentId this is a getParentId Function
+     * @param setNode this is a setNode BiConsumer
+     * @param <E> the type of elements in this collection
+     * @param <R> the type of the result of the function
+     * @return Collection
      */
-    public static <T extends Tree<T>> Collection<T> terr(Collection<T> elements) {
-        Collection<T> root = new HashSet<>();
-        for (T node : elements) {
-            if (null == node.treeParentId() || "0".equals(node.treeParentId().toString())) {
+    public static <E, R> Collection<E> tree(Collection<E> collection, Function<E, R> getId, Function<E, R> getParentId, BiConsumer<E, Collection<E>> setNode) {
+        Collection<E> root = new LinkedList<>();
+        for (E node : collection) {
+            R parentId = getParentId.apply(node);
+            R id = getId.apply(node);
+            Collection<E> elements = new LinkedList<>();
+            boolean isParent = true;
+            for (E element : collection) {
+                if (id.equals(getParentId.apply(element))) {
+                    elements.add(element);
+                }
+                if (getId.apply(element).equals(parentId)) {
+                    isParent = false;
+                }
+            }
+            if (isParent) {
                 root.add(node);
             }
-            for (T element : elements) {
-                if (node.treeId().equals(element.treeParentId())) {
-                    if (node.treeNode() == null) {
-                        node.treeNode(new LinkedList<>());
-                    }
-                    node.treeNode().add(element);
-                }
-            }
+            setNode.accept(node, elements);
         }
         return root;
-    }
-
-    /**
-     * 找不到Parent节点的元素成为Parent<br/>
-     * A            CA          E<br/>
-     * AB           DA DB<br/>
-     * BA BB BC<br/>
-     */
-    public static <T extends Tree<T>> Collection<T> zTerr(Collection<T> elements) {
-        Collection<T> root = new HashSet<>();
-        for (T element : elements) {
-            if (null == element.treeParentId() || "0".equals(element.treeParentId().toString())) {
-                root.add(element);
-                continue;
-            }
-            boolean flag = false;
-            for (T node : elements) {
-                if (node.treeId().equals(element.treeParentId())) {
-                    node.treeNode().add(element);
-                    flag = true;
-                }
-            }
-            if (!flag) {
-                root.add(element);
-            }
-        }
-        return root;
-    }
-
-
-    public interface Tree<E extends Tree<?>> {
-        /**
-         * 获取id
-         *
-         * @return id
-         */
-        Object treeId();
-
-        /**
-         * 获取父ID，只能返回 NULL或者0
-         *
-         * @return parentId
-         */
-        Object treeParentId();
-
-        /**
-         * 获取 字节点
-         *
-         * @return Node
-         */
-        Collection<E> treeNode();
-
-        /**
-         * 设置 子节点
-         *
-         * @param node 子节点
-         *
-         */
-        void treeNode(Collection<E> node);
     }
 }
