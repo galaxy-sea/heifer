@@ -165,6 +165,12 @@ public class ServiceImpl<M extends BaseMapper<T>, T> implements IService<T> {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public boolean remove(T entity) {
+        return SqlHelper.retBool(this.getBaseMapper().delete(new QueryWrapper<>(entity)));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean remove(Collection<? extends Serializable> idList) {
         if (CollectionUtils.isEmpty(idList)) {
             return false;
