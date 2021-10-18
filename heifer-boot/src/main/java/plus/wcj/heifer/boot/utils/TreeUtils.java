@@ -37,7 +37,7 @@ public class TreeUtils {
                 if (id.equals(getParentId.apply(element))) {
                     elements.add(element);
                 }
-                if (getId.apply(element).equals(parentId)) {
+                if (isParent && getId.apply(element).equals(parentId)) {
                     isParent = false;
                 }
             }
