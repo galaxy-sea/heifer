@@ -19,7 +19,7 @@ import plus.wcj.heifer.boot.service.rbac.user.RbacUserService;
  */
 @Service
 @RequiredArgsConstructor
-public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser> implements RbacUserService {
+public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser, Long> implements RbacUserService {
 
     private final PasswordEncoder passwordEncoder;
 

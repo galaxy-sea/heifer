@@ -57,7 +57,7 @@ public class RbacUserManageController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacUserManage rbacUserManage) {
-        return this.rbacUserManageService.updateById(rbacUserManage);
+        return this.rbacUserManageService.update(rbacUserManage);
     }
 
     /** id删除 */

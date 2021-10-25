@@ -15,6 +15,6 @@ import plus.wcj.heifer.boot.service.rbac.role.RbacRoleService;
  * @since 2021-07-03
  */
 @Service
-public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleDao, RbacRole> implements RbacRoleService {
+public class RbacRoleServiceImpl extends ServiceImpl<RbacRoleDao, RbacRole, Long> implements RbacRoleService {
 
 }

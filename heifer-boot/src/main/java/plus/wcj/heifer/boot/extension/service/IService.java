@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2011-2020, baomidou (jobob@qq.com).
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * <p>
- * https://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 package plus.wcj.heifer.boot.extension.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -20,132 +5,198 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+
 
 /**
- * 顶级 Service
+ * @param <T> entity类
+ * @param <ID> id主键类型
  *
- * @author hubin
- * @since 2018-06-23
+ * @author changjin wei(魏昌进)
+ * @since 2021/10/25
  */
 @SuppressWarnings("unused")
-public interface IService<T> {
+public interface IService<T, ID extends Serializable> {
 
     /**
      * 默认批次提交数量
      */
     int DEFAULT_BATCH_SIZE = 1000;
 
+
     /**
      * 查询总记录数
-     *
-     * @return 记录数
      */
     int count();
 
     /**
-     * 查询总记录数
+     * 根据 Wrapper 条件，查询总记录数
      *
-     * @param entity 实体类
-     *
-     * @return 记录数
+     * @param queryEntity 实体对象封装操作类
      */
-    int count(T entity);
+    int count(T queryEntity);
+
 
     /**
      * 根据 ID 查询
      *
      * @param id 主键ID
-     *
-     * @return 实体类
      */
-    T get(Serializable id);
+    T get(ID id);
+
 
     /**
-     * 根据 entity 查询
+     * 根据 Wrapper，查询一条记录
      *
-     * @param entity 对象
-     *
-     * @return 实体类
+     * @param queryEntity 实体对象封装操作类
      */
-    T get(T entity);
+    Map<String, Object> getMap(T queryEntity);
+
+
+    /**
+     * 根据 Wrapper，查询一条记录 <br/>
+     * <p>结果集，如果是多个会抛出异常，随机取一条加上限制条件 wrapper.last("LIMIT 1")</p>
+     *
+     * @param queryEntity 实体对象封装操作类
+     */
+    T get(T queryEntity);
+
+    /**
+     * 根据 Wrapper，查询一条记录
+     *
+     * @param queryEntity 实体对象封装操作类
+     * @param throwEx 有多个 result 是否抛出异常
+     */
+    T get(T queryEntity, boolean throwEx);
+
 
     /**
      * 查询所有
      *
-     * @return 实体类
+     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
      */
     List<T> list();
+
+    /**
+     * 查询列表
+     *
+     * @param queryEntity 实体对象封装操作类
+     */
+    List<T> list(T queryEntity);
 
     /**
      * 查询（根据ID 批量查询）
      *
      * @param idList 主键ID列表
-     *
-     * @return 实体类
      */
-    List<T> list(Collection<? extends Serializable> idList);
+    List<T> list(Collection<? extends ID> idList);
 
     /**
-     * 查询所有
+     * 查询（根据 columnMap 条件）
      *
-     * @param entity 实体类
-     *
-     * @return 实体类
+     * @param columnMap 表字段 map 对象
      */
-    List<T> list(T entity);
+    List<T> list(Map<String, Object> columnMap);
+
+
+    /**
+     * 查询所有列表
+     *
+     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     */
+    List<Map<String, Object>> listMaps();
+
+
+    /**
+     * 查询列表
+     *
+     * @param queryEntity 实体对象封装操作类
+     */
+    List<Map<String, Object>> listMaps(T queryEntity);
+
+
+    /**
+     * 查询全部记录
+     */
+    List<Object> listObjs();
+
+    /**
+     * 根据 Wrapper 条件，查询全部记录
+     *
+     * @param queryEntity 实体对象封装操作类
+     */
+    List<Object> listObjs(T queryEntity);
 
     /**
      * 无条件翻页查询
      *
      * @param page 翻页对象
      *
-     * @return 翻页对象
+     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
      */
     <E extends IPage<T>> E page(E page);
 
     /**
-     * entity条件翻页查询
+     * 翻页查询
      *
      * @param page 翻页对象
-     * @param entity 实体类
-     *
-     * @return 翻页查询
+     * @param queryEntity 实体对象封装操作类
      */
-    <E extends IPage<T>> E page(E page, T entity);
+    <E extends IPage<T>> E page(E page, T queryEntity);
+
+    /**
+     * 无条件翻页查询
+     *
+     * @param page 翻页对象
+     *
+     * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     */
+    <E extends IPage<Map<String, Object>>> E pageMaps(E page);
+
+    /**
+     * 翻页查询
+     *
+     * @param page 翻页对象
+     * @param queryEntity 实体对象封装操作类
+     */
+    <E extends IPage<Map<String, Object>>> E pageMaps(E page, T queryEntity);
+
+
+    /**
+     * 根据 queryEntity 条件，删除记录
+     *
+     * @param queryEntity 实体类
+     */
+    boolean remove(T queryEntity);
 
     /**
      * 根据 ID 删除
      *
      * @param id 主键ID
-     *
-     * @return true删除成功，false删除失败
      */
-    boolean remove(Serializable id);
+    boolean remove(ID id);
 
-    /**
-     * 根据 entity条件 删除
-     *
-     * @param entity 条件
-     *
-     * @return true删除成功，false删除失败
-     */
-    boolean remove(T entity);
 
     /**
      * 删除（根据ID 批量删除）
      *
      * @param idList 主键ID列表
-     *
-     * @return true删除成功，false删除失败
      */
-    boolean remove(Collection<? extends Serializable> idList);
+    boolean remove(Collection<? extends ID> idList);
+
+
+    /**
+     * 根据 columnMap 条件，删除记录
+     *
+     * @param columnMap 表字段 map 对象
+     */
+    boolean remove(Map<String, Object> columnMap);
+
 
     /**
      * 插入一条记录（选择字段，策略插入）
      *
      * @param entity 实体对象
-     *
-     * @return true保存成功，false保存失败
      */
     boolean save(T entity);
 
@@ -153,8 +204,6 @@ public interface IService<T> {
      * 插入（批量）
      *
      * @param entityList 实体对象集合
-     *
-     * @return true保存成功，false保存失败
      */
     boolean save(Collection<T> entityList);
 
@@ -163,26 +212,14 @@ public interface IService<T> {
      *
      * @param entityList 实体对象集合
      * @param batchSize 插入批次数量
-     *
-     * @return true保存成功，false保存失败
      */
     boolean save(Collection<T> entityList, int batchSize);
 
-    /**
-     * TableId 注解存在更新记录，否插入一条记录
-     *
-     * @param entity 实体对象
-     *
-     * @return true保存成功，false保存失败
-     */
-    boolean saveOrUpdate(T entity);
 
     /**
      * 批量修改插入
      *
      * @param entityList 实体对象集合
-     *
-     * @return true保存成功，false保存失败
      */
     boolean saveOrUpdate(Collection<T> entityList);
 
@@ -191,36 +228,57 @@ public interface IService<T> {
      *
      * @param entityList 实体对象集合
      * @param batchSize 每次的数量
-     *
-     * @return true保存成功，false保存失败
      */
     boolean saveOrUpdate(Collection<T> entityList, int batchSize);
+
 
     /**
      * 根据 ID 选择修改
      *
      * @param entity 实体对象
-     *
-     * @return true更新成功，false更新失败
      */
-    boolean updateById(T entity);
+    boolean update(T entity);
+
+
+    /**
+     * 根据 updateEntity 条件，更新记录
+     *
+     * @param entity 实体对象
+     * @param updateEntity 实体对象封装操作类
+     */
+    boolean update(T entity, T updateEntity);
 
     /**
      * 根据ID 批量更新
      *
      * @param entityList 实体对象集合
-     *
-     * @return true更新成功，false更新失败
      */
-    boolean updateById(Collection<T> entityList);
+
+    boolean update(Collection<T> entityList);
 
     /**
      * 根据ID 批量更新
      *
      * @param entityList 实体对象集合
      * @param batchSize 更新批次数量
-     *
-     * @return true更新成功，false更新失败
      */
-    boolean updateById(Collection<T> entityList, int batchSize);
+    boolean update(Collection<T> entityList, int batchSize);
+
+    /**
+     * TableId 注解存在更新记录，否插入一条记录
+     *
+     * @param entity 实体对象
+     */
+    boolean saveOrUpdate(T entity);
+
+
+    /**
+     * <p>
+     * 根据updateWrapper尝试更新，否继续执行saveOrUpdate(T)方法
+     * 此次修改主要是减少了此项业务代码的代码量（存在性验证之后的saveOrUpdate操作）
+     * </p>
+     *
+     * @param entity 实体对象
+     */
+    boolean saveOrUpdate(T entity, T updateEntity);
 }

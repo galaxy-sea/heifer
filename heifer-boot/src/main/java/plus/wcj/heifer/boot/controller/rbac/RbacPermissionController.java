@@ -57,7 +57,7 @@ public class RbacPermissionController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacPermission rbacPermission) {
-        return this.rbacPermissionService.updateById(rbacPermission);
+        return this.rbacPermissionService.update(rbacPermission);
     }
 
     /** id删除 */

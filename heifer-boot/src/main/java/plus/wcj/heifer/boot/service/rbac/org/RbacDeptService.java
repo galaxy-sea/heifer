@@ -11,6 +11,6 @@ import plus.wcj.heifer.boot.extension.service.IService;
  * @author changjin wei(魏昌进)
  * @since 2021-07-03
  */
-public interface RbacDeptService extends IService<RbacDept> {
+public interface RbacDeptService extends IService<RbacDept, Long> {
 
 }

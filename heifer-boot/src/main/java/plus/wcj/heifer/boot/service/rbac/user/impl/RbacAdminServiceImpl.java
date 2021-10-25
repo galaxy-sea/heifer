@@ -15,6 +15,6 @@ import plus.wcj.heifer.boot.service.rbac.user.RbacAdminService;
  * @since 2021-07-03
  */
 @Service
-public class RbacAdminServiceImpl extends ServiceImpl<RbacAdminDao, RbacAdmin> implements RbacAdminService {
+public class RbacAdminServiceImpl extends ServiceImpl<RbacAdminDao, RbacAdmin, Long> implements RbacAdminService {
 
 }

@@ -81,6 +81,7 @@ public class GeneratorCode {
     private static Map<String, Object> map = new LinkedHashMap<String, Object>() {{
         put("RedisHash", true);
         put("implements", new Class[]{});
+        put("idType", Long.class);
     }};
 
 
@@ -183,7 +184,6 @@ public class GeneratorCode {
                         field.setComment(pattern.matcher(field.getComment()).replaceAll(""));
                     }
                 }
-
             }
         };
 

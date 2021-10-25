@@ -57,7 +57,7 @@ public class RbacCustomerController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacCustomer rbacCustomer) {
-        return this.rbacCustomerService.updateById(rbacCustomer);
+        return this.rbacCustomerService.update(rbacCustomer);
     }
 
     /** id删除 */

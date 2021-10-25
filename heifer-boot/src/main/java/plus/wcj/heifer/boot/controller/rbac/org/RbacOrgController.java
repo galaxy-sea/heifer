@@ -57,7 +57,7 @@ public class RbacOrgController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacOrg rbacOrg) {
-        return this.rbacOrgService.updateById(rbacOrg);
+        return this.rbacOrgService.update(rbacOrg);
     }
 
     /** id删除 */

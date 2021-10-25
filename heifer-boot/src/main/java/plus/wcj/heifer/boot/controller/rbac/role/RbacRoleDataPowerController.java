@@ -57,7 +57,7 @@ public class RbacRoleDataPowerController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacRoleDataPower rbacRoleDataPower) {
-        return this.rbacRoleDataPowerService.updateById(rbacRoleDataPower);
+        return this.rbacRoleDataPowerService.update(rbacRoleDataPower);
     }
 
     /** id删除 */

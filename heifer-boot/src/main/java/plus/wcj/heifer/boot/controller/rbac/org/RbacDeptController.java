@@ -57,7 +57,7 @@ public class RbacDeptController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacDept rbacDept) {
-        return this.rbacDeptService.updateById(rbacDept);
+        return this.rbacDeptService.update(rbacDept);
     }
 
     /** id删除 */

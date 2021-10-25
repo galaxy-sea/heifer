@@ -15,6 +15,6 @@ import plus.wcj.heifer.boot.service.rbac.user.RbacUserDataPowerService;
  * @since 2021-07-03
  */
 @Service
-public class RbacUserDataPowerServiceImpl extends ServiceImpl<RbacUserDataPowerDao, RbacUserDataPower> implements RbacUserDataPowerService {
+public class RbacUserDataPowerServiceImpl extends ServiceImpl<RbacUserDataPowerDao, RbacUserDataPower, Long> implements RbacUserDataPowerService {
 
 }

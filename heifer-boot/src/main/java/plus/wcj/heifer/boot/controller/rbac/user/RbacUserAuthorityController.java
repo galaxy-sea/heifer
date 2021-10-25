@@ -57,7 +57,7 @@ public class RbacUserAuthorityController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacUserAuthority rbacUserAuthority) {
-        return this.rbacUserAuthorityService.updateById(rbacUserAuthority);
+        return this.rbacUserAuthorityService.update(rbacUserAuthority);
     }
 
     /** id删除 */

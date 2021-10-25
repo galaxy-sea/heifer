@@ -15,6 +15,6 @@ import plus.wcj.heifer.boot.service.rbac.org.RbacOrgService;
  * @since 2021-07-03
  */
 @Service
-public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgDao, RbacOrg> implements RbacOrgService {
+public class RbacOrgServiceImpl extends ServiceImpl<RbacOrgDao, RbacOrg, Long> implements RbacOrgService {
 
 }

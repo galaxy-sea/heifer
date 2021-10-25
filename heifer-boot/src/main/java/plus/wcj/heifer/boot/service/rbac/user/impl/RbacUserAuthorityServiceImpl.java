@@ -15,6 +15,6 @@ import plus.wcj.heifer.boot.service.rbac.user.RbacUserAuthorityService;
  * @since 2021-07-03
  */
 @Service
-public class RbacUserAuthorityServiceImpl extends ServiceImpl<RbacUserAuthorityDao, RbacUserAuthority> implements RbacUserAuthorityService {
+public class RbacUserAuthorityServiceImpl extends ServiceImpl<RbacUserAuthorityDao, RbacUserAuthority, Long> implements RbacUserAuthorityService {
 
 }
