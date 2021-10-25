@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class GeneratorCode {
 
 
-    private static String key = "thisForYinjuanLi";
+    private static String key = "xxxxxx";
 
     // 环境变量自己设置 Duser_name 参数，反正我觉得USER参数很傻逼
     private static String author = System.getenv("Duser_name") != null ? System.getenv("Duser_name") : System.getenv("USER");
@@ -81,7 +81,7 @@ public class GeneratorCode {
     private static Map<String, Object> map = new LinkedHashMap<String, Object>() {{
         put("RedisHash", true);
         put("implements", new Class[]{});
-        put("idType", Long.class);
+        put("idType", Long.class.getSimpleName());
     }};
 
 
@@ -158,6 +158,8 @@ public class GeneratorCode {
         templateConfig.setXml(null);
         templateConfig.setMapper("/generator/templates/mapper.java");
         templateConfig.setController("/generator/templates/controller.java");
+        templateConfig.setService("/generator/templates/service.java");
+        templateConfig.setServiceImpl("/generator/templates/serviceImpl.java");
         return templateConfig;
     }
 

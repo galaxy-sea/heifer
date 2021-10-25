@@ -76,7 +76,7 @@ public class ${table.controllerName} extends ${superControllerClass} {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) ${entity} ${entity?uncap_first}) {
-        return ${table.serviceName?uncap_first}.updateById(${entity?uncap_first});
+        return ${table.serviceName?uncap_first}.update(${entity?uncap_first});
     }
 
     /** id删除 */
