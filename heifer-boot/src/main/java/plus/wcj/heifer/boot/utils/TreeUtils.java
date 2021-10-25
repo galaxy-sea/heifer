@@ -1,6 +1,5 @@
 package plus.wcj.heifer.boot.utils;
 
-import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -17,13 +16,13 @@ public class TreeUtils {
     }
 
     /**
-     *
      * @param collection this is a collection of elements
      * @param getId this is a getId Function
      * @param getParentId this is a getParentId Function
      * @param setNode this is a setNode BiConsumer
      * @param <E> the type of elements in this collection
      * @param <R> the type of the result of the function
+     *
      * @return Collection
      */
     public static <E, R> Collection<E> tree(Collection<E> collection, Function<E, R> getId, Function<E, R> getParentId, BiConsumer<E, Collection<E>> setNode) {
