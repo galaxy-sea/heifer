@@ -38,6 +38,7 @@
     </sql>
 
 </#if>
+<#-- 外键生成   -->
 <#list table.fields as field>
     <#if field.name?ends_with("_id")>
         <select id="selectBy${field.propertyName?cap_first}" resultMap="BaseResultMap">
