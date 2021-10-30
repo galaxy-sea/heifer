@@ -1,6 +1,8 @@
 package plus.wcj.heifer.boot.controller;
 
 
+import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +26,8 @@ import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
 import plus.wcj.heifer.boot.service.rbac.user.RbacUserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -81,6 +85,20 @@ public class AuthController {
         return "Status.LOGOUT";
     }
 
+    @GetMapping("/info")
+    @SuppressWarnings("all")
+    public DataInfo info() {
+        return DataInfo.builder()
+                       .roles(new ArrayList<String>() {{
+                           add("admin");
+                           add("editor");
+                       }})
+                       .introduction("I am a super administrator")
+                       .avatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif")
+                       .name("Super Admin")
+                       .build();
+    }
+
 
     /**
      * 登录
@@ -97,4 +115,13 @@ public class AuthController {
         return userPrincipal;
     }
 
+
+    @Data
+    @Builder
+    static class DataInfo {
+        private String introduction;
+        private String avatar;
+        private String name;
+        private List<String> roles;
+    }
 }

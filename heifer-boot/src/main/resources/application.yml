@@ -30,6 +30,7 @@ heifer:
         # oss 授权测试
         - "/oss/policy"
         - "/favicon.ico"
+        - "/auth/info"
       post:
         - "/auth/login"
         - "/auth/logout"
