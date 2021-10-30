@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import plus.wcj.heifer.boot.common.mvc.result.Result;
+import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 import plus.wcj.heifer.boot.common.security.dto.JwtResponse;
 import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
@@ -37,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@ResultResponseBody
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
