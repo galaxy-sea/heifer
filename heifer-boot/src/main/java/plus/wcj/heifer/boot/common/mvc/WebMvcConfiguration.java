@@ -2,6 +2,7 @@ package plus.wcj.heifer.boot.common.mvc;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import plus.wcj.heifer.boot.common.mvc.resolver.TenantMethodArgumentResolver;
 import plus.wcj.heifer.boot.common.mvc.resolver.UserMethodArgumentResolver;
@@ -21,4 +22,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         argumentResolvers.add(1, new UserMethodArgumentResolver());
     }
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
 }

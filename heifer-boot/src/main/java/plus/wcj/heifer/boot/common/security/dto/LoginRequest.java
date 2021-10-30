@@ -16,7 +16,7 @@ public class LoginRequest {
     /**
      * 用户名或邮箱或手机号
      */
-    private String usernameOrEmailOrPhone;
+    private String username;
 
     /**
      * 密码
