@@ -17,6 +17,7 @@ heifer:
         - "/swagger-ui/**"
         - "/swagger-ui/*"
         - "/v3/api-docs/**"
+        - "/v2/api-docs"
         # 静态文件
         - "/oss/**"
 

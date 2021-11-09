@@ -1,11 +1,9 @@
 package plus.wcj.heifer.boot.common.swagger;
 
-import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -21,8 +19,9 @@ public class Swagger3Config {
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(this.apiInfo())
+                .enableUrlTemplating(true)
                 .select()
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                // .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
     }

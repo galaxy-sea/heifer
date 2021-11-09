@@ -43,7 +43,7 @@ public class ResultResponseEntityExceptionHandler {
     /** 自定义异常处理 */
     protected ResponseEntity<Result<?>> handleResultException(ResultException ex, HttpHeaders headers, WebRequest request) {
         Result<?> body = Result.fail(ex.getResultStatus());
-        HttpStatus status = HttpStatus.valueOf(ex.getResultStatus().getHttpStatus());
+        HttpStatus status = ex.getResultStatus().getHttpStatus();
         return this.handleExceptionInternal(ex, body, headers, status, request);
     }
 
