@@ -28,7 +28,7 @@ public class RbacUserServiceImpl extends ServiceImpl<RbacUserDao, RbacUser, Long
 
         RbacUser rbacUser = new RbacUser();
         rbacUser.setRbacOrgId(1L);
-        rbacUser.setUsername(loginRequest.getUsernameOrEmailOrPhone());
+        rbacUser.setUsername(loginRequest.getUsername());
         rbacUser.setPhone("setPhone");
         rbacUser.setEmail("setEmail");
         rbacUser.setPassword(this.passwordEncoder.encode(loginRequest.getPassword()));

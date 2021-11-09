@@ -30,10 +30,11 @@ heifer:
         # oss 授权测试
         - "/oss/policy"
         - "/favicon.ico"
+        - "/auth/info"
       post:
-        - "/api/auth/login"
-        - "/api/auth/logout"
-        - "/api/auth/sign-on"
+        - "/auth/login"
+        - "/auth/logout"
+        - "/auth/sign-on"
       delete:
       put:
       head:

@@ -21,9 +21,9 @@ public class JwtResponse {
     /**
      * token类型
      */
-    private String tokenType = "Bearer";
+    private String tokenType = "Bearer ";
 
     public JwtResponse(String token) {
-        this.token = token;
+        this.token = this.tokenType + token;
     }
 }
