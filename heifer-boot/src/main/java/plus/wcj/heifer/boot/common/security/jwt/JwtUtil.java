@@ -16,7 +16,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import plus.wcj.heifer.boot.common.exception.ResultException;
-import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 import plus.wcj.heifer.boot.common.security.properties.JwtProperties;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
@@ -96,7 +96,7 @@ public class JwtUtil {
         try {
             signedJwt.sign(new MACSigner(this.jwtProperties.getKey()));
         } catch (JOSEException e) {
-            throw new ResultException(ResultStatus.JOSE_EXCEPTION);
+            throw new ResultException(ResultStatusEnum.JOSE_EXCEPTION);
         }
 
         return signedJwt.serialize();
@@ -136,7 +136,7 @@ public class JwtUtil {
                     null
             );
         } catch (ParseException e) {
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
+            throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
         }
     }
 
@@ -150,7 +150,7 @@ public class JwtUtil {
             this.verify(signedJwt, verifier);
             return signedJwt.getJWTClaimsSet();
         } catch (JOSEException | ParseException e) {
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
+            throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
         }
     }
 
@@ -158,7 +158,7 @@ public class JwtUtil {
     private void verify(SignedJWT signedJwt, MACVerifier verifier) throws ParseException, JOSEException {
 
         if (!signedJwt.verify(verifier)) {
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
+            throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
         }
         JWTClaimsSet claimsSet = signedJwt.getJWTClaimsSet();
 
@@ -167,12 +167,12 @@ public class JwtUtil {
         final Date exp = claimsSet.getExpirationTime();
 
         if (exp == null || !DateUtils.isAfter(exp, now, MAX_CLOCK_SKEW_SECONDS)) {
-            throw new ResultException(ResultStatus.EXPIRED_TOKEN);
+            throw new ResultException(ResultStatusEnum.EXPIRED_TOKEN);
         }
 
         final Date nbf = claimsSet.getNotBeforeTime();
         if (nbf == null || !DateUtils.isBefore(nbf, now, MAX_CLOCK_SKEW_SECONDS)) {
-            throw new ResultException(ResultStatus.TOKEN_BEFORE_USE_TIME);
+            throw new ResultException(ResultStatusEnum.TOKEN_BEFORE_USE_TIME);
         }
     }
 }

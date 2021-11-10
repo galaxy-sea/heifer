@@ -7,7 +7,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import plus.wcj.heifer.boot.common.exception.ResultException;
-import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 import plus.wcj.heifer.boot.extension.tenant.Tenant;
 
@@ -29,7 +29,7 @@ public class TenantMethodArgumentResolver implements HandlerMethodArgumentResolv
         UserPrincipal userDetails = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (userDetails == null) {
-            throw new ResultException(ResultStatus.UNAUTHORIZED);
+            throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
         }
 
         return new Tenant(userDetails.getId(),

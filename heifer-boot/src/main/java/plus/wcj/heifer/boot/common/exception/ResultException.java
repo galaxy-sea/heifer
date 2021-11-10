@@ -12,20 +12,20 @@ public class ResultException extends RuntimeException {
     /**
      * 业务异常信息信息
      */
-    final ResultStatus resultStatus;
+    final ResultStatusEnum resultStatusEnum;
 
     @SuppressWarnings("unused")
     public ResultException() {
-        this(ResultStatus.INTERNAL_SERVER_ERROR);
+        this(ResultStatusEnum.INTERNAL_SERVER_ERROR);
     }
 
-    public ResultException(ResultStatus resultStatus) {
-        super(resultStatus.getMessage());
-        this.resultStatus = resultStatus;
+    public ResultException(ResultStatusEnum resultStatusEnum) {
+        super(resultStatusEnum.getMessage());
+        this.resultStatusEnum = resultStatusEnum;
     }
 
-    public ResultException(ResultStatus resultStatus, String originalMessage) {
-        super(resultStatus.getMessage() + "\n originalMessage" + originalMessage);
-        this.resultStatus = resultStatus;
+    public ResultException(ResultStatusEnum resultStatusEnum, String originalMessage) {
+        super(resultStatusEnum.getMessage() + "\n originalMessage" + originalMessage);
+        this.resultStatusEnum = resultStatusEnum;
     }
 }

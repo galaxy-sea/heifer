@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 
 import javax.servlet.FilterChain;
@@ -35,9 +35,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private final ObjectMapper objectMapper;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
-    private static final String DATA401 = "{\"code\":\"" + ResultStatus.UNAUTHORIZED.getCode() + "\",\"message\":\"" + ResultStatus.UNAUTHORIZED.getMessage() + "\"}";
-    private static final String DATA403 = "{\"code\":\"" + ResultStatus.FORBIDDEN.getCode() + "\",\"message\":\"" + ResultStatus.FORBIDDEN.getMessage() + "\"}";
-    private static final String DATA500 = "{\"code\":\"" + ResultStatus.INTERNAL_SERVER_ERROR.getCode() + "\",\"message\":\"" + ResultStatus.INTERNAL_SERVER_ERROR.getMessage() + "\"}";
+    private static final String DATA401 = "{\"code\":\"" + ResultStatusEnum.UNAUTHORIZED.getCode() + "\",\"message\":\"" + ResultStatusEnum.UNAUTHORIZED.getMessage() + "\"}";
+    private static final String DATA403 = "{\"code\":\"" + ResultStatusEnum.FORBIDDEN.getCode() + "\",\"message\":\"" + ResultStatusEnum.FORBIDDEN.getMessage() + "\"}";
+    private static final String DATA500 = "{\"code\":\"" + ResultStatusEnum.INTERNAL_SERVER_ERROR.getCode() + "\",\"message\":\"" + ResultStatusEnum.INTERNAL_SERVER_ERROR.getMessage() + "\"}";
 
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, ObjectMapper objectMapper, HandlerExceptionResolver handlerExceptionResolver) {

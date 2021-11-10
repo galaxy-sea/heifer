@@ -9,7 +9,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import plus.wcj.heifer.boot.common.exception.ResultException;
-import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 import plus.wcj.heifer.boot.manager.sms.SmsServer;
 
 /**
@@ -53,11 +53,11 @@ public class AliyunSmsServer implements SmsServer {
         try {
             sendSmsResponse = this.client.sendSms(sendSmsRequest);
         } catch (Exception e) {
-            throw new ResultException(ResultStatus.SMS_NETWORK_EXCEPTION);
+            throw new ResultException(ResultStatusEnum.SMS_NETWORK_EXCEPTION);
         }
         SendSmsResponseBody body = sendSmsResponse.getBody();
         if (!OK.equals(body.getCode())) {
-            throw new ResultException(ResultStatus.SMS_SEND_FAIL, body.getMessage());
+            throw new ResultException(ResultStatusEnum.SMS_SEND_FAIL, body.getMessage());
         }
     }
 

@@ -3,6 +3,7 @@ package plus.wcj.heifer.boot.common.mvc.result;
 import lombok.Getter;
 import lombok.ToString;
 import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 
 /**
  * @author changjin wei(魏昌进)
@@ -11,7 +12,7 @@ import plus.wcj.heifer.boot.common.exception.ResultStatus;
 @Getter
 @ToString
 @SuppressWarnings("unused")
-public class Result<T> {
+public final class Result<T> {
     /** 业务错误码 */
     private String code;
     /** 信息描述 */
@@ -22,34 +23,33 @@ public class Result<T> {
     private Result() {
     }
 
-    private Result(ResultStatus resultStatus, T data) {
-        this.code = resultStatus.getCode();
-        this.message = resultStatus.getMessage();
+    public Result(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
         this.data = data;
     }
 
     /** 业务成功返回业务代码和描述信息 */
     public static Result<Void> success() {
-        return new Result<>(ResultStatus.SUCCESS, null);
+        return Result.of(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getMessage(), null);
     }
 
     /** 业务成功返回业务代码,描述和返回的参数 */
     public static <T> Result<T> success(T data) {
-        return new Result<>(ResultStatus.SUCCESS, data);
-    }
-
-    /** 业务成功返回业务代码,描述和返回的参数 */
-    public static <T> Result<T> success(ResultStatus resultStatus, T data) {
-        return new Result<>(resultStatus, data);
+        return Result.of(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getMessage(), data);
     }
 
     /** 业务异常返回业务代码,描述和返回的参数 */
-    public static <T> Result<T> fail(ResultStatus resultStatus) {
-        return new Result<>(resultStatus, null);
+    static <T> Result<T> fail(ResultStatus resultStatus) {
+        return Result.of(resultStatus.getCode(), resultStatus.getMessage(), null);
+    }
+
+    static <T> Result<T> fail(ResultStatus resultStatus, T data) {
+        return Result.of(resultStatus.getCode(), resultStatus.getMessage(), data);
     }
 
     /** 业务异常返回业务代码,描述和返回的参数 */
-    public static <T> Result<T> fail(ResultStatus resultStatus, T data) {
-        return new Result<>(resultStatus, data);
+    static <T> Result<T> of(String code, String message, T data) {
+        return new Result<>(code, message, data);
     }
 }

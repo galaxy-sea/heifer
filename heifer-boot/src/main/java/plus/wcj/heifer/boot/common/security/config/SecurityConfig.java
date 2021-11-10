@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import plus.wcj.heifer.boot.common.exception.ResultException;
-import plus.wcj.heifer.boot.common.exception.ResultStatus;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 import plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
@@ -128,10 +128,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // 异常处理
             .and().exceptionHandling()
             .authenticationEntryPoint((request, response, authException) -> {
-                throw new ResultException(ResultStatus.UNAUTHORIZED);
+                throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
             })
             .accessDeniedHandler((request, response, accessDeniedException) -> {
-                throw new ResultException(ResultStatus.FORBIDDEN);
+                throw new ResultException(ResultStatusEnum.FORBIDDEN);
             });
         // @formatter:on
 
