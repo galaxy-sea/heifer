@@ -1,5 +1,7 @@
 package plus.wcj.heifer.boot.common.mvc.result;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.ConversionNotSupportedException;
@@ -14,7 +16,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindException;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -112,9 +114,6 @@ public class ResultResponseEntityExceptionHandler {
         if (ex instanceof ResultException) {
             return this.handleResultException((ResultException) ex, headers, request);
         }
-        if (ex instanceof MethodArgumentNotValidException) {
-            return this.handleMethodArgumentNotValidException((MethodArgumentNotValidException) ex, headers, request);
-        }
         if (ex instanceof BindException) {
             return this.handleBindException((BindException) ex, headers, request);
         }
@@ -179,8 +178,9 @@ public class ResultResponseEntityExceptionHandler {
 
     /** validation校验 */
     protected ResponseEntity<Result<?>> handleBindException(BindException ex, HttpHeaders headers, WebRequest request) {
-        ObjectError objectError = ex.getAllErrors().get(0);
-        return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, objectError, ex, headers, request);
+        FieldError fieldError = ex.getFieldError();
+        BindObjectError bindObjectError = new BindObjectError(fieldError.getDefaultMessage(), fieldError.getField(), fieldError.getCode());
+        return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, bindObjectError, ex, headers, request);
     }
 
     /** 所有未知异常 */
@@ -238,12 +238,6 @@ public class ResultResponseEntityExceptionHandler {
         return this.handleExceptionInternal(ResultStatusEnum.INTERNAL_SERVER_ERROR, ex, headers, request);
     }
 
-    /** 当对用@Valid注释的参数的验证失败时抛出的异常。 从 5.3 开始扩展BindException */
-    protected ResponseEntity<Result<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, HttpHeaders headers, WebRequest request) {
-        ObjectError objectError = ex.getAllErrors().get(0);
-        return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, objectError, ex, headers, request);
-    }
-
     /** 当无法找到由其名称标识的“multipart/form-data”请求的一部分时引发。<br/>这可能是因为请求不是多部分/表单数据请求，因为该部分不存在于请求中，或者因为 Web 应用程序没有正确配置来处理多部分请求，例如没有MultipartResolver */
     protected ResponseEntity<Result<?>> handleMissingServletRequestPartException(MissingServletRequestPartException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, ex, headers, request);
@@ -258,5 +252,13 @@ public class ResultResponseEntityExceptionHandler {
     @Nullable
     protected ResponseEntity<Result<?>> handleAsyncRequestTimeoutException(AsyncRequestTimeoutException ex, HttpHeaders headers, WebRequest webRequest) {
         return this.handleExceptionInternal(ResultStatusEnum.SERVICE_UNAVAILABLE, ex, headers, webRequest);
+    }
+
+    @Data
+    @AllArgsConstructor
+    private static class BindObjectError {
+        private String defaultMessage;
+        private String field;
+        private String code;
     }
 }

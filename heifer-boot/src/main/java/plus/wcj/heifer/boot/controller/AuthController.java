@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,7 +58,7 @@ public class AuthController {
      * 登录
      */
     @PostMapping("/login")
-    public JwtResponse login(@RequestBody LoginRequest loginRequest) {
+    public JwtResponse login(@Validated @RequestBody LoginRequest loginRequest) {
         RbacUser rbacUser = this.userService.get(new RbacUser().setNickname(loginRequest.getUsername()).setRbacOrgId(1L));
         Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
