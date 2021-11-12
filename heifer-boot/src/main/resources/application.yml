@@ -99,6 +99,7 @@ spring:
       date: yyyy-MM-dd HH:mm:ss
       date-time: yyyy-MM-dd HH:mm:ss
       time: yyyy-MM-dd HH:mm:ss
+    throw-exception-if-no-handler-found: true
   webflux:
     format:
       date: yyyy-MM-dd HH:mm:ss
@@ -132,6 +133,9 @@ spring:
     allow-bean-definition-overriding: false
   messages:
     basename: i18n/messages
+  web:
+    resources:
+      add-mappings: false
 mybatis-plus:
   # 检查配置文件
   check-config-location: true
