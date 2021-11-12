@@ -52,7 +52,7 @@ server:
       # 关闭session持久化
       persistent: false
       # session会话保持时间
-      timeout: 1
+      timeout: 0
       cookie:
         # cookie最大数
         max-age: 0
