@@ -47,28 +47,21 @@ public class ResultResponseEntityExceptionHandler {
 
     private final MessageSource messageSource;
 
-
-    /** 自定义异常处理 */
-    protected ResponseEntity<Result<?>> handleResultException(ResultException ex, HttpHeaders headers, WebRequest request) {
-        return this.handleExceptionInternal(ex.getResultStatusEnum(), null, ex, headers, request);
+    @SuppressWarnings("unused")
+    protected <T> ResponseEntity<Result<?>> handleExceptionInternal(ResultStatus resultStatus, Exception ex, HttpHeaders headers, WebRequest request) {
+        return this.handleExceptionInternal(resultStatus, null, null, ex, headers, request);
     }
 
-    @SuppressWarnings("unused")
-    protected <T> ResponseEntity<Result<?>> handleExceptionInternal(ResultStatus resultStatus, T data, Exception ex, HttpHeaders headers, WebRequest request) {
 
-
-        String message = messageSource.getMessage(resultStatus.getClass().getName() + '.' + resultStatus.name(), null, resultStatus.getMessage(), request.getLocale());
+    @SuppressWarnings({"unused", "MethodWithTooManyParameters"})
+    protected <T> ResponseEntity<Result<?>> handleExceptionInternal(ResultStatus resultStatus, T data, Object[] ages, Exception ex, HttpHeaders headers, WebRequest request) {
+        String message = messageSource.getMessage(resultStatus.getClass().getName() + '.' + resultStatus.name(), ages, resultStatus.getMessage(), request.getLocale());
         Result<T> body = Result.of(resultStatus.getCode(), message, data);
-        log.error("{}: {}", ex.getClass(), ex.getMessage());
+        log.error("{}\nmessage\n{}\n{}", ex.getClass(), message, ex.getMessage());
         if (log.isDebugEnabled()) {
             log.debug("小可爱，注意检查代码哦", ex);
         }
         return new ResponseEntity<>(body, headers, resultStatus.getHttpStatus());
-    }
-
-    @SuppressWarnings("unused")
-    protected <T> ResponseEntity<Result<?>> handleExceptionInternal(ResultStatus resultStatus, Exception ex, HttpHeaders headers, WebRequest request) {
-        return this.handleExceptionInternal(resultStatus, null, ex, headers, request);
     }
 
 
@@ -167,6 +160,13 @@ public class ResultResponseEntityExceptionHandler {
         return this.handleException(ex, headers, request);
     }
 
+
+    /** 自定义异常处理 */
+    protected ResponseEntity<Result<?>> handleResultException(ResultException ex, HttpHeaders headers, WebRequest request) {
+        return this.handleExceptionInternal(ex.getResultStatus(), null, ex.getAges(), ex, headers, request);
+    }
+
+
     private ResponseEntity<Result<?>> handleAccessDeniedException(AccessDeniedException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.FORBIDDEN, ex, headers, request);
     }
@@ -180,7 +180,7 @@ public class ResultResponseEntityExceptionHandler {
     protected ResponseEntity<Result<?>> handleBindException(BindException ex, HttpHeaders headers, WebRequest request) {
         FieldError fieldError = ex.getFieldError();
         BindObjectError bindObjectError = new BindObjectError(fieldError.getDefaultMessage(), fieldError.getField(), fieldError.getCode());
-        return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, bindObjectError, ex, headers, request);
+        return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, bindObjectError, null, ex, headers, request);
     }
 
     /** 所有未知异常 */

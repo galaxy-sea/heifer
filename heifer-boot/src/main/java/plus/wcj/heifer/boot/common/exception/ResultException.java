@@ -8,24 +8,24 @@ import lombok.Getter;
  */
 @Getter
 public class ResultException extends RuntimeException {
-
     /**
      * 业务异常信息信息
      */
-    final ResultStatusEnum resultStatusEnum;
+    private final ResultStatus resultStatus;
+    private final String originalMessage;
+    private final Object[] ages;
 
-    @SuppressWarnings("unused")
     public ResultException() {
         this(ResultStatusEnum.INTERNAL_SERVER_ERROR);
     }
 
-    public ResultException(ResultStatusEnum resultStatusEnum) {
-        super(resultStatusEnum.getMessage());
-        this.resultStatusEnum = resultStatusEnum;
+    public ResultException(ResultStatus resultStatus) {
+        this(resultStatus, null);
     }
 
-    public ResultException(ResultStatusEnum resultStatusEnum, String originalMessage) {
-        super(resultStatusEnum.getMessage() + "\n originalMessage" + originalMessage);
-        this.resultStatusEnum = resultStatusEnum;
+    public ResultException(ResultStatus resultStatus, String originalMessage, String... ages) {
+        this.resultStatus = resultStatus;
+        this.originalMessage = originalMessage;
+        this.ages = ages;
     }
 }
