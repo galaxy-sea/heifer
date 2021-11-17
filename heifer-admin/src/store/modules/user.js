@@ -1,9 +1,10 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, getTokenType } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
+  tokenType: getTokenType(),
   name: '',
   avatar: '',
   introduction: '',
@@ -13,6 +14,9 @@ const state = {
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_TOKEN_TYPE: (state, tokenType) => {
+    state.tokenType = tokenType
   },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
@@ -36,7 +40,8 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        commit('SET_TOKEN_TYPE', data.tokenType)
+        setToken(data.token, data.tokenType)
         resolve()
       }).catch(error => {
         reject(error)
@@ -54,14 +59,24 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { roles, name, avatar, introduction } = data
+        const { name, avatar, introduction } = data
+
+        const jwt = state.token.replace(state.tokenType)
+        const payload = JSON.parse(decodeURIComponent(escape(window.atob(jwt.split('.')[1]))))
+        const permissions = payload.p.split(',')
+        const roles = payload.r.split(',')
+        var authoritys = []
+        roles.forEach(value => authoritys.push('ROLE_' + value))
+        authoritys = authoritys.concat(permissions)
+
+        authoritys.push('admin')
 
         // roles must be a non-empty array
-        if (!roles || roles.length <= 0) {
+        if (!authoritys || authoritys.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
 
-        commit('SET_ROLES', roles)
+        commit('SET_ROLES', authoritys)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)
