@@ -1,22 +1,20 @@
-import Cookies from 'js-cookie'
-
 const TokenKey = 'TokenKey'
 const TokenTypeKey = 'tokenType'
 
 export function getToken() {
-  return Cookies.get(TokenKey)
+  return window.localStorage.getItem(TokenKey)
 }
 
 export function getTokenType() {
-  return Cookies.get(TokenTypeKey)
+  return window.localStorage.getItem(TokenTypeKey)
 }
 
 export function setToken(token, tokenType = 'Bearer ') {
-  Cookies.set(TokenTypeKey, tokenType)
-  return Cookies.set(TokenKey, token)
+  window.localStorage.setItem(TokenTypeKey, tokenType)
+  window.localStorage.setItem(TokenKey, token)
 }
 
 export function removeToken() {
-  Cookies.remove(TokenTypeKey)
-  return Cookies.remove(TokenKey)
+  window.localStorage.removeItem(TokenTypeKey)
+  window.localStorage.removeItem(TokenKey)
 }

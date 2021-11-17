@@ -1,14 +1,13 @@
-import Cookies from 'js-cookie'
 import { getLanguage } from '@/lang/index'
 
 const state = {
   sidebar: {
-    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
+    opened: window.localStorage.getItem('sidebarStatus') ? !!+window.localStorage.getItem('sidebarStatus') : true,
     withoutAnimation: false
   },
   device: 'desktop',
   language: getLanguage(),
-  size: Cookies.get('size') || 'medium'
+  size: window.localStorage.getItem('size') || 'medium'
 }
 
 const mutations = {
@@ -16,13 +15,13 @@ const mutations = {
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
     if (state.sidebar.opened) {
-      Cookies.set('sidebarStatus', 1)
+      window.localStorage.setItem('sidebarStatus', 1)
     } else {
-      Cookies.set('sidebarStatus', 0)
+      window.localStorage.setItem('sidebarStatus', 0)
     }
   },
   CLOSE_SIDEBAR: (state, withoutAnimation) => {
-    Cookies.set('sidebarStatus', 0)
+    window.localStorage.setItem('sidebarStatus', 0)
     state.sidebar.opened = false
     state.sidebar.withoutAnimation = withoutAnimation
   },
@@ -31,11 +30,11 @@ const mutations = {
   },
   SET_LANGUAGE: (state, language) => {
     state.language = language
-    Cookies.set('language', language)
+    window.localStorage.setItem('language', language)
   },
   SET_SIZE: (state, size) => {
     state.size = size
-    Cookies.set('size', size)
+    window.localStorage.setItem('size', size)
   }
 }
 
