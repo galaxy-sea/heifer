@@ -6,7 +6,7 @@ heifer:
     # 至少需要32个字符哦
     key: ENC(cq4oLNrwaJ07l9fK8d9Ms9m1h2jaJ3VHLKGes8CU3NwuRQNEqkzaJd6TGs5vcgvAIacFdGtJsGPxFq9jcBh471T964aT9I/2KrvKZhiDzQ4=)
     # 10分钟 毫秒（millisecond）
-    ttl: 600000
+    ttl: 6000000000
     # 7天 毫秒（millisecond）
     remember: 604800000
   aliyun:
@@ -27,14 +27,7 @@ heifer:
   security:
     ignoring:
       get:
-        # oss 授权测试
-        - "/oss/policy"
-        - "/favicon.ico"
-        - "/auth/info"
       post:
-        - "/auth/login"
-        - "/auth/logout"
-        - "/auth/sign-on"
       delete:
       put:
       head:
