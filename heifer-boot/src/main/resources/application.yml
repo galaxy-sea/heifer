@@ -136,7 +136,7 @@ mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   configuration:
     # 下划线转驼峰
-    map-underscore-to-camel-case: false
+    map-underscore-to-camel-case: true
     # 关闭一级缓存
     local-cache-scope: statement
     # 关闭二级缓存
