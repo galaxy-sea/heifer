@@ -9,7 +9,7 @@ import plus.wcj.heifer.boot.extension.service.IService;
  * </p>
  *
  * @author changjin wei(魏昌进)
- * @since 2021-07-03
+ * @since 2021-11-22
  */
 public interface RbacPermissionService extends IService<RbacPermission, Long> {
 

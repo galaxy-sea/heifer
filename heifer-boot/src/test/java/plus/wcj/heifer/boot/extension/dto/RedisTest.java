@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.integration.redis.util.RedisLockRegistry;
-import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
+import plus.wcj.heifer.boot.entity.rbac.account.RbacUser;
 
 import java.util.concurrent.locks.Lock;
 

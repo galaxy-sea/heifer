@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=changjin wei(魏昌进) -->
-<!-- since=2021-07-03 -->
+<!-- since=2021-11-22 -->
 <mapper namespace="plus.wcj.heifer.boot.repository.dao.rbac.role.RbacRoleDao">
+
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.role.RbacRole">
         <id column="id" property="id" />
-        <result column="rbac_org_id" property="rbacOrgId" />
+        <result column="rbac_tenant_id" property="rbacTenantId" />
         <result column="name" property="name" />
         <result column="create_time" property="createTime" />
         <result column="create_by" property="createBy" />
@@ -16,12 +17,14 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,
-        rbac_org_id,
-        name,
-        create_time,
-        create_by,
-        update_time,
-        update_by
+        id, rbac_tenant_id, name, create_time, create_by, update_time, update_by
     </sql>
+
+        <select id="selectByRbacTenantId" resultMap="BaseResultMap">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM rbac_role
+            WHERE rbac_tenant_id = #{rbacTenantId}
+        </select>
+
 </mapper>

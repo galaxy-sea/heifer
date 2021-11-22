@@ -1,9 +1,11 @@
 package plus.wcj.heifer.boot.entity.rbac;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,12 +13,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.redis.core.RedisHash;
+
+
 import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
@@ -24,11 +27,12 @@ import java.util.Date;
  * </p>
  *
  * @author changjin wei(魏昌进)
- * @since 2021-07-03
+ * @since 2021-11-22
  */
 @Data
-@EqualsAndHashCode()
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
+@RedisHash("RbacPermission")
 @TableName("rbac_permission")
 @ApiModel(value = "RbacPermission对象", description = "功能权限")
 public class RbacPermission implements Serializable {
@@ -74,7 +78,6 @@ public class RbacPermission implements Serializable {
     @TableField("create_time")
     private Date createTime;
 
-    @NotNull(groups = {PostValid.class}, message = "createBy is null")
     @TableField("create_by")
     private Long createBy;
 

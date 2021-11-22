@@ -4,7 +4,7 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
+import plus.wcj.heifer.boot.entity.rbac.account.RbacUser;
 
 /**
  * @author changjin wei(魏昌进)

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- author=changjin wei(魏昌进) -->
+<!-- since=2021-11-22 -->
+<mapper namespace="plus.wcj.heifer.boot.repository.dao.rbac.account.RbacAccountAuthorityDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.account.RbacAccountAuthority">
+        <id column="id" property="id" />
+        <result column="rbac_account_id" property="rbacAccountId" />
+        <result column="rbac_permission_id" property="rbacPermissionId" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, rbac_account_id, rbac_permission_id, create_time, create_by
+    </sql>
+
+        <select id="selectByRbacAccountId" resultMap="BaseResultMap">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM rbac_account_authority
+            WHERE rbac_account_id = #{rbacAccountId}
+        </select>
+
+        <select id="selectByRbacPermissionId" resultMap="BaseResultMap">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM rbac_account_authority
+            WHERE rbac_permission_id = #{rbacPermissionId}
+        </select>
+
+</mapper>

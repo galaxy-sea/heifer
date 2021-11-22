@@ -1,20 +1,21 @@
 package plus.wcj.heifer.boot.controller.rbac.role;
 
+import org.springframework.web.bind.annotation.RestController;
+import plus.wcj.heifer.boot.entity.rbac.role.RbacRoleAuthority;
+import plus.wcj.heifer.boot.service.rbac.role.RbacRoleAuthorityService;
+import plus.wcj.heifer.boot.extension.validator.PostValid;
+import plus.wcj.heifer.boot.extension.validator.PutValid;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
-import plus.wcj.heifer.boot.entity.rbac.role.RbacRoleAuthority;
-import plus.wcj.heifer.boot.extension.validator.PostValid;
-import plus.wcj.heifer.boot.extension.validator.PutValid;
-import plus.wcj.heifer.boot.service.rbac.role.RbacRoleAuthorityService;
+import plus.wcj.heifer.boot.extension.tenant.Tenant;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,48 +25,48 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author changjin wei(魏昌进)
- * @since 2021-07-03
+ * @since 2021-11-22
  */
 @RestController
 @RequestMapping("/rbac-role-authority")
 @RequiredArgsConstructor
-public class RbacRoleAuthorityController {
+    public class RbacRoleAuthorityController {
     private final RbacRoleAuthorityService rbacRoleAuthorityService;
 
     /** id查询 */
     @GetMapping(params = "id")
     @ResultResponseBody
     public RbacRoleAuthority getById(@NotNull Long id) {
-        return this.rbacRoleAuthorityService.get(id);
+        return rbacRoleAuthorityService.get(id);
     }
 
     /** 分页查询 */
     @GetMapping
     @ResultResponseBody
-    public Page<RbacRoleAuthority> page(Page<RbacRoleAuthority> page, RbacRoleAuthority rbacRoleAuthority) {
-        return this.rbacRoleAuthorityService.page(page, rbacRoleAuthority);
+    public Page<RbacRoleAuthority> page(Page<RbacRoleAuthority> page, RbacRoleAuthority rbacRoleAuthority, Tenant tenant) {
+        return rbacRoleAuthorityService.page(page, rbacRoleAuthority);
     }
 
     /** 保存 */
     @PostMapping
     @ResultResponseBody
-    public boolean save(@RequestBody @Validated(value = PostValid.class) RbacRoleAuthority rbacRoleAuthority) {
-        return this.rbacRoleAuthorityService.save(rbacRoleAuthority);
+    public boolean save(@RequestBody @Validated(value = PostValid.class) RbacRoleAuthority rbacRoleAuthority, Tenant tenant) {
+        return rbacRoleAuthorityService.save(rbacRoleAuthority);
     }
 
     /** 修改 */
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) RbacRoleAuthority rbacRoleAuthority) {
-        return this.rbacRoleAuthorityService.update(rbacRoleAuthority);
+        return rbacRoleAuthorityService.update(rbacRoleAuthority);
     }
 
     /** id删除 */
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return this.rbacRoleAuthorityService.remove(id);
+        return rbacRoleAuthorityService.remove(id);
     }
 
-    // TODO: 2021-07-03 changjin wei(魏昌进) 补充其他接口
-}
+    // TODO: 2021-11-22 changjin wei(魏昌进) 补充其他接口
+    }

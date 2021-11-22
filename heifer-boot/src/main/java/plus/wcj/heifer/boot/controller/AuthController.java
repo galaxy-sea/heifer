@@ -23,8 +23,7 @@ import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
-import plus.wcj.heifer.boot.entity.rbac.user.RbacUser;
-import plus.wcj.heifer.boot.service.rbac.user.RbacUserService;
+import plus.wcj.heifer.boot.service.rbac.account.RbacUserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -59,7 +58,6 @@ public class AuthController {
      */
     @PostMapping("/login")
     public JwtResponse login(@Validated @RequestBody LoginRequest loginRequest) {
-        RbacUser rbacUser = this.userService.get(new RbacUser().setNickname(loginRequest.getUsername()).setRbacOrgId(1L));
         Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

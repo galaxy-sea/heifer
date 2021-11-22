@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=changjin wei(魏昌进) -->
-<!-- since=2021-07-03 -->
+<!-- since=2021-11-22 -->
 <mapper namespace="plus.wcj.heifer.boot.repository.dao.rbac.RbacPermissionDao">
 
     <!-- 通用查询映射结果 -->
@@ -22,5 +22,12 @@
     <sql id="Base_Column_List">
         id, parent_id, name, permission, type, sort, create_time, create_by, update_time, update_by
     </sql>
+
+        <select id="selectByParentId" resultMap="BaseResultMap">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM rbac_permission
+            WHERE parent_id = #{parentId}
+        </select>
 
 </mapper>
