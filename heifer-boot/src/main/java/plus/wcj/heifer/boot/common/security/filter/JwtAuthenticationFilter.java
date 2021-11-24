@@ -3,8 +3,6 @@ package plus.wcj.heifer.boot.common.security.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.lang3.StringUtils;
-import plus.wcj.heifer.boot.common.exception.ResultException;
-import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
@@ -54,7 +52,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
             if (StringUtils.isNotBlank(authorization)) {
                 RbacAccountDto account = this.jwtUtil.getAccount(authorization);
-                List<String> allPermission = heiferUserDetailsService.getAllPermission(account.getId(), account.getAccountManage().getRbacTenantId());
+                List<String> allPermission = heiferUserDetailsService.getAllPermission(account.getAccountManage().getRbacTenantId(), account.getId());
                 UserPrincipal userPrincipal = UserPrincipal.create(account, allPermission);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

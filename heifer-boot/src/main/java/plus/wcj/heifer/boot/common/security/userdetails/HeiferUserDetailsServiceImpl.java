@@ -11,6 +11,7 @@ import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,8 @@ public class HeiferUserDetailsServiceImpl {
         return account;
     }
 
-    public List<String> getAllPermission(Long rbacAccountId, Long rbacTenantId) {
+    @Cacheable(cacheNames = "allPermission", key = "#rbacTenantId+':'+#rbacAccountId")
+    public List<String> getAllPermission(Long rbacTenantId, Long rbacAccountId) {
         List<RbacRoleDto> roleList = customUserDetailsDao.selectRoleBy(rbacAccountId, rbacTenantId);
         List<String> allDistinctPermission = customUserDetailsDao.selectDistinctPermissionBy(rbacAccountId, roleList);
         return Stream.concat(allDistinctPermission.stream(),
@@ -52,8 +54,8 @@ public class HeiferUserDetailsServiceImpl {
         ).collect(Collectors.toList());
     }
 
-
-    public String getAllPower(Long rbacAccountId) {
+    @Cacheable(cacheNames = "allPower", key = "#rbacTenantId+':'+#rbacAccountId")
+    public String getAllPower(Long rbacTenantId, Long rbacAccountId) {
         List<Long> allPower = customUserDetailsDao.selectDistinctPowerBy(rbacAccountId);
         return StringUtils.join(allPower, ',');
     }
