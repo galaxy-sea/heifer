@@ -1,25 +1,23 @@
 package plus.wcj.heifer.boot.common.security.userdetails;
 
 
-import lombok.RequiredArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.BooleanUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.StringUtils;
+import plus.wcj.heifer.boot.common.exception.ResultException;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 import plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAdminDto;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacCustomerDto;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountManageDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserManageDto;
-import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
-import java.util.ArrayList;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -31,64 +29,34 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class HeiferUserDetailsServiceImpl implements UserDetailsService {
+public class HeiferUserDetailsServiceImpl {
+    private final PasswordEncoder passwordEncoder;
     private final CustomUserDetailsDao customUserDetailsDao;
 
 
-    @Override
-    public UserDetails loadUserByUsername(String usernameOrEmailOrPhone) throws UsernameNotFoundException {
-        RbacUserDto user = this.customUserDetailsDao.findUserByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new UsernameNotFoundException("未找到用户信息 : " + usernameOrEmailOrPhone));
-        RbacAdminDto admin = this.customUserDetailsDao.findAdmin(user.getId());
-        RbacCustomerDto customer = this.customUserDetailsDao.findCustomer(user.getId());
-        RbacUserManageDto userManage = this.customUserDetailsDao.findUserManage(user.getId());
-
-        List<RbacRoleDto> roles = this.customUserDetailsDao.selectRoleByUserId(user.getId());
-        List<Long> roleIds = roles.stream().map(RbacRoleDto::getId).collect(Collectors.toList());
-
-        List<RbacPermissionDto> permissions = this.listPermission(roleIds, user.getId(), user.getRbacOrgId(), userManage);
-        List<Long> dataPowers = this.listDataPower(roleIds, user.getId(), user.getRbacOrgId(), userManage);
-
-        return UserPrincipal.create(user, roles, admin, customer, userManage, permissions, dataPowers);
-    }
-
-    private List<Long> listDataPower(List<Long> roleIds, Long userId, Long rbacOrgId, RbacUserManageDto userManage) {
-        if (userManage != null && BooleanUtils.isTrue(userManage.getAllPower())) {
-            return this.listDataPower(rbacOrgId);
+    public RbacAccountDto loadUserByUsername(String usernameOrEmailOrPhone, String password) throws UsernameNotFoundException {
+        RbacAccountDto account = this.customUserDetailsDao.findAccountByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone).orElseThrow(() -> new ResultException(ResultStatusEnum.INCORRECT_USERNAME_OR_PASSWORD));
+        if (account == null || !passwordEncoder.matches(password, account.getPassword())) {
+            throw new ResultException(ResultStatusEnum.INCORRECT_USERNAME_OR_PASSWORD);
         }
-        return this.listDataPower(roleIds, userId);
+        RbacAccountManageDto rbacAccountManageDto = this.customUserDetailsDao.findAccountManageBy(account.getId()).orElseThrow(() -> new ResultException(ResultStatusEnum.INTERNAL_SERVER_ERROR));
+        account.setAccountManage(rbacAccountManageDto);
+        return account;
     }
 
-    private List<Long> listDataPower(Long rbacOrgId) {
-        return this.customUserDetailsDao.selectDataPowerByOrgId(rbacOrgId);
-    }
-
-    private List<Long> listDataPower(List<Long> roleIds, Long userId) {
-        return this.customUserDetailsDao.selectDataPower(roleIds, userId);
-    }
-
-    private List<RbacPermissionDto> listPermission(List<Long> roleIds, Long userId, Long rbacOrgId, RbacUserManageDto userManage) {
-        if (userManage != null && BooleanUtils.isTrue(userManage.getAllAuthority())) {
-            return this.listPermission(rbacOrgId);
-        }
-        return this.listPermission(roleIds, userId);
-    }
-
-    private List<RbacPermissionDto> listPermission(Long rbacOrgId) {
-        return this.customUserDetailsDao.selectPermissionByrOrgId(rbacOrgId);
+    public List<String> getAllPermission(Long rbacAccountId, Long rbacTenantId) {
+        List<RbacRoleDto> roleList = customUserDetailsDao.selectRoleBy(rbacAccountId, rbacTenantId);
+        List<String> allDistinctPermission = customUserDetailsDao.selectDistinctPermissionBy(rbacAccountId, roleList);
+        return Stream.concat(allDistinctPermission.stream(),
+                             roleList.stream().map(rbacRoleDto -> "ROLE_" + rbacRoleDto.getName())
+        ).collect(Collectors.toList());
     }
 
 
-    private List<RbacPermissionDto> listPermission(List<Long> roleIds, Long userId) {
-        List<RbacPermissionDto> allPermissions = new ArrayList<>();
-        if (CollectionUtils.isNotEmpty(roleIds)) {
-            allPermissions = this.customUserDetailsDao.selectPermissionByRoleIdList(roleIds);
-        }
-
-        List<RbacPermissionDto> userPermission = this.customUserDetailsDao.selectPermissionByUserId(userId);
-        if (CollectionUtils.isNotEmpty(userPermission)) {
-            allPermissions.addAll(userPermission);
-        }
-
-        return allPermissions;
+    public String getAllPower(Long rbacAccountId) {
+        List<Long> allPower = customUserDetailsDao.selectDistinctPowerBy(rbacAccountId);
+        return StringUtils.join(allPower, ',');
     }
+
+
 }

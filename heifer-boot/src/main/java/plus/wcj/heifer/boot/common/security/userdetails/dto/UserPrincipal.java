@@ -1,24 +1,15 @@
 package plus.wcj.heifer.boot.common.security.userdetails.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.NotNull;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * <p>
@@ -28,73 +19,59 @@ import java.util.stream.Stream;
  * @author yangkai.shen
  * @date Created in 2018-12-10 15:09
  */
-@Getter
-@EqualsAndHashCode
-@AllArgsConstructor
 public class UserPrincipal implements UserDetails {
     /** 主键 */
-    private final Long id;
+    private Long id;
 
     /** 用户名 */
-    private final String username;
+    private String username;
 
     /** 密码 */
     @JsonIgnore
-    private final String password;
+    private String password;
 
     /** 状态，启用-1，禁用-0 */
-    private final Boolean isEnabled;
+    private Boolean isEnabled;
 
-    /** 组织id */
-    private final Long orgId;
+    /** 租户id */
+    private Long tenantId;
 
     /** 部门id */
-    private final Long deptId;
-
-    /** 全部数据权限，T全部，F部分 */
-    private final Boolean allPower;
-
-    /** 全部功能权限，T全部，F部分 */
-    private final Boolean allAuthority;
-
-    /** 用户角色列表 */
-    private final String roles;
+    private Long deptId;
 
     /** 功能权限 */
-    private final String permissions;
+    private List<String> permissions;
     /** 数据权限 */
-    private final String dataPowers;
+    private String dataPowers;
 
-    private Set<? extends GrantedAuthority> authorities;
+    private List<? extends GrantedAuthority> authorities;
 
-    public static UserPrincipal create(@NotNull RbacUserDto user, List<RbacRoleDto> roleList, RbacAdminDto admin, RbacCustomerDto customer, RbacUserManageDto userManage, List<RbacPermissionDto> permissionList, List<Long> dataPowerList) {
+    public static UserPrincipal create(RbacAccountDto account, RbacAccountManageDto accountManage) {
+        UserPrincipal userPrincipal = new UserPrincipal();
+        userPrincipal.id = account.getId();
+        userPrincipal.username = account.getUsername();
+        userPrincipal.isEnabled = account.isEnabled();
+        userPrincipal.tenantId = accountManage.getRbacTenantId();
+        userPrincipal.deptId = accountManage.getRbacDeptId();
+        return userPrincipal;
+    }
 
-        String roles = roleList.stream()
-                               .map(RbacRoleDto::getName)
-                               .filter(StringUtils::isNotBlank)
-                               .collect(Collectors.joining(","));
-
-        String permissions = permissionList.stream()
-                                           .map(RbacPermissionDto::getPermission)
-                                           .filter(StringUtils::isNotBlank)
-                                           .collect(Collectors.joining(","));
-        String dataPowers = dataPowerList.stream()
-                                         .filter(ObjectUtils::isNotEmpty)
-                                         .map(Objects::toString)
-                                         .collect(Collectors.joining(","));
-
-        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(),
-                                 user.getIsEnabled(), user.getRbacOrgId(), admin.getRbacDeptId(),
-                                 userManage.getAllPower(), userManage.getAllAuthority(),
-                                 roles, permissions, dataPowers, null
-        );
+    public static UserPrincipal create(RbacAccountDto account, List<String> permissions) {
+        UserPrincipal userPrincipal = new UserPrincipal();
+        userPrincipal.id = account.getId();
+        userPrincipal.username = account.getUsername();
+        userPrincipal.isEnabled = account.isEnabled();
+        userPrincipal.tenantId = account.getAccountManage().getRbacTenantId();
+        userPrincipal.deptId = account.getAccountManage().getRbacDeptId();
+        userPrincipal.permissions = permissions;
+        return userPrincipal;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.authorities == null) {
-            this.authorities = Stream.concat(Arrays.stream(this.roles.split(",")).map(s -> "ROLE_" + s), Arrays.stream(this.permissions.split(",")))
-                                     .map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+            this.authorities = this.permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+            this.permissions = null;
         }
         return this.authorities;
     }
@@ -127,5 +104,21 @@ public class UserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return BooleanUtils.isTrue(this.isEnabled);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public String getDataPowers() {
+        return dataPowers;
     }
 }

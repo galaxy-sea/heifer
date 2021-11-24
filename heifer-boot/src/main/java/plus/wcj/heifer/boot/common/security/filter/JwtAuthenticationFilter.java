@@ -2,23 +2,28 @@ package plus.wcj.heifer.boot.common.security.filter;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import plus.wcj.heifer.boot.common.exception.ResultException;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
+import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
+import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
-import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * <p>
@@ -32,18 +37,14 @@ import javax.servlet.http.HttpServletResponse;
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     private final JwtUtil jwtUtil;
-    private final ObjectMapper objectMapper;
+    private final HeiferUserDetailsServiceImpl heiferUserDetailsService;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
-    private static final String DATA401 = "{\"code\":\"" + ResultStatusEnum.UNAUTHORIZED.getCode() + "\",\"message\":\"" + ResultStatusEnum.UNAUTHORIZED.getMessage() + "\"}";
-    private static final String DATA403 = "{\"code\":\"" + ResultStatusEnum.FORBIDDEN.getCode() + "\",\"message\":\"" + ResultStatusEnum.FORBIDDEN.getMessage() + "\"}";
-    private static final String DATA500 = "{\"code\":\"" + ResultStatusEnum.INTERNAL_SERVER_ERROR.getCode() + "\",\"message\":\"" + ResultStatusEnum.INTERNAL_SERVER_ERROR.getMessage() + "\"}";
 
-
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, ObjectMapper objectMapper, HandlerExceptionResolver handlerExceptionResolver) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil, HeiferUserDetailsServiceImpl heiferUserDetailsService, HandlerExceptionResolver handlerExceptionResolver) {
         super(authenticationManager);
         this.jwtUtil = jwtUtil;
-        this.objectMapper = objectMapper;
+        this.heiferUserDetailsService = heiferUserDetailsService;
         this.handlerExceptionResolver = handlerExceptionResolver;
     }
 
@@ -52,9 +53,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         try {
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
             if (StringUtils.isNotBlank(authorization)) {
-
-                UserDetails userDetails = this.jwtUtil.getUserPrincipal(authorization);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                RbacAccountDto account = this.jwtUtil.getAccount(authorization);
+                List<String> allPermission = heiferUserDetailsService.getAllPermission(account.getId(), account.getAccountManage().getRbacTenantId());
+                UserPrincipal userPrincipal = UserPrincipal.create(account, allPermission);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
@@ -62,5 +64,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         } catch (Exception e) {
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
+
     }
 }

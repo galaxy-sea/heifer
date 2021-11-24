@@ -16,38 +16,31 @@ import java.util.Date;
 @RequestMapping("security")
 public class SecurityController {
 
-    @GetMapping("1")
+    @GetMapping("sign")
     @ResultResponseBody
     public Tenant test1(Tenant tenant) {
         return tenant;
     }
 
 
-    @GetMapping("2")
+    @GetMapping("permission")
     @ResultResponseBody
-    @PreAuthorize("hasAuthority('page:test')")
+    @PreAuthorize("hasAuthority('heifer:admin:test')")
     public Tenant test2(Tenant tenant) {
         return tenant;
     }
 
-    @GetMapping("testRole")
+    @GetMapping("role")
     @ResultResponseBody
-    @PreAuthorize("hasAuthority('page:test:role')")
-    public Date testRole() {
-        return new Date();
+    @PreAuthorize("hasRole('admin')")
+    public Tenant testRole(Tenant tenant) {
+        return tenant;
     }
 
-    @GetMapping("testUser")
+    @GetMapping("not")
     @ResultResponseBody
-    @PreAuthorize("hasAuthority('page:test:user')")
-    public Date testUser() {
-        return new Date();
-    }
-
-    @GetMapping("3")
-    @ResultResponseBody
-    @PreAuthorize("hasAuthority('page:not')")
-    public Date test3() {
-        return new Date();
+    @PreAuthorize("hasAuthority('admin123123')")
+    public Tenant testUser(Tenant tenant) {
+        return tenant;
     }
 }

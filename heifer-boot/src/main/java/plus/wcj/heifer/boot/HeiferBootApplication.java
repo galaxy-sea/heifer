@@ -5,6 +5,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
 /**
@@ -13,6 +15,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @EnableOpenApi
 @SpringBootApplication
 @EnableEncryptableProperties
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @MapperScan({"plus.wcj.heifer.boot.repository.dao.**", "plus.wcj.heifer.boot.common.security.userdetails.dao"})
 public class HeiferBootApplication {
 

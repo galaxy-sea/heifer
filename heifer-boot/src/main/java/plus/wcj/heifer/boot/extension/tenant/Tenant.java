@@ -19,7 +19,7 @@ public class Tenant {
     private final String username;
 
     /** 组织id */
-    private final Long orgId;
+    private final Long tenantId;
 
     /** 部门id */
     private final Long deptId;

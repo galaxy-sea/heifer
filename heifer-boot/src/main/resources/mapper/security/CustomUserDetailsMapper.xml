@@ -1,166 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao">
-    <resultMap id="PermissionBaseResultMap"
-               type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacPermissionDto">
-        <id column="id" property="id" />
-        <result column="parent_id" property="parentId" />
-        <result column="name" property="name" />
-        <result column="permission" property="permission" />
-        <result column="type" property="type" />
-        <result column="sort" property="sort" />
-    </resultMap>
-
-    <select id="selectPermissionByRoleIdList" resultMap="PermissionBaseResultMap">
-        SELECT DISTINCT rp.id,
-                        rp.parent_id,
-                        rp.name,
-                        rp.permission,
-                        rp.type,
-                        rp.sort
-        FROM rbac_permission rp
-                WHERE EXISTS(SELECT 1
-                             FROM rbac_role_authority rra
-                WHERE rra.rbac_role_id IN
-        <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-        AND rp.id = rra.rbac_permission_id)
-    </select>
-
-    <select id="selectPermissionByUserId" resultMap="PermissionBaseResultMap">
-        SELECT DISTINCT rp.id,
-                        rp.parent_id,
-                        rp.name,
-                        rp.permission,
-                        rp.type,
-                        rp.sort
-        FROM rbac_permission rp
-        WHERE EXISTS(SELECT 1
-                     FROM rbac_user_authority rua
-                     WHERE rp.id = rua.rbac_permission_id
-                       AND rua.rbac_user_id = #{userId}
-                      )
-    </select>
-
-    <select id="selectPermissionByrOrgId" resultMap="PermissionBaseResultMap">
-        SELECT DISTINCT rp.id,
-                        rp.parent_id,
-                        rp.name,
-                        rp.permission,
-                        rp.type,
-                        rp.sort
-        FROM rbac_permission rp
-        WHERE EXISTS(SELECT 1
-                     FROM rbac_org_authority roa
-                     WHERE rp.id = roa.rbac_permission_id
-                       AND roa.rbac_org_id = #{orgId}
-                      )
-    </select>
-
-
-    <resultMap id="RoleBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto">
-        <id column="id" property="id" />
-        <result column="rbac_org_id" property="rbacOrgId" />
-        <result column="name" property="name" />
-    </resultMap>
-
-    <select id="selectRoleByUserId" resultMap="RoleBaseResultMap">
-        SELECT rr.id,
-               rr.rbac_org_id,
-               rr.name
-        FROM rbac_role rr
-        WHERE EXISTS(SELECT 1
-                     FROM rbac_user_role_rel rurr
-                     WHERE rr.id = rurr.rbac_role_id
-                       AND rurr.rbac_user_id = #{userId}
-                      )
-    </select>
-
-
-    <resultMap id="UserBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserDto">
-        <id column="id" property="id" />
-        <result column="rbac_org_id" property="rbacOrgId" />
-        <result column="username" property="username" />
-        <result column="phone" property="phone" />
-        <result column="email" property="email" />
-        <result column="password" property="password" />
-        <result column="nickname" property="nickname" />
-        <result column="is_account_non_expired" property="isAccountNonExpired" />
-        <result column="is_account_non_locked" property="isAccountNonLocked" />
-        <result column="is_credentials_non_expired" property="isCredentialsNonExpired" />
-        <result column="is_enabled" property="isEnabled" />
-    </resultMap>
-
-    <select id="findUserByUsernameOrEmailOrPhone" resultMap="UserBaseResultMap">
-        SELECT rbac_user.id,
-               rbac_user.rbac_org_id,
-               rbac_user.username,
-               rbac_user.phone,
-               rbac_user.email,
-               rbac_user.password,
-               rbac_user.nickname,
-               rbac_user.is_account_non_expired,
-               rbac_user.is_account_non_locked,
-               rbac_user.is_credentials_non_expired,
-               rbac_user.is_enabled
-        FROM rbac_user
+    <select id="findAccountByUsernameOrEmailOrPhone" resultType="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto">
+        SELECT ra.id,
+               ra.username,
+               ra.phone,
+               ra.email,
+               ra.password,
+               ra.nickname,
+               ra.is_account_non_expired,
+               ra.is_account_non_locked,
+               ra.is_credentials_non_expired,
+               ra.is_enabled
+        FROM rbac_account ra
         WHERE username = #{username}
            OR email = #{email}
            OR phone = #{phone}
     </select>
 
-    <select id="selectDataPower" resultType="java.lang.Long">
-        SELECT rudp.rbac_dept_id
-        FROM rbac_user_data_power rudp
-        WHERE rudp.rbac_user_id = 1
-        <if test="roleIds != null and roleIds.size() != 0">
-            UNION
-            SELECT rrdp.rbac_dept_id
-            FROM rbac_role_data_power rrdp
-                    WHERE rrdp.rbac_role_id IN
-            <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
+    <select id="findAccountManageBy" resultType="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountManageDto">
+        SELECT ram.rbac_tenant_id,
+               ram.rbac_dept_id
+        FROM rbac_account_manage ram
+        WHERE rbac_account_id = #{rbacAccountId}
     </select>
 
-
-    <select id="selectDataPowerByOrgId" resultType="java.lang.Long">
-        SELECT id
-        FROM rbac_dept
-        WHERE rbac_org_id = #{orgId}
+    <select id="selectRoleBy" resultType="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto">
+        SELECT rr.id,
+               rr.name
+        FROM rbac_role rr
+        WHERE EXISTS(SELECT 1 FROM rbac_account_role_rel rarr WHERE rarr.rbac_account_id = #{rbacAccountId} AND rr.id = rarr.rbac_role_id)
+          AND rr.rbac_tenant_id = #{rbacTenantId}
     </select>
 
-
-    <resultMap id="AdminBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAdminDto">
-        <result column="rbac_dept_id" property="rbacDeptId" />
-    </resultMap>
-
-    <select id="findAdmin" resultMap="AdminBaseResultMap">
-        SELECT rbac_dept_id
-        FROM rbac_admin
-        WHERE rbac_user_id = #{userId}
+    <select id="selectDistinctPermissionBy" resultType="java.lang.String">
+        SELECT DISTINCT rp.permission
+        FROM rbac_permission rp
+                WHERE rp.id IN (SELECT rbac_permission_id
+                                FROM rbac_account_authority raa
+                                WHERE rbac_account_id = #{rbacAccountId}
+                            <if test="roleList != null and roleList.size() != 0">
+                                UNION
+                                SELECT rbac_permission_id
+                                FROM rbac_role_authority rra
+                                WHERE rbac_role_id IN
+                                <foreach item="item" index="index" collection="roleList" open="(" separator="," close=")">
+                                    #{item.id}
+                                </foreach>
+                            </if>
+        )
     </select>
 
-    <resultMap id="CustomerBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacCustomerDto">
-        <result column="rbac_user_id" property="rbacUserId" />
-    </resultMap>
-
-    <select id="findCustomer" resultMap="CustomerBaseResultMap">
-        SELECT rbac_user_id
-        FROM rbac_customer
-        WHERE rbac_user_id = #{userId}
-    </select>
-
-    <resultMap id="UserManageBaseResultMap" type="plus.wcj.heifer.boot.common.security.userdetails.dto.RbacUserManageDto">
-        <result column="is_all_power" property="allPower" />
-        <result column="is_all_authority" property="allAuthority" />
-    </resultMap>
-    <select id="findUserManage" resultMap="UserManageBaseResultMap">
-        SELECT is_all_power,
-               is_all_authority
-        FROM rbac_user_manage
-        WHERE rbac_user_id = #{userId}
+    <select id="selectDistinctPowerBy" resultType="java.lang.Long">
+        SELECT radp.rbac_dept_id
+        FROM rbac_account_data_power radp
+        WHERE radp.rbac_account_id = #{rbacAccountId}
+        UNION
+        SELECT rrdp.rbac_dept_id
+        FROM rbac_role_data_power rrdp
+        WHERE rrdp.rbac_role_id IN (SELECT rarr.rbac_role_id FROM rbac_account_role_rel rarr WHERE rarr.rbac_account_id = #{rbacAccountId})
     </select>
 </mapper>

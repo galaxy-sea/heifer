@@ -1,7 +1,14 @@
 package plus.wcj.heifer.boot.common.security.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import plus.wcj.heifer.boot.common.exception.ResultException;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
+import plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter;
+import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
+import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
+import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,12 +25,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import plus.wcj.heifer.boot.common.exception.ResultException;
-import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
-import plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter;
-import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
-import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
-import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,58 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final IgnoreProperties ignoreProperties;
     private final HeiferUserDetailsServiceImpl heiferUserDetailsServiceImpl;
     private final JwtUtil jwtUtil;
-    private final ObjectMapper objectMapper;
     private final HandlerExceptionResolver handlerExceptionResolver;
-
-    @Bean
-    @SuppressWarnings({"AlibabaRemoveCommentedCode", "CommentedOutCode"})
-    public PasswordEncoder encoder() {
-        // DelegatingPasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        String encodingId = "bcrypt";
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-        Map<String, PasswordEncoder> encoders = new HashMap<>(8);
-
-        encoders.put(encodingId, bCryptPasswordEncoder);
-
-        // encoders.put("ldap", new org.springframework.security.crypto.password.LdapShaPasswordEncoder());
-        // encoders.put("MD4", new org.springframework.security.crypto.password.Md4PasswordEncoder());
-        // encoders.put("MD5", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("MD5"));
-        // encoders.put("noop", org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance());
-        // encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
-        // encoders.put("scrypt", new SCryptPasswordEncoder());
-        // encoders.put("SHA-1", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-1"));
-        // encoders.put("SHA-256", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-256"));
-        // encoders.put("sha256", new org.springframework.security.crypto.password.StandardPasswordEncoder());
-        // encoders.put("argon2", new Argon2PasswordEncoder());
-
-        DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(encodingId, encoders);
-        passwordEncoder.setDefaultPasswordEncoderForMatches(bCryptPasswordEncoder);
-
-        return passwordEncoder;
-    }
 
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
-    /*
-    // @Override
-    // protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    //     auth.authenticationProvider(daoAuthenticationProvider()).userDetailsService(customUserDetailsService).passwordEncoder(encoder());
-    // }
-    */
-
-    @Bean
-    public AuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
-        impl.setPasswordEncoder(this.encoder());
-        impl.setUserDetailsService(this.heiferUserDetailsServiceImpl);
-
-        // TODO: 2021/6/6 changjin wei(魏昌进) 需要缓存啊
-
-        return impl;
     }
 
     @Override
@@ -136,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
-        http.addFilter(new JwtAuthenticationFilter(this.authenticationManager(), this.jwtUtil, this.objectMapper, handlerExceptionResolver)).httpBasic();
+        http.addFilter(new JwtAuthenticationFilter(this.authenticationManager(), this.jwtUtil, this.heiferUserDetailsServiceImpl, handlerExceptionResolver)).httpBasic();
     }
 
     /**
@@ -156,5 +111,49 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
            .antMatchers(HttpMethod.OPTIONS, this.ignoreProperties.getOptions())
            .antMatchers(HttpMethod.TRACE, this.ignoreProperties.getTrace())
            .antMatchers(this.ignoreProperties.getPattern());
+    }
+}
+
+@Configuration
+class BeanConfig {
+    @Bean
+    @SuppressWarnings({"AlibabaRemoveCommentedCode", "CommentedOutCode"})
+    public PasswordEncoder encoder() {
+        // DelegatingPasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        String encodingId = "bcrypt";
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        Map<String, PasswordEncoder> encoders = new HashMap<>(8);
+
+        encoders.put(encodingId, bCryptPasswordEncoder);
+
+        // encoders.put("ldap", new org.springframework.security.crypto.password.LdapShaPasswordEncoder());
+        // encoders.put("MD4", new org.springframework.security.crypto.password.Md4PasswordEncoder());
+        // encoders.put("MD5", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("MD5"));
+        // encoders.put("noop", org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance());
+        // encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
+        // encoders.put("scrypt", new SCryptPasswordEncoder());
+        // encoders.put("SHA-1", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-1"));
+        // encoders.put("SHA-256", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-256"));
+        // encoders.put("sha256", new org.springframework.security.crypto.password.StandardPasswordEncoder());
+        // encoders.put("argon2", new Argon2PasswordEncoder());
+
+        DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(encodingId, encoders);
+        passwordEncoder.setDefaultPasswordEncoderForMatches(bCryptPasswordEncoder);
+
+        return passwordEncoder;
+    }
+
+    @Bean
+    public AuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
+        impl.setPasswordEncoder(passwordEncoder);
+        impl.setUserDetailsService(username -> {
+            throw new ResultException(ResultStatusEnum.INTERNAL_SERVER_ERROR);
+        });
+
+        // TODO: 2021/6/6 changjin wei(魏昌进) 需要缓存啊
+
+        return impl;
     }
 }

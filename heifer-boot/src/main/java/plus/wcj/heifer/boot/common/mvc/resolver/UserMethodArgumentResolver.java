@@ -1,5 +1,13 @@
 package plus.wcj.heifer.boot.common.mvc.resolver;
 
+import plus.wcj.heifer.boot.common.exception.ResultException;
+import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
+import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
+
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +23,6 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  */
 public class UserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return UserDetails.class.isAssignableFrom(parameter.getParameterType());
@@ -24,7 +31,10 @@ public class UserMethodArgumentResolver implements HandlerMethodArgumentResolver
     @SuppressWarnings("NullableProblems")
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getPrincipal();
+        UserPrincipal userDetails = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userDetails == null) {
+            throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
+        }
+        return userDetails;
     }
 }
