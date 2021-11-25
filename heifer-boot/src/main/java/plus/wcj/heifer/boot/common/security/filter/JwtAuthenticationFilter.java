@@ -8,8 +8,6 @@ import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsService
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +29,6 @@ import java.util.List;
  * @author yangkai.shen
  * @date Created in 2018-12-10 15:15
  */
-@Slf4j
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     private final JwtUtil jwtUtil;
