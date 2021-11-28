@@ -3,6 +3,8 @@ package ${package.Service};
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
 
+import java.util.List;
+
 /**
  * <p>
  * ${table.comment!} 服务类
@@ -18,7 +20,7 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}, ${
 
  <#list table.fields as field>
   <#if field.name?ends_with("_id")>
-    List<${entity}> listBy${field.propertyName?cap_first}(@Param("${field.propertyName}") ${field.propertyType} ${field.propertyName});
+    List<${entity}> listBy${field.propertyName?cap_first}(${field.propertyType} ${field.propertyName});
 
   </#if>
  </#list>
