@@ -1,5 +1,5 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken, getTokenType } from '@/utils/auth'
+import { getToken, setToken, removeToken, getTokenType, setTenantId } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
@@ -29,6 +29,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_TENANT: (state, tenant) => {
+    state.tenant = tenant
   }
 }
 
@@ -41,7 +44,10 @@ const actions = {
         const { data } = response
         commit('SET_TOKEN', data.token)
         commit('SET_TOKEN_TYPE', data.tokenType)
+        // todo weichangjin 改为登陆后选择
+        commit('SET_TENANT', 1)
         setToken(data.token, data.tokenType)
+        setTenantId(1)
         resolve()
       }).catch(error => {
         reject(error)
@@ -59,24 +65,15 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar, introduction } = data
-
-        const jwt = state.token.replace(state.tokenType)
-        const payload = JSON.parse(decodeURIComponent(escape(window.atob(jwt.split('.')[1]))))
-        const permissions = payload.p.split(',')
-        const roles = payload.r.split(',')
-        var authoritys = []
-        roles.forEach(value => authoritys.push('ROLE_' + value))
-        authoritys = authoritys.concat(permissions)
-
-        authoritys.push('admin')
+        const { roles, name, avatar, introduction, tenant } = data
 
         // roles must be a non-empty array
-        if (!authoritys || authoritys.length <= 0) {
+        if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
 
-        commit('SET_ROLES', authoritys)
+        commit('SET_TENANT', tenant)
+        commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)

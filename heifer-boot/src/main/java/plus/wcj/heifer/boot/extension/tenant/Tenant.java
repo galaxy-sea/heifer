@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Tenant {
     /** 用户id */
-    private final Long userId;
+    private final Long accountId;
 
     /** 用户id */
     private final String username;

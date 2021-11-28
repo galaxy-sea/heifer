@@ -9,6 +9,7 @@ import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
+import plus.wcj.heifer.boot.extension.tenant.Tenant;
 
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,20 +77,22 @@ public class AuthController {
     }
 
     // TODO: 2021/11/24 changjin wei(魏昌进)
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/info")
     @SuppressWarnings("all")
-    public DataInfo info() {
+    public DataInfo info(Tenant tenant) {
+        List<String> allPermission = heiferUserDetailsServiceImpl.getAllPermission(tenant.getTenantId(), tenant.getAccountId());
+        allPermission.add("admin");
+
+
         return DataInfo.builder()
-                       .roles(new ArrayList<String>() {{
-                           add("admin");
-                           add("editor");
-                       }})
+                       .roles(allPermission)
                        .introduction("I am a super administrator")
                        .avatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif")
                        .name("Super Admin")
+                       .tenant(1)
                        .build();
     }
-
 
     @GetMapping("/user")
     public UserPrincipal logout(UserPrincipal userPrincipal) {
@@ -102,6 +106,7 @@ public class AuthController {
         private String introduction;
         private String avatar;
         private String name;
+        private Integer tenant;
         private List<String> roles;
     }
 }

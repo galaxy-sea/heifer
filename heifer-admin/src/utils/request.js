@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, getTenantId } from '@/utils/auth'
 import router from '@/router/index'
 
 // create an axios instance
@@ -21,6 +21,9 @@ service.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       config.headers['Authorization'] = getToken()
+    }
+    if (store.getters.token) {
+      config.headers['Tenant-Id'] = getTenantId()
     }
     if (store.getters.language) {
       config.headers['Accept-Language'] = store.getters.language
