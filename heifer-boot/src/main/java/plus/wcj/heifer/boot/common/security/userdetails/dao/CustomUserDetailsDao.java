@@ -32,5 +32,5 @@ public interface CustomUserDetailsDao {
 
     List<String> selectDistinctPermissionBy(@Param("rbacAccountId") Long rbacAccountId, @Param("roleList") List<RbacRoleDto> roleList);
 
-    List<Long> selectDistinctPowerBy(@Param("rbacAccountId") Long rbacAccountId);
+    List<Long> selectDistinctPowerBy(@Param("rbacAccountId") Long rbacAccountId, @Param("rbacTenantId") Long rbacTenantId);
 }

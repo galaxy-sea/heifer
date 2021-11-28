@@ -24,8 +24,8 @@ import javax.validation.constraints.NotNull;
  * 角色拥有功能权限关系表
  * </p>
  *
- * @author changjin wei(魏昌进)
- * @since 2021-11-22
+ * @author changjinwei
+ * @since 2021-11-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -48,6 +48,12 @@ public class RbacRoleAuthority implements Serializable {
     @NotNull(groups = {PostValid.class}, message = "rbacRoleId is null")
     @TableField("rbac_role_id")
     private Long rbacRoleId;
+
+    /** 租户id */
+    @ApiModelProperty(value = "租户id")
+    @NotNull(groups = {PostValid.class}, message = "rbacTenantId is null")
+    @TableField("rbac_tenant_id")
+    private Long rbacTenantId;
 
     /** 功能权限id */
     @ApiModelProperty(value = "功能权限id")

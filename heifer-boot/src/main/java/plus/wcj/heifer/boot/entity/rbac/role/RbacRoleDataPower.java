@@ -24,8 +24,8 @@ import javax.validation.constraints.NotNull;
  * 角色数据权限
  * </p>
  *
- * @author changjin wei(魏昌进)
- * @since 2021-11-22
+ * @author changjinwei
+ * @since 2021-11-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -54,6 +54,12 @@ public class RbacRoleDataPower implements Serializable {
     @NotNull(groups = {PostValid.class}, message = "rbacDeptId is null")
     @TableField("rbac_dept_id")
     private Long rbacDeptId;
+
+    /** 租户id */
+    @ApiModelProperty(value = "租户id")
+    @NotNull(groups = {PostValid.class}, message = "rbacTenantId is null")
+    @TableField("rbac_tenant_id")
+    private Long rbacTenantId;
 
     @TableField("create_time")
     private Date createTime;

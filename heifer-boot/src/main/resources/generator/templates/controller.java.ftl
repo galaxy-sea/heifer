@@ -87,5 +87,5 @@ public class ${table.controllerName} extends ${superControllerClass} {
     }
 
     // TODO: ${date} ${author} 补充其他接口
-    }
+}
 </#if>

@@ -223,7 +223,7 @@ public class GeneratorCode {
         pc.setEntity(pc.getEntity() + "." + moduleName);
         pc.setService(pc.getService() + "." + moduleName);
         pc.setServiceImpl(pc.getService() + ".impl");
-        pc.setMapper("dao." + moduleName);
+        pc.setMapper("repository.dao." + moduleName);
         pc.setXml("dao." + moduleName + ".mapper");
         pc.setController(pc.getController() + "." + moduleName);
 

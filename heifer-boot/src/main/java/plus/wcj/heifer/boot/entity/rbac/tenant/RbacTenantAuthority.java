@@ -24,8 +24,8 @@ import javax.validation.constraints.NotNull;
  * 租户拥有的权限
  * </p>
  *
- * @author changjin wei(魏昌进)
- * @since 2021-11-22
+ * @author changjinwei
+ * @since 2021-11-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

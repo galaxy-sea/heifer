@@ -10,8 +10,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.redis.core.RedisHash;
 
@@ -26,8 +24,8 @@ import javax.validation.constraints.NotNull;
  * 功能权限
  * </p>
  *
- * @author changjin wei(魏昌进)
- * @since 2021-11-22
+ * @author changjinwei
+ * @since 2021-11-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -67,7 +65,7 @@ public class RbacPermission implements Serializable {
     @ApiModelProperty(value = "client:客户端,menu:菜单,button:按钮")
     @NotNull(groups = {PostValid.class}, message = "type is null")
     @TableField("type")
-    private RbacPermission.TypeEnum type;
+    private String type;
 
     /** 排序，默认asc */
     @ApiModelProperty(value = "排序，默认asc")
@@ -87,19 +85,5 @@ public class RbacPermission implements Serializable {
     @TableField("update_by")
     private Long updateBy;
 
-
-    @Getter
-    @RequiredArgsConstructor
-    public enum TypeEnum {
-        /** 客户端 */
-        CLIENT("客户端", 1),
-        /** 菜单 */
-        MENU("菜单", 2),
-        /** 按钮 */
-        BUTTON("按钮", 3),
-        ;
-        private final String name;
-        private final Integer value;
-    }
 
 }

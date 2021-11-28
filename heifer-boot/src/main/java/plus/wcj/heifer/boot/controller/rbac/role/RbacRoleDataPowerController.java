@@ -1,21 +1,23 @@
 package plus.wcj.heifer.boot.controller.rbac.role;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 import plus.wcj.heifer.boot.entity.rbac.role.RbacRoleDataPower;
-import plus.wcj.heifer.boot.service.rbac.role.RbacRoleDataPowerService;
+import plus.wcj.heifer.boot.extension.tenant.Tenant;
 import plus.wcj.heifer.boot.extension.validator.PostValid;
 import plus.wcj.heifer.boot.extension.validator.PutValid;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import plus.wcj.heifer.boot.service.rbac.role.RbacRoleDataPowerService;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.validation.annotation.Validated;
-import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
-import plus.wcj.heifer.boot.extension.tenant.Tenant;
-import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 
@@ -30,7 +32,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("/rbac-role-data-power")
 @RequiredArgsConstructor
-    public class RbacRoleDataPowerController {
+public class RbacRoleDataPowerController {
     private final RbacRoleDataPowerService rbacRoleDataPowerService;
 
     /** id查询 */
@@ -69,4 +71,4 @@ import javax.validation.constraints.NotNull;
     }
 
     // TODO: 2021-11-22 changjin wei(魏昌进) 补充其他接口
-    }
+}

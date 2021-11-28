@@ -1,8 +1,8 @@
 package plus.wcj.heifer.boot.repository.dao.rbac.org;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import plus.wcj.heifer.boot.entity.rbac.tenant.RbacDept;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import java.util.List;
  * 部门 Mapper 接口
  * </p>
 *
-* @author changjin wei(魏昌进)
-* @since 2021-11-22
+* @author changjinwei
+* @since 2021-11-28
 */
  public interface RbacDeptDao extends BaseMapper<RbacDept> {
 

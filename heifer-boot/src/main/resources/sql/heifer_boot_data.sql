@@ -51,14 +51,14 @@ VALUES (1, 1, 1, 1, 1),
        (3, 1, 1, 2, 1)
 ;
 
-INSERT INTO rbac_account_role_rel (id, rbac_account_id, rbac_role_id, create_by)
-VALUES (1, 1, 1, 1),
-       (2, 1, 2, 1),
-       (3, 1, 3, 1),
-       (4, 2, 2, 1),
-       (5, 2, 3, 1),
-       (6, 2, 101, 1),
-       (7, 2, 102, 1)
+INSERT INTO rbac_account_role_rel (id, rbac_account_id, rbac_role_id, rbac_tenant_id, create_by)
+VALUES (1, 1, 1, 1, 1),
+       (2, 1, 2, 1, 1),
+       (3, 1, 3, 1, 1),
+       (4, 2, 2, 1, 1),
+       (5, 2, 3, 1, 1),
+       (6, 2, 101, 2, 1),
+       (7, 2, 102, 2, 1)
 ;
 
 # rbac功能权限基础数据
@@ -68,24 +68,24 @@ VALUES (1, 1, 1, 1),
        (2, 2, 101, 1)
 ;
 
-INSERT INTO rbac_role_authority (id, rbac_role_id, rbac_permission_id, create_by)
-VALUES (1, 1, 2, 1),
-       (2, 1, 3, 1),
-       (3, 1, 3, 1),
-       (4, 2, 4, 1),
-       (5, 2, 5, 1)
+INSERT INTO rbac_role_authority (id, rbac_role_id, rbac_tenant_id, rbac_permission_id, create_by)
+VALUES (1, 1, 1, 2, 1),
+       (2, 1, 1, 3, 1),
+       (3, 1, 1, 3, 1),
+       (4, 2, 1, 4, 1),
+       (5, 2, 1, 5, 1)
 ;
-INSERT INTO rbac_account_authority (id, rbac_account_id, rbac_permission_id, create_by)
-VALUES (1, 1, 6, 1)
+INSERT INTO rbac_account_authority (id, rbac_account_id, rbac_tenant_id, rbac_permission_id, create_by)
+VALUES (1, 1, 1, 6, 1)
 ;
 
 # 数据权限基础数据
-INSERT INTO rbac_account_data_power (id, rbac_account_id, rbac_dept_id, create_by)
-VALUES (1, 1, 1, 1)
+INSERT INTO rbac_account_data_power (id, rbac_account_id, rbac_dept_id, rbac_tenant_id, create_by)
+VALUES (1, 1, 1, 1, 1)
 ;
 
-INSERT INTO rbac_role_data_power (id, rbac_role_id, rbac_dept_id, create_by)
-VALUES (1, 1, 2, 1);
+INSERT INTO rbac_role_data_power (id, rbac_role_id, rbac_dept_id, rbac_tenant_id, create_by)
+VALUES (1, 1, 2, 1, 1);
 
 
 

@@ -21,7 +21,8 @@ import java.util.List;
 
  <#list table.fields as field>
   <#if field.name?ends_with("_id")>
-   List<${entity}> selectBy${field.propertyName?cap_first}(@Param("${field.propertyName}") ${field.propertyType} ${field.propertyName});
+    List<${entity}> selectBy${field.propertyName?cap_first}(@Param("${field.propertyName}") ${field.propertyType} ${field.propertyName});
+
   </#if>
  </#list>
  }

@@ -8,6 +8,7 @@
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.account.RbacAccountAuthority">
         <id column="id" property="id" />
         <result column="rbac_account_id" property="rbacAccountId" />
+        <result column="rbac_tenant_id" property="rbacTenantId" />
         <result column="rbac_permission_id" property="rbacPermissionId" />
         <result column="create_time" property="createTime" />
         <result column="create_by" property="createBy" />
@@ -15,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, rbac_account_id, rbac_permission_id, create_time, create_by
+        id, rbac_account_id, rbac_tenant_id, rbac_permission_id, create_time, create_by
     </sql>
 
         <select id="selectByRbacAccountId" resultMap="BaseResultMap">
@@ -23,6 +24,13 @@
             <include refid="Base_Column_List"/>
             FROM rbac_account_authority
             WHERE rbac_account_id = #{rbacAccountId}
+        </select>
+
+        <select id="selectByRbacTenantId" resultMap="BaseResultMap">
+            SELECT
+            <include refid="Base_Column_List"/>
+            FROM rbac_account_authority
+            WHERE rbac_tenant_id = #{rbacTenantId}
         </select>
 
         <select id="selectByRbacPermissionId" resultMap="BaseResultMap">

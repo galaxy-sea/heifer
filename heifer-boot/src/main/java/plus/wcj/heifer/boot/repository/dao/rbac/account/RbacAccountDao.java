@@ -1,15 +1,15 @@
 package plus.wcj.heifer.boot.repository.dao.rbac.account;
 
-import plus.wcj.heifer.boot.entity.rbac.account.RbacAccount;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import plus.wcj.heifer.boot.entity.rbac.account.RbacAccount;
 
 /**
 * <p>
  * 账户表 Mapper 接口
  * </p>
 *
-* @author changjin wei(魏昌进)
-* @since 2021-11-22
+* @author changjinwei
+* @since 2021-11-28
 */
  public interface RbacAccountDao extends BaseMapper<RbacAccount> {
 

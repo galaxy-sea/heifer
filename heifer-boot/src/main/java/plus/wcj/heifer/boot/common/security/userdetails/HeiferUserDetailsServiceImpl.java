@@ -56,7 +56,7 @@ public class HeiferUserDetailsServiceImpl {
 
     @Cacheable(cacheNames = "allPower", key = "#rbacTenantId+':'+#rbacAccountId")
     public String getAllPower(Long rbacTenantId, Long rbacAccountId) {
-        List<Long> allPower = customUserDetailsDao.selectDistinctPowerBy(rbacAccountId);
+        List<Long> allPower = customUserDetailsDao.selectDistinctPowerBy(rbacAccountId, rbacTenantId);
         return StringUtils.join(allPower, ',');
     }
 
