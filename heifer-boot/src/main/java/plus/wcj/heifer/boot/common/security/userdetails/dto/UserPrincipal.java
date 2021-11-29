@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,8 +62,8 @@ public class UserPrincipal implements UserDetails {
         userPrincipal.id = account.getId();
         userPrincipal.username = account.getUsername();
         userPrincipal.isEnabled = account.isEnabled();
-        userPrincipal.tenantId = account.getAccountManage().getRbacTenantId();
-        userPrincipal.deptId = account.getAccountManage().getRbacDeptId();
+        userPrincipal.tenantId = account.getAccountManage() == null ? null : account.getAccountManage().getRbacTenantId();
+        userPrincipal.deptId = account.getAccountManage() == null ? null : account.getAccountManage().getRbacDeptId();
         userPrincipal.permissions = permissions;
         return userPrincipal;
     }
@@ -70,7 +71,11 @@ public class UserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.authorities == null) {
-            this.authorities = this.permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+            if (this.permissions == null) {
+                this.authorities = new ArrayList<>();
+            } else {
+                this.authorities = this.permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+            }
             this.permissions = null;
         }
         return this.authorities;

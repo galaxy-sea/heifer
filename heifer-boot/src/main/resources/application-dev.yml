@@ -76,7 +76,9 @@ spring:
       username: ENC(t/UD+GZh+a7Ta8fPAwe6+GR3aUPgA4fBk5k/AIFWMiBTESZysnK4gkdAe2FSKwNS)
       password: ENC(7i2Yc1/ewoTKmauyaLtooXzrOz4mSzyaDtuakmMxlZBxfdSPJsA0vEYO8KudMfHb)
       database: ENC(WsNUKnnlO68E2qsfzfq+xOeW7R714+n7t0l2AtAQsxTISkHG9ndMTFWkXQBmnEvN)
-
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   level:
     plus.wcj.heifer.boot.common.mvc.result.ResultResponseEntityExceptionHandler: debug

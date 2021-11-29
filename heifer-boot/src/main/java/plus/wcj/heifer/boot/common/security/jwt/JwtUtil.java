@@ -81,8 +81,8 @@ public class JwtUtil {
                 // jti – JWT ID 声明
                 .jwtID(rbacAccountDto.getId().toString())
 
-                .claim(DEPT_ID, rbacAccountDto.getAccountManage().getRbacDeptId())
-                .claim(TENANT_ID, rbacAccountDto.getAccountManage().getRbacTenantId())
+                // .claim(DEPT_ID, rbacAccountDto.getAccountManage().getRbacDeptId())
+                // .claim(TENANT_ID, rbacAccountDto.getAccountManage().getRbacTenantId())
 
                 .build();
         SignedJWT signedJwt = new SignedJWT(this.jwsHeader, claimsSet);
@@ -111,17 +111,17 @@ public class JwtUtil {
         // TODO: 2021/11/23 changjin wei(魏昌进)
 
 
-        RbacAccountManageDto accountManageDto = new RbacAccountManageDto();
-        try {
-            accountManageDto.setRbacTenantId(claimsSet.getLongClaim(TENANT_ID));
-            accountManageDto.setRbacDeptId(claimsSet.getLongClaim(DEPT_ID));
-        } catch (ParseException e) {
-            throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
-        }
+        // RbacAccountManageDto accountManageDto = new RbacAccountManageDto();
+        // try {
+        //     accountManageDto.setRbacTenantId(claimsSet.getLongClaim(TENANT_ID));
+        //     accountManageDto.setRbacDeptId(claimsSet.getLongClaim(DEPT_ID));
+        // } catch (ParseException e) {
+        //     throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
+        // }
         RbacAccountDto accountDto = new RbacAccountDto();
         accountDto.setId(Long.valueOf(claimsSet.getJWTID()));
         accountDto.setUsername(claimsSet.getSubject());
-        accountDto.setAccountManage(accountManageDto);
+        // accountDto.setAccountManage(accountManageDto);
         return accountDto;
     }
 

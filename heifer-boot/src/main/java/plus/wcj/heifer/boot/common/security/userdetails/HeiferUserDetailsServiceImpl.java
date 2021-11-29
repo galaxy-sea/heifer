@@ -8,6 +8,7 @@ import plus.wcj.heifer.boot.common.security.userdetails.dao.CustomUserDetailsDao
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountManageDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacTenantDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,10 +41,20 @@ public class HeiferUserDetailsServiceImpl {
         if (account == null || !passwordEncoder.matches(password, account.getPassword())) {
             throw new ResultException(ResultStatusEnum.INCORRECT_USERNAME_OR_PASSWORD);
         }
-        RbacAccountManageDto rbacAccountManageDto = this.customUserDetailsDao.findAccountManageBy(account.getId()).orElseThrow(() -> new ResultException(ResultStatusEnum.INTERNAL_SERVER_ERROR));
-        account.setAccountManage(rbacAccountManageDto);
         return account;
     }
+
+    public RbacAccountManageDto loadAccountManage(Long rbacTenantId, Long rbacAccountId ) throws UsernameNotFoundException {
+        RbacAccountManageDto rbacAccountManageDto = this.customUserDetailsDao.findAccountManageBy(rbacAccountId, rbacTenantId).orElseThrow(() -> new ResultException(ResultStatusEnum.INTERNAL_SERVER_ERROR));
+        return rbacAccountManageDto;
+    }
+
+    @Cacheable(cacheNames = "allTenant", key = "#rbacAccountId")
+    public List<RbacTenantDto> getAllTenant(Long rbacAccountId) {
+        List<RbacTenantDto> roleList = customUserDetailsDao.selectTenantBy(rbacAccountId);
+        return roleList;
+    }
+
 
     @Cacheable(cacheNames = "allPermission", key = "#rbacTenantId+':'+#rbacAccountId")
     public List<String> getAllPermission(Long rbacTenantId, Long rbacAccountId) {

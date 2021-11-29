@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountManageDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 
 import org.springframework.http.HttpHeaders;
@@ -47,9 +48,16 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws JsonProcessingException {
         try {
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+            String tenantIdString = request.getHeader("Tenant-Id");
             if (StringUtils.isNotBlank(authorization)) {
                 RbacAccountDto account = this.jwtUtil.getAccount(authorization);
-                List<String> allPermission = heiferUserDetailsService.getAllPermission(account.getAccountManage().getRbacTenantId(), account.getId());
+                List<String> allPermission = null;
+                if (StringUtils.isNotBlank(tenantIdString)) {
+                    Long tenantId = Long.valueOf(tenantIdString);
+                    RbacAccountManageDto rbacAccountManageDto = heiferUserDetailsService.loadAccountManage(tenantId, account.getId());
+                    account.setAccountManage(rbacAccountManageDto);
+                    allPermission = heiferUserDetailsService.getAllPermission(tenantId, account.getId());
+                }
                 UserPrincipal userPrincipal = UserPrincipal.create(account, allPermission);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -60,5 +68,22 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
 
+    }
+
+
+    private String getAuthorization(HttpServletRequest request) {
+        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (StringUtils.isNotBlank(authorization)) {
+            return authorization;
+        }
+        authorization = request.getParameter(HttpHeaders.AUTHORIZATION);
+        if (StringUtils.isNotBlank(authorization)) {
+            return authorization;
+        }
+        authorization = request.getParameter(HttpHeaders.AUTHORIZATION);
+        if (StringUtils.isNotBlank(authorization)) {
+            return authorization;
+        }
+        return request.getParameter("token");
     }
 }

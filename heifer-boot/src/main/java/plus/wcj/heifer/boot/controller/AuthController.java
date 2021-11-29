@@ -8,6 +8,7 @@ import plus.wcj.heifer.boot.common.security.dto.LoginRequest;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacTenantDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.UserPrincipal;
 import plus.wcj.heifer.boot.extension.tenant.Tenant;
 
@@ -26,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -58,6 +58,17 @@ public class AuthController {
         return new JwtResponse(jwt);
     }
 
+
+    /**
+     * 登录
+     * @return
+     */
+    @GetMapping("/tenant")
+    @PreAuthorize("isAuthenticated()")
+    public List<RbacTenantDto> tenant(Tenant tenant) {
+        List<RbacTenantDto> allTenant = heiferUserDetailsServiceImpl.getAllTenant(tenant.getAccountId());
+        return allTenant;
+    }
 
     @PostMapping("/sign-up")
     public Result<Void> signUp(@RequestBody LoginRequest loginRequest) {

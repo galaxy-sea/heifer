@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacAccountManageDto;
 import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacRoleDto;
+import plus.wcj.heifer.boot.common.security.userdetails.dto.RbacTenantDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,11 +27,14 @@ public interface CustomUserDetailsDao {
     Optional<RbacAccountDto> findAccountByUsernameOrEmailOrPhone(@Param("username") String username, @Param("email") String email, @Param("phone") String phone);
 
 
-    Optional<RbacAccountManageDto> findAccountManageBy(@Param("rbacAccountId") Long rbacAccountId);
+    Optional<RbacAccountManageDto> findAccountManageBy(@Param("rbacAccountId") Long rbacAccountId, @Param("rbacTenantId") Long rbacTenantId);
+
+    List<RbacTenantDto> selectTenantBy(@Param("rbacAccountId") Long rbacAccountId);
 
     List<RbacRoleDto> selectRoleBy(@Param("rbacAccountId") Long rbacAccountId, @Param("rbacTenantId") Long rbacTenantId);
 
     List<String> selectDistinctPermissionBy(@Param("rbacAccountId") Long rbacAccountId, @Param("roleList") List<RbacRoleDto> roleList);
 
     List<Long> selectDistinctPowerBy(@Param("rbacAccountId") Long rbacAccountId, @Param("rbacTenantId") Long rbacTenantId);
+
 }
