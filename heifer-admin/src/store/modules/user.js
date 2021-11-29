@@ -45,7 +45,7 @@ const actions = {
         commit('SET_TOKEN', data.token)
         commit('SET_TOKEN_TYPE', data.tokenType)
         // todo weichangjin 改为登陆后选择
-        commit('SET_TENANT', 1)
+        // commit('SET_TENANT', 1)
         setToken(data.token, data.tokenType)
         setTenantId(1)
         resolve()

@@ -22,3 +22,11 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function getTenant(token) {
+  return request({
+    url: '/auth/tenant',
+    method: 'get',
+    params: { token }
+  })
+}
