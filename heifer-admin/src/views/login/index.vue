@@ -77,6 +77,18 @@
       <br>
       <social-sign />
     </el-dialog>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose"
+    >
+      <el-radio v-for="tenant in tenants" :key="tenant.id" v-model="radio1" :label="tenant.id" border>{{ tenant.name }}</el-radio>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -84,6 +96,7 @@
 import { validUsername } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
 import SocialSign from './components/SocialSignin'
+// import { Dialog } from 'element-ui'
 
 export default {
   name: 'Login',
@@ -117,7 +130,10 @@ export default {
       loading: false,
       showDialog: false,
       redirect: undefined,
-      otherQuery: {}
+      otherQuery: {},
+      dialogVisible: false,
+      radio1: 1,
+      tenants: [{ id: 1, name: 'name1' }, { id: 2, name: 'name2' }, { id: 3, name: 'name3' }]
     }
   },
   watch: {
@@ -166,8 +182,9 @@ export default {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
+              this.dialogVisible = true
+              // this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              // this.loading = false
             })
             .catch(() => {
               this.loading = false
