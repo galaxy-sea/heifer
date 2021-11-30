@@ -81,12 +81,12 @@
       title="提示"
       :visible.sync="dialogVisible"
       width="30%"
-      :before-close="handleClose"
+      @open="chooseTenant"
     >
-      <el-radio v-for="tenant in tenants" :key="tenant.id" v-model="radio1" :label="tenant.id" border>{{ tenant.name }}</el-radio>
+      <el-radio v-for="item in tenants" :key="item.id" v-model="radio1" :label="item.id" border>{{ item.name }}</el-radio>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click.native.prevent="handleTenant">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -132,8 +132,8 @@ export default {
       redirect: undefined,
       otherQuery: {},
       dialogVisible: false,
-      radio1: 1,
-      tenants: [{ id: 1, name: 'name1' }, { id: 2, name: 'name2' }, { id: 3, name: 'name3' }]
+      radio1: null,
+      tenants: null
     }
   },
   watch: {
@@ -176,15 +176,31 @@ export default {
         this.$refs.password.focus()
       })
     },
+    handleTenant() {
+      this.$store.dispatch('user/setTenant', this.radio1).then(() => {
+        this.dialogVisible = false
+        this.loading = true
+        this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+        this.loading = false
+      })
+    },
+    chooseTenant() {
+      this.tenants = this.$store.getters.tenants
+    },
+
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
-              this.dialogVisible = true
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              this.loading = false
+              this.$store.dispatch('user/getTenant').then(() => {
+                // this.dialogVisible = true
+                // this.tenants = [{ id: 1, name: 'name1' }, { id: 2, name: 'name2' }, { id: 3, name: 'name3' }]
+                this.dialogVisible = true
+              })
+              // this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              // this.loading = false
             })
             .catch(() => {
               this.loading = false

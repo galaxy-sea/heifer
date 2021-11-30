@@ -1,10 +1,12 @@
-import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken, getTokenType, setTenantId } from '@/utils/auth'
+import { login, logout, getInfo, getTenants } from '@/api/user'
+import { getToken, setToken, removeToken, getTokenType, getTenant, setTenant } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
   tokenType: getTokenType(),
+  tenants: [],
+  tenant: getTenant(),
   name: '',
   avatar: '',
   introduction: '',
@@ -18,6 +20,12 @@ const mutations = {
   SET_TOKEN_TYPE: (state, tokenType) => {
     state.tokenType = tokenType
   },
+  SET_TENANT: (state, tenant) => {
+    state.tenant = tenant
+  },
+  SET_TENANTS: (state, tenants) => {
+    state.tenants = tenants
+  },
   SET_INTRODUCTION: (state, introduction) => {
     state.introduction = introduction
   },
@@ -29,15 +37,12 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
-  },
-  SET_TENANT: (state, tenant) => {
-    state.tenant = tenant
   }
 }
 
 const actions = {
   // user login
-  login({ commit }, userInfo) {
+  login({ commit, state }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
@@ -47,11 +52,32 @@ const actions = {
         // todo weichangjin 改为登陆后选择
         // commit('SET_TENANT', 1)
         setToken(data.token, data.tokenType)
-        setTenantId(1)
+        // setTenantId(1)
         resolve()
       }).catch(error => {
         reject(error)
       })
+    })
+  },
+
+  getTenant({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getTenants(state.token).then(response => {
+        const { data } = response
+        setToken(state.token, state.tokenType)
+        commit('SET_TENANTS', data)
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  setTenant({ commit, state }, tenant) {
+    return new Promise(resolve => {
+      commit('SET_TENANT', tenant)
+      setTenant(tenant)
+      resolve()
     })
   },
 
@@ -89,6 +115,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         commit('SET_TOKEN', '')
+        commit('SET_TENANT', '')
+        commit('SET_TENANTS', [])
         commit('SET_ROLES', [])
         removeToken()
         resetRouter()

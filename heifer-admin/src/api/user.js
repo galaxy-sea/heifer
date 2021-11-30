@@ -23,7 +23,7 @@ export function logout() {
   })
 }
 
-export function getTenant(token) {
+export function getTenants(token) {
   return request({
     url: '/auth/tenant',
     method: 'get',

@@ -21,14 +21,14 @@ export function removeToken() {
   window.localStorage.removeItem(TenantKey)
 }
 
-export function getTenantId() {
+export function getTenant() {
   return window.localStorage.getItem(TenantKey)
 }
 
-export function setTenantId(tenant) {
+export function setTenant(tenant) {
   window.localStorage.setItem(TenantKey, tenant)
 }
 
-export function removeTenantId() {
+export function removeTenant() {
   window.localStorage.removeItem(TenantKey)
 }
