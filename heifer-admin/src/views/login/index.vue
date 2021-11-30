@@ -183,8 +183,8 @@ export default {
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
               this.dialogVisible = true
-              // this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              // this.loading = false
+              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              this.loading = false
             })
             .catch(() => {
               this.loading = false
