@@ -78,14 +78,16 @@
       <social-sign />
     </el-dialog>
     <el-dialog
-      title="提示"
+      title="请选择租户"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false"
       :visible.sync="dialogVisible"
       width="30%"
       @open="chooseTenant"
     >
       <el-radio v-for="item in tenants" :key="item.id" v-model="radio1" :label="item.id" border>{{ item.name }}</el-radio>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click.native.prevent="handleTenant">确 定</el-button>
       </span>
     </el-dialog>

@@ -62,7 +62,7 @@ const actions = {
 
   getTenant({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getTenants(state.token).then(response => {
+      getTenants().then(response => {
         const { data } = response
         setToken(state.token, state.tokenType)
         commit('SET_TENANTS', data)
@@ -82,9 +82,9 @@ const actions = {
   },
 
   // get user info
-  getInfo({ commit, state }) {
+  getInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo().then(response => {
         const { data } = response
 
         if (!data) {
