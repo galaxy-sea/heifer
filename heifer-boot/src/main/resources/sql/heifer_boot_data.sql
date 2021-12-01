@@ -48,7 +48,7 @@ VALUES (1, 1, 'admin', 1),
 INSERT INTO rbac_account_manage (id, rbac_account_id, rbac_tenant_id, rbac_dept_id, create_by)
 VALUES (1, 1, 1, 1, 1),
        (2, 2, 2, 100, 1),
-       (3, 1, 1, 2, 1)
+       (3, 1, 2, 100, 1)
 ;
 
 INSERT INTO rbac_account_role_rel (id, rbac_account_id, rbac_role_id, rbac_tenant_id, create_by)
