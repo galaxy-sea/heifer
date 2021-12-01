@@ -43,7 +43,7 @@ public class HeiferUserDetailsServiceImpl {
         }
         return account;
     }
-
+    @Cacheable(cacheNames = "tenant", key = "#rbacTenantId+':'+#rbacAccountId")
     public RbacAccountManageDto loadAccountManage(Long rbacTenantId, Long rbacAccountId ) throws UsernameNotFoundException {
         RbacAccountManageDto rbacAccountManageDto = this.customUserDetailsDao.findAccountManageBy(rbacAccountId, rbacTenantId).orElseThrow(() -> new ResultException(ResultStatusEnum.INTERNAL_SERVER_ERROR));
         return rbacAccountManageDto;

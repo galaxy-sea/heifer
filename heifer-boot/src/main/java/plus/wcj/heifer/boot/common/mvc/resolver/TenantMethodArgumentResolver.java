@@ -39,7 +39,10 @@ public class TenantMethodArgumentResolver implements HandlerMethodArgumentResolv
         if (userDetails == null) {
             throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
         }
-        String allPower = heiferUserDetailsService.getAllPower(userDetails.getTenantId(), userDetails.getId());
+        String allPower = "";
+        if (userDetails.getTenantId() != null) {
+            allPower = heiferUserDetailsService.getAllPower(userDetails.getTenantId(), userDetails.getId());
+        }
         return new Tenant(userDetails.getId(),
                           userDetails.getUsername(),
                           userDetails.getTenantId(),

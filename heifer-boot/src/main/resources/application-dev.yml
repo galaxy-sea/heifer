@@ -82,3 +82,5 @@ mybatis-plus:
 logging:
   level:
     plus.wcj.heifer.boot.common.mvc.result.ResultResponseEntityExceptionHandler: debug
+    org.springframework.web: debug
+    org.springframework.cache: TRACE
