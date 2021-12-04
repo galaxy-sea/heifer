@@ -47,26 +47,19 @@ public class UserPrincipal implements UserDetails {
 
     private List<? extends GrantedAuthority> authorities;
 
-    public static UserPrincipal create(RbacAccountDto account, RbacAccountManageDto accountManage) {
+    public static UserPrincipal create(RbacAccountDto account, RbacAccountManageDto rbacAccountManageDto, List<String> permissions) {
         UserPrincipal userPrincipal = new UserPrincipal();
         userPrincipal.id = account.getId();
         userPrincipal.username = account.getUsername();
         userPrincipal.isEnabled = account.isEnabled();
-        userPrincipal.tenantId = accountManage.getRbacTenantId();
-        userPrincipal.deptId = accountManage.getRbacDeptId();
+        userPrincipal.permissions = permissions;
+        if (rbacAccountManageDto != null) {
+            userPrincipal.tenantId = rbacAccountManageDto.getRbacTenantId();
+            userPrincipal.deptId = rbacAccountManageDto.getRbacDeptId();
+        }
         return userPrincipal;
     }
 
-    public static UserPrincipal create(RbacAccountDto account, List<String> permissions) {
-        UserPrincipal userPrincipal = new UserPrincipal();
-        userPrincipal.id = account.getId();
-        userPrincipal.username = account.getUsername();
-        userPrincipal.isEnabled = account.isEnabled();
-        userPrincipal.tenantId = account.getAccountManage() == null ? null : account.getAccountManage().getRbacTenantId();
-        userPrincipal.deptId = account.getAccountManage() == null ? null : account.getAccountManage().getRbacDeptId();
-        userPrincipal.permissions = permissions;
-        return userPrincipal;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
