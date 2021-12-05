@@ -50,7 +50,8 @@ const actions = {
         commit('SET_TOKEN', data.token)
         commit('SET_TOKEN_TYPE', data.tokenType)
         // todo weichangjin 改为登陆后选择
-        // commit('SET_TENANT', 1)
+        commit('SET_TENANT', null)
+        commit('SET_TENANTS', [])
         setToken(data.token, data.tokenType)
         // setTenantId(1)
         resolve()
@@ -136,6 +137,8 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
+      commit('SET_TENANT', '')
+      commit('SET_TENANTS', [])
       commit('SET_ROLES', [])
       removeToken()
       resolve()
