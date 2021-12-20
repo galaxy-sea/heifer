@@ -47,7 +47,7 @@ class ${table.controllerName}<#if superControllerClass??> : ${superControllerCla
 <#if superControllerClass??>
 public class ${table.controllerName} extends ${superControllerClass} {
 <#else>
-    public class ${table.controllerName} {
+public class ${table.controllerName} {
 </#if>
     private final ${table.serviceName} ${table.serviceName?uncap_first};
 

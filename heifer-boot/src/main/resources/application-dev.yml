@@ -80,8 +80,13 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
+  pattern:
+    console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(%M[%L]) %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
   level:
     plus.wcj.heifer.boot.common.mvc.result.ResultResponseEntityExceptionHandler: debug
     plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter: debug
-    org.springframework.web: debug
-    org.springframework.cache: TRACE
+#    org.springframework.web.filter.CommonsRequestLoggingFilter: debug  # 请求报文打印
+    org.springframework.web: debug   # 请求报文打印
+    org.springframework.cache: trace # 缓存打印
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace # 启动时打印Mapping集合
+

@@ -6,12 +6,15 @@ import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsService
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * @author changjin wei(魏昌进)
@@ -33,4 +36,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**");
     }
+
+    // @Bean
+    // public CommonsRequestLoggingFilter requestLoggingFilter() {
+    //     CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
+    //     loggingFilter.setIncludeQueryString(true);
+    //     loggingFilter.setIncludeClientInfo(true);
+    //     loggingFilter.setIncludeHeaders(true);
+    //     loggingFilter.setIncludePayload(true);
+    //     loggingFilter.setMaxPayloadLength(1024);
+    //     return loggingFilter;
+    // }
 }
