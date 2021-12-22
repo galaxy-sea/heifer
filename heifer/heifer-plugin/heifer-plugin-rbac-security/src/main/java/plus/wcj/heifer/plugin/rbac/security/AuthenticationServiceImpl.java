@@ -1,8 +1,10 @@
 package plus.wcj.heifer.plugin.rbac.security;
 
+import plus.wcj.heifer.common.security.UserPrincipal;
 import plus.wcj.heifer.common.security.filter.AuthenticationService;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
@@ -19,6 +21,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtUtil jwtUtil;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
+    public static final String TENANT_ID = "Tenant-Id";
+
+
+
     public AuthenticationServiceImpl(JwtUtil jwtUtil, HandlerExceptionResolver handlerExceptionResolver) {
         this.jwtUtil = jwtUtil;
         this.handlerExceptionResolver = handlerExceptionResolver;
@@ -30,9 +36,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
             if (StringUtils.hasLength(authorization)) {
-                RbacAccountDto account = this.jwtUtil.getAccount(authorization);
-                String tenantId = getAccountMetadata(request, TENANT_ID);
-                UserPrincipal userPrincipal = this.getUserPrincipal(account, tenantId);
+                UserPrincipal userPrincipal1 = this.jwtUtil.parseAuthorization(authorization);
+                Long tenantId = NumberUtils.parseNumber(request.getHeader(TENANT_ID), Long.class);
                 this.setSecurityContext(userPrincipal, request);
             }
             filterChain.doFilter(request, response);

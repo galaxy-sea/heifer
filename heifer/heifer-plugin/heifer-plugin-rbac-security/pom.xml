@@ -25,6 +25,20 @@
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-common-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-metadata</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

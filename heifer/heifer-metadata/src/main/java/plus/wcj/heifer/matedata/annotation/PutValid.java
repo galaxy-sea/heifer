@@ -1,4 +1,4 @@
-package plus.wcj.heifer.matedata.validator;
+package plus.wcj.heifer.matedata.annotation;
 
 /**
  * @author changjin wei(魏昌进)
