@@ -96,7 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
-        http.addFilter(new JwtAuthenticationFilter(this.authenticationManager(), this.jwtUtil, this.heiferUserDetailsServiceImpl, handlerExceptionResolver)).httpBasic();
+        http.addFilter(new JwtAuthenticationFilter(this.authenticationManager(), this.jwtUtil, this.heiferUserDetailsServiceImpl, handlerExceptionResolver));
     }
 
     /**
