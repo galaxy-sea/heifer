@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=changjin wei(魏昌进) -->
 <!-- since=2021-11-22 -->
-<mapper namespace="plus.wcj.heifer.boot.repository.dao.rbac.RbacPermissionDao">
+<mapper namespace="plus.wcj.heifer.plugin.rbac.dao.RbacPermissionDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.RbacPermission">
+    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.rbac.entity.RbacPermission">
         <id column="id" property="id" />
         <result column="parent_id" property="parentId" />
         <result column="name" property="name" />

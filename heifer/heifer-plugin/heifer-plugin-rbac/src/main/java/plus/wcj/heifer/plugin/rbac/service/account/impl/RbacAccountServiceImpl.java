@@ -3,10 +3,15 @@ package plus.wcj.heifer.plugin.rbac.service.account.impl;
 
 import plus.wcj.heifer.boot.mybatisplus.impl.ServiceImpl;
 import plus.wcj.heifer.plugin.rbac.dao.account.RbacAccountDao;
+import plus.wcj.heifer.plugin.rbac.dto.RoleDto;
 import plus.wcj.heifer.plugin.rbac.entity.account.RbacAccount;
 import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -18,5 +23,20 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RbacAccountServiceImpl extends ServiceImpl<RbacAccountDao, RbacAccount, Long> implements RbacAccountService {
+
+    @Override
+    public List<String> getAllPermission(Long id, Long tenantId) {
+        List<RoleDto> roleList = this.getAllRole(id, tenantId);
+        List<String> permissionList = super.getBaseMapper().selectPermissionBy(id, tenantId, roleList);
+
+        return Stream.concat(roleList.stream().map(role -> "ROLE_" + role.getName()),
+                             permissionList.stream()
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RoleDto> getAllRole(Long id, Long tenantId) {
+        return super.getBaseMapper().selectRoleBy(id, tenantId);
+    }
 
 }

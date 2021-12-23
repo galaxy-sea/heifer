@@ -12,15 +12,19 @@ import plus.wcj.heifer.common.security.UserPrincipal;
 import plus.wcj.heifer.common.security.properties.JwtProperties;
 import plus.wcj.heifer.matedata.exception.ResultException;
 import plus.wcj.heifer.matedata.exception.ResultStatusEnum;
+import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.security.Key;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author changjin wei(魏昌进)
@@ -30,7 +34,7 @@ import java.util.Date;
 public class JwtUtil {
 
     private final JwtProperties jwtProperties;
-
+    private final RbacAccountService rbacAccountService;
     public static final String BEARER = "Bearer ";
 
     public static final Long MAX_CLOCK_SKEW_SECONDS = 60L;
@@ -45,16 +49,21 @@ public class JwtUtil {
     /**
      * 反序列化
      * @param authorization
+     * @param tenantId
      * @return
      */
-    public UserPrincipal parseAuthorization(String authorization) {
+    public UserPrincipal parseAuthorization(String authorization, Long tenantId) {
         String jwt = authorization.startsWith(BEARER) ? authorization.substring("Bearer ".length()) : authorization;
-        JWTClaimsSet jwtClaimsSet = this.parseAuthorization(jwt, jwtProperties.getKey());
+        JWTClaimsSet jwtClaimsSet = this.parseJwt(jwt, jwtProperties.getKey());
         UserPrincipal userPrincipal = new UserPrincipal();
-        userPrincipal.setId(Long.valueOf(jwtClaimsSet.getJWTID()));
+        Long id = Long.valueOf(jwtClaimsSet.getJWTID());
+        userPrincipal.setId(id);
         userPrincipal.setUsername(jwtClaimsSet.getSubject());
         // TODO: 2021/12/22 changjin wei(魏昌进) 权限获取未实现
-        // userPrincipal.setAuthorities();
+        List<String> allPermission = rbacAccountService.getAllPermission(id, tenantId);
+        List<SimpleGrantedAuthority> authorities = allPermission.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        userPrincipal.setAuthorities(authorities);
+        return userPrincipal;
     }
 
 
@@ -63,7 +72,7 @@ public class JwtUtil {
      * @param jwt
      * @return
      */
-    private JWTClaimsSet parseAuthorization(String jwt,String key) {
+    private JWTClaimsSet parseJwt(String jwt,String key) {
         try {
             SignedJWT signedJwt = SignedJWT.parse(jwt);
             MACVerifier verifier = new MACVerifier(key);

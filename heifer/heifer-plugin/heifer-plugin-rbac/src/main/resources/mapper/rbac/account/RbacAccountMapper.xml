@@ -2,10 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=changjin wei(魏昌进) -->
 <!-- since=2021-11-22 -->
-<mapper namespace="plus.wcj.heifer.boot.repository.dao.rbac.account.RbacAccountDao">
-
+<mapper namespace="plus.wcj.heifer.plugin.rbac.dao.account.RbacAccountDao">
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="plus.wcj.heifer.boot.entity.rbac.account.RbacAccount">
+    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.rbac.entity.account.RbacAccount">
         <id column="id" property="id" />
         <result column="username" property="username" />
         <result column="phone" property="phone" />
@@ -24,7 +23,45 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, username, phone, email, password, nickname, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, create_time, create_by, update_time, update_by
+        id,
+        username,
+        phone,
+        email,
+        password,
+        nickname,
+        is_account_non_expired,
+        is_account_non_locked,
+        is_credentials_non_expired,
+        is_enabled,
+        create_time,
+        create_by,
+        update_time,
+        update_by
     </sql>
 
+    <select id="selectPermissionBy" resultType="java.lang.String">
+        SELECT DISTINCT rp.permission
+        FROM rbac_permission rp
+        WHERE rp.id IN (SELECT rbac_permission_id
+        FROM rbac_account_authority raa
+        WHERE rbac_account_id = #{id}
+        <if test="roleList != null and roleList.size() != 0">
+            UNION
+            SELECT rbac_permission_id
+            FROM rbac_role_authority rra
+            WHERE rbac_role_id IN
+            <foreach item="item" index="index" collection="roleList" open="(" separator="," close=")">
+                #{item.id}
+            </foreach>
+        </if>
+        )
+    </select>
+
+    <select id="selectRoleBy" resultType="plus.wcj.heifer.plugin.rbac.dto.RoleDto">
+        SELECT rr.id,
+               rr.name
+        FROM rbac_role rr
+        WHERE EXISTS(SELECT 1 FROM rbac_account_role_rel rarr WHERE rarr.rbac_account_id = #{id} AND rr.id = rarr.rbac_role_id)
+          AND rr.rbac_tenant_id = #{tenantId}
+    </select>
 </mapper>
