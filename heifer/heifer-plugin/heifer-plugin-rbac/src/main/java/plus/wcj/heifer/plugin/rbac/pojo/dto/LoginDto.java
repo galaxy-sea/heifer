@@ -26,6 +26,6 @@ public class LoginDto {
     /**
      * 记住我
      */
-    private Boolean rememberMe = false;
+    private Boolean rememberMe;
 
 }

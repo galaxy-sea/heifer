@@ -3,7 +3,6 @@
 <!-- author=changjin wei(魏昌进) -->
 <!-- since=2021-11-22 -->
 <mapper namespace="plus.wcj.heifer.plugin.rbac.dao.account.RbacAccountRoleRelDao">
-
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccountRoleRel">
         <id column="id" property="id" />
@@ -16,28 +15,32 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, rbac_account_id, rbac_role_id, rbac_tenant_id, create_time, create_by
+        id,
+        rbac_account_id,
+        rbac_role_id,
+        rbac_tenant_id,
+        create_time,
+        create_by
     </sql>
 
-        <select id="selectByRbacAccountId" resultMap="BaseResultMap">
-            SELECT
-            <include refid="Base_Column_List"/>
-            FROM rbac_account_role_rel
-            WHERE rbac_account_id = #{rbacAccountId}
-        </select>
+    <select id="selectByRbacAccountId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM rbac_account_role_rel
+        WHERE rbac_account_id = #{rbacAccountId}
+    </select>
 
-        <select id="selectByRbacRoleId" resultMap="BaseResultMap">
-            SELECT
-            <include refid="Base_Column_List"/>
-            FROM rbac_account_role_rel
-            WHERE rbac_role_id = #{rbacRoleId}
-        </select>
+    <select id="selectByRbacRoleId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM rbac_account_role_rel
+        WHERE rbac_role_id = #{rbacRoleId}
+    </select>
 
-        <select id="selectByRbacTenantId" resultMap="BaseResultMap">
-            SELECT
-            <include refid="Base_Column_List"/>
-            FROM rbac_account_role_rel
-            WHERE rbac_tenant_id = #{rbacTenantId}
-        </select>
-
+    <select id="selectByRbacTenantId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM rbac_account_role_rel
+        WHERE rbac_tenant_id = #{rbacTenantId}
+    </select>
 </mapper>

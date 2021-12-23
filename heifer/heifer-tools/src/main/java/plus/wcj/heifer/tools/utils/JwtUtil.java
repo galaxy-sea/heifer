@@ -4,6 +4,7 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JOSEObjectType;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
@@ -24,7 +25,7 @@ public class JwtUtil {
 
     public static final Long MAX_CLOCK_SKEW_SECONDS = 60L;
 
-    private final JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256)
+    private static final JWSHeader JWS_HEADER = new JWSHeader.Builder(JWSAlgorithm.HS256)
             // 设置类型 ( typ ) 参数
             .type(JOSEObjectType.JWT)
             // 设置密钥 ID ( kid ) 参数。
@@ -32,10 +33,30 @@ public class JwtUtil {
             .build();
 
     /**
+     * 序列化 claimsSet
+     *
+     * @param claimsSet
+     * @param key
+     *
+     * @return
+     */
+    public static String createJwt(JWTClaimsSet claimsSet, String key) {
+        SignedJWT signedJwt = new SignedJWT(JWS_HEADER, claimsSet);
+        try {
+            signedJwt.sign(new MACSigner(key));
+        } catch (JOSEException e) {
+            throw new ResultException(ResultStatusEnum.JOSE_EXCEPTION);
+        }
+
+        return signedJwt.serialize();
+    }
+
+
+    /**
      * 反序列化
      *
-     * @param tenantId
      * @param authorization
+     * @param key
      *
      * @return
      */

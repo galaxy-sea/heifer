@@ -4,6 +4,7 @@ package plus.wcj.heifer.plugin.rbac.service.account;
 import plus.wcj.heifer.boot.mybatisplus.IService;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.AccountDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.RoleDto;
+import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;
 import plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccount;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface RbacAccountService extends IService<RbacAccount, Long> {
     List<String> getAllPermission(Long id, Long tenantId);
 
     List<RoleDto> getAllRole(Long id, Long tenantId);
+
+    List<TenantDto> getAllTenant(String accountId);
 }

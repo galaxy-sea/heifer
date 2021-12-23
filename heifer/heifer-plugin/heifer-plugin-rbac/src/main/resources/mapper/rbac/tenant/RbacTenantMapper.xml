@@ -3,7 +3,6 @@
 <!-- author=changjin wei(魏昌进) -->
 <!-- since=2021-11-22 -->
 <mapper namespace="plus.wcj.heifer.plugin.rbac.dao.org.RbacTenantDao">
-
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.rbac.pojo.entity.tenant.RbacTenant">
         <id column="id" property="id" />
@@ -16,7 +15,11 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, create_time, create_by, update_time, update_by
+        id,
+        name,
+        create_time,
+        create_by,
+        update_time,
+        update_by
     </sql>
-
 </mapper>

@@ -42,15 +42,15 @@
 
     <select id="selectAccountByPhone" resultType="plus.wcj.heifer.plugin.rbac.pojo.dto.AccountDto">
         SELECT ra.id,
-               ra.username,
-               ra.phone,
-               ra.email,
-               ra.password,
-               ra.nickname,
-               ra.is_account_non_expired,
-               ra.is_account_non_locked,
-               ra.is_credentials_non_expired,
-               ra.is_enabled
+        ra.username,
+        ra.phone,
+        ra.email,
+        ra.password,
+        ra.nickname,
+        ra.is_account_non_expired,
+        ra.is_account_non_locked,
+        ra.is_credentials_non_expired,
+        ra.is_enabled
         FROM rbac_account ra
         WHERE phone = #{phone}
     </select>
@@ -59,14 +59,14 @@
     <select id="selectPermissionBy" resultType="java.lang.String">
         SELECT DISTINCT rp.permission
         FROM rbac_permission rp
-                WHERE rp.id IN (SELECT rbac_permission_id
-                                FROM rbac_account_authority raa
-                                WHERE rbac_account_id = #{id}
+        WHERE rp.id IN (SELECT rbac_permission_id
+        FROM rbac_account_authority raa
+        WHERE rbac_account_id = #{id}
         <if test="roleList != null and roleList.size() != 0">
             UNION
             SELECT rbac_permission_id
             FROM rbac_role_authority rra
-                    WHERE rbac_role_id IN
+            WHERE rbac_role_id IN
             <foreach item="item" index="index" collection="roleList" open="(" separator="," close=")">
                 #{item.id}
             </foreach>
@@ -76,9 +76,16 @@
 
     <select id="selectRoleBy" resultType="plus.wcj.heifer.plugin.rbac.pojo.dto.RoleDto">
         SELECT rr.id,
-               rr.name
+        rr.name
         FROM rbac_role rr
         WHERE EXISTS(SELECT 1 FROM rbac_account_role_rel rarr WHERE rarr.rbac_account_id = #{id} AND rr.id = rarr.rbac_role_id)
-          AND rr.rbac_tenant_id = #{tenantId}
+        AND rr.rbac_tenant_id = #{tenantId}
+    </select>
+
+    <select id="selectTenantBy" resultType="plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto">
+        SELECT rt.id,
+        rt.name
+        FROM rbac_tenant rt
+        WHERE id IN (SELECT ram.rbac_tenant_id FROM rbac_account_manage ram WHERE ram.rbac_account_id = #{id})
     </select>
 </mapper>

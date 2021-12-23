@@ -7,15 +7,16 @@ import plus.wcj.heifer.plugin.rbac.pojo.entity.tenant.RbacTenantAuthority;
 import java.util.List;
 
 /**
-* <p>
+ * <p>
  * 租户拥有的权限 Mapper 接口
  * </p>
-*
-* @author changjinwei
-* @since 2021-11-28
-*/
- public interface RbacTenantAuthorityDao extends BaseMapper<RbacTenantAuthority> {
+ *
+ * @author changjinwei
+ * @since 2021-11-28
+ */
+public interface RbacTenantAuthorityDao extends BaseMapper<RbacTenantAuthority> {
 
-   List<RbacTenantAuthority> selectByRbacTenantId(@Param("rbacTenantId") Long rbacTenantId);
-   List<RbacTenantAuthority> selectByRbacPermissionId(@Param("rbacPermissionId") Long rbacPermissionId);
- }
+    List<RbacTenantAuthority> selectByRbacTenantId(@Param("rbacTenantId") Long rbacTenantId);
+
+    List<RbacTenantAuthority> selectByRbacPermissionId(@Param("rbacPermissionId") Long rbacPermissionId);
+}

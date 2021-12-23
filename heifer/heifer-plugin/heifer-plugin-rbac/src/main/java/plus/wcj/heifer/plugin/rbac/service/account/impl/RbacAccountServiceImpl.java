@@ -5,6 +5,7 @@ import plus.wcj.heifer.boot.mybatisplus.impl.ServiceImpl;
 import plus.wcj.heifer.plugin.rbac.dao.account.RbacAccountDao;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.AccountDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.RoleDto;
+import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;
 import plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccount;
 import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
 
@@ -44,6 +45,11 @@ public class RbacAccountServiceImpl extends ServiceImpl<RbacAccountDao, RbacAcco
     @Override
     public List<RoleDto> getAllRole(Long id, Long tenantId) {
         return super.getBaseMapper().selectRoleBy(id, tenantId);
+    }
+
+    @Override
+    public List<TenantDto> getAllTenant(String id) {
+        return super.getBaseMapper().selectTenantBy(id);
     }
 
 }

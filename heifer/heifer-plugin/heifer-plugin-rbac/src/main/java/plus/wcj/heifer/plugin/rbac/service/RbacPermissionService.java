@@ -1,7 +1,6 @@
 package plus.wcj.heifer.plugin.rbac.service;
 
 
-
 import plus.wcj.heifer.boot.mybatisplus.IService;
 import plus.wcj.heifer.plugin.rbac.pojo.entity.RbacPermission;
 

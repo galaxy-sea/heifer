@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.AccountDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.RoleDto;
+import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;
 import plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccount;
 
 import java.util.List;
@@ -25,4 +26,5 @@ public interface RbacAccountDao extends BaseMapper<RbacAccount> {
 
     List<RoleDto> selectRoleBy(@Param("id") Long id, @Param("tenantId") Long tenantId);
 
+    List<TenantDto> selectTenantBy(@Param("id") String id);
 }

@@ -7,14 +7,14 @@ import plus.wcj.heifer.plugin.rbac.pojo.entity.RbacPermission;
 import java.util.List;
 
 /**
-* <p>
+ * <p>
  * 功能权限 Mapper 接口
  * </p>
-*
-* @author changjinwei
-* @since 2021-11-28
-*/
- public interface RbacPermissionDao extends BaseMapper<RbacPermission> {
+ *
+ * @author changjinwei
+ * @since 2021-11-28
+ */
+public interface RbacPermissionDao extends BaseMapper<RbacPermission> {
 
-   List<RbacPermission> selectByParentId(@Param("parentId") Long parentId);
- }
+    List<RbacPermission> selectByParentId(@Param("parentId") Long parentId);
+}

@@ -32,7 +32,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("/rbac-tenant")
 @RequiredArgsConstructor
-    public class RbacTenantController {
+public class RbacTenantController {
     private final RbacTenantService rbacTenantService;
 
     /** id查询 */
@@ -71,4 +71,4 @@ import javax.validation.constraints.NotNull;
     }
 
     // TODO: 2021-11-22 changjin wei(魏昌进) 补充其他接口
-    }
+}

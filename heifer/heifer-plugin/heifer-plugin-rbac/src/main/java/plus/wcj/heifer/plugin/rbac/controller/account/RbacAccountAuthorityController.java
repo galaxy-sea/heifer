@@ -32,7 +32,7 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("/rbac-account-authority")
 @RequiredArgsConstructor
-    public class RbacAccountAuthorityController {
+public class RbacAccountAuthorityController {
     private final RbacAccountAuthorityService rbacAccountAuthorityService;
 
     /** id查询 */
@@ -71,4 +71,4 @@ import javax.validation.constraints.NotNull;
     }
 
     // TODO: 2021-11-22 changjin wei(魏昌进) 补充其他接口
-    }
+}

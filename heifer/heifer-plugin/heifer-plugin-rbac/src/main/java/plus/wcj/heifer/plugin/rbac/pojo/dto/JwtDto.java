@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.pojo.vo;
+package plus.wcj.heifer.plugin.rbac.pojo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class JwtVo {
+public class JwtDto {
     /**
      * token 字段
      */
@@ -23,7 +23,7 @@ public class JwtVo {
      */
     private String tokenType = "Bearer ";
 
-    public JwtVo(String token) {
+    public JwtDto(String token) {
         this.token = this.tokenType + token;
     }
 }
