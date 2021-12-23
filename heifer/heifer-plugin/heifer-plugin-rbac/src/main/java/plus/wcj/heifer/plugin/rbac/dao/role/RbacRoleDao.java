@@ -2,7 +2,7 @@ package plus.wcj.heifer.plugin.rbac.dao.role;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-import plus.wcj.heifer.plugin.rbac.entity.role.RbacRole;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.role.RbacRole;
 
 import java.util.List;
 

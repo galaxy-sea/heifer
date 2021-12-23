@@ -5,7 +5,7 @@
 <mapper namespace="plus.wcj.heifer.plugin.rbac.dao.org.RbacTenantAuthorityDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.rbac.entity.tenant.RbacTenantAuthority">
+    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.rbac.pojo.entity.tenant.RbacTenantAuthority">
         <id column="id" property="id" />
         <result column="rbac_tenant_id" property="rbacTenantId" />
         <result column="rbac_permission_id" property="rbacPermissionId" />

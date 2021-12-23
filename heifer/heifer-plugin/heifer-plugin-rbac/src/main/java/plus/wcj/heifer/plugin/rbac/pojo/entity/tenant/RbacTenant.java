@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.entity.account;
+package plus.wcj.heifer.plugin.rbac.pojo.entity.tenant;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -21,7 +21,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 账户拥有角色关系表
+ * 租户
  * </p>
  *
  * @author changjinwei
@@ -30,10 +30,10 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@RedisHash("RbacAccountRoleRel")
-@TableName("rbac_account_role_rel")
-@ApiModel(value = "RbacAccountRoleRel对象", description = "账户拥有角色关系表")
-public class RbacAccountRoleRel implements Serializable {
+@RedisHash("RbacTenant")
+@TableName("rbac_tenant")
+@ApiModel(value = "RbacTenant对象", description = "租户")
+public class RbacTenant implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,29 +43,23 @@ public class RbacAccountRoleRel implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    /** 账户id */
-    @ApiModelProperty(value = "账户id")
-    @NotNull(groups = {PostValid.class}, message = "rbacAccountId is null")
-    @TableField("rbac_account_id")
-    private Long rbacAccountId;
-
-    /** 角色id */
-    @ApiModelProperty(value = "角色id")
-    @NotNull(groups = {PostValid.class}, message = "rbacRoleId is null")
-    @TableField("rbac_role_id")
-    private Long rbacRoleId;
-
-    /** 租户id */
-    @ApiModelProperty(value = "租户id")
-    @NotNull(groups = {PostValid.class}, message = "rbacTenantId is null")
-    @TableField("rbac_tenant_id")
-    private Long rbacTenantId;
+    /** 租户名称 */
+    @ApiModelProperty(value = "租户名称")
+    @NotNull(groups = {PostValid.class}, message = "name is null")
+    @TableField("name")
+    private String name;
 
     @TableField("create_time")
     private Date createTime;
 
     @TableField("create_by")
     private Long createBy;
+
+    @TableField("update_time")
+    private Date updateTime;
+
+    @TableField("update_by")
+    private Long updateBy;
 
 
 }

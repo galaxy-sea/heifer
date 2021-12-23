@@ -29,10 +29,9 @@
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-metadata</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.nimbusds</groupId>
-            <artifactId>nimbus-jose-jwt</artifactId>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-tools</artifactId>
         </dependency>
 
         <dependency>

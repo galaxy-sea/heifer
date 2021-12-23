@@ -5,7 +5,7 @@
 <mapper namespace="plus.wcj.heifer.plugin.rbac.dao.org.RbacTenantDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.rbac.entity.tenant.RbacTenant">
+    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.rbac.pojo.entity.tenant.RbacTenant">
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="create_time" property="createTime" />

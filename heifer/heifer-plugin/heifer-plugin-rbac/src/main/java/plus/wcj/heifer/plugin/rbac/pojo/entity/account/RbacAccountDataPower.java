@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.entity.role;
+package plus.wcj.heifer.plugin.rbac.pojo.entity.account;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -21,7 +21,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 角色拥有功能权限关系表
+ * 账户数据权限
  * </p>
  *
  * @author changjinwei
@@ -30,10 +30,10 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@RedisHash("RbacRoleAuthority")
-@TableName("rbac_role_authority")
-@ApiModel(value = "RbacRoleAuthority对象", description = "角色拥有功能权限关系表")
-public class RbacRoleAuthority implements Serializable {
+@RedisHash("RbacAccountDataPower")
+@TableName("rbac_account_data_power")
+@ApiModel(value = "RbacAccountDataPower对象", description = "账户数据权限")
+public class RbacAccountDataPower implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,23 +43,23 @@ public class RbacRoleAuthority implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    /** 角色id */
-    @ApiModelProperty(value = "角色id")
-    @NotNull(groups = {PostValid.class}, message = "rbacRoleId is null")
-    @TableField("rbac_role_id")
-    private Long rbacRoleId;
+    /** 账户id */
+    @ApiModelProperty(value = "账户id")
+    @NotNull(groups = {PostValid.class}, message = "rbacAccountId is null")
+    @TableField("rbac_account_id")
+    private Long rbacAccountId;
+
+    /** 部门id */
+    @ApiModelProperty(value = "部门id")
+    @NotNull(groups = {PostValid.class}, message = "rbacDeptId is null")
+    @TableField("rbac_dept_id")
+    private Long rbacDeptId;
 
     /** 租户id */
     @ApiModelProperty(value = "租户id")
     @NotNull(groups = {PostValid.class}, message = "rbacTenantId is null")
     @TableField("rbac_tenant_id")
     private Long rbacTenantId;
-
-    /** 功能权限id */
-    @ApiModelProperty(value = "功能权限id")
-    @NotNull(groups = {PostValid.class}, message = "rbacPermissionId is null")
-    @TableField("rbac_permission_id")
-    private Long rbacPermissionId;
 
     @TableField("create_time")
     private Date createTime;

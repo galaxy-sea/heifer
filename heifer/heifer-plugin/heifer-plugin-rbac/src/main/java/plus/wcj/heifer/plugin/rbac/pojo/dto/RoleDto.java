@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.dto;
+package plus.wcj.heifer.plugin.rbac.pojo.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

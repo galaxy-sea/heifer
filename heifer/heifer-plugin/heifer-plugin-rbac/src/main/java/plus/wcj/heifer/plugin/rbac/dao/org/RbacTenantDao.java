@@ -1,7 +1,7 @@
 package plus.wcj.heifer.plugin.rbac.dao.org;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import plus.wcj.heifer.plugin.rbac.entity.tenant.RbacTenant;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.tenant.RbacTenant;
 
 
 /**

@@ -3,7 +3,7 @@ package plus.wcj.heifer.plugin.rbac.service.impl;
 
 import plus.wcj.heifer.boot.mybatisplus.impl.ServiceImpl;
 import plus.wcj.heifer.plugin.rbac.dao.RbacPermissionDao;
-import plus.wcj.heifer.plugin.rbac.entity.RbacPermission;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.RbacPermission;
 import plus.wcj.heifer.plugin.rbac.service.RbacPermissionService;
 
 import org.springframework.stereotype.Service;

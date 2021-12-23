@@ -1,4 +1,5 @@
-package plus.wcj.heifer.plugin.rbac.entity.account;
+
+package plus.wcj.heifer.plugin.rbac.pojo.entity.tenant;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -21,7 +22,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 账户数据权限
+ * 租户拥有的权限
  * </p>
  *
  * @author changjinwei
@@ -30,10 +31,10 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@RedisHash("RbacAccountDataPower")
-@TableName("rbac_account_data_power")
-@ApiModel(value = "RbacAccountDataPower对象", description = "账户数据权限")
-public class RbacAccountDataPower implements Serializable {
+@RedisHash("RbacTenantAuthority")
+@TableName("rbac_tenant_authority")
+@ApiModel(value = "RbacTenantAuthority对象", description = "租户拥有的权限")
+public class RbacTenantAuthority implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,23 +44,17 @@ public class RbacAccountDataPower implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    /** 账户id */
-    @ApiModelProperty(value = "账户id")
-    @NotNull(groups = {PostValid.class}, message = "rbacAccountId is null")
-    @TableField("rbac_account_id")
-    private Long rbacAccountId;
-
-    /** 部门id */
-    @ApiModelProperty(value = "部门id")
-    @NotNull(groups = {PostValid.class}, message = "rbacDeptId is null")
-    @TableField("rbac_dept_id")
-    private Long rbacDeptId;
-
-    /** 租户id */
-    @ApiModelProperty(value = "租户id")
+    /** 组织id */
+    @ApiModelProperty(value = "组织id")
     @NotNull(groups = {PostValid.class}, message = "rbacTenantId is null")
     @TableField("rbac_tenant_id")
     private Long rbacTenantId;
+
+    /** 功能权限id */
+    @ApiModelProperty(value = "功能权限id")
+    @NotNull(groups = {PostValid.class}, message = "rbacPermissionId is null")
+    @TableField("rbac_permission_id")
+    private Long rbacPermissionId;
 
     @TableField("create_time")
     private Date createTime;

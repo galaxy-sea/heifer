@@ -2,7 +2,7 @@ package plus.wcj.heifer.plugin.rbac.service.tenant;
 
 
 import plus.wcj.heifer.boot.mybatisplus.IService;
-import plus.wcj.heifer.plugin.rbac.entity.tenant.RbacTenantAuthority;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.tenant.RbacTenantAuthority;
 
 /**
  * <p>

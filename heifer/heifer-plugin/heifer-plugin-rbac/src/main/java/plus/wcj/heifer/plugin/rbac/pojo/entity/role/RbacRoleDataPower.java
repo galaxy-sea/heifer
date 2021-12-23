@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.entity.role;
+package plus.wcj.heifer.plugin.rbac.pojo.entity.role;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -21,7 +21,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 角色表
+ * 角色数据权限
  * </p>
  *
  * @author changjinwei
@@ -30,18 +30,30 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@RedisHash("RbacRole")
-@TableName("rbac_role")
-@ApiModel(value = "RbacRole对象", description = "角色表")
-public class RbacRole implements Serializable {
+@RedisHash("RbacRoleDataPower")
+@TableName("rbac_role_data_power")
+@ApiModel(value = "RbacRoleDataPower对象", description = "角色数据权限")
+public class RbacRoleDataPower implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** 主键ID */
-    @ApiModelProperty(value = "主键ID")
+    /** 主键id */
+    @ApiModelProperty(value = "主键id")
     @NotNull(groups = {PostValid.class, PutValid.class}, message = "id is null")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
+
+    /** 角色id */
+    @ApiModelProperty(value = "角色id")
+    @NotNull(groups = {PostValid.class}, message = "rbacRoleId is null")
+    @TableField("rbac_role_id")
+    private Long rbacRoleId;
+
+    /** 部门id */
+    @ApiModelProperty(value = "部门id")
+    @NotNull(groups = {PostValid.class}, message = "rbacDeptId is null")
+    @TableField("rbac_dept_id")
+    private Long rbacDeptId;
 
     /** 租户id */
     @ApiModelProperty(value = "租户id")
@@ -49,23 +61,11 @@ public class RbacRole implements Serializable {
     @TableField("rbac_tenant_id")
     private Long rbacTenantId;
 
-    /** 名称 */
-    @ApiModelProperty(value = "名称")
-    @NotNull(groups = {PostValid.class}, message = "name is null")
-    @TableField("name")
-    private String name;
-
     @TableField("create_time")
     private Date createTime;
 
     @TableField("create_by")
     private Long createBy;
-
-    @TableField("update_time")
-    private Date updateTime;
-
-    @TableField("update_by")
-    private Long updateBy;
 
 
 }

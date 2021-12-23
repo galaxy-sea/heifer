@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.entity.account;
+package plus.wcj.heifer.plugin.rbac.pojo.entity.account;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

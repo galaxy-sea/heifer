@@ -1,10 +1,15 @@
 package plus.wcj.heifer.plugin.rbac.security;
 
+import com.nimbusds.jwt.JWTClaimsSet;
 import plus.wcj.heifer.common.security.UserPrincipal;
 import plus.wcj.heifer.common.security.filter.AuthenticationService;
+import plus.wcj.heifer.common.security.properties.JwtProperties;
+import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
+import plus.wcj.heifer.tools.utils.JwtUtil;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
@@ -13,21 +18,25 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author changjin wei(魏昌进)
  * @since 2021/12/21
  */
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private final JwtUtil jwtUtil;
     private final HandlerExceptionResolver handlerExceptionResolver;
+    private final JwtProperties jwtProperties;
+    private final RbacAccountService rbacAccountService;
 
     public static final String TENANT_ID = "Tenant-Id";
 
 
-    public AuthenticationServiceImpl(JwtUtil jwtUtil, HandlerExceptionResolver handlerExceptionResolver) {
-        this.jwtUtil = jwtUtil;
+    public AuthenticationServiceImpl(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, RbacAccountService rbacAccountService) {
         this.handlerExceptionResolver = handlerExceptionResolver;
+        this.jwtProperties = jwtProperties;
+        this.rbacAccountService = rbacAccountService;
     }
 
     @Override
@@ -37,7 +46,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
             if (StringUtils.hasLength(authorization)) {
                 Long tenantId = NumberUtils.parseNumber(request.getHeader(TENANT_ID), Long.class);
-                UserPrincipal userPrincipal = this.jwtUtil.parseAuthorization(authorization, tenantId);
+                JWTClaimsSet jwtClaimsSet = JwtUtil.parseAuthorization(authorization, jwtProperties.getKey());
+                UserPrincipal userPrincipal = this.getUserPrincipal(jwtClaimsSet, tenantId);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
@@ -45,5 +55,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         } catch (Exception e) {
             handlerExceptionResolver.resolveException(request, response, null, e);
         }
+    }
+
+    /**
+     * 获取{@link UserPrincipal}
+     *
+     * @param jwtClaimsSet JSON Web Token (JWT) claims set.
+     * @param tenantId 租户id 可能为null
+     *
+     * @return
+     */
+    private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, Long tenantId) {
+        Long id = Long.valueOf(jwtClaimsSet.getJWTID());
+        List<String> allPermission = rbacAccountService.getAllPermission(id, tenantId);
+        List<SimpleGrantedAuthority> authorities = allPermission.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        UserPrincipal userPrincipal = new UserPrincipal();
+        userPrincipal.setId(id);
+        userPrincipal.setUsername(jwtClaimsSet.getSubject());
+        userPrincipal.setAuthorities(authorities);
+
+        return userPrincipal;
     }
 }

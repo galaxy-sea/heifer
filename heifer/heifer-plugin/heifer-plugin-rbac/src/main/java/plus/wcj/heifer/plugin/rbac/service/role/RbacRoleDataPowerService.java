@@ -3,7 +3,7 @@ package plus.wcj.heifer.plugin.rbac.service.role;
 
 
 import plus.wcj.heifer.boot.mybatisplus.IService;
-import plus.wcj.heifer.plugin.rbac.entity.role.RbacRoleDataPower;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.role.RbacRoleDataPower;
 
 /**
  * <p>

@@ -14,6 +14,7 @@
         <module>heifer-metadata</module>
         <module>heifer-common</module>
         <module>heifer-plugin</module>
+        <module>heifer-tools</module>
     </modules>
 
     <properties>
@@ -80,6 +81,11 @@
             <dependency>
                 <groupId>plus.wcj</groupId>
                 <artifactId>heifer-metadata</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-tools</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

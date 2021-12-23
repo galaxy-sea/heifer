@@ -3,8 +3,9 @@ package plus.wcj.heifer.plugin.rbac.service.account.impl;
 
 import plus.wcj.heifer.boot.mybatisplus.impl.ServiceImpl;
 import plus.wcj.heifer.plugin.rbac.dao.account.RbacAccountDao;
-import plus.wcj.heifer.plugin.rbac.dto.RoleDto;
-import plus.wcj.heifer.plugin.rbac.entity.account.RbacAccount;
+import plus.wcj.heifer.plugin.rbac.pojo.dto.AccountDto;
+import plus.wcj.heifer.plugin.rbac.pojo.dto.RoleDto;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccount;
 import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +24,12 @@ import java.util.stream.Stream;
  */
 @Service
 public class RbacAccountServiceImpl extends ServiceImpl<RbacAccountDao, RbacAccount, Long> implements RbacAccountService {
+
+
+    @Override
+    public AccountDto getBy(String phone) {
+        return super.getBaseMapper().selectAccountByPhone(phone);
+    }
 
     @Override
     public List<String> getAllPermission(Long id, Long tenantId) {

@@ -3,7 +3,7 @@ package plus.wcj.heifer.plugin.rbac.service.account;
 
 
 import plus.wcj.heifer.boot.mybatisplus.IService;
-import plus.wcj.heifer.plugin.rbac.entity.account.RbacAccountDataPower;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccountDataPower;
 
 /**
  * <p>

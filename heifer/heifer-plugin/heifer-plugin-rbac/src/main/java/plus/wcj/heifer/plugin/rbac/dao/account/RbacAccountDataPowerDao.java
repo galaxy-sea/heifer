@@ -2,7 +2,7 @@ package plus.wcj.heifer.plugin.rbac.dao.account;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-import plus.wcj.heifer.plugin.rbac.entity.account.RbacAccountDataPower;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccountDataPower;
 
 import java.util.List;
 

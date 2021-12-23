@@ -5,7 +5,7 @@ import plus.wcj.heifer.matedata.annotation.PostValid;
 import plus.wcj.heifer.matedata.annotation.PutValid;
 import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
 import plus.wcj.heifer.matedata.tenant.Tenant;
-import plus.wcj.heifer.plugin.rbac.entity.tenant.RbacDept;
+import plus.wcj.heifer.plugin.rbac.pojo.entity.tenant.RbacDept;
 import plus.wcj.heifer.plugin.rbac.service.tenant.RbacDeptService;
 
 import lombok.RequiredArgsConstructor;
