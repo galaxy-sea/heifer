@@ -36,7 +36,6 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>1.5.20</version>
         </dependency>
 
         <dependency>
@@ -52,7 +51,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
-            <version>3.4.3</version>
             <scope>provided</scope>
         </dependency>
 
