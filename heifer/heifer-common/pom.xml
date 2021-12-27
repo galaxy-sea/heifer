@@ -13,6 +13,7 @@
 
     <modules>
         <module>heifer-common-security</module>
+        <module>heifer-common-mybatis</module>
     </modules>
 
     <properties>
