@@ -6,6 +6,8 @@ import com.github.pagehelper.PageRowBounds;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.session.RowBounds;
 
+import org.springframework.util.ReflectionUtils;
+
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class HeiferDialect extends PageHelper {
 
-    private final Map<String, Class<?>> returnType = new ConcurrentHashMap<>();
+    private final Map<String, Class<?>> returnTypes = new ConcurrentHashMap<>();
 
     @Override
     public boolean skip(MappedStatement ms, Object parameterObject, RowBounds rowBounds) {
@@ -32,29 +34,28 @@ public class HeiferDialect extends PageHelper {
 
     private Class<?> getReturnType(MappedStatement ms) {
         String msId = ms.getId();
-        Class<?> returnType = this.returnType.get(msId);
+        Class<?> returnType = this.returnTypes.get(msId);
         if (returnType != null) {
             return returnType;
         }
         int indexOf = msId.lastIndexOf('.');
         String className = msId.substring(0, indexOf);
-        Class<?> clazz = null;
+        Class<?> clazz;
         try {
             clazz = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            new RuntimeException("ClassNotFoundException: " + className);
+            throw new RuntimeException("ClassNotFoundException: " + className);
         }
         String msMethod = msId.substring(indexOf + 1);
-        Method[] clazzMethods = clazz.getMethods();
+        Method[] allDeclaredMethods = ReflectionUtils.getAllDeclaredMethods(clazz);
         Method method = null;
-        for (Method clazzMethod : clazzMethods) {
-            if (msMethod.equals(clazzMethod.getName())) {
-                method = clazzMethod;
+        for (Method declaredMethods : allDeclaredMethods) {
+            if (msMethod.equals(declaredMethods.getName())) {
+                returnType = declaredMethods.getReturnType();
                 break;
             }
         }
-        returnType = method.getReturnType();
-        this.returnType.put(msId, returnType);
-        return returnType;
+        this.returnTypes.put(msId, returnType);
+        return method.getReturnType();
     }
 }
