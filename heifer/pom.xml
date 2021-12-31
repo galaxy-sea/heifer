@@ -153,6 +153,12 @@
                 <version>1.5.20</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>3.10.2</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

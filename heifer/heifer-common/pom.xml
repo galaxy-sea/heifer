@@ -14,6 +14,7 @@
     <modules>
         <module>heifer-common-security</module>
         <module>heifer-common-mybatis</module>
+        <module>heifer-common-redis</module>
     </modules>
 
     <properties>
