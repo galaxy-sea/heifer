@@ -5,6 +5,7 @@ import plus.wcj.heifer.boot.common.exception.ResultStatusEnum;
 import plus.wcj.heifer.boot.common.security.filter.JwtAuthenticationFilter;
 import plus.wcj.heifer.boot.common.security.jwt.JwtUtil;
 import plus.wcj.heifer.boot.common.security.properties.IgnoreProperties;
+import plus.wcj.heifer.boot.common.security.properties.IgnoreWebSecurity;
 import plus.wcj.heifer.boot.common.security.userdetails.HeiferUserDetailsServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -24,15 +25,17 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.CorsUtils;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -51,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final HeiferUserDetailsServiceImpl heiferUserDetailsServiceImpl;
     private final JwtUtil jwtUtil;
     private final HandlerExceptionResolver handlerExceptionResolver;
+    private final RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     @Override
     @Bean
@@ -106,16 +110,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring()
-           .antMatchers(HttpMethod.GET, this.ignoreProperties.getGet())
-           .antMatchers(HttpMethod.POST, this.ignoreProperties.getPost())
-           .antMatchers(HttpMethod.DELETE, this.ignoreProperties.getDelete())
-           .antMatchers(HttpMethod.PUT, this.ignoreProperties.getPut())
-           .antMatchers(HttpMethod.HEAD, this.ignoreProperties.getHead())
-           .antMatchers(HttpMethod.PATCH, this.ignoreProperties.getPatch())
-           .antMatchers(HttpMethod.OPTIONS, this.ignoreProperties.getOptions())
-           .antMatchers(HttpMethod.TRACE, this.ignoreProperties.getTrace())
-           .antMatchers(this.ignoreProperties.getPattern());
+        WebSecurity.IgnoredRequestConfigurer ignoring = web.ignoring();
+
+        Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
+        for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : handlerMethods.entrySet()) {
+            if (entry.getValue().hasMethodAnnotation(IgnoreWebSecurity.class)) {
+                RequestMappingInfo key = entry.getKey();
+                Set<String> patternValues = key.getPatternValues();
+                Set<RequestMethod> methods = key.getMethodsCondition().getMethods();
+                if (CollectionUtils.isEmpty(methods)) {
+                    ignoring.antMatchers(patternValues.toArray(new String[0]));
+                } else {
+                    for (RequestMethod method : methods) {
+                        ignoring.antMatchers(HttpMethod.resolve(method.name()), patternValues.toArray(new String[0]));
+                    }
+                }
+
+
+            }
+        }
+
+
+        ignoring.antMatchers(HttpMethod.GET, this.ignoreProperties.getGet())
+                .antMatchers(HttpMethod.POST, this.ignoreProperties.getPost())
+                .antMatchers(HttpMethod.DELETE, this.ignoreProperties.getDelete())
+                .antMatchers(HttpMethod.PUT, this.ignoreProperties.getPut())
+                .antMatchers(HttpMethod.HEAD, this.ignoreProperties.getHead())
+                .antMatchers(HttpMethod.PATCH, this.ignoreProperties.getPatch())
+                .antMatchers(HttpMethod.OPTIONS, this.ignoreProperties.getOptions())
+                .antMatchers(HttpMethod.TRACE, this.ignoreProperties.getTrace())
+                .antMatchers(this.ignoreProperties.getPattern());
     }
 }
 

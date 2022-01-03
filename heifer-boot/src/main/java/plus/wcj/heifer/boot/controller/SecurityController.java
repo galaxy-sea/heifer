@@ -4,6 +4,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import plus.wcj.heifer.boot.common.security.properties.IgnoreWebSecurity;
 import plus.wcj.heifer.boot.extension.tenant.Tenant;
 import plus.wcj.heifer.boot.common.mvc.result.ResultResponseBody;
 
@@ -43,4 +45,13 @@ public class SecurityController {
     public Tenant testUser(Tenant tenant) {
         return tenant;
     }
+
+    @GetMapping("ignoreWebSecurity")
+    @ResultResponseBody
+    @IgnoreWebSecurity
+    public String ignoreWebSecurity() {
+        return "IgnoreWebSecurity";
+    }
+
+
 }
