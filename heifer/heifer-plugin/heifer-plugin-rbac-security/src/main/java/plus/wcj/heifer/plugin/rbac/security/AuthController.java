@@ -1,11 +1,10 @@
-package plus.wcj.heifer.plugin.rbac.controller;
+package plus.wcj.heifer.plugin.rbac.security;
 
 
 import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.JwtDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.LoginDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;
-import plus.wcj.heifer.plugin.rbac.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

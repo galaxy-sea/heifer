@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.service.impl;
+package plus.wcj.heifer.plugin.rbac.security;
 
 import com.nimbusds.jwt.JWTClaimsSet;
 import org.apache.commons.lang3.BooleanUtils;
@@ -9,7 +9,6 @@ import plus.wcj.heifer.plugin.rbac.pojo.dto.JwtDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.LoginDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;
 import plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccount;
-import plus.wcj.heifer.plugin.rbac.service.AuthService;
 import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
 import plus.wcj.heifer.tools.crypto.password.PasswordConfig;
 import plus.wcj.heifer.tools.utils.JwtUtil;
@@ -31,7 +30,6 @@ import java.util.List;
 @Service
 @Import(value = {PasswordConfig.class, JwtProperties.class})
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-
 public class AuthServiceImpl implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
