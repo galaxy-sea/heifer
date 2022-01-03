@@ -25,8 +25,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- spring  -->
-        <spring-boot.version>2.4.13</spring-boot.version>
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
+        <spring-boot.version>2.4.2</spring-boot.version>
+        <spring-cloud.version>2020.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
         <!-- orm -->
