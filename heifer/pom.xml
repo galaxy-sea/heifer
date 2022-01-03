@@ -62,30 +62,66 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <!-- heifer -->
             <dependency>
                 <groupId>plus.wcj</groupId>
                 <artifactId>heifer-boot</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-plugin-rbac</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>plus.wcj</groupId>
                 <artifactId>heifer-metadata</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>plus.wcj</groupId>
                 <artifactId>heifer-tools</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- heifer-common -->
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-nacos</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- heifer-plugin -->
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-plugin-oss</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-plugin-rbac</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-plugin-rbac-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -120,7 +156,6 @@
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>1.4.1</version>
             </dependency>
-
 
 
             <!--  utils  -->
@@ -176,6 +211,11 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8</version>
+            </plugin>
 
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
