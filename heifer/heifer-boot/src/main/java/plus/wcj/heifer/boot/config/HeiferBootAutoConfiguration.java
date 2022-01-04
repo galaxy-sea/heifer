@@ -17,7 +17,7 @@ import javax.validation.ValidatorFactory;
  * @since 2021/12/20
  */
 @Configuration
-public class HeiferBootEnableAutoConfiguration {
+public class HeiferBootAutoConfiguration {
 
     @Bean
     public Validator getValidatorFactory() {
