@@ -13,8 +13,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date Created in 2018-12-17 17:37
  */
 @Data
-@ConfigurationProperties(prefix = "heifer.security.ignoring")
-public class IgnoreProperties {
+@ConfigurationProperties(prefix = "heifer.security.ignore.matchers")
+public class IgnoreWebSecurityProperties {
     /**
      * 需要忽略的 URL 格式，不考虑请求方法
      */

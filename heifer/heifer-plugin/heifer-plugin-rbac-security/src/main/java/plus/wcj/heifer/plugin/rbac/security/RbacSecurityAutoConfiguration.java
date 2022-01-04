@@ -1,7 +1,7 @@
 package plus.wcj.heifer.plugin.rbac.security;
 
 
-import plus.wcj.heifer.common.security.config.SecurityConfig;
+import plus.wcj.heifer.common.security.config.SecurityAutoConfiguration;
 import plus.wcj.heifer.common.security.filter.AuthenticationService;
 import plus.wcj.heifer.matedata.properties.JwtProperties;
 import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
  * @author yangkai.shen
  * @date Created in 2018-12-07 16:46
  */
-@AutoConfigureBefore(SecurityConfig.class)
+@AutoConfigureBefore(SecurityAutoConfiguration.class)
 public class RbacSecurityAutoConfiguration {
 
     @Bean
