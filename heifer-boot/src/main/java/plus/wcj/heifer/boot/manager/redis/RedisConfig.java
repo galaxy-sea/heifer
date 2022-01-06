@@ -1,5 +1,6 @@
 package plus.wcj.heifer.boot.manager.redis;
 
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,17 +34,10 @@ public class RedisConfig {
 
 
     @Bean
-    public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
-
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                                                                .entryTtl(Duration.ofMinutes(10))
-                                                                .disableCachingNullValues()
-                                                                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()));
-
-
-        return RedisCacheManager.builder(RedisCacheWriter.lockingRedisCacheWriter(connectionFactory))
-                                .cacheDefaults(config)
-                                .build();
+    public CacheManager dynamicTtlCacheManager(RedisConnectionFactory factory) {
+        RedisCacheWriter redisCacheWriter = RedisCacheWriter.lockingRedisCacheWriter(factory);
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
+        return new RandomTtlRedisCacheManager(redisCacheWriter, config, Duration.ofMinutes(10), Duration.ofMinutes(20));
     }
 
 }
