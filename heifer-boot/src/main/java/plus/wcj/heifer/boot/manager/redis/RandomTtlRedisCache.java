@@ -45,13 +45,6 @@ public class RandomTtlRedisCache extends RedisCache {
         this.minMillis = (int) maxTtl.toMillis();
     }
 
-
-    public static void main(String[] args) {
-        Duration ttl = Duration.ofMinutes(10);
-        System.out.println(ttl.getSeconds());
-    }
-
-
     @Override
     public void put(Object key, Object value) {
         Object cacheValue = preProcessCacheValue(value);
@@ -94,6 +87,6 @@ public class RandomTtlRedisCache extends RedisCache {
      */
     private Duration generateRandomDuration() {
         int randomSecond = minMillis + random.nextInt(diffMillis + 1);
-        return Duration.ofSeconds(randomSecond);
+        return Duration.ofMillis(randomSecond);
     }
 }
