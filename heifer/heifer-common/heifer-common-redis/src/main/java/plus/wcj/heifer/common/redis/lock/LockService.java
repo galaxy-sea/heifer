@@ -1,4 +1,4 @@
-package plus.wcj.heifer.common.redis;
+package plus.wcj.heifer.common.redis.lock;
 
 import java.util.concurrent.TimeUnit;
 

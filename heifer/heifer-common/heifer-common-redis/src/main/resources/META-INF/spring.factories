@@ -1,0 +1,4 @@
+# AutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+plus.wcj.heifer.common.redis.data.RedisAutoConfiguration,\
+plus.wcj.heifer.common.redis.lock.RedisLockAutoConfiguration
