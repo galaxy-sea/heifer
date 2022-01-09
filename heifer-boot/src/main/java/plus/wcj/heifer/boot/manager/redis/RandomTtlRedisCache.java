@@ -5,8 +5,8 @@ import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 
-import java.security.SecureRandom;
 import java.time.Duration;
+import java.util.Random;
 
 /**
  * @author changjin wei(魏昌进)
@@ -14,20 +14,11 @@ import java.time.Duration;
  */
 public class RandomTtlRedisCache extends RedisCache {
 
-    /**
-     * 最小失效时间
-     */
-    private Duration minTtl;
+    private final int timeToLiveOffset;
+    private final long timeToLive;
 
-    /**
-     * 最大失效时间
-     */
-    private Duration maxTtl;
-
-    private final int diffMillis;
-    private final int minMillis;
-
-    private SecureRandom random = new SecureRandom();
+    @SuppressWarnings("ReplacePseudorandomGenerator")
+    private final Random random = new Random();
 
 
     /**
@@ -37,12 +28,10 @@ public class RandomTtlRedisCache extends RedisCache {
      * @param cacheWriter must not be {@literal null}.
      * @param cacheConfig must not be {@literal null}.
      */
-    protected RandomTtlRedisCache(String name, RedisCacheWriter cacheWriter, RedisCacheConfiguration cacheConfig, Duration minTtl, Duration maxTtl) {
+    protected RandomTtlRedisCache(String name, RedisCacheWriter cacheWriter, RedisCacheConfiguration cacheConfig, int timeToLiveOffset) {
         super(name, cacheWriter, cacheConfig);
-        this.minTtl = minTtl;
-        this.maxTtl = maxTtl;
-        this.diffMillis = (int) maxTtl.minus(minTtl).toMillis();
-        this.minMillis = (int) maxTtl.toMillis();
+        this.timeToLiveOffset = timeToLiveOffset;
+        this.timeToLive = cacheConfig.getTtl().toMillis();
     }
 
     @Override
@@ -86,7 +75,9 @@ public class RandomTtlRedisCache extends RedisCache {
      * @return Duration
      */
     private Duration generateRandomDuration() {
-        int randomSecond = minMillis + random.nextInt(diffMillis + 1);
-        return Duration.ofMillis(randomSecond);
+        if (timeToLiveOffset <= 0) {
+            return super.getCacheConfiguration().getTtl();
+        }
+        return Duration.ofMillis(timeToLive + random.nextInt(timeToLiveOffset + 1));
     }
 }

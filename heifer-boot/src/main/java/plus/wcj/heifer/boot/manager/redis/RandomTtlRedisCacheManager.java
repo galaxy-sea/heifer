@@ -5,7 +5,6 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 
-import java.time.Duration;
 import java.util.Map;
 
 /**
@@ -16,15 +15,13 @@ public class RandomTtlRedisCacheManager extends RedisCacheManager {
 
     private RedisCacheWriter cacheWriter;
 
-    private Duration minTtl;
+    private int timeToLiveOffset;
 
-    private Duration maxTtl;
 
-    public RandomTtlRedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration, Duration minTtl, Duration maxTtl) {
+    public RandomTtlRedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration, int timeToLiveOffset) {
         super(cacheWriter, defaultCacheConfiguration);
         this.cacheWriter = cacheWriter;
-        this.minTtl = minTtl;
-        this.maxTtl = maxTtl;
+        this.timeToLiveOffset = timeToLiveOffset;
     }
 
     public RandomTtlRedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration, String... initialCacheNames) {
@@ -50,7 +47,7 @@ public class RandomTtlRedisCacheManager extends RedisCacheManager {
 
     @Override
     protected RedisCache createRedisCache(String name, RedisCacheConfiguration cacheConfig) {
-        return new RandomTtlRedisCache(name, cacheWriter, cacheConfig != null ? cacheConfig : RedisCacheConfiguration.defaultCacheConfig(), minTtl, maxTtl);
+        return new RandomTtlRedisCache(name, cacheWriter, cacheConfig != null ? cacheConfig : RedisCacheConfiguration.defaultCacheConfig(), timeToLiveOffset);
     }
 
 

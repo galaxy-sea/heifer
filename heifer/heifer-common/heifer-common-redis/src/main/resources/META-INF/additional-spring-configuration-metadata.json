@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "spring.cache.redis.time-offset-to-live",
+      "type": "java.lang.String",
+      "description": "Description for heifer.cache.redis.time-offset-to-live.",
+      "defaultValue": 0
+    }
+  ]
+}

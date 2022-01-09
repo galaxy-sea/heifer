@@ -1,5 +1,11 @@
 package plus.wcj.heifer.common.redis.data;
 
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -16,7 +22,14 @@ import java.time.Duration;
  * @since 2021/7/23
  */
 @EnableCaching
+@EnableConfigurationProperties(CacheProperties.class)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RedisAutoConfiguration {
+
+    private final CacheProperties cacheProperties;
+
+    @Value(value = "${spring.cache.redis.time-offset-to-live}")
+    private Duration timeToLiveOffset;
 
     @Bean
     public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -32,12 +45,22 @@ public class RedisAutoConfiguration {
     @Bean
     public RandomTtlRedisCacheManager randomTtlRedisCacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory);
-        RedisCacheConfiguration config = RedisCacheConfiguration
-                .defaultCacheConfig()
-                .disableCachingNullValues()
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()))
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string()));
-        return new RandomTtlRedisCacheManager(redisCacheWriter, config, Duration.ofMinutes(10), Duration.ofMinutes(20));
+        CacheProperties.Redis redisProperties = cacheProperties.getRedis();
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
+        config = config.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()));
+        if (redisProperties.getTimeToLive() != null) {
+            config = config.entryTtl(redisProperties.getTimeToLive());
+        }
+        if (redisProperties.getKeyPrefix() != null) {
+            config = config.prefixCacheNameWith(redisProperties.getKeyPrefix());
+        }
+        if (!redisProperties.isCacheNullValues()) {
+            config = config.disableCachingNullValues();
+        }
+        if (!redisProperties.isUseKeyPrefix()) {
+            config = config.disableKeyPrefix();
+        }
+        return new RandomTtlRedisCacheManager(redisCacheWriter, config, timeToLiveOffset == null ? 0 : (int) timeToLiveOffset.toMillis());
     }
 
 }

@@ -35,6 +35,9 @@ heifer:
       options:
       trace:
       pattern:
+  cache:
+    redis:
+      time-offset-to-live: 1h
 jasypt:
   encryptor:
     password: xxxxxxxxx
@@ -122,6 +125,8 @@ spring:
   cache:
     redis:
       cache-null-values: true
+      time-to-live: 1h
+      time-offset-to-live: 1h
   main:
     allow-bean-definition-overriding: false
   messages:
