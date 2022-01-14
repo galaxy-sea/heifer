@@ -40,5 +40,4 @@ public interface DeleteMapper<T, ID extends Serializable> {
     int deleteByMap(Map<String, Object> columnMap);
 
 
-
 }

@@ -9,8 +9,8 @@ import javax.validation.constraints.NotEmpty;
  * 登录请求参数
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-10 15:52
+ * @author changjin wei(魏昌进)
+ * @since 2022-01-13
  */
 @Data
 public class LoginDto {

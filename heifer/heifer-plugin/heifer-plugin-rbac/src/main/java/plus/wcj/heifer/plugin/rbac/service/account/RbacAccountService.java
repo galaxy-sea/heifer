@@ -25,5 +25,5 @@ public interface RbacAccountService extends IService<RbacAccount, Long> {
 
     List<RoleDto> getAllRole(Long id, Long tenantId);
 
-    List<TenantDto> getAllTenant(String accountId);
+    List<TenantDto> getAllTenant(String id);
 }

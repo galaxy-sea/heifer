@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.security;
+package plus.wcj.heifer.plugin.rbac.service.impl;
 
 import com.nimbusds.jwt.JWTClaimsSet;
 import org.apache.commons.lang3.BooleanUtils;
@@ -9,6 +9,7 @@ import plus.wcj.heifer.plugin.rbac.pojo.dto.JwtDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.LoginDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;
 import plus.wcj.heifer.plugin.rbac.pojo.entity.account.RbacAccount;
+import plus.wcj.heifer.plugin.rbac.service.AuthService;
 import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
 import plus.wcj.heifer.tools.crypto.password.PasswordConfig;
 import plus.wcj.heifer.tools.utils.JwtUtil;

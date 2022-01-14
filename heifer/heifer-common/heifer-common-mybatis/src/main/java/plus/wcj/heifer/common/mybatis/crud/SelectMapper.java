@@ -62,7 +62,7 @@ public interface SelectMapper<T, ID extends Serializable> {
      *
      * @param query 实体对象封装操作类（可以为 null）
      */
-    List<T> selectList(PageRowBounds page,T query);
+    List<T> selectList(PageRowBounds page, T query);
 
 
     /**

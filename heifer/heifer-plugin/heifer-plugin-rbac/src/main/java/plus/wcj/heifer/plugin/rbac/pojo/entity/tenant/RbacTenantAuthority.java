@@ -1,4 +1,3 @@
-
 package plus.wcj.heifer.plugin.rbac.pojo.entity.tenant;
 
 import com.baomidou.mybatisplus.annotation.IdType;

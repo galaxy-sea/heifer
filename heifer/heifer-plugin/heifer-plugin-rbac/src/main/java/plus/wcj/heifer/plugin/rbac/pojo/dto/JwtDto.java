@@ -8,8 +8,8 @@ import lombok.Setter;
  * JWT 响应返回
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-10 16:01
+ * @author changjin wei(魏昌进)
+ * @since 2022-01-13
  */
 @Getter
 @Setter

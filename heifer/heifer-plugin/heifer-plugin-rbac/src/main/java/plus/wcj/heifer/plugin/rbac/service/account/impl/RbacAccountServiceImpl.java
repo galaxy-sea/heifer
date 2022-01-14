@@ -2,6 +2,7 @@ package plus.wcj.heifer.plugin.rbac.service.account.impl;
 
 
 import plus.wcj.heifer.boot.mybatisplus.impl.ServiceImpl;
+import plus.wcj.heifer.matedata.service.UserPrincipalService;
 import plus.wcj.heifer.plugin.rbac.dao.account.RbacAccountDao;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.AccountDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.RoleDto;
@@ -24,7 +25,7 @@ import java.util.stream.Stream;
  * @since 2021-11-22
  */
 @Service
-public class RbacAccountServiceImpl extends ServiceImpl<RbacAccountDao, RbacAccount, Long> implements RbacAccountService {
+public class RbacAccountServiceImpl extends ServiceImpl<RbacAccountDao, RbacAccount, Long> implements RbacAccountService, UserPrincipalService {
 
 
     @Override
@@ -40,6 +41,11 @@ public class RbacAccountServiceImpl extends ServiceImpl<RbacAccountDao, RbacAcco
         return Stream.concat(roleList.stream().map(role -> "ROLE_" + role.getName()),
                              permissionList.stream()
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Long> getAllPower(Long id, Long tenantId) {
+        return super.getBaseMapper().getAllPower(id, tenantId);
     }
 
     @Override

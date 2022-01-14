@@ -9,8 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * 忽略配置
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-17 17:37
+ * @author changjin wei(魏昌进)
+ * @since 2022-01-13
  */
 @Data
 @ConfigurationProperties(prefix = "heifer.security.ignore.matchers")

@@ -12,10 +12,10 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -45,8 +45,8 @@ import java.util.Set;
  * Security 配置
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-07 16:46
+ * @author changjin wei(魏昌进)
+ * @since 2022-01-13
  */
 @Configuration
 @EnableWebSecurity
@@ -62,39 +62,9 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
-
     @Bean
-    @SuppressWarnings({"AlibabaRemoveCommentedCode", "CommentedOutCode"})
-    public PasswordEncoder encoder() {
-        // DelegatingPasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        String encodingId = "bcrypt";
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-        Map<String, PasswordEncoder> encoders = new HashMap<>(8);
-
-        encoders.put(encodingId, bCryptPasswordEncoder);
-
-        // encoders.put("ldap", new org.springframework.security.crypto.password.LdapShaPasswordEncoder());
-        // encoders.put("MD4", new org.springframework.security.crypto.password.Md4PasswordEncoder());
-        // encoders.put("MD5", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("MD5"));
-        // encoders.put("noop", org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance());
-        // encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
-        // encoders.put("scrypt", new SCryptPasswordEncoder());
-        // encoders.put("SHA-1", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-1"));
-        // encoders.put("SHA-256", new org.springframework.security.crypto.password.MessageDigestPasswordEncoder("SHA-256"));
-        // encoders.put("sha256", new org.springframework.security.crypto.password.StandardPasswordEncoder());
-        // encoders.put("argon2", new Argon2PasswordEncoder());
-
-        DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(encodingId, encoders);
-        passwordEncoder.setDefaultPasswordEncoderForMatches(bCryptPasswordEncoder);
-
-        return passwordEncoder;
-    }
-
-    @Bean
-    public AuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder) {
+    public AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
-        impl.setPasswordEncoder(passwordEncoder);
         impl.setUserDetailsService(username -> {
             throw new ResultException(ResultStatusEnum.INTERNAL_SERVER_ERROR);
         });

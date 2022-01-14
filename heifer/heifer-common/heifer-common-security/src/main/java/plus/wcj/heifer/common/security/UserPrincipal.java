@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  * 自定义User
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-10 15:09
+ * @author changjin wei(魏昌进)
+ * @since 2022-01-13
  */
 @Data
 public class UserPrincipal implements UserDetails {

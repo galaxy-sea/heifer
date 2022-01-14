@@ -24,6 +24,9 @@ public interface RbacAccountDao extends BaseMapper<RbacAccount> {
 
     List<String> selectPermissionBy(@Param("id") Long id, @Param("tenantId") Long tenantId, @Param("roleList") List<RoleDto> roleList);
 
+    List<Long> getAllPower(@Param("id") Long id, @Param("tenantId") Long tenantId);
+
+
     List<RoleDto> selectRoleBy(@Param("id") Long id, @Param("tenantId") Long tenantId);
 
     List<TenantDto> selectTenantBy(@Param("id") String id);

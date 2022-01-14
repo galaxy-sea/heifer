@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  * Jwt 认证过滤器
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-10 15:15
+ * @author changjin wei(魏昌进)
+ * @since 2022-01-13
  */
 @Slf4j
 public class AuthenticationFilter extends OncePerRequestFilter {

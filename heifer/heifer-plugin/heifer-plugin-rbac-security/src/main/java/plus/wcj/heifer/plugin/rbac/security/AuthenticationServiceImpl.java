@@ -4,7 +4,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import plus.wcj.heifer.common.security.UserPrincipal;
 import plus.wcj.heifer.common.security.filter.AuthenticationService;
 import plus.wcj.heifer.matedata.properties.JwtProperties;
-import plus.wcj.heifer.plugin.rbac.service.account.RbacAccountService;
+import plus.wcj.heifer.matedata.service.UserPrincipalService;
 import plus.wcj.heifer.tools.utils.JwtUtil;
 
 import org.springframework.http.HttpHeaders;
@@ -28,15 +28,15 @@ import java.util.stream.Collectors;
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtProperties jwtProperties;
-    private final RbacAccountService rbacAccountService;
+    private final UserPrincipalService userPrincipalService;
 
     public static final String TENANT_ID = "Tenant-Id";
 
 
-    public AuthenticationServiceImpl(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, RbacAccountService rbacAccountService) {
+    public AuthenticationServiceImpl(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, UserPrincipalService userPrincipalService) {
         this.handlerExceptionResolver = handlerExceptionResolver;
         this.jwtProperties = jwtProperties;
-        this.rbacAccountService = rbacAccountService;
+        this.userPrincipalService = userPrincipalService;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      */
     private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, Long tenantId) {
         Long id = Long.valueOf(jwtClaimsSet.getJWTID());
-        List<String> allPermission = rbacAccountService.getAllPermission(id, tenantId);
+        List<String> allPermission = userPrincipalService.getAllPermission(id, tenantId);
         List<SimpleGrantedAuthority> authorities = allPermission.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         UserPrincipal userPrincipal = new UserPrincipal();
         userPrincipal.setId(id);

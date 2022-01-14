@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.security;
+package plus.wcj.heifer.plugin.rbac.service;
 
 import plus.wcj.heifer.plugin.rbac.pojo.dto.JwtDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.LoginDto;

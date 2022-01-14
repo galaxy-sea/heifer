@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
  * JWT 配置
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-07 13:42
+ * @author changjin wei(魏昌进)
+ * @since 2022-01-13
  */
 @Data
 public class JwtProperties {

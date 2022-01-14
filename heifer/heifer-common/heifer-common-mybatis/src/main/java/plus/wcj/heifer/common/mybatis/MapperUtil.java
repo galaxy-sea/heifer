@@ -7,6 +7,4 @@ package plus.wcj.heifer.common.mybatis;
 public abstract class MapperUtil {
 
 
-
-
 }

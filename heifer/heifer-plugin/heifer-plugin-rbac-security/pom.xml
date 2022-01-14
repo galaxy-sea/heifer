@@ -19,10 +19,6 @@
     <dependencies>
         <dependency>
             <groupId>plus.wcj</groupId>
-            <artifactId>heifer-plugin-rbac</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>plus.wcj</groupId>
             <artifactId>heifer-common-security</artifactId>
         </dependency>
         <dependency>
@@ -37,7 +33,16 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+
     </dependencies>
 
 </project>

@@ -1,10 +1,11 @@
-package plus.wcj.heifer.plugin.rbac.security;
+package plus.wcj.heifer.plugin.rbac.controller;
 
 
 import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.JwtDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.LoginDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;
+import plus.wcj.heifer.plugin.rbac.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +28,8 @@ import java.util.List;
  * 认证 Controller，包括用户注册，用户登录请求
  * </p>
  *
- * @author yangkai.shen
- * @date Created in 2018-12-07 17:23
+ * @author changjin wei(魏昌进)
+ * @since 2022-01-13
  */
 @Slf4j
 @RestController

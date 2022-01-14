@@ -20,7 +20,7 @@ public interface UpdateMapper<T, ID extends Serializable> {
      * 根据 whereEntity 条件，更新记录
      *
      * @param entity 实体对象 (set 条件值,可以为 null)
-     * @param idList  主键ID列表(不能为 null 以及 empty)
+     * @param idList 主键ID列表(不能为 null 以及 empty)
      */
     int updateByIds(T entity, Collection<ID> idList);
 

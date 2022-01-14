@@ -73,6 +73,16 @@
         </if>
         )
     </select>
+    <select id="getAllPower" resultType="java.lang.Long">
+        SELECT radp.rbac_dept_id
+        FROM rbac_account_data_power radp
+        WHERE radp.rbac_account_id = #{id}
+        UNION
+        SELECT rrdp.rbac_dept_id
+        FROM rbac_role_data_power rrdp
+        WHERE rrdp.rbac_role_id IN (SELECT rarr.rbac_role_id FROM rbac_account_role_rel rarr WHERE rarr.rbac_account_id = #{tenantId})
+    </select>
+
 
     <select id="selectRoleBy" resultType="plus.wcj.heifer.plugin.rbac.pojo.dto.RoleDto">
         SELECT rr.id,
