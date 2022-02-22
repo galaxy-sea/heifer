@@ -132,7 +132,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.97.0.230:8848
+        server-addr: xxxx
     gateway:
       discovery:
         locator:
