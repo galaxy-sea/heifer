@@ -1,16 +1,19 @@
 package plus.wcj.heifer.plugin.oss.aliyun;
 
 
+import com.aliyun.oss.HttpMethod;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
+import plus.wcj.heifer.plugin.oss.OssServer;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -58,5 +61,17 @@ public class AliyunOssServer implements OssServer<AliyunOssProperties> {
         respMap.put("host", aliyunOssProperties.getHost());
         respMap.put("expire", String.valueOf(expireEndTime));
         return respMap;
+    }
+
+    @Override
+    public URL redirect(String key) {
+        return this.redirect(key, this.aliyunOssProperties);
+    }
+
+    @Override
+    public URL redirect(String key, AliyunOssProperties aliyunOssProperties) {
+        long expireEndTime = System.currentTimeMillis() + aliyunOssProperties.getExpire();
+        Date expiration = new Date(expireEndTime);
+        return ossClient.generatePresignedUrl(aliyunOssProperties.getBucket(), key, expiration, HttpMethod.GET);
     }
 }

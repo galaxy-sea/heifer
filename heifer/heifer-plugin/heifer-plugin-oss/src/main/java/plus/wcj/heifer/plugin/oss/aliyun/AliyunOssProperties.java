@@ -1,6 +1,8 @@
 package plus.wcj.heifer.plugin.oss.aliyun;
 
 
+import plus.wcj.heifer.plugin.oss.OssProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 

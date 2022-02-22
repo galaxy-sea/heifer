@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.oss.aliyun;
+package plus.wcj.heifer.plugin.oss;
 
 /**
  * oss配置顶级接口

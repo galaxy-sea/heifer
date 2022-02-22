@@ -1,5 +1,6 @@
-package plus.wcj.heifer.plugin.oss.aliyun;
+package plus.wcj.heifer.plugin.oss;
 
+import java.net.URL;
 import java.util.Map;
 
 /**
@@ -29,5 +30,24 @@ public interface OssServer<OP extends OssProperties> {
      * @return 授权信息
      */
     Map<String, String> policy(String dir, OP ossProperties);
+
+    /**
+     * 私有oss授权访问，
+     *
+     * @param key oss object path
+     *
+     * @return aliyun oss url
+     */
+    URL redirect(String key);
+
+    /**
+     * 私有oss授权访问，使用302重定向到aliyun oss
+     *
+     * @param key oss object path
+     * @param ossProperties 配置信息
+     *
+     * @return aliyun oss url
+     */
+    URL redirect(String key, OP ossProperties);
 
 }
