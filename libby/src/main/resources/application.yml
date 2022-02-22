@@ -129,6 +129,14 @@ spring:
   web:
     resources:
       add-mappings: false
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.97.0.230:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
 mybatis-plus:
   # 检查配置文件
   check-config-location: true

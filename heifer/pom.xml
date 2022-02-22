@@ -11,8 +11,9 @@
 
     <modules>
         <module>heifer-boot</module>
-        <module>heifer-metadata</module>
         <module>heifer-common</module>
+        <module>heifer-gateway</module>
+        <module>heifer-metadata</module>
         <module>heifer-plugin</module>
         <module>heifer-tools</module>
     </modules>
@@ -35,6 +36,9 @@
         <xk-time.version>3.2.2.Mini</xk-time.version>
         <commons-io.version>2.11.0</commons-io.version>
         <commons-collections4.version>4.4</commons-collections4.version>
+
+
+        <jasypt.version>3.0.3</jasypt.version>
     </properties>
 
     <dependencyManagement>
@@ -71,59 +75,69 @@
 
             <dependency>
                 <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-feign</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-nacos</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-gateway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
                 <artifactId>heifer-metadata</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-plugin</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-plugin-oss</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-plugin-rbac</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-plugin-rbac-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
                 <artifactId>heifer-tools</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- heifer-common -->
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-nacos</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-redis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- heifer-plugin -->
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-plugin-oss</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-plugin-rbac</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-plugin-rbac-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!--  orm  -->
             <dependency>
@@ -194,7 +208,11 @@
                 <version>3.10.2</version>
             </dependency>
 
-
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

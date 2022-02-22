@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>heifer-plugin</artifactId>
+        <artifactId>heifer</artifactId>
         <groupId>plus.wcj</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>heifer-plugin-rbac-security</artifactId>
+    <artifactId>heifer-gateway</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,34 +18,24 @@
 
     <dependencies>
         <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-common-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-metadata</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-tools</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-openfeign-core</artifactId>
-            <optional>true</optional>
-            <scope>provided</scope>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-nacos</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-feign</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
