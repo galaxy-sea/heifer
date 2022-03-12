@@ -25,4 +25,13 @@ public class AliyunOssConfig {
         return new OSSClientBuilder().build(aliyunOssProperties.getEndpoint(), aliyunOssProperties.getAccessId(), aliyunOssProperties.getAccessKey());
     }
 
+    @Bean
+    public AliyunOssServer aliyunOssServer(OSS oss, AliyunOssProperties aliyunOssProperties) {
+        return new AliyunOssServer(oss, aliyunOssProperties);
+    }
+
+    @Bean
+    public OssController ossController(AliyunOssServer aliyunOssServer) {
+        return new OssController(aliyunOssServer);
+    }
 }

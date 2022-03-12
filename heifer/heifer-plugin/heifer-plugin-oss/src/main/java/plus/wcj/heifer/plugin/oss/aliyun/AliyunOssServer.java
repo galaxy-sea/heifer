@@ -3,8 +3,10 @@ package plus.wcj.heifer.plugin.oss.aliyun;
 
 import com.aliyun.oss.HttpMethod;
 import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSException;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
+import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PolicyConditions;
 import plus.wcj.heifer.plugin.oss.OssServer;
 
@@ -12,7 +14,12 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -74,4 +81,45 @@ public class AliyunOssServer implements OssServer<AliyunOssProperties> {
         Date expiration = new Date(expireEndTime);
         return ossClient.generatePresignedUrl(aliyunOssProperties.getBucket(), key, expiration, HttpMethod.GET);
     }
+
+    @Override
+    public String putObject(String key, InputStream input, ObjectMetadata metadata) {
+        return this.putObject(this.aliyunOssProperties, key, input, metadata);
+    }
+    @Override
+    public String putObject(String key, File file, ObjectMetadata metadata) {
+        return this.putObject(this.aliyunOssProperties, key, file, metadata);
+    }
+    @Override
+    public String putObject(MultipartFile file, ObjectMetadata metadata) {
+        return this.putObject(this.aliyunOssProperties, file, metadata);
+    }
+    @Override
+    public String putObject(String key, byte[] bytes, ObjectMetadata metadata) {
+        return this.putObject(this.aliyunOssProperties, key, bytes, metadata);
+    }
+    @Override
+    public String putObject(AliyunOssProperties aliyunOssProperties, MultipartFile file, ObjectMetadata metadata) {
+        try {
+            return this.putObject(aliyunOssProperties, file.getName(), file.getInputStream(), metadata);
+        } catch (IOException e) {
+            throw new OSSException("MultipartFile to InputStream Exception");
+        }
+    }
+    @Override
+    public String putObject(AliyunOssProperties aliyunOssProperties, String key, byte[] bytes, ObjectMetadata metadata) {
+        return this.putObject(aliyunOssProperties, key, new ByteArrayInputStream(bytes), metadata);
+    }
+    @Override
+    public String putObject(AliyunOssProperties aliyunOssProperties, String key, InputStream input, ObjectMetadata metadata) {
+        ossClient.putObject(aliyunOssProperties.getBucket(), key, input, metadata);
+        return aliyunOssProperties.getHost() + key;
+    }
+    @Override
+    public String putObject(AliyunOssProperties aliyunOssProperties, String key, File file, ObjectMetadata metadata) {
+        ossClient.putObject(aliyunOssProperties.getBucket(), key, file, metadata);
+        return aliyunOssProperties.getHost() + key;
+    }
+
+
 }

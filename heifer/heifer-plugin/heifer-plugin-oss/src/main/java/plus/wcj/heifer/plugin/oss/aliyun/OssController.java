@@ -1,6 +1,7 @@
-package plus.wcj.heifer.plugin.oss;
+package plus.wcj.heifer.plugin.oss.aliyun;
 
 import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
+import plus.wcj.heifer.plugin.oss.OssServer;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +35,9 @@ public class OssController {
     @GetMapping("policy/**")
     public Map<String, String> policy(HttpServletRequest request) {
         String ossObjectDir = Utils.extractPathWithinPattern((String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE),
-                                                              (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)
+                                                             (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)
         );
+        //noinspection unchecked
         return this.ossServer.policy(ossObjectDir);
     }
 
@@ -70,6 +72,7 @@ public class OssController {
                     String patternPart = patternParts[segment];
                     if (patternPart.indexOf('*') > -1 || patternPart.indexOf('?') > -1) {
                         for (; segment < pathParts.length; segment++) {
+                            //noinspection AlibabaAvoidComplexCondition
                             if (pathStarted || (segment == 0 && !pattern.startsWith(PATH_SEPARATOR))) {
                                 builder.append(PATH_SEPARATOR);
                             }

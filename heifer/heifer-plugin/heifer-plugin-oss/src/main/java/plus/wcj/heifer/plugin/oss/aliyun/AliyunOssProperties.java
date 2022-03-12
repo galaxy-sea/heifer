@@ -24,7 +24,7 @@ public class AliyunOssProperties implements OssProperties {
     private String bucket;
     /** oss 阿里云 accessId */
     private String endpoint;
-    /** 上传的域名 */
+    /** 上传的域名  https://aliyuncs.com/ 注意斜杠结尾 */
     private String host;
     /** 授权过期时间 默认 0， 单位毫秒 */
     private long expire = 0;
