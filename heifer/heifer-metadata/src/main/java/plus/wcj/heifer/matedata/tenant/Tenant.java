@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author changjin wei(魏昌进)
  * @since 2021/6/28
@@ -25,8 +27,9 @@ public class Tenant {
     private final Long deptId;
 
     /** 数据权限 */
-    private final String dataPowers;
-
-    /** org权限下的全部数据权限 */
-    private final boolean allPower;
+    private final List<Long> dataPowers;
+    /** 是否拥有tenant的全部dept权限，超级管理员权限 */
+    private final boolean tenantDataPower;
+    /** 是否拥有当前tenant下的全部dept权限，租户管理员权限 */
+    private final boolean deptDataPower;
 }

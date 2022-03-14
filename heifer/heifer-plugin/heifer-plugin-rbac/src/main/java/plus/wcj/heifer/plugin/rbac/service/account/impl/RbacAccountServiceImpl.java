@@ -3,6 +3,7 @@ package plus.wcj.heifer.plugin.rbac.service.account.impl;
 
 import plus.wcj.heifer.boot.mybatisplus.impl.ServiceImpl;
 import plus.wcj.heifer.matedata.service.UserPrincipalService;
+import plus.wcj.heifer.matedata.tenant.DataPowersDto;
 import plus.wcj.heifer.plugin.rbac.dao.account.RbacAccountDao;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.AccountDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.RoleDto;
@@ -44,8 +45,15 @@ public class RbacAccountServiceImpl extends ServiceImpl<RbacAccountDao, RbacAcco
     }
 
     @Override
-    public List<Long> getAllPower(Long id, Long tenantId) {
-        return super.getBaseMapper().getAllPower(id, tenantId);
+    public DataPowersDto getAllPower(Long id, Long tenantId) {
+        List<Long> dataPowers = super.getBaseMapper().getAllPower(id, tenantId);
+
+        DataPowersDto dataPowersDto = new DataPowersDto();
+        dataPowersDto.setDataPowers(dataPowers);
+        // TODO: 2022/3/13 changjin wei(魏昌进) 保留字段，目前不做扩展
+        dataPowersDto.setTenantDataPower(Boolean.FALSE);
+        dataPowersDto.setDeptDataPower(Boolean.FALSE);
+        return dataPowersDto;
     }
 
     @Override

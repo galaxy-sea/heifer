@@ -63,7 +63,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      * @param jwtClaimsSet JSON Web Token (JWT) claims set.
      * @param tenantId 租户id 可能为null
      *
-     * @return
+     * @return UserPrincipal
      */
     private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, Long tenantId) {
         Long id = Long.valueOf(jwtClaimsSet.getJWTID());
