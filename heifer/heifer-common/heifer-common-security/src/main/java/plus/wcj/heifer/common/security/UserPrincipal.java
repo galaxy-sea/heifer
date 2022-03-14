@@ -42,8 +42,6 @@ public class UserPrincipal implements UserDetails {
 
     /** 功能权限 */
     private List<String> permissions;
-    /** 数据权限 */
-    private String dataPowers;
 
     private List<? extends GrantedAuthority> authorities;
 
