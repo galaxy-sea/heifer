@@ -1,4 +1,6 @@
-package plus.wcj.heifer.common.redis.data;
+package plus.wcj.heifer.common.redis;
+
+import plus.wcj.heifer.common.redis.data.RandomTtlRedisCacheManager;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +16,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.integration.redis.util.RedisLockRegistry;
 
 import java.time.Duration;
 
@@ -61,6 +64,12 @@ public class RedisAutoConfiguration {
             config = config.disableKeyPrefix();
         }
         return new RandomTtlRedisCacheManager(redisCacheWriter, config, timeToLiveOffset == null ? 0 : (int) timeToLiveOffset.toMillis());
+    }
+
+
+    @Bean(destroyMethod = "destroy")
+    public RedisLockRegistry redisLockRegistry(RedisConnectionFactory redisConnectionFactory) {
+        return new RedisLockRegistry(redisConnectionFactory, "lock");
     }
 
 }
