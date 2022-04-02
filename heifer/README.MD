@@ -2,10 +2,12 @@
 
 - heifer-boot(基础完成)
 - heifer-common
-    - heifer-common-mybatis (考虑是否使用MyBatis Plus还是MyBatis)
+    - heifer-common-dynamic-datasource (考虑是否使用MyBatis Plus还是MyBatis)
+    - heifer-common-feign
     - heifer-common-nacos(完成)
     - heifer-common-redis(完成)
     - heifer-common-security(完成)
+- heifer-gateway
 - heifer-metadata(按需添加)
 - heifer-plugin
     - heifer-plugin-oss(阿里云完成)
