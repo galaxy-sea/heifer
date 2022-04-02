@@ -39,6 +39,7 @@ public class RedisAutoConfiguration {
         RedisTemplate<?, ?> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         template.setDefaultSerializer(RedisSerializer.json());
+        template.setKeySerializer(RedisSerializer.string());
         template.setEnableTransactionSupport(false);
         template.afterPropertiesSet();
         return template;
