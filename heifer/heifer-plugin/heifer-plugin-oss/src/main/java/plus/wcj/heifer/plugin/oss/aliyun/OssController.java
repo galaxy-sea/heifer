@@ -32,7 +32,7 @@ public class OssController {
     }
 
 
-    @GetMapping("policy/**")
+    @GetMapping("/policy/**")
     public Map<String, String> policy(HttpServletRequest request) {
         String ossObjectDir = Utils.extractPathWithinPattern((String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE),
                                                              (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)
@@ -42,7 +42,7 @@ public class OssController {
     }
 
 
-    @GetMapping("redirect/**")
+    @GetMapping("/**")
     public void redirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String ossObjectPath = Utils.extractPathWithinPattern((String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE),
                                                               (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)
