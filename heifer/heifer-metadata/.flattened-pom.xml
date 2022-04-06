@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>plus.wcj</groupId>
+    <artifactId>heifer</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+  </parent>
+  <groupId>plus.wcj</groupId>
+  <artifactId>heifer-metadata</artifactId>
+  <version>0.0.2-SNAPSHOT</version>
+  <name>heifer-metadata</name>
+  <description>heifer-metadata</description>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+    </dependency>
+  </dependencies>
+</project>

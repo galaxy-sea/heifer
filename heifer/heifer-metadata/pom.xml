@@ -9,7 +9,7 @@
     <parent>
         <groupId>plus.wcj</groupId>
         <artifactId>heifer</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <dependencies>
