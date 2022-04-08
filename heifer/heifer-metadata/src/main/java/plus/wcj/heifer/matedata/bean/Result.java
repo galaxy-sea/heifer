@@ -42,16 +42,16 @@ public final class Result<T> {
     }
 
     /** 业务异常返回业务代码,描述和返回的参数 */
-    static <T> Result<T> fail(ResultStatus resultStatus) {
+    public static <T> Result<T> fail(ResultStatus resultStatus) {
         return Result.of(resultStatus.getCode(), resultStatus.getMessage(), null);
     }
 
-    static <T> Result<T> fail(ResultStatus resultStatus, T data) {
+    public static <T> Result<T> fail(ResultStatus resultStatus, T data) {
         return Result.of(resultStatus.getCode(), resultStatus.getMessage(), data);
     }
 
     /** 业务异常返回业务代码,描述和返回的参数 */
-    static <T> Result<T> of(String code, String message, T data) {
+    public static <T> Result<T> of(String code, String message, T data) {
         return new Result<>(code, message, data);
     }
 }
