@@ -30,9 +30,5 @@
             <artifactId>spring-boot</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-metadata</artifactId>
-        </dependency>
     </dependencies>
 </project>
