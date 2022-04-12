@@ -6,15 +6,12 @@ import plus.wcj.heifer.plugin.oss.OssProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 /**
  * @author changjinwei
  * @since 2021/7/19
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "heifer.aliyun.oss")
 public class AliyunOssProperties implements OssProperties {
     /** 阿里云账号 accessId */
     private String accessId;
@@ -22,7 +19,7 @@ public class AliyunOssProperties implements OssProperties {
     private String accessKey;
     /** oss accessId */
     private String bucket;
-    /** oss 阿里云 accessId */
+    /** oss endpoint */
     private String endpoint;
     /** 上传的域名  https://aliyuncs.com/ 注意斜杠结尾 */
     private String host;

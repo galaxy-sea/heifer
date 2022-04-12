@@ -12,7 +12,6 @@ import plus.wcj.heifer.plugin.oss.OssServer;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,19 +33,23 @@ import java.util.Map;
  */
 @Component
 @RequiredArgsConstructor
-@EnableConfigurationProperties(AliyunOssProperties.class)
-public class AliyunOssServer implements OssServer<AliyunOssProperties> {
+public class AliyunOssServer implements OssServer {
 
-    private final OSS ossClient;
-    private final AliyunOssProperties aliyunOssProperties;
+    private final Map<String, OSS> aliyunOssMap;
+    private final Map<String, AliyunOssProperties> aliyunOssPropertiesMap;
+
 
     @Override
     public Map<String, String> policy(String dir) {
-        return this.policy(dir, this.aliyunOssProperties);
+        return this.policy(dir, OssServer.DEFAULT_OSS_KEY);
     }
 
     @Override
-    public Map<String, String> policy(String dir, AliyunOssProperties aliyunOssProperties) {
+    public Map<String, String> policy(String dir, String ossKey) {
+        AliyunOssProperties aliyunOssProperties = aliyunOssPropertiesMap.get(ossKey);
+        OSS oss = this.aliyunOssMap.get(ossKey);
+
+
         long expireEndTime = System.currentTimeMillis() + aliyunOssProperties.getExpire();
         Date expiration = new Date(expireEndTime);
         // PostObject请求最大可支持的文件大小为5 GB，即CONTENT_LENGTH_RANGE为5*1024*1024*1024。
@@ -54,10 +57,10 @@ public class AliyunOssServer implements OssServer<AliyunOssProperties> {
         policyConditions.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
         policyConditions.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, dir);
 
-        String postPolicy = this.ossClient.generatePostPolicy(expiration, policyConditions);
+        String postPolicy = oss.generatePostPolicy(expiration, policyConditions);
         byte[] binaryData = postPolicy.getBytes(StandardCharsets.UTF_8);
         String encodedPolicy = BinaryUtil.toBase64String(binaryData);
-        String postSignature = this.ossClient.calculatePostSignature(postPolicy);
+        String postSignature = oss.calculatePostSignature(postPolicy);
 
         Map<String, String> respMap = new LinkedHashMap<>();
         //noinspection SpellCheckingInspection
@@ -71,54 +74,71 @@ public class AliyunOssServer implements OssServer<AliyunOssProperties> {
     }
 
     @Override
-    public URL redirect(String key) {
-        return this.redirect(key, this.aliyunOssProperties);
+    public URL redirect(String ossObjectPath) {
+        return this.redirect(ossObjectPath, OssServer.DEFAULT_OSS_KEY);
     }
 
     @Override
-    public URL redirect(String key, AliyunOssProperties aliyunOssProperties) {
+    public URL redirect(String key, String ossKey) {
+        AliyunOssProperties aliyunOssProperties = aliyunOssPropertiesMap.get(ossKey);
+        OSS oss = this.aliyunOssMap.get(ossKey);
+
         long expireEndTime = System.currentTimeMillis() + aliyunOssProperties.getExpire();
         Date expiration = new Date(expireEndTime);
-        return ossClient.generatePresignedUrl(aliyunOssProperties.getBucket(), key, expiration, HttpMethod.GET);
+        return oss.generatePresignedUrl(aliyunOssProperties.getBucket(), key, expiration, HttpMethod.GET);
     }
 
     @Override
-    public String putObject(String key, InputStream input, ObjectMetadata metadata) {
-        return this.putObject(this.aliyunOssProperties, key, input, metadata);
+    public String putObject(String ossObjectPath, InputStream input, ObjectMetadata metadata) {
+        return this.putObject(OssServer.DEFAULT_OSS_KEY, ossObjectPath, input, metadata);
     }
+
     @Override
-    public String putObject(String key, File file, ObjectMetadata metadata) {
-        return this.putObject(this.aliyunOssProperties, key, file, metadata);
+    public String putObject(String ossObjectPath, File file, ObjectMetadata metadata) {
+        return this.putObject(OssServer.DEFAULT_OSS_KEY, ossObjectPath, file, metadata);
     }
+
     @Override
-    public String putObject(MultipartFile file, ObjectMetadata metadata) {
-        return this.putObject(this.aliyunOssProperties, file, metadata);
+    public String putObject(String ossObjectPath, MultipartFile file, ObjectMetadata metadata) {
+        return this.putObject(OssServer.DEFAULT_OSS_KEY, OssServer.DEFAULT_OSS_KEY, file, metadata);
     }
+
     @Override
-    public String putObject(String key, byte[] bytes, ObjectMetadata metadata) {
-        return this.putObject(this.aliyunOssProperties, key, bytes, metadata);
+    public String putObject(String ossObjectPath, byte[] bytes, ObjectMetadata metadata) {
+        return this.putObject(OssServer.DEFAULT_OSS_KEY, ossObjectPath, bytes, metadata);
     }
+
     @Override
-    public String putObject(AliyunOssProperties aliyunOssProperties, MultipartFile file, ObjectMetadata metadata) {
+    public String putObject(String ossKey, String ossObjectPath, MultipartFile file, ObjectMetadata metadata) {
         try {
-            return this.putObject(aliyunOssProperties, file.getName(), file.getInputStream(), metadata);
+            return this.putObject(ossKey, ossObjectPath, file.getInputStream(), metadata);
         } catch (IOException e) {
             throw new OSSException("MultipartFile to InputStream Exception");
         }
     }
+
     @Override
-    public String putObject(AliyunOssProperties aliyunOssProperties, String key, byte[] bytes, ObjectMetadata metadata) {
-        return this.putObject(aliyunOssProperties, key, new ByteArrayInputStream(bytes), metadata);
+    public String putObject(String ossKey, String ossObjectPath, byte[] bytes, ObjectMetadata metadata) {
+        return this.putObject(ossKey, ossObjectPath, new ByteArrayInputStream(bytes), metadata);
     }
+
     @Override
-    public String putObject(AliyunOssProperties aliyunOssProperties, String key, InputStream input, ObjectMetadata metadata) {
-        ossClient.putObject(aliyunOssProperties.getBucket(), key, input, metadata);
-        return aliyunOssProperties.getHost() + key;
+    public String putObject(String ossKey, String ossObjectPath, InputStream input, ObjectMetadata metadata) {
+        AliyunOssProperties aliyunOssProperties = aliyunOssPropertiesMap.get(ossKey);
+        OSS oss = this.aliyunOssMap.get(ossKey);
+
+        oss.putObject(aliyunOssProperties.getBucket(), ossObjectPath, input, metadata);
+        return aliyunOssProperties.getHost() + ossObjectPath;
     }
+
+
     @Override
-    public String putObject(AliyunOssProperties aliyunOssProperties, String key, File file, ObjectMetadata metadata) {
-        ossClient.putObject(aliyunOssProperties.getBucket(), key, file, metadata);
-        return aliyunOssProperties.getHost() + key;
+    public String putObject(String ossKey, String ossObjectPath, File file, ObjectMetadata metadata) {
+        AliyunOssProperties aliyunOssProperties = aliyunOssPropertiesMap.get(ossKey);
+        OSS oss = this.aliyunOssMap.get(ossKey);
+
+        oss.putObject(aliyunOssProperties.getBucket(), ossObjectPath, file, metadata);
+        return aliyunOssProperties.getHost() + ossObjectPath;
     }
 
 

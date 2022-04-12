@@ -1,7 +1,6 @@
 package plus.wcj.heifer.plugin.oss;
 
 import com.aliyun.oss.model.ObjectMetadata;
-import plus.wcj.heifer.plugin.oss.aliyun.AliyunOssProperties;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +16,10 @@ import java.util.Map;
  * @since 2021/7/19
  */
 
-public interface OssServer<Properties extends OssProperties> {
+public interface OssServer {
+
+    String DEFAULT_OSS_KEY = "default";
+
 
     /**
      * 基于Post Policy的使用规则在服务端通过各种语言代码完成签名，并且设置上传回调，然后通过表单直传数据到OSS
@@ -32,44 +34,44 @@ public interface OssServer<Properties extends OssProperties> {
      * 基于Post Policy的使用规则在服务端通过各种语言代码完成签名，并且设置上传回调，然后通过表单直传数据到OSS
      *
      * @param dir 用户上传文件时指定的前缀。
-     * @param ossProperties 配置信息
+     * @param ossKey 配置信息
      *
      * @return 授权信息
      */
-    Map<String, String> policy(String dir, Properties ossProperties);
+    Map<String, String> policy(String dir, String ossKey);
 
     /**
      * 私有oss授权访问，
      *
-     * @param key oss object path
+     * @param ossObjectPath oss object path
      *
      * @return aliyun oss url
      */
-    URL redirect(String key);
+    URL redirect(String ossObjectPath);
 
     /**
      * 私有oss授权访问，使用302重定向到aliyun oss
      *
-     * @param key oss object path
-     * @param ossProperties 配置信息
+     * @param ossObjectPath oss object path
+     * @param ossKey 配置信息
      *
      * @return aliyun oss url
      */
-    URL redirect(String key, Properties ossProperties);
+    URL redirect(String ossObjectPath, String ossKey);
 
-    String putObject(String key, InputStream input, ObjectMetadata metadata);
+    String putObject(String ossObjectPath, InputStream input, ObjectMetadata metadata);
 
-    String putObject(String key, File file, ObjectMetadata metadata);
+    String putObject(String ossObjectPath, File file, ObjectMetadata metadata);
 
-    String putObject(MultipartFile file, ObjectMetadata metadata);
+    String putObject(String ossObjectPath, MultipartFile file, ObjectMetadata metadata);
 
-    String putObject(String key, byte[] bytes, ObjectMetadata metadata);
+    String putObject(String ossObjectPath, byte[] bytes, ObjectMetadata metadata);
 
-    String putObject(AliyunOssProperties aliyunOssProperties, MultipartFile file, ObjectMetadata metadata);
+    String putObject(String ossKey, String ossObjectPath, MultipartFile file, ObjectMetadata metadata);
 
-    String putObject(AliyunOssProperties aliyunOssProperties, String key, byte[] bytes, ObjectMetadata metadata);
+    String putObject(String ossKey, String ossObjectPath, byte[] bytes, ObjectMetadata metadata);
 
-    String putObject(AliyunOssProperties aliyunOssProperties, String key, InputStream input, ObjectMetadata metadata);
+    String putObject(String ossKey, String ossObjectPath, InputStream input, ObjectMetadata metadata);
 
-    String putObject(AliyunOssProperties aliyunOssProperties, String key, File file, ObjectMetadata metadata);
+    String putObject(String ossKey, String ossObjectPath, File file, ObjectMetadata metadata);
 }

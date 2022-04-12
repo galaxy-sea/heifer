@@ -6,6 +6,7 @@ import plus.wcj.heifer.plugin.oss.OssServer;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerMapping;
 
@@ -33,21 +34,22 @@ public class OssController {
 
 
     @GetMapping("/policy/**")
-    public Map<String, String> policy(HttpServletRequest request) {
+    public Map<String, String> policy(@RequestParam(value = "ossKey", defaultValue = OssServer.DEFAULT_OSS_KEY) String ossKey,
+                                      HttpServletRequest request) {
         String ossObjectDir = Utils.extractPathWithinPattern((String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE),
                                                              (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)
         );
-        //noinspection unchecked
-        return this.ossServer.policy(ossObjectDir);
+        return this.ossServer.policy(ossObjectDir, ossKey);
     }
 
 
     @GetMapping("/**")
-    public void redirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void redirect(@RequestParam(value = "ossKey", defaultValue = OssServer.DEFAULT_OSS_KEY) String ossKey,
+                         HttpServletRequest request, HttpServletResponse response) throws IOException {
         String ossObjectPath = Utils.extractPathWithinPattern((String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE),
                                                               (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)
         );
-        URL redirect = this.ossServer.redirect(ossObjectPath);
+        URL redirect = this.ossServer.redirect(ossObjectPath, ossKey);
         response.sendRedirect(redirect.toString());
     }
 
@@ -57,7 +59,7 @@ public class OssController {
         private static final String PATH_SEPARATOR = "/";
         private static final boolean TRIM_TOKENS = false;
         private static final boolean IGNORE_EMPTY_TOKENS = true;
-        private static final Map<String, String> STRING_STRING_REFERENCE_MAP = new WeakHashMap<String, String>();
+        private static final Map<String, String> STRING_STRING_REFERENCE_MAP = new WeakHashMap<>();
         // private static final Map<String, String> STRING_STRING_REFERENCE_MAP = new ReferenceMap<String, String>();
 
 
