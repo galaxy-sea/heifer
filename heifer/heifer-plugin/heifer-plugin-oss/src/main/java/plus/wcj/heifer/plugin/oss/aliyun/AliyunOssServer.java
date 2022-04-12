@@ -110,8 +110,8 @@ public class AliyunOssServer implements OssServer {
 
     @Override
     public String putObject(String ossKey, String ossObjectPath, MultipartFile file, ObjectMetadata metadata) {
-        try {
-            return this.putObject(ossKey, ossObjectPath, file.getInputStream(), metadata);
+        try (InputStream inputStream = file.getInputStream()) {
+            return this.putObject(ossKey, ossObjectPath, inputStream, metadata);
         } catch (IOException e) {
             throw new OSSException("MultipartFile to InputStream Exception");
         }
