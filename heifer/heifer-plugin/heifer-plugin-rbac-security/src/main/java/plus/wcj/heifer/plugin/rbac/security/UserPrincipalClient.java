@@ -1,6 +1,6 @@
 package plus.wcj.heifer.plugin.rbac.security;
 
-import plus.wcj.heifer.matedata.service.UserPrincipalService;
+import plus.wcj.heifer.matedata.tenant.UserPrincipalService;
 
 import org.springframework.cloud.openfeign.FeignClient;
 

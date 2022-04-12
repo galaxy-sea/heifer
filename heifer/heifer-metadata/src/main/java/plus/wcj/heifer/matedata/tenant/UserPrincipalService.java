@@ -1,7 +1,5 @@
-package plus.wcj.heifer.matedata.service;
+package plus.wcj.heifer.matedata.tenant;
 
-
-import plus.wcj.heifer.matedata.tenant.DataPowersDto;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
