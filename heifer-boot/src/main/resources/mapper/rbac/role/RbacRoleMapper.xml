@@ -20,11 +20,8 @@
         id, rbac_tenant_id, name, create_time, create_by, update_time, update_by
     </sql>
 
-        <select id="selectByRbacTenantId" resultMap="BaseResultMap">
-            SELECT
-            <include refid="Base_Column_List"/>
-            FROM rbac_role
-            WHERE rbac_tenant_id = #{rbacTenantId}
-        </select>
+        <!--<select id="selectByRbacTenantId" resultMap="BaseResultMap">-->
+        <!--    SELECT<include refid="Base_Column_List" />FROM rbac_role WHERE rbac_tenant_id = #{rbacTenantId}-->
+        <!--</select>-->
 
 </mapper>

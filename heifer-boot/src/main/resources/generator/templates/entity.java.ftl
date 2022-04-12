@@ -75,7 +75,7 @@ public class ${entity} implements Serializable<#list cfg.implements as implement
         </#if>
     </#if>
     <#if field.keyFlag>
-    @NotNull(groups = {PostValid.class, PutValid.class}, message = "id is null")
+    @NotNull(groups = {PutValid.class}, message = "id is null")
     <#else>
         <#if field.customMap.NULL=="NO" && field.propertyName != "createBy">
     @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")

@@ -21,7 +21,9 @@ import java.util.List;
 
  <#list table.fields as field>
   <#if field.name?ends_with("_id")>
-    List<${entity}> selectBy${field.propertyName?cap_first}(@Param("${field.propertyName}") ${field.propertyType} ${field.propertyName});
+    default List<${entity}> selectBy${field.propertyName?cap_first}(@Param("${field.propertyName}") ${field.propertyType} ${field.propertyName}){
+        return this.selectList(new LambdaQueryWrapper<${entity}>().eq(RbacRole::get${field.propertyName?cap_first}, ${field.propertyName}));
+    }
 
   </#if>
  </#list>

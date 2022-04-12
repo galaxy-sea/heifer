@@ -53,7 +53,7 @@ jasypt:
   encryptor:
     password: xxxxxxxxx
 server:
-  port: 0
+  port: 6789
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -89,3 +89,7 @@ logging:
     org.springframework.web: debug   # 请求报文打印
     org.springframework.cache: trace # 缓存打印
     org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace # 启动时打印Mapping集合
+feign:
+  httpclient:
+    connection-timeout: 2000000
+

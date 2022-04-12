@@ -3,6 +3,7 @@ package plus.wcj.heifer.boot.controller;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import plus.wcj.heifer.boot.common.security.properties.IgnoreWebSecurity;
@@ -46,7 +47,7 @@ public class SecurityController {
         return tenant;
     }
 
-    @GetMapping("ignoreWebSecurity")
+    @RequestMapping(value = {"ignoreWebSecurity","wodesijie"})
     @ResultResponseBody
     @IgnoreWebSecurity
     public String ignoreWebSecurity() {

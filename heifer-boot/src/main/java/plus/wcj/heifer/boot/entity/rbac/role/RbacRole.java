@@ -29,7 +29,6 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @RedisHash("RbacRole")
 @TableName("rbac_role")
 @ApiModel(value = "RbacRole对象", description = "角色表")

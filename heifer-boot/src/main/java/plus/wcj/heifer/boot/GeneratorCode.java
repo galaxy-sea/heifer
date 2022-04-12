@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class GeneratorCode {
 
 
-    private static String key = "xxxxxx";
+    private static String key = "thisForYinjuanLi";
 
     // 环境变量自己设置 Duser_name 参数，反正我觉得USER参数很傻逼
     private static String author = System.getenv("Duser_name") != null ? System.getenv("Duser_name") : System.getenv("USER");
@@ -43,23 +43,8 @@ public class GeneratorCode {
     /** 要生成的表名 */
     private static String[] tables = {
 
-            "rbac_user",
-            // "rbac_org",
-            // "rbac_org_authority",
-            //
-            // "rbac_permission",
-            //
-            // "rbac_role",
-            // "rbac_role_authority",
-            // "rbac_role_data_power",
-            //
-            // "rbac_user",
-            // "rbac_user_authority",
-            // "rbac_user_data_power",
-            // "rbac_user_manage",
-            // "rbac_user_role_rel",
-            // "rbac_admin",
-            // "rbac_customer",
+            "rbac_account",
+
     };
 
     /** 表的前缀 */
