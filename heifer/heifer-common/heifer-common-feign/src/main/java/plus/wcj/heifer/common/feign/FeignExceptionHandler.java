@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import java.nio.ByteBuffer;
+import java.util.Optional;
+
 /**
  * @author changjin wei(魏昌进)
  * @since 2022/4/7
@@ -45,10 +48,10 @@ public class FeignExceptionHandler {
         if (log.isDebugEnabled()) {
             log.debug("小可爱，feign调用异常哦", ex);
         }
-        byte[] content = ex.content();
+        Optional<ByteBuffer> byteBuffer = ex.responseBody();
         int status = ex.status();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(content, headers, status);
+        return new ResponseEntity<>(byteBuffer, headers, status);
     }
 
 }
