@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.config;
+package plus.wcj.heifer.boot.mvc;
 
 
 import plus.wcj.heifer.matedata.bean.BindObjectError;

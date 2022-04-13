@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.config;
+package plus.wcj.heifer.boot.mvc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

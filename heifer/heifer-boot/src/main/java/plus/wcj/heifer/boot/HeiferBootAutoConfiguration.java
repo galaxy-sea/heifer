@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.config;
+package plus.wcj.heifer.boot;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
