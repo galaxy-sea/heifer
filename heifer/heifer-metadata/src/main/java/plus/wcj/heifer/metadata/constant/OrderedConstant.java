@@ -1,4 +1,4 @@
-package plus.wcj.heifer.matedata.constant;
+package plus.wcj.heifer.metadata.constant;
 
 import org.springframework.core.Ordered;
 

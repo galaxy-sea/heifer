@@ -1,6 +1,6 @@
 package plus.wcj.heifer.plugin.oss.aliyun;
 
-import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
 import plus.wcj.heifer.plugin.oss.OssServer;
 
 import org.springframework.util.StringUtils;

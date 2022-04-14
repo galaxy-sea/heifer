@@ -1,7 +1,7 @@
 package plus.wcj.heifer.plugin.rbac.controller;
 
 
-import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.JwtDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.LoginDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;

@@ -1,11 +1,11 @@
 package plus.wcj.heifer.plugin.rbac.security.support;
 
 import plus.wcj.heifer.common.security.UserPrincipal;
-import plus.wcj.heifer.matedata.exception.ResultException;
-import plus.wcj.heifer.matedata.exception.ResultStatusEnum;
-import plus.wcj.heifer.matedata.tenant.DataPowersDto;
-import plus.wcj.heifer.matedata.tenant.Tenant;
-import plus.wcj.heifer.matedata.tenant.UserPrincipalService;
+import plus.wcj.heifer.metadata.exception.ResultException;
+import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
+import plus.wcj.heifer.metadata.tenant.DataPowersDto;
+import plus.wcj.heifer.metadata.tenant.Tenant;
+import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;

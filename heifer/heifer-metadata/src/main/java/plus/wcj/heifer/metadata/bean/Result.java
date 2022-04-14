@@ -1,8 +1,8 @@
-package plus.wcj.heifer.matedata.bean;
+package plus.wcj.heifer.metadata.bean;
 
 
-import plus.wcj.heifer.matedata.exception.ResultStatus;
-import plus.wcj.heifer.matedata.exception.ResultStatusEnum;
+import plus.wcj.heifer.metadata.exception.ResultStatus;
+import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
 import lombok.Getter;
 import lombok.ToString;

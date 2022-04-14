@@ -1,10 +1,10 @@
 package plus.wcj.heifer.plugin.rbac.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import plus.wcj.heifer.matedata.annotation.PostValid;
-import plus.wcj.heifer.matedata.annotation.PutValid;
-import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
-import plus.wcj.heifer.matedata.tenant.Tenant;
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.tenant.Tenant;
 import plus.wcj.heifer.plugin.rbac.pojo.entity.RbacPermission;
 import plus.wcj.heifer.plugin.rbac.service.RbacPermissionService;
 

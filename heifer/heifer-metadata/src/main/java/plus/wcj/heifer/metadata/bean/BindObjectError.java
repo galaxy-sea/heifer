@@ -1,4 +1,4 @@
-package plus.wcj.heifer.matedata.bean;
+package plus.wcj.heifer.metadata.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

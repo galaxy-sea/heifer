@@ -1,4 +1,4 @@
-package plus.wcj.heifer.matedata.exception;
+package plus.wcj.heifer.metadata.exception;
 
 import org.springframework.http.HttpStatus;
 

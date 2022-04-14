@@ -3,8 +3,8 @@ package plus.wcj.heifer.plugin.rbac.security;
 import com.nimbusds.jwt.JWTClaimsSet;
 import plus.wcj.heifer.common.security.UserPrincipal;
 import plus.wcj.heifer.common.security.filter.AuthenticationService;
-import plus.wcj.heifer.matedata.properties.JwtProperties;
-import plus.wcj.heifer.matedata.tenant.UserPrincipalService;
+import plus.wcj.heifer.metadata.properties.JwtProperties;
+import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
 import plus.wcj.heifer.tools.utils.JwtUtil;
 
 import org.springframework.http.HttpHeaders;

@@ -1,7 +1,7 @@
 package plus.wcj.heifer.plugin.rbac.security.support;
 
 import plus.wcj.heifer.common.security.UserPrincipal;
-import plus.wcj.heifer.matedata.tenant.Tenant;
+import plus.wcj.heifer.metadata.tenant.Tenant;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;

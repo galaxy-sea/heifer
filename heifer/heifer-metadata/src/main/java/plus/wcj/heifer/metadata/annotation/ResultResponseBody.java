@@ -1,4 +1,4 @@
-package plus.wcj.heifer.matedata.annotation;
+package plus.wcj.heifer.metadata.annotation;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 

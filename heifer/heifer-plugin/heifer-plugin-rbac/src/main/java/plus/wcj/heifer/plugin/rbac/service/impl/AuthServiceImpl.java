@@ -2,9 +2,9 @@ package plus.wcj.heifer.plugin.rbac.service.impl;
 
 import com.nimbusds.jwt.JWTClaimsSet;
 import org.apache.commons.lang3.BooleanUtils;
-import plus.wcj.heifer.matedata.exception.ResultException;
-import plus.wcj.heifer.matedata.exception.ResultStatusEnum;
-import plus.wcj.heifer.matedata.properties.JwtProperties;
+import plus.wcj.heifer.metadata.exception.ResultException;
+import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
+import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.JwtDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.LoginDto;
 import plus.wcj.heifer.plugin.rbac.pojo.dto.TenantDto;

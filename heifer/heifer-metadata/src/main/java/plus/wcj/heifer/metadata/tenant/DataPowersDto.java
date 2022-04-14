@@ -1,4 +1,4 @@
-package plus.wcj.heifer.matedata.tenant;
+package plus.wcj.heifer.metadata.tenant;
 
 import lombok.Data;
 

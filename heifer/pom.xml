@@ -18,7 +18,6 @@
         <module>heifer-plugin</module>
         <module>heifer-tools</module>
         <module>heifer-dependencies</module>
-        <module>heifer-tests</module>
     </modules>
 
     <properties>

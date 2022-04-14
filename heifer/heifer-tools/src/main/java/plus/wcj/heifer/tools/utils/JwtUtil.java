@@ -9,8 +9,8 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.nimbusds.jwt.util.DateUtils;
-import plus.wcj.heifer.matedata.exception.ResultException;
-import plus.wcj.heifer.matedata.exception.ResultStatusEnum;
+import plus.wcj.heifer.metadata.exception.ResultException;
+import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
 import java.text.ParseException;
 import java.util.Date;

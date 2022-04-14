@@ -1,12 +1,12 @@
 package plus.wcj.heifer.boot.mvc;
 
 
-import plus.wcj.heifer.matedata.bean.BindObjectError;
-import plus.wcj.heifer.matedata.bean.Result;
-import plus.wcj.heifer.matedata.constant.OrderedConstant;
-import plus.wcj.heifer.matedata.exception.ResultException;
-import plus.wcj.heifer.matedata.exception.ResultStatus;
-import plus.wcj.heifer.matedata.exception.ResultStatusEnum;
+import plus.wcj.heifer.metadata.bean.BindObjectError;
+import plus.wcj.heifer.metadata.bean.Result;
+import plus.wcj.heifer.metadata.constant.OrderedConstant;
+import plus.wcj.heifer.metadata.exception.ResultException;
+import plus.wcj.heifer.metadata.exception.ResultStatus;
+import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

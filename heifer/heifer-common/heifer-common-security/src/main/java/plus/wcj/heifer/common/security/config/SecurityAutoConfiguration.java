@@ -4,9 +4,9 @@ package plus.wcj.heifer.common.security.config;
 import plus.wcj.heifer.common.security.filter.AuthenticationFilter;
 import plus.wcj.heifer.common.security.filter.AuthenticationService;
 import plus.wcj.heifer.common.security.properties.IgnoreWebSecurityProperties;
-import plus.wcj.heifer.matedata.annotation.IgnoreWebSecurity;
-import plus.wcj.heifer.matedata.exception.ResultException;
-import plus.wcj.heifer.matedata.exception.ResultStatusEnum;
+import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
+import plus.wcj.heifer.metadata.exception.ResultException;
+import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
 import lombok.RequiredArgsConstructor;
 

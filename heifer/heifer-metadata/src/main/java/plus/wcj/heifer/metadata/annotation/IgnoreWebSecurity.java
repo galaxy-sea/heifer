@@ -1,4 +1,4 @@
-package plus.wcj.heifer.matedata.annotation;
+package plus.wcj.heifer.metadata.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

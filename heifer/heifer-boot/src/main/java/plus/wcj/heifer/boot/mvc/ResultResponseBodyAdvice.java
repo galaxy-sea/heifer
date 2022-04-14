@@ -2,9 +2,9 @@ package plus.wcj.heifer.boot.mvc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
-import plus.wcj.heifer.matedata.bean.Result;
-import plus.wcj.heifer.matedata.exception.ResultException;
+import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.bean.Result;
+import plus.wcj.heifer.metadata.exception.ResultException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

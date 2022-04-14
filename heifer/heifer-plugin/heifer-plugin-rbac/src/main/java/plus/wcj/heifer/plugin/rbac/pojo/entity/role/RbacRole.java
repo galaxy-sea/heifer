@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import plus.wcj.heifer.matedata.annotation.PostValid;
-import plus.wcj.heifer.matedata.annotation.PutValid;
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

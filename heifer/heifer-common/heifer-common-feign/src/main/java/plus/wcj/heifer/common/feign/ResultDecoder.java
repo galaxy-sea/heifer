@@ -3,8 +3,8 @@ package plus.wcj.heifer.common.feign;
 import feign.FeignException;
 import feign.Response;
 import feign.codec.Decoder;
-import plus.wcj.heifer.matedata.annotation.ResultResponseBody;
-import plus.wcj.heifer.matedata.bean.Result;
+import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.bean.Result;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.io.IOException;

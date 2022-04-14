@@ -1,7 +1,7 @@
 package plus.wcj.heifer.plugin.rbac;
 
 import org.mybatis.spring.annotation.MapperScan;
-import plus.wcj.heifer.matedata.properties.JwtProperties;
+import plus.wcj.heifer.metadata.properties.JwtProperties;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
