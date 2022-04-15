@@ -29,7 +29,7 @@
 
         <dependency>
             <groupId>plus.wcj</groupId>
-            <artifactId>heifer-common-nacos</artifactId>
+            <artifactId>heifer-common-nacos-discovery</artifactId>
         </dependency>
 
         <dependency>

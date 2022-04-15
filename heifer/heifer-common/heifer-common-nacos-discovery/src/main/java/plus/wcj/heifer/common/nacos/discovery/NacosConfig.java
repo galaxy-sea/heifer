@@ -1,4 +1,4 @@
-package plus.wcj.heifer.common.nacos;
+package plus.wcj.heifer.common.nacos.discovery;
 
 import com.alibaba.cloud.nacos.registry.NacosRegistrationCustomizer;
 

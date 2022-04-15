@@ -15,7 +15,7 @@
         <module>heifer-common-security</module>
         <module>heifer-common-dynamic-datasource</module>
         <module>heifer-common-redis</module>
-        <module>heifer-common-nacos</module>
+        <module>heifer-common-nacos-discovery</module>
         <module>heifer-common-feign</module>
     </modules>
 

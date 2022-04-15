@@ -149,7 +149,7 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-nacos</artifactId>
+                <artifactId>heifer-common-nacos-discovery</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

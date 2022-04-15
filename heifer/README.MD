@@ -4,7 +4,7 @@
 - heifer-common
     - heifer-common-dynamic-datasource (考虑是否使用MyBatis Plus还是MyBatis)
     - heifer-common-feign
-    - heifer-common-nacos(完成)
+    - heifer-common-nacos-discovery(完成)
     - heifer-common-redis(完成)
     - heifer-common-security(完成)
 - heifer-gateway
@@ -33,7 +33,7 @@
    2. heifer-common-feign
       1. feign局部异常拦截器
       2. http Result 自动解析
-   3. heifer-common-nacos
+   3. heifer-common-nacos-discovery
       1. nacos注册自动注入部分元数据
    4. heifer-common-redis
       1. spring cache 随机过期时间缓存规则
