@@ -179,7 +179,7 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
-                <artifactId>heifer-plugin-oss</artifactId>
+                <artifactId>heifer-plugin-aliyun-oss</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

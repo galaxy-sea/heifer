@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.oss.aliyun;
+package plus.wcj.heifer.plugin.aliyun.oss;
 
 
 import com.aliyun.oss.HttpMethod;
@@ -8,7 +8,6 @@ import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PolicyConditions;
-import plus.wcj.heifer.plugin.oss.OssServer;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,22 +32,20 @@ import java.util.Map;
  */
 @Component
 @RequiredArgsConstructor
-public class AliyunOssServer implements OssServer {
+public class AliyunOssServer {
 
     private final Map<String, OSS> aliyunOssMap;
     private final Map<String, AliyunOssProperties> aliyunOssPropertiesMap;
 
 
-    @Override
     public Map<String, String> policy(String dir) {
-        return this.policy(dir, OssServer.DEFAULT_OSS_KEY);
+        return this.policy(dir, OssConstants.DEFAULT_OSS_KEY);
     }
 
-    @Override
-    public Map<String, String> policy(String dir, String ossKey) {
-        AliyunOssProperties aliyunOssProperties = aliyunOssPropertiesMap.get(ossKey);
-        OSS oss = this.aliyunOssMap.get(ossKey);
 
+    public Map<String, String> policy(String dir, String ossKey) {
+        AliyunOssProperties aliyunOssProperties = this.getOssProperties(ossKey);
+        OSS oss = getOss(ossKey);
 
         long expireEndTime = System.currentTimeMillis() + aliyunOssProperties.getExpire();
         Date expiration = new Date(expireEndTime);
@@ -73,42 +70,42 @@ public class AliyunOssServer implements OssServer {
         return respMap;
     }
 
-    @Override
+
     public URL redirect(String ossObjectPath) {
-        return this.redirect(ossObjectPath, OssServer.DEFAULT_OSS_KEY);
+        return this.redirect(ossObjectPath, OssConstants.DEFAULT_OSS_KEY);
     }
 
-    @Override
+
     public URL redirect(String key, String ossKey) {
-        AliyunOssProperties aliyunOssProperties = aliyunOssPropertiesMap.get(ossKey);
-        OSS oss = this.aliyunOssMap.get(ossKey);
+        AliyunOssProperties aliyunOssProperties = this.getOssProperties(ossKey);
+        OSS oss = getOss(ossKey);
 
         long expireEndTime = System.currentTimeMillis() + aliyunOssProperties.getExpire();
         Date expiration = new Date(expireEndTime);
         return oss.generatePresignedUrl(aliyunOssProperties.getBucket(), key, expiration, HttpMethod.GET);
     }
 
-    @Override
+
     public String putObject(String ossObjectPath, InputStream input, ObjectMetadata metadata) {
-        return this.putObject(OssServer.DEFAULT_OSS_KEY, ossObjectPath, input, metadata);
+        return this.putObject(OssConstants.DEFAULT_OSS_KEY, ossObjectPath, input, metadata);
     }
 
-    @Override
+
     public String putObject(String ossObjectPath, File file, ObjectMetadata metadata) {
-        return this.putObject(OssServer.DEFAULT_OSS_KEY, ossObjectPath, file, metadata);
+        return this.putObject(OssConstants.DEFAULT_OSS_KEY, ossObjectPath, file, metadata);
     }
 
-    @Override
+
     public String putObject(String ossObjectPath, MultipartFile file, ObjectMetadata metadata) {
-        return this.putObject(OssServer.DEFAULT_OSS_KEY, OssServer.DEFAULT_OSS_KEY, file, metadata);
+        return this.putObject(OssConstants.DEFAULT_OSS_KEY, OssConstants.DEFAULT_OSS_KEY, file, metadata);
     }
 
-    @Override
+
     public String putObject(String ossObjectPath, byte[] bytes, ObjectMetadata metadata) {
-        return this.putObject(OssServer.DEFAULT_OSS_KEY, ossObjectPath, bytes, metadata);
+        return this.putObject(OssConstants.DEFAULT_OSS_KEY, ossObjectPath, bytes, metadata);
     }
 
-    @Override
+
     public String putObject(String ossKey, String ossObjectPath, MultipartFile file, ObjectMetadata metadata) {
         try (InputStream inputStream = file.getInputStream()) {
             return this.putObject(ossKey, ossObjectPath, inputStream, metadata);
@@ -117,28 +114,56 @@ public class AliyunOssServer implements OssServer {
         }
     }
 
-    @Override
+
     public String putObject(String ossKey, String ossObjectPath, byte[] bytes, ObjectMetadata metadata) {
         return this.putObject(ossKey, ossObjectPath, new ByteArrayInputStream(bytes), metadata);
     }
 
-    @Override
+
     public String putObject(String ossKey, String ossObjectPath, InputStream input, ObjectMetadata metadata) {
-        AliyunOssProperties aliyunOssProperties = aliyunOssPropertiesMap.get(ossKey);
-        OSS oss = this.aliyunOssMap.get(ossKey);
+        AliyunOssProperties aliyunOssProperties = this.getOssProperties(ossKey);
+        OSS oss = getOss(ossKey);
 
         oss.putObject(aliyunOssProperties.getBucket(), ossObjectPath, input, metadata);
         return aliyunOssProperties.getHost() + ossObjectPath;
     }
 
 
-    @Override
     public String putObject(String ossKey, String ossObjectPath, File file, ObjectMetadata metadata) {
-        AliyunOssProperties aliyunOssProperties = aliyunOssPropertiesMap.get(ossKey);
-        OSS oss = this.aliyunOssMap.get(ossKey);
+        AliyunOssProperties aliyunOssProperties = this.getOssProperties(ossKey);
+        OSS oss = getOss(ossKey);
 
         oss.putObject(aliyunOssProperties.getBucket(), ossObjectPath, file, metadata);
         return aliyunOssProperties.getHost() + ossObjectPath;
+    }
+
+
+    public OSS getOss(String ossKey) {
+        return aliyunOssMap.get(ossKey);
+    }
+
+    /**
+     * @param location oss{location}://xxxx/xxx/xxx
+     *
+     * @return OSS
+     */
+    public OSS getOssByLocation(String location) {
+        if (location.startsWith(OssConstants.OSS_PROTOCOL) && aliyunOssMap.containsKey(OssConstants.DEFAULT_OSS_KEY)) {
+            return aliyunOssMap.get(OssConstants.DEFAULT_OSS_KEY);
+        }
+        for (Map.Entry<String, OSS> ossEntry : aliyunOssMap.entrySet()) {
+            String key = ossEntry.getKey();
+            String ossProtocol = OssConstants.OSS_PROTOCOL_PREFIX + key + OssConstants.OSS_PROTOCOL_SUFFIX;
+            if (location.startsWith(ossProtocol)) {
+                return ossEntry.getValue();
+            }
+        }
+        return null;
+    }
+
+
+    public AliyunOssProperties getOssProperties(String ossKey) {
+        return aliyunOssPropertiesMap.get(ossKey);
     }
 
 

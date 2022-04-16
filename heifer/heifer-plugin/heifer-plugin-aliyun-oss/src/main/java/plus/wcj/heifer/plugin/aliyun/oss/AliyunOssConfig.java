@@ -1,16 +1,21 @@
-package plus.wcj.heifer.plugin.oss.aliyun;
+package plus.wcj.heifer.plugin.aliyun.oss;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -42,5 +47,15 @@ public class AliyunOssConfig {
     @Bean
     public OssController ossController(AliyunOssServer aliyunOssServer) {
         return new OssController(aliyunOssServer);
+    }
+
+
+    @Bean(name = OssConstants.OSS_TASK_EXECUTOR_BEAN_NAME)
+    @ConditionalOnMissingBean
+    public ExecutorService ossTaskExecutor() {
+        int coreSize = Runtime.getRuntime().availableProcessors();
+        return new ThreadPoolExecutor(coreSize, 128, 60, TimeUnit.SECONDS,
+                                      new SynchronousQueue<>()
+        );
     }
 }

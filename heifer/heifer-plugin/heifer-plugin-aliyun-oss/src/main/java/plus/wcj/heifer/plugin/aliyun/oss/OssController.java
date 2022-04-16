@@ -1,7 +1,6 @@
-package plus.wcj.heifer.plugin.oss.aliyun;
+package plus.wcj.heifer.plugin.aliyun.oss;
 
 import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
-import plus.wcj.heifer.plugin.oss.OssServer;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,30 +25,30 @@ import java.util.WeakHashMap;
 @RequestMapping("/oss")
 public class OssController {
 
-    private final OssServer ossServer;
+    private final AliyunOssServer aliyunOssServer;
 
-    public OssController(OssServer ossServer) {
-        this.ossServer = ossServer;
+    public OssController(AliyunOssServer aliyunOssServer) {
+        this.aliyunOssServer = aliyunOssServer;
     }
 
 
     @GetMapping("/policy/**")
-    public Map<String, String> policy(@RequestParam(value = "ossKey", defaultValue = OssServer.DEFAULT_OSS_KEY) String ossKey,
+    public Map<String, String> policy(@RequestParam(value = "ossKey", defaultValue = OssConstants.DEFAULT_OSS_KEY) String ossKey,
                                       HttpServletRequest request) {
         String ossObjectDir = Utils.extractPathWithinPattern((String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE),
                                                              (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)
         );
-        return this.ossServer.policy(ossObjectDir, ossKey);
+        return this.aliyunOssServer.policy(ossObjectDir, ossKey);
     }
 
 
     @GetMapping("/**")
-    public void redirect(@RequestParam(value = "ossKey", defaultValue = OssServer.DEFAULT_OSS_KEY) String ossKey,
+    public void redirect(@RequestParam(value = "ossKey", defaultValue = OssConstants.DEFAULT_OSS_KEY) String ossKey,
                          HttpServletRequest request, HttpServletResponse response) throws IOException {
         String ossObjectPath = Utils.extractPathWithinPattern((String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE),
                                                               (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE)
         );
-        URL redirect = this.ossServer.redirect(ossObjectPath, ossKey);
+        URL redirect = this.aliyunOssServer.redirect(ossObjectPath, ossKey);
         response.sendRedirect(redirect.toString());
     }
 

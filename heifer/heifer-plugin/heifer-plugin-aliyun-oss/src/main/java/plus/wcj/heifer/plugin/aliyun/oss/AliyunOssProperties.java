@@ -1,7 +1,5 @@
-package plus.wcj.heifer.plugin.oss.aliyun;
+package plus.wcj.heifer.plugin.aliyun.oss;
 
-
-import plus.wcj.heifer.plugin.oss.OssProperties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AliyunOssProperties implements OssProperties {
+public class AliyunOssProperties {
     /** 阿里云账号 accessId */
     private String accessId;
     /** 阿里云账号 accessKey */

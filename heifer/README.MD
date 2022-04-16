@@ -10,9 +10,9 @@
 - heifer-gateway
 - heifer-metadata(按需添加)
 - heifer-plugin
-    - heifer-plugin-oss(阿里云完成)
-    - heifer-plugin-rbac(50%)
-    - heifer-plugin-rbac-security(50%)
+   - heifer-plugin-aliyun-oss
+   - heifer-plugin-rbac(50% 前端未对接)
+   - heifer-plugin-rbac-security(50%)
 - heifer-tools(按需添加)
 
 
@@ -53,11 +53,10 @@
    5. 全局配置
    6. 多租户顶级接口
 6. heifer-plugin
-   1. heifer-plugin-oss
-      1. Aliyun oss
-         1. 服务端签名后直传
-         2. 302重定向访问私有oss
-      2. tencent oss 未实现
+   1. heifer-plugin-aliyun-oss
+      1. 服务端签名后直传
+      2. 302重定向访问私有oss
+      3. Resource支出
    2. heifer-plugin-rbac
       1. 通用rbac模型+acl模型实现
       2. abac模型 todo

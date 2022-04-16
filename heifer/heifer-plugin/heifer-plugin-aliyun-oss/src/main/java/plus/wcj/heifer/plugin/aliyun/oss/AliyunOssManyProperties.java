@@ -1,7 +1,5 @@
-package plus.wcj.heifer.plugin.oss.aliyun;
+package plus.wcj.heifer.plugin.aliyun.oss;
 
-
-import plus.wcj.heifer.plugin.oss.OssProperties;
 
 import lombok.Data;
 
@@ -16,7 +14,7 @@ import java.util.Map;
  */
 @Data
 @ConfigurationProperties(prefix = "heifer.aliyun")
-public class AliyunOssManyProperties implements OssProperties {
+public class AliyunOssManyProperties {
 
     private Map<String, AliyunOssProperties> oss = new LinkedHashMap<>();
 }
