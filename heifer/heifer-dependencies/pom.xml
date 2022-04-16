@@ -144,6 +144,11 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-mybatis-plus</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
                 <artifactId>heifer-common-dynamic-datasource</artifactId>
                 <version>${revision}</version>
             </dependency>
