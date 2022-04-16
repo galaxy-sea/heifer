@@ -25,6 +25,11 @@
 
         <dependency>
             <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-mybatis-plus</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
             <artifactId>heifer-metadata</artifactId>
         </dependency>
 

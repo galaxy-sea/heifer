@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.mybatisplus;
+package plus.wcj.heifer.common.mybatisplus;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 

@@ -1,7 +1,7 @@
 package plus.wcj.heifer.plugin.rbac.service.account.impl;
 
 
-import plus.wcj.heifer.boot.mybatisplus.impl.ServiceImpl;
+import plus.wcj.heifer.common.mybatisplus.impl.ServiceImpl;
 import plus.wcj.heifer.metadata.tenant.DataPowersDto;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
 import plus.wcj.heifer.plugin.rbac.dao.account.RbacAccountDao;

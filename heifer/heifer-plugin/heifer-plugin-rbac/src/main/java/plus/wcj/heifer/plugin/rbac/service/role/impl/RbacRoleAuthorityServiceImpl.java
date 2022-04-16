@@ -1,7 +1,7 @@
 package plus.wcj.heifer.plugin.rbac.service.role.impl;
 
 
-import plus.wcj.heifer.boot.mybatisplus.impl.ServiceImpl;
+import plus.wcj.heifer.common.mybatisplus.impl.ServiceImpl;
 import plus.wcj.heifer.plugin.rbac.dao.role.RbacRoleAuthorityDao;
 import plus.wcj.heifer.plugin.rbac.pojo.entity.role.RbacRoleAuthority;
 import plus.wcj.heifer.plugin.rbac.service.role.RbacRoleAuthorityService;

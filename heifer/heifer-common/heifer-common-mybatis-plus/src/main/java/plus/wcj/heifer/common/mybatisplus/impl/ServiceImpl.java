@@ -1,4 +1,4 @@
-package plus.wcj.heifer.boot.mybatisplus.impl;
+package plus.wcj.heifer.common.mybatisplus.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
@@ -17,7 +17,7 @@ import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
-import plus.wcj.heifer.boot.mybatisplus.IService;
+import plus.wcj.heifer.common.mybatisplus.IService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
