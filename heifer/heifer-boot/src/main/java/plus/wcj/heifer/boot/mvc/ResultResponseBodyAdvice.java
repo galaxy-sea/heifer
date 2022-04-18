@@ -1,10 +1,7 @@
 package plus.wcj.heifer.boot.mvc;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
 import plus.wcj.heifer.metadata.bean.Result;
-import plus.wcj.heifer.metadata.exception.ResultException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +11,6 @@ import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,8 +28,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
-    private final ObjectMapper objectMapper;
-
     /** 判断类或者方法是否使用了 @ResponseResultBody */
     @SuppressWarnings("NullableProblems")
     @Override
@@ -45,7 +39,8 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @SuppressWarnings("NullableProblems")
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        return convert(convert(body), selectedConverterType);
+        // return convert(convert(body), selectedConverterType);
+        return convert(body);
     }
 
     private Result<?> convert(Object body) {
@@ -55,16 +50,17 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
         return Result.success(body);
     }
 
-    private Object convert(Result<?> result, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
-        if (selectedConverterType == StringHttpMessageConverter.class && result.getData() instanceof String) {
-            try {
-                return objectMapper.writeValueAsString(result);
-            } catch (JsonProcessingException e) {
-                throw new ResultException();
-            }
-        }
-        return result;
-    }
+    // TODO: 2022/4/18 changjin wei(魏昌进) bug 问题如果是xml呐？？？
+    // private Object convert(Result<?> result, Class<? extends HttpMessageConverter<?>> selectedConverterType) {
+    //     if (selectedConverterType == StringHttpMessageConverter.class && result.getData() instanceof String) {
+    //         try {
+    //             return objectMapper.writeValueAsString(result);
+    //         } catch (JsonProcessingException e) {
+    //             throw new ResultException();
+    //         }
+    //     }
+    //     return result;
+    // }
 
 }
 
