@@ -47,6 +47,6 @@ public class HeiferBootAutoConfiguration implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.sort((o1, o2) -> o1 instanceof MappingJackson2HttpMessageConverter ? -1 : 1);
+        converters.sort((o1, o2) -> o1.getClass().equals(o2.getClass()) ? 0 : o1 instanceof MappingJackson2HttpMessageConverter ? -1 : 0);
     }
 }
