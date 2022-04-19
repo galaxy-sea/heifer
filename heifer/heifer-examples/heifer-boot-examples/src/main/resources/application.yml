@@ -10,3 +10,8 @@ spring:
       INDENT_OUTPUT: false
     deserialization:
       READ_ENUMS_USING_TO_STRING: true
+  cloud:
+    nacos:
+      server-addr: heifer.wcj.plus
+server:
+  port: 0

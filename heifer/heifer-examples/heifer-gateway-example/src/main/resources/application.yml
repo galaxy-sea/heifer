@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: heifer-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: heifer.wcj.plus
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway

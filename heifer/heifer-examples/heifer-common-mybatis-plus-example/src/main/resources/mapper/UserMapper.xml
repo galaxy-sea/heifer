@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="plus.wcj.heifer.common.mybatis.plus.example.UserMapper">
+    <select id="selectTest" resultType="plus.wcj.heifer.common.mybatis.plus.example.User">
+        SELECT *
+        FROM user
+        WHERE name = 'xiaowei'
+          AND grade = 'SECONDORY'
+    </select>
+
+    <select id="selectEnum" resultType="plus.wcj.heifer.common.mybatis.plus.example.User">
+        SELECT *
+        FROM user
+        WHERE name = #{user.name}
+        AND grade = #{user.grade}
+    </select>
+</mapper>

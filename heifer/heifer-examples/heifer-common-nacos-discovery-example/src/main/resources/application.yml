@@ -1,0 +1,8 @@
+spring:
+    application:
+        name: heifer-common-nacos-discovery-example
+    cloud:
+        nacos:
+            discovery:
+                server-addr: heifer.wcj.plus:8848
+
