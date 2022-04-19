@@ -15,6 +15,7 @@
 
     <modules>
         <module>heifer-boot-examples</module>
+        <module>heifer-common-mybatis-plus-example</module>
     </modules>
 
     <properties>

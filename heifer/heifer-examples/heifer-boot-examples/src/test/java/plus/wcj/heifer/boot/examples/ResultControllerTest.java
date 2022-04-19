@@ -30,7 +30,7 @@ public class ResultControllerTest {
     public void error401() {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("/error401", String.class);
         Assert.isTrue("401".equals(String.valueOf(responseEntity.getStatusCodeValue())));
-        Assert.isTrue("{\"code\":\"401\",\"message\":\"Unauthorized\",\"data\":null}".equals(responseEntity.getBody()));
+        Assert.isTrue("{\"code\":\"401\",\"message\":\"Unauthorized\"}".equals(responseEntity.getBody()));
     }
 
     @Test
@@ -38,5 +38,12 @@ public class ResultControllerTest {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("/string", String.class);
         Assert.isTrue("200".equals(String.valueOf(responseEntity.getStatusCodeValue())));
         Assert.isTrue("{\"code\":\"200\",\"message\":\"OK\",\"data\":\"hello, world\"}".equals(responseEntity.getBody()));
+    }
+
+    @Test
+    public void validator() {
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("/validator", String.class);
+        Assert.isTrue("400".equals(String.valueOf(responseEntity.getStatusCodeValue())));
+        Assert.isTrue("{\"code\":\"400\",\"message\":\"Bad Request\",\"data\":{\"defaultMessage\":\"不能为null\",\"field\":\"name\",\"code\":\"NotNull\"}}".equals(responseEntity.getBody()));
     }
 }

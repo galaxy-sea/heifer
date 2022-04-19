@@ -5,6 +5,7 @@ import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +36,13 @@ public class ResultController {
     }
 
 
-    @GetMapping(value = "string",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "string", produces = MediaType.APPLICATION_JSON_VALUE)
     public String string() {
+        return "hello, world";
+    }
+
+    @GetMapping(value = "validator")
+    public String validator(@Validated ValidatedDto validatedDto) {
         return "hello, world";
     }
 }
