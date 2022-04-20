@@ -20,6 +20,7 @@
         <module>heifer-gateway-example</module>
         <module>heifer-common-feign-example</module>
         <module>heifer-api</module>
+        <module>heifer-common-redis-examples</module>
     </modules>
 
     <properties>

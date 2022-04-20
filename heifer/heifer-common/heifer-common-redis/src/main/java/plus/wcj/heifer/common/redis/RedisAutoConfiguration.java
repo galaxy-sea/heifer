@@ -1,15 +1,19 @@
 package plus.wcj.heifer.common.redis;
 
 import plus.wcj.heifer.common.redis.data.RandomTtlRedisCacheManager;
+import plus.wcj.heifer.common.redis.lock.LockService;
+import plus.wcj.heifer.common.redis.lock.LockServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -27,6 +31,7 @@ import java.time.Duration;
 @EnableCaching
 @EnableConfigurationProperties(CacheProperties.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@AutoConfigureOrder(value = Ordered.HIGHEST_PRECEDENCE)
 public class RedisAutoConfiguration {
 
     private final CacheProperties cacheProperties;
@@ -71,6 +76,11 @@ public class RedisAutoConfiguration {
     @Bean(destroyMethod = "destroy")
     public RedisLockRegistry redisLockRegistry(RedisConnectionFactory redisConnectionFactory) {
         return new RedisLockRegistry(redisConnectionFactory, "lock");
+    }
+
+    @Bean
+    public LockService lockService(RedisLockRegistry redisLockRegistry) {
+        return new LockServiceImpl(redisLockRegistry);
     }
 
 }
