@@ -8,6 +8,7 @@ import plus.wcj.heifer.metadata.bean.Result;
 import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 /**
@@ -23,7 +24,9 @@ public class ResultDecoder implements Decoder {
 
     @Override
     public Object decode(Response response, Type type) throws IOException, FeignException {
-        if (response.request().requestTemplate().methodMetadata().method().isAnnotationPresent(ResultResponseBody.class)) {
+        Method method = response.request().requestTemplate().methodMetadata().method();
+        boolean isResult = method.getReturnType() != Result.class && method.isAnnotationPresent(ResultResponseBody.class);
+        if (isResult) {
             ParameterizedTypeImpl resultType = ParameterizedTypeImpl.make(Result.class, new Type[]{type}, null);
             Result<?> result = (Result<?>) this.decoder.decode(response, resultType);
             return result.getData();
