@@ -1,6 +1,7 @@
 package plus.wcj.heifer.boot.examples;
 
 import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.bean.Result;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
@@ -28,6 +29,14 @@ public class ResultController {
             put("hello", "hello");
             put("world", "world");
         }};
+    }
+
+    @GetMapping("result")
+    public Result<Map<String, String>> result() {
+        return Result.success(new LinkedHashMap<String, String>() {{
+            put("hello", "hello");
+            put("world", "world");
+        }});
     }
 
     @GetMapping("error401")

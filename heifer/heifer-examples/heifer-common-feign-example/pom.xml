@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>plus.wcj</groupId>
-    <artifactId>heifer-gateway-example</artifactId>
+    <groupId>wcj.plus</groupId>
+    <artifactId>heifer-common-feign-example</artifactId>
     <version>${revision}</version>
-    <name>heifer-gateway-example</name>
-    <description>heifer-gateway-example</description>
+    <name>heifer-common-feign-example</name>
+    <description>heifer-common-feign-example</description>
 
     <parent>
         <artifactId>heifer-examples</artifactId>
@@ -14,17 +14,25 @@
         <version>${revision}</version>
     </parent>
 
+
+
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     </properties>
 
     <dependencies>
 
         <dependency>
             <groupId>plus.wcj</groupId>
-            <artifactId>heifer-gateway</artifactId>
+            <artifactId>heifer-common-feign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-nacos-discovery</artifactId>
         </dependency>
 
         <dependency>
@@ -38,7 +46,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-api</artifactId>
+        </dependency>
     </dependencies>
+
+
 
     <build>
         <plugins>
@@ -57,7 +71,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>plus.wcj.heifer.gateway.example.HeiferGatewayExampleApplication</mainClass>
+                    <mainClass>wcj.plus.heifer.common.feign.example.HeiferCommonFeignExampleApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>plus.wcj</groupId>
     <artifactId>heifer-common-nacos-discovery-example</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <name>heifer-common-nacos-discovery-example</name>
     <description>heifer-common-nacos-discovery-example</description>
 

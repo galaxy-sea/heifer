@@ -27,6 +27,13 @@ public class ResultControllerTest {
     }
 
     @Test
+    public void result() {
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("/result", String.class);
+        Assert.isTrue("200".equals(String.valueOf(responseEntity.getStatusCodeValue())));
+        Assert.isTrue("{\"code\":\"200\",\"message\":\"OK\",\"data\":{\"hello\":\"hello\",\"world\":\"world\"}}".equals(responseEntity.getBody()));
+    }
+
+    @Test
     public void error401() {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("/error401", String.class);
         Assert.isTrue("401".equals(String.valueOf(responseEntity.getStatusCodeValue())));

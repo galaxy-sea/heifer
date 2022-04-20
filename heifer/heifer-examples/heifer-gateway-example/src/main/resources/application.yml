@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: heifer.wcj.plus
+        server-addr: heifer.wcj.plus:8848
     gateway:
       discovery:
         locator:
@@ -16,3 +16,6 @@ management:
     web:
       exposure:
         include: gateway
+  endpoint:
+    health:
+      show-details: always

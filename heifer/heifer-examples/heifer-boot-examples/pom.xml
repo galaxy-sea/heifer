@@ -20,6 +20,11 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-boot</artifactId>

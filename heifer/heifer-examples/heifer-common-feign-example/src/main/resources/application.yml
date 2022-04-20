@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: heifer-common-feign-example
+  cloud:
+    nacos:
+      discovery:
+        server-addr: heifer.wcj.plus
