@@ -43,9 +43,9 @@ public class AliyunOssServer {
     }
 
 
-    public Map<String, String> policy(String dir, String ossKey) {
-        AliyunOssProperties aliyunOssProperties = this.getOssProperties(ossKey);
-        OSS oss = getOss(ossKey);
+    public Map<String, String> policy(String dir, String bucket) {
+        AliyunOssProperties aliyunOssProperties = this.getOssProperties(bucket);
+        OSS oss = getOss(bucket);
 
         long expireEndTime = System.currentTimeMillis() + aliyunOssProperties.getExpire();
         Date expiration = new Date(expireEndTime);
@@ -76,9 +76,9 @@ public class AliyunOssServer {
     }
 
 
-    public URL redirect(String key, String ossKey) {
-        AliyunOssProperties aliyunOssProperties = this.getOssProperties(ossKey);
-        OSS oss = getOss(ossKey);
+    public URL redirect(String key, String bucket) {
+        AliyunOssProperties aliyunOssProperties = this.getOssProperties(bucket);
+        OSS oss = getOss(bucket);
 
         long expireEndTime = System.currentTimeMillis() + aliyunOssProperties.getExpire();
         Date expiration = new Date(expireEndTime);
@@ -106,40 +106,40 @@ public class AliyunOssServer {
     }
 
 
-    public String putObject(String ossKey, String ossObjectPath, MultipartFile file, ObjectMetadata metadata) {
+    public String putObject(String bucket, String ossObjectPath, MultipartFile file, ObjectMetadata metadata) {
         try (InputStream inputStream = file.getInputStream()) {
-            return this.putObject(ossKey, ossObjectPath, inputStream, metadata);
+            return this.putObject(bucket, ossObjectPath, inputStream, metadata);
         } catch (IOException e) {
             throw new OSSException("MultipartFile to InputStream Exception");
         }
     }
 
 
-    public String putObject(String ossKey, String ossObjectPath, byte[] bytes, ObjectMetadata metadata) {
-        return this.putObject(ossKey, ossObjectPath, new ByteArrayInputStream(bytes), metadata);
+    public String putObject(String bucket, String ossObjectPath, byte[] bytes, ObjectMetadata metadata) {
+        return this.putObject(bucket, ossObjectPath, new ByteArrayInputStream(bytes), metadata);
     }
 
 
-    public String putObject(String ossKey, String ossObjectPath, InputStream input, ObjectMetadata metadata) {
-        AliyunOssProperties aliyunOssProperties = this.getOssProperties(ossKey);
-        OSS oss = getOss(ossKey);
+    public String putObject(String bucket, String ossObjectPath, InputStream input, ObjectMetadata metadata) {
+        AliyunOssProperties aliyunOssProperties = this.getOssProperties(bucket);
+        OSS oss = getOss(bucket);
 
         oss.putObject(aliyunOssProperties.getBucket(), ossObjectPath, input, metadata);
         return aliyunOssProperties.getHost() + ossObjectPath;
     }
 
 
-    public String putObject(String ossKey, String ossObjectPath, File file, ObjectMetadata metadata) {
-        AliyunOssProperties aliyunOssProperties = this.getOssProperties(ossKey);
-        OSS oss = getOss(ossKey);
+    public String putObject(String bucket, String ossObjectPath, File file, ObjectMetadata metadata) {
+        AliyunOssProperties aliyunOssProperties = this.getOssProperties(bucket);
+        OSS oss = getOss(bucket);
 
         oss.putObject(aliyunOssProperties.getBucket(), ossObjectPath, file, metadata);
         return aliyunOssProperties.getHost() + ossObjectPath;
     }
 
 
-    public OSS getOss(String ossKey) {
-        return aliyunOssMap.get(ossKey);
+    public OSS getOss(String bucket) {
+        return aliyunOssMap.get(bucket);
     }
 
     /**
@@ -148,12 +148,9 @@ public class AliyunOssServer {
      * @return OSS
      */
     public OSS getOssByLocation(String location) {
-        if (location.startsWith(OssConstants.OSS_PROTOCOL) && aliyunOssMap.containsKey(OssConstants.DEFAULT_OSS_KEY)) {
-            return aliyunOssMap.get(OssConstants.DEFAULT_OSS_KEY);
-        }
         for (Map.Entry<String, OSS> ossEntry : aliyunOssMap.entrySet()) {
             String key = ossEntry.getKey();
-            String ossProtocol = OssConstants.OSS_PROTOCOL_PREFIX + key + OssConstants.OSS_PROTOCOL_SUFFIX;
+            String ossProtocol = OssConstants.OSS_PROTOCOL + key;
             if (location.startsWith(ossProtocol)) {
                 return ossEntry.getValue();
             }
@@ -162,8 +159,8 @@ public class AliyunOssServer {
     }
 
 
-    public AliyunOssProperties getOssProperties(String ossKey) {
-        return aliyunOssPropertiesMap.get(ossKey);
+    public AliyunOssProperties getOssProperties(String bucket) {
+        return aliyunOssPropertiesMap.get(bucket);
     }
 
 

@@ -14,6 +14,4 @@ public interface OssConstants {
     String DEFAULT_OSS_KEY = "default";
 
     String OSS_PROTOCOL = "oss://";
-    String OSS_PROTOCOL_PREFIX = "oss-";
-    String OSS_PROTOCOL_SUFFIX = "://";
 }

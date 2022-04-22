@@ -2,6 +2,7 @@ package plus.wcj.heifer.plugin.aliyun.oss;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import plus.wcj.heifer.plugin.aliyun.oss.resource.OssStorageProtocolResolver;
 
 import lombok.RequiredArgsConstructor;
 
@@ -58,4 +59,13 @@ public class AliyunOssConfig {
                                       new SynchronousQueue<>()
         );
     }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public OssStorageProtocolResolver ossStorageProtocolResolver() {
+        return new OssStorageProtocolResolver();
+    }
+
+
 }

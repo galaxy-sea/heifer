@@ -50,7 +50,6 @@ import static org.springframework.util.StringUtils.trimAllWhitespace;
  * OSSObject.
  *
  * @author <a href="mailto:fangjian0423@gmail.com">Jim</a>
- * @author changjin wei(魏昌进)
  * @see com.aliyun.oss.OSS
  * @see com.aliyun.oss.model.Bucket
  * @see com.aliyun.oss.model.OSSObject
@@ -85,8 +84,7 @@ public class OssStorageResource implements WritableResource {
                               ConfigurableListableBeanFactory beanFactory, boolean autoCreateFiles) {
         Assert.notNull(oss, "Object Storage Service can not be null");
         Assert.isTrue(location.startsWith(OssStorageProtocolResolver.PROTOCOL),
-                      "Location must start with " + OssStorageProtocolResolver.PROTOCOL
-        );
+                "Location must start with " + OssStorageProtocolResolver.PROTOCOL);
         this.oss = oss;
         this.autoCreateFiles = autoCreateFiles;
         this.beanFactory = beanFactory;
@@ -105,8 +103,7 @@ public class OssStorageResource implements WritableResource {
         }
 
         this.ossTaskExecutor = this.beanFactory.getBean(OssConstants.OSS_TASK_EXECUTOR_BEAN_NAME,
-                                                        ExecutorService.class
-        );
+                                                        ExecutorService.class);
     }
 
     public boolean isAutoCreateFiles() {
@@ -166,8 +163,7 @@ public class OssStorageResource implements WritableResource {
     @Override
     public Resource createRelative(String relativePath) throws IOException {
         return new OssStorageResource(this.oss,
-                                      this.location.resolve(relativePath).toString(), this.beanFactory
-        );
+                this.location.resolve(relativePath).toString(), this.beanFactory);
     }
 
     @Override
@@ -198,8 +194,8 @@ public class OssStorageResource implements WritableResource {
      */
     public Bucket getBucket() {
         return this.oss.listBuckets().stream()
-                       .filter(bucket -> bucket.getName().equals(this.bucketName)).findFirst()
-                       .orElse(null);
+                .filter(bucket -> bucket.getName().equals(this.bucketName)).findFirst()
+                .orElse(null);
     }
 
     /**
@@ -216,8 +212,7 @@ public class OssStorageResource implements WritableResource {
      *
      * @return The resource object, will be null if it does not exist in Aliyun Object
      * Storage Service.
-     *
-     * @throws com.aliyun.oss.OSSException it is thrown upon error when accessing OSS
+     * @throws com.aliyun.oss.OSSException    it is thrown upon error when accessing OSS
      * @throws com.aliyun.oss.ClientException it is the one thrown by the client side when accessing OSS
      */
     public OSSObject getOSSObject() {
@@ -258,7 +253,6 @@ public class OssStorageResource implements WritableResource {
      * done
      *
      * @return OutputStream of OSS resource
-     *
      * @throws java.io.IOException throw by oss operation
      */
     @Override

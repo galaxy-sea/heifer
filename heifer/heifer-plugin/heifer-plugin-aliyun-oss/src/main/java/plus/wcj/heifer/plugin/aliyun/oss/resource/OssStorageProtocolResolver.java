@@ -34,20 +34,19 @@ import org.springframework.core.io.ResourceLoader;
  * A {@link org.springframework.core.io.ProtocolResolver} implementation for the {@code oss://} protocol.
  *
  * @author <a href="mailto:fangjian0423@gmail.com">Jim</a>
- * @author changjin wei(魏昌进)
  */
 public class OssStorageProtocolResolver
-        implements ProtocolResolver, BeanFactoryPostProcessor, ResourceLoaderAware {
+		implements ProtocolResolver, BeanFactoryPostProcessor, ResourceLoaderAware {
 
-    /**
-     * protocol of oss resource.
-     */
-    public static final String PROTOCOL = "oss://";
+	/**
+	 * protocol of oss resource.
+	 */
+	public static final String PROTOCOL = "oss://";
 
-    private static final Logger log = LoggerFactory
-            .getLogger(OssStorageProtocolResolver.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(OssStorageProtocolResolver.class);
 
-    private ConfigurableListableBeanFactory beanFactory;
+	private ConfigurableListableBeanFactory beanFactory;
 
     private AliyunOssServer aliyunOssServer;
 
@@ -63,27 +62,33 @@ public class OssStorageProtocolResolver
         return this.aliyunOssServer;
     }
 
-    @Override
-    public Resource resolve(String location, ResourceLoader resourceLoader) {
-        OSS oss = getAliyunOsServer().getOssByLocation(location);
-        return new OssStorageResource(oss, location, beanFactory);
-    }
+	@Override
+	public Resource resolve(String location, ResourceLoader resourceLoader) {
+		if (!location.startsWith(PROTOCOL)) {
+			return null;
+		}
+		OSS oss = getAliyunOsServer().getOssByLocation(location);
+		if (oss == null) {
+			return null;
+		}
+		return new OssStorageResource(oss, location, beanFactory);
+	}
 
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        if (DefaultResourceLoader.class.isAssignableFrom(resourceLoader.getClass())) {
-            ((DefaultResourceLoader) resourceLoader).addProtocolResolver(this);
-        } else {
-            log.warn("The provided delegate resource loader is not an implementation "
-                             + "of DefaultResourceLoader. Custom Protocol using oss:// prefix will not be enabled.");
-        }
-    }
+	@Override
+	public void setResourceLoader(ResourceLoader resourceLoader) {
+		if (DefaultResourceLoader.class.isAssignableFrom(resourceLoader.getClass())) {
+			((DefaultResourceLoader) resourceLoader).addProtocolResolver(this);
+		}
+		else {
+			log.warn("The provided delegate resource loader is not an implementation "
+					+ "of DefaultResourceLoader. Custom Protocol using oss:// prefix will not be enabled.");
+		}
+	}
 
-
-    @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)
-            throws BeansException {
-        this.beanFactory = beanFactory;
-    }
+	@Override
+	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)
+			throws BeansException {
+		this.beanFactory = beanFactory;
+	}
 
 }
