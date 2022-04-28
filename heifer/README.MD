@@ -28,6 +28,7 @@
    3. http Result自动包装
    4. mybatis plus 分页
    5. 通用service crud
+   6. 代码生成器未完成
 2. heifer-common
    1. heifer-common-dynamic-datasource
    2. heifer-common-feign

@@ -12,9 +12,9 @@
     <artifactId>heifer-plugin</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>heifer-plugin-rbac</module>
         <module>heifer-plugin-rbac-security</module>
         <module>heifer-plugin-aliyun-oss</module>
+        <module>heifer-plugin-iam</module>
     </modules>
 
     <properties>

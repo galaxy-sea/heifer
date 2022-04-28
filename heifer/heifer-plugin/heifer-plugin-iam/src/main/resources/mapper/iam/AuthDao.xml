@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- author=weichangjin (魏昌进) -->
+<!-- since=2022-04-28 -->
+<mapper namespace="plus.wcj.heifer.plugin.iam.dao.AuthDao">
+    <select id="selectAccountByPhone" resultType="plus.wcj.heifer.plugin.iam.dto.AccountDto">
+        SELECT ia.id,
+               ia.username,
+               ia.phone,
+               ia.email,
+               ia.password,
+               ia.nickname,
+               ia.is_enabled
+        FROM iam_account ia;
+        WHERE
+        ia.phone = #{phone}
+    </select>
+
+    <select id="selectAllTenant" resultType="plus.wcj.heifer.plugin.iam.dto.TenantDto">
+        SELECT it.id, it.name
+        FROM iam_tenant it
+        WHERE it.id IN (SELECT iam.iam_tenant_id FROM iam_account_manage iam WHERE iam.iam_account_id = #{accountId})
+    </select>
+
+    <select id="listRole" resultType="plus.wcj.heifer.plugin.iam.dto.RoleDto">
+        SELECT ir.id,
+        ir.name
+        FROM iam_role ir
+        WHERE exists(SELECT 1
+        FROM iam_account_role_rel iarr
+        WHERE iarr.iam_account_id = #{accountId} AND ir.id = iarr.iam_role_id)
+        AND ir.iam_tenant_id = #{tenantId}
+    </select>
+
+    <select id="listPermission" resultType="java.lang.String">
+        SELECT DISTINCT ip.permission
+        FROM iam_permission ip
+        WHERE ip.id IN (SELECT iaa.iam_permission_id
+            FROM iam_account_authority iaa
+            WHERE iaa.iam_account_id = #{accountId}
+                AND iaa.iam_tenant_id = #{tenantId}
+        <if test="roleList != null and roleList.size() != 0">
+            UNION
+            SELECT ira.iam_permission_id
+            FROM iam_role_authority ira
+            WHERE ira.iam_role_id IN
+            <foreach item="item" index="index" collection="roleList" open="(" separator="," close=")">
+                #{item.id}
+            </foreach>
+            AND  ira.iam_tenant_id = #{tenantId}
+        </if>
+        )
+    </select>
+
+    <select id="listPower" resultType="java.lang.Long">
+        SELECT iadp.iam_dept_id
+        FROM iam_account_data_power iadp
+        WHERE iadp.iam_account_id = #{accountId}
+        UNION
+        SELECT irdp.iam_dept_id
+        FROM iam_role_data_power irdp
+        WHERE irdp.iam_role_id IN (SELECT iarr.iam_role_id FROM iam_account_role_rel iarr WHERE iarr.iam_account_id = #{accountId})
+            AND irdp.iam_tenant_id = #{tenantId}
+    </select>
+</mapper>

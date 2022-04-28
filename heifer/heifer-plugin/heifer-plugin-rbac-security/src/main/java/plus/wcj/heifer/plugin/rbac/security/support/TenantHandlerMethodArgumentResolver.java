@@ -40,7 +40,7 @@ public class TenantHandlerMethodArgumentResolver implements HandlerMethodArgumen
         }
         DataPowersDto dataPowersDto = null;
         if (userPrincipal.getTenantId() != null) {
-            dataPowersDto = userPrincipalService.getAllPower(userPrincipal.getTenantId(), userPrincipal.getId());
+            dataPowersDto = userPrincipalService.listPower(userPrincipal.getTenantId(), userPrincipal.getId());
         }
         dataPowersDto = DataPowersDto.init(dataPowersDto);
         return new Tenant(userPrincipal.getId(),

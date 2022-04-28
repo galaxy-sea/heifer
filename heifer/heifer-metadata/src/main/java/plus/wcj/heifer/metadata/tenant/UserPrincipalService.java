@@ -15,9 +15,9 @@ import java.util.List;
 public interface UserPrincipalService {
     @GetMapping("/account/getAllPermission")
     @Cacheable(cacheNames = "permission", key = "#accountId+':'+#tenantId")
-    List<String> getAllPermission(@RequestParam Long accountId, @RequestParam Long tenantId);
+    List<String> listPermission(@RequestParam Long accountId, @RequestParam Long tenantId);
 
     @GetMapping("/account/getAllPower")
     @Cacheable(cacheNames = "power", key = "#accountId+':'+#tenantId")
-    DataPowersDto getAllPower(@RequestParam Long accountId, @RequestParam Long tenantId);
+    DataPowersDto listPower(@RequestParam Long accountId, @RequestParam Long tenantId);
 }

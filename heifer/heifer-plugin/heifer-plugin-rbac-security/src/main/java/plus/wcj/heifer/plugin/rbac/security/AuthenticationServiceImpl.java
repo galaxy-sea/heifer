@@ -67,7 +67,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
      */
     private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, Long tenantId) {
         Long id = Long.valueOf(jwtClaimsSet.getJWTID());
-        List<String> allPermission = userPrincipalService.getAllPermission(id, tenantId);
+        List<String> allPermission = userPrincipalService.listPermission(id, tenantId);
         List<SimpleGrantedAuthority> authorities = allPermission.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         UserPrincipal userPrincipal = new UserPrincipal();
         userPrincipal.setId(id);

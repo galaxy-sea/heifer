@@ -220,7 +220,7 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
-                <artifactId>heifer-plugin-rbac</artifactId>
+                <artifactId>heifer-plugin-iam</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

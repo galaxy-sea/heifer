@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- author=weichangjin (魏昌进) -->
+<!-- since=2022-04-23 -->
+<mapper namespace="plus.wcj.heifer.plugin.iam.dao.IamRoleDao">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.iam.entity.IamRole">
+        <id column="id" property="id" />
+        <result column="iam_tenant_id" property="iamTenantId" />
+        <result column="name" property="name" />
+        <result column="create_time" property="createTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_by" property="updateBy" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        iam_tenant_id,
+        name,
+        create_time,
+        create_by,
+        update_time,
+        update_by
+    </sql>
+
+    <select id="selectRoleDtoBy" resultType="plus.wcj.heifer.plugin.iam.dto.RoleDto">
+        SELECT rr.id,
+        rr.name
+        FROM rbac_role rr
+        WHERE EXISTS(SELECT 1 FROM rbac_account_role_rel rarr WHERE rarr.rbac_account_id = #{accountId} AND rr.id = rarr.rbac_role_id)
+        AND rr.rbac_tenant_id = #{tenantId}
+    </select>
+</mapper>
