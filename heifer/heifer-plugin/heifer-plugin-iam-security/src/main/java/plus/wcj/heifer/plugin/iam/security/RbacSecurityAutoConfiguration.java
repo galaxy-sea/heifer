@@ -2,7 +2,7 @@ package plus.wcj.heifer.plugin.iam.security;
 
 
 import plus.wcj.heifer.common.security.config.SecurityAutoConfiguration;
-import plus.wcj.heifer.common.security.filter.AuthenticationService;
+import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
 import plus.wcj.heifer.plugin.iam.security.support.SecurityUserHandlerMethodArgumentResolver;
@@ -39,9 +39,9 @@ public class RbacSecurityAutoConfiguration implements WebMvcConfigurer {
 
 
     @Bean
-    @ConditionalOnMissingBean(AuthenticationService.class)
-    public AuthenticationService authenticationService() {
-        return new AuthenticationServiceImpl(handlerExceptionResolver, jwtProperties, userPrincipalService);
+    @ConditionalOnMissingBean(IamOncePerRequestFilter.class)
+    public IamOncePerRequestFilter authenticationService() {
+        return new JwtTokenAuthenticationFilter(handlerExceptionResolver, jwtProperties, userPrincipalService);
     }
 
 

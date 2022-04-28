@@ -2,7 +2,7 @@ package plus.wcj.heifer.plugin.iam.security;
 
 import com.nimbusds.jwt.JWTClaimsSet;
 import plus.wcj.heifer.common.security.UserPrincipal;
-import plus.wcj.heifer.common.security.filter.AuthenticationService;
+import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
 import plus.wcj.heifer.tools.utils.JwtUtil;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * @author changjin wei(魏昌进)
  * @since 2021/12/21
  */
-public class AuthenticationServiceImpl implements AuthenticationService {
+public class JwtTokenAuthenticationFilter extends IamOncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtProperties jwtProperties;
     private final UserPrincipalService userPrincipalService;
@@ -33,7 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public static final String TENANT_ID = "Tenant-Id";
 
 
-    public AuthenticationServiceImpl(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, UserPrincipalService userPrincipalService) {
+    public JwtTokenAuthenticationFilter(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, UserPrincipalService userPrincipalService) {
         this.handlerExceptionResolver = handlerExceptionResolver;
         this.jwtProperties = jwtProperties;
         this.userPrincipalService = userPrincipalService;

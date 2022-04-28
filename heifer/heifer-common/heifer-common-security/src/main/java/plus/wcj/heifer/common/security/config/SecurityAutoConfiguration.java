@@ -1,8 +1,7 @@
 package plus.wcj.heifer.common.security.config;
 
 
-import plus.wcj.heifer.common.security.filter.AuthenticationFilter;
-import plus.wcj.heifer.common.security.filter.AuthenticationService;
+import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.common.security.properties.IgnoreWebSecurityProperties;
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 import plus.wcj.heifer.metadata.exception.ResultException;
@@ -10,6 +9,7 @@ import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,7 +27,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -53,7 +52,7 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private IgnoreWebSecurityProperties ignoreWebSecurityProperties;
     @Autowired
-    private AuthenticationService authenticationService;
+    private ObjectProvider<IamOncePerRequestFilter> iamOncePerRequestFilterObjectProvider;
     @Autowired
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
@@ -72,7 +71,7 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // @formatter:off
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+        http.cors()
             // 关闭 CSRF
             .and().csrf().disable()
             // 登录行为由自己实现，参考 AuthController#login
@@ -106,7 +105,7 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
-        http.addFilterBefore(new AuthenticationFilter(this.authenticationService), BasicAuthenticationFilter.class);
+        http.addFilterBefore(iamOncePerRequestFilterObjectProvider.getIfAvailable(), BasicAuthenticationFilter.class);
     }
 
     /**
