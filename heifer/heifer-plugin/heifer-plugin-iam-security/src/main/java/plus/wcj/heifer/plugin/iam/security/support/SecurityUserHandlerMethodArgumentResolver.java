@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.security.support;
+package plus.wcj.heifer.plugin.iam.security.support;
 
 import plus.wcj.heifer.common.security.UserPrincipal;
 import plus.wcj.heifer.metadata.tenant.Tenant;

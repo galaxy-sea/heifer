@@ -1,10 +1,11 @@
-package plus.wcj.heifer.plugin.rbac.security;
+package plus.wcj.heifer.plugin.iam.security;
 
 
 import plus.wcj.heifer.common.security.config.SecurityAutoConfiguration;
 import plus.wcj.heifer.common.security.filter.AuthenticationService;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
+import plus.wcj.heifer.plugin.iam.security.support.SecurityUserHandlerMethodArgumentResolver;
 import plus.wcj.heifer.plugin.rbac.security.support.SecurityUserHandlerMethodArgumentResolver;
 import plus.wcj.heifer.plugin.rbac.security.support.TenantHandlerMethodArgumentResolver;
 

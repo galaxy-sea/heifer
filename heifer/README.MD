@@ -11,8 +11,8 @@
 - heifer-metadata(按需添加)
 - heifer-plugin
    - heifer-plugin-aliyun-oss
-   - heifer-plugin-rbac(50% 前端未对接)
-   - heifer-plugin-rbac-security(50%)
+   - heifer-plugin-iam(50% 前端未对接)
+   - heifer-plugin-iam-security(50%)
 - heifer-tools(按需添加)
 
 
@@ -40,7 +40,7 @@
       1. spring cache 随机过期时间缓存规则
       2. Redis 锁
    5. heifer-common-security
-      1. 需要配合 heifer-plugin-rbac-security或者自定义实现
+      1. 需要配合 heifer-plugin-iam-security或者自定义实现
       2. 注解和配置两种方式 忽略过滤URL
 3. heifer-dependencies
    1. 全局依赖版本控制
@@ -58,14 +58,14 @@
       1. 服务端签名后直传
       2. 302重定向访问私有oss
       3. Resource支出
-   2. heifer-plugin-rbac
+   2. heifer-plugin-iam
       1. 通用rbac模型+acl模型实现
       2. abac模型 todo
       3. 通用数据权限 crud
       4. 通用功能权限 crud
-   3. heifer-plugin-rbac-security
+   3. heifer-plugin-iam-security
       1. jwt 鉴权模型
-      2. heifer-plugin-rbac和heifer-common-security的实现
+      2. heifer-plugin-iam和heifer-common-security的实现
 7. heifer-tools
    1. 密码加密器
    2. jwt工具类

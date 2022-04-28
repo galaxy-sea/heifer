@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.security;
+package plus.wcj.heifer.plugin.iam.security;
 
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

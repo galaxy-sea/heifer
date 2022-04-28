@@ -225,7 +225,7 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
-                <artifactId>heifer-plugin-rbac-security</artifactId>
+                <artifactId>heifer-plugin-iam-security</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

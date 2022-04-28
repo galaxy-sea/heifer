@@ -1,4 +1,4 @@
-package plus.wcj.heifer.plugin.rbac.security;
+package plus.wcj.heifer.plugin.iam.security;
 
 import com.nimbusds.jwt.JWTClaimsSet;
 import plus.wcj.heifer.common.security.UserPrincipal;
