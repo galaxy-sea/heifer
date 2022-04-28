@@ -24,9 +24,6 @@
 
         <seata.version>1.4.2</seata.version>
 
-        <commons-io.version>2.11.0</commons-io.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
-
         <xk-time.version>3.2.2.Mini</xk-time.version>
         <nimbus-jose-jwt.version>9.21</nimbus-jose-jwt.version>
         <jasypt.version>3.0.3</jasypt.version>
@@ -110,18 +107,6 @@
                 <groupId>com.github.xkzhangsan</groupId>
                 <artifactId>xk-time</artifactId>
                 <version>${xk-time.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-collections4</artifactId>
-                <version>${commons-collections4.version}</version>
             </dependency>
 
             <dependency>
