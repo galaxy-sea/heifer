@@ -62,4 +62,14 @@ public interface AuthDao {
      * @return dept id列表
      */
     List<Long> listPower(@Param("accountId") Long accountId, @Param("tenantId") Long tenantId);
+
+    /**
+     * 获取当前账户在租户中的部门
+     *
+     * @param accountId 账户id
+     * @param tenantId 租户id
+     *
+     * @return 部门id
+     */
+    Long getDept(@Param("accountId") Long accountId, @Param("tenantId") Long tenantId);
 }

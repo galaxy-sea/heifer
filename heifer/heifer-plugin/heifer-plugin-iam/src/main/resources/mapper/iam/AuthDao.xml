@@ -54,11 +54,21 @@
     <select id="listPower" resultType="java.lang.Long">
         SELECT iadp.iam_dept_id
         FROM iam_account_data_power iadp
-        WHERE iadp.iam_account_id = #{accountId}
+        WHERE
+            iadp.iam_account_id = #{accountId}
+            AND iadp.iam_tenant_id = #{tenantId}
         UNION
         SELECT irdp.iam_dept_id
         FROM iam_role_data_power irdp
         WHERE irdp.iam_role_id IN (SELECT iarr.iam_role_id FROM iam_account_role_rel iarr WHERE iarr.iam_account_id = #{accountId})
             AND irdp.iam_tenant_id = #{tenantId}
+    </select>
+
+    <select id="getDept" resultType="java.lang.Long">
+        SELECT iam.iam_dept_id
+        FROM iam_account_manage iam
+        WHERE
+            iam.iam_account_id = #{accountId}
+            AND iam.iam_tenant_id = #{tenantId}
     </select>
 </mapper>

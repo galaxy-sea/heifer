@@ -45,9 +45,8 @@ public class JwtTokenAuthenticationFilter extends IamOncePerRequestFilter {
 
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
             if (StringUtils.hasLength(authorization)) {
-                Long tenantId = NumberUtils.parseNumber(request.getHeader(TENANT_ID), Long.class);
                 JWTClaimsSet jwtClaimsSet = JwtUtil.parseAuthorization(authorization, jwtProperties.getKey());
-                UserPrincipal userPrincipal = this.getUserPrincipal(jwtClaimsSet, tenantId);
+                UserPrincipal userPrincipal = this.getUserPrincipal(jwtClaimsSet, request.getHeader(TENANT_ID));
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
@@ -57,22 +56,28 @@ public class JwtTokenAuthenticationFilter extends IamOncePerRequestFilter {
         }
     }
 
+
     /**
      * 获取{@link UserPrincipal}
      *
      * @param jwtClaimsSet JSON Web Token (JWT) claims set.
-     * @param tenantId 租户id 可能为null
+     * @param headerTenantId 租户id 可以为null
      *
      * @return UserPrincipal
      */
-    private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, Long tenantId) {
-        Long id = Long.valueOf(jwtClaimsSet.getJWTID());
-        List<String> allPermission = userPrincipalService.listPermission(id, tenantId);
-        List<SimpleGrantedAuthority> authorities = allPermission.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, String headerTenantId) {
+        Long accountId = Long.valueOf(jwtClaimsSet.getJWTID());
         UserPrincipal userPrincipal = new UserPrincipal();
-        userPrincipal.setId(id);
+        userPrincipal.setId(accountId);
         userPrincipal.setUsername(jwtClaimsSet.getSubject());
-        userPrincipal.setAuthorities(authorities);
+
+        if (StringUtils.hasText(headerTenantId)) {
+            Long tenantId = NumberUtils.parseNumber(headerTenantId, Long.class);
+            List<String> allPermission = userPrincipalService.listPermission(accountId, tenantId);
+            List<SimpleGrantedAuthority> authorities = allPermission.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+            userPrincipal.setAuthorities(authorities);
+            userPrincipal.setTenantId(tenantId);
+        }
 
         return userPrincipal;
     }

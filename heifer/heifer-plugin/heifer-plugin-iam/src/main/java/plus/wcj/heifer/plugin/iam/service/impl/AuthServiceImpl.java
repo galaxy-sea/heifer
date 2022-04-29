@@ -83,8 +83,10 @@ public class AuthServiceImpl implements AuthService, UserPrincipalService {
     @Override
     public DataPowersDto listPower(Long accountId, Long tenantId) {
         List<Long> dataPowers = authDao.listPower(accountId, tenantId);
+        Long deptId = authDao.getDept(accountId, tenantId);
 
         DataPowersDto dataPowersDto = new DataPowersDto();
+        dataPowersDto.setDeptId(deptId);
         dataPowersDto.setDataPowers(dataPowers);
         // TODO: 2022/3/13 changjin wei(魏昌进) 保留字段，目前不做扩展
         dataPowersDto.setTenantDataPower(Boolean.FALSE);

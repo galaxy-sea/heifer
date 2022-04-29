@@ -46,7 +46,7 @@ public class TenantHandlerMethodArgumentResolver implements HandlerMethodArgumen
         return new Tenant(userPrincipal.getId(),
                           userPrincipal.getUsername(),
                           userPrincipal.getTenantId(),
-                          userPrincipal.getDeptId(),
+                          dataPowersDto.getDeptId(),
                           dataPowersDto.getDataPowers(),
                           dataPowersDto.getTenantDataPower(),
                           dataPowersDto.getDeptDataPower()

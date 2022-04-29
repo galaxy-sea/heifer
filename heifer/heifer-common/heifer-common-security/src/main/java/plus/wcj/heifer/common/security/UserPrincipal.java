@@ -37,9 +37,6 @@ public class UserPrincipal implements UserDetails {
     /** 租户id */
     private Long tenantId;
 
-    /** 部门id */
-    private Long deptId;
-
     /** 功能权限 */
     private List<String> permissions;
 

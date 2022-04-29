@@ -11,6 +11,12 @@ import java.util.List;
  */
 @Data
 public class DataPowersDto {
+
+    /**
+     * 所在部门
+     */
+    private Long deptId;
+
     /**
      * 拥有的数据权限
      */

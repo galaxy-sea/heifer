@@ -5,6 +5,7 @@ import plus.wcj.heifer.metadata.tenant.Tenant;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -19,7 +20,7 @@ public class SecurityUserHandlerMethodArgumentResolver implements HandlerMethodA
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return Tenant.class.isAssignableFrom(parameter.getParameterType());
+        return UserDetails.class.isAssignableFrom(parameter.getParameterType());
     }
 
     @SuppressWarnings("NullableProblems")
