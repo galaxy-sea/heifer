@@ -49,12 +49,16 @@ import java.util.Set;
 @EnableConfigurationProperties(IgnoreWebSecurityProperties.class)
 @AutoConfigureOrder(AutoConfigureOrder.DEFAULT_ORDER - 1000)
 public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
     private IgnoreWebSecurityProperties ignoreWebSecurityProperties;
-    @Autowired
     private ObjectProvider<IamOncePerRequestFilter> iamOncePerRequestFilterObjectProvider;
-    @Autowired
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
+
+    @Autowired
+    public SecurityAutoConfiguration(IgnoreWebSecurityProperties ignoreWebSecurityProperties, ObjectProvider<IamOncePerRequestFilter> iamOncePerRequestFilterObjectProvider, RequestMappingHandlerMapping requestMappingHandlerMapping) {
+        this.ignoreWebSecurityProperties = ignoreWebSecurityProperties;
+        this.iamOncePerRequestFilterObjectProvider = iamOncePerRequestFilterObjectProvider;
+        this.requestMappingHandlerMapping = requestMappingHandlerMapping;
+    }
 
     @Bean
     public AuthenticationProvider daoAuthenticationProvider() {
@@ -105,6 +109,7 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
+        //noinspection ConstantConditions
         http.addFilterBefore(iamOncePerRequestFilterObjectProvider.getIfAvailable(), BasicAuthenticationFilter.class);
     }
 

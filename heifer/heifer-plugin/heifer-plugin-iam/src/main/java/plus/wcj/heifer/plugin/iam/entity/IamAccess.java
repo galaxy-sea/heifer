@@ -29,7 +29,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("iam_access")
-@ApiModel(value = "IamAccess对象", description = "")
+@ApiModel(value = "IamAccess对象", description = "Access 信息")
 public class IamAccess implements Serializable {
 
     private static final long serialVersionUID = 1L;

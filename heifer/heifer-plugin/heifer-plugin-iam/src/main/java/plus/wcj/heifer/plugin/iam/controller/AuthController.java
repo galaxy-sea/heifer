@@ -52,11 +52,12 @@ public class AuthController {
     /**
      * 登录
      *
-     * @return
+     * @return  返回租户列表信息
      */
     @GetMapping("/tenant")
-
     public List<TenantDto> tenant(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {
+
+        // TODO: 2022/4/29 changjin wei(魏昌进) 这里有个问题，要不要Spring Security进行拦截呐？
         return this.authService.listAllTenant(authorization);
     }
 

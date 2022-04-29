@@ -44,7 +44,7 @@ public class AccountDto implements Serializable {
 
     private String nickname;
 
-    /** 指示账户的帐户是否已过期。过期的帐户无法通过身份验证。返回值：true如果账户的帐户是否有效（即未过期），false如果不再有效（即到期） */
+    /** 指示账户的账户是否已过期。过期的账户无法通过身份验证。返回值：true如果账户的账户是否有效（即未过期），false如果不再有效（即到期） */
 
     private boolean isAccountNonExpired;
 

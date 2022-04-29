@@ -1,11 +1,7 @@
 package plus.wcj.heifer.plugin.iam.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Param;
-import plus.wcj.heifer.plugin.iam.dto.TenantDto;
 import plus.wcj.heifer.plugin.iam.entity.IamAccount;
-
-import java.util.List;
 
 
 /**

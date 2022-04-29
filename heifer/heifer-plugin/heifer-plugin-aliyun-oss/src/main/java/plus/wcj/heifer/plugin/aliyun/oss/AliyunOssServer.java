@@ -143,7 +143,7 @@ public class AliyunOssServer {
     }
 
     /**
-     * @param location oss{location}://xxxx/xxx/xxx
+     * @param location oss{location}://xxx/xxx/xxx
      *
      * @return OSS
      */

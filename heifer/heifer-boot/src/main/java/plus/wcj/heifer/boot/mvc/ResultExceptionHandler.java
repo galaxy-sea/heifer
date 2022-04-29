@@ -3,7 +3,6 @@ package plus.wcj.heifer.boot.mvc;
 
 import plus.wcj.heifer.metadata.bean.BindObjectError;
 import plus.wcj.heifer.metadata.bean.Result;
-import plus.wcj.heifer.metadata.constant.OrderedConstant;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatus;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
@@ -15,6 +14,7 @@ import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +48,7 @@ import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 @RestControllerAdvice
-@Order(OrderedConstant.HEIFER_BOOT)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class ResultExceptionHandler {
 
     private final MessageSource messageSource;

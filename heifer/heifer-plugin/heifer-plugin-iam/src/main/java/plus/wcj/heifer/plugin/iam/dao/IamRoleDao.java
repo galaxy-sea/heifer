@@ -22,5 +22,4 @@ public interface IamRoleDao extends BaseMapper<IamRole> {
         return this.selectList(new LambdaQueryWrapper<IamRole>().eq(IamRole::getIamTenantId, iamTenantId));
     }
 
-    List<RoleDto> selectRoleDtoBy(@Param("accountId") Long accountId, @Param("tenantId") Long tenantId);
 }

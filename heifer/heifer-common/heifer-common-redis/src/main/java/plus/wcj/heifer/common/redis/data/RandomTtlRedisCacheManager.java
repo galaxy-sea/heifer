@@ -11,9 +11,10 @@ import java.util.Map;
  * @author changjin wei(魏昌进)
  * @since 2022/1/6
  */
+@SuppressWarnings({"unused", "NullableProblems"})
 public class RandomTtlRedisCacheManager extends RedisCacheManager {
 
-    private RedisCacheWriter cacheWriter;
+    private final RedisCacheWriter cacheWriter;
     private int timeToLiveOffset;
 
     public RandomTtlRedisCacheManager(RedisCacheWriter cacheWriter, RedisCacheConfiguration defaultCacheConfiguration, int timeToLiveOffset) {

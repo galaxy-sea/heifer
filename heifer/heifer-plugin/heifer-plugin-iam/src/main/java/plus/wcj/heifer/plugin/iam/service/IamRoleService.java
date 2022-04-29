@@ -19,5 +19,4 @@ public interface IamRoleService extends IService<IamRole, Long> {
 
     List<IamRole> listByIamTenantId(Long iamTenantId);
 
-    List<RoleDto> ListRoleDto(Long accountId, Long tenantId);
 }

@@ -12,6 +12,7 @@ import java.util.concurrent.locks.Lock;
  * @author changjin wei(魏昌进)
  * @since 2021/7/26
  */
+@SuppressWarnings("unused")
 @Component
 @RequiredArgsConstructor
 public class LockServiceImpl implements LockService {
@@ -21,6 +22,7 @@ public class LockServiceImpl implements LockService {
     @Override
     public void lock(String lockKey) {
         Lock lock = this.redisLockRegistry.obtain(lockKey);
+        //noinspection AlibabaLockShouldWithTryFinally
         lock.lock();
     }
 

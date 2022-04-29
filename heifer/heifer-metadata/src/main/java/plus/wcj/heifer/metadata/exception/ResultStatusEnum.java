@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
  * A-XXXX是框架引发异常
  *
  * @author changjin wei(魏昌进)
- * @date 2021/4/23
+ * @since 2021/4/23
  */
 public enum ResultStatusEnum implements ResultStatus {
     /** 请求成功 */

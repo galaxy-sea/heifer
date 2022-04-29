@@ -11,9 +11,8 @@
                ia.password,
                ia.nickname,
                ia.is_enabled
-        FROM iam_account ia;
-        WHERE
-        ia.phone = #{phone}
+        FROM iam_account ia
+        WHERE ia.phone = #{phone}
     </select>
 
     <select id="selectAllTenant" resultType="plus.wcj.heifer.plugin.iam.dto.TenantDto">

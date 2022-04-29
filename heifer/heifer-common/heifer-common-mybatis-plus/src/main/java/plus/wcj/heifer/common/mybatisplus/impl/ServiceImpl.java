@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
  * @author changjin wei(魏昌进)
  * @since 2021/10/25
  */
+@SuppressWarnings("unused")
 public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> implements IService<T, ID> {
     protected final Log log = LogFactory.getLog(this.getClass());
 
@@ -45,7 +46,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
     private final Class<T> entityClass = (Class<T>) this.currentModelClass();
     @SuppressWarnings("unchecked")
     private final Class<T> mapperClass = (Class<T>) this.currentMapperClass();
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @SuppressWarnings({"SpringJavaAutowiredMembersInspection"})
     @Autowired
     private M baseMapper;
 
@@ -256,6 +257,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
             String keyProperty = tableInfo.getKeyProperty();
             Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
             Object idVal = ReflectionKit.getFieldValue(entity, tableInfo.getKeyProperty());
+            //noinspection unchecked
             return StringUtils.checkValNull(idVal) || Objects.isNull(get((ID) idVal)) ? save(entity) : update(entity);
         }
         return false;

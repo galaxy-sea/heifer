@@ -15,7 +15,7 @@ import java.util.Map;
  * @author changjin wei(魏昌进)
  * @since 2021/10/25
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc"})
 public interface IService<T, ID extends Serializable> {
 
     /**

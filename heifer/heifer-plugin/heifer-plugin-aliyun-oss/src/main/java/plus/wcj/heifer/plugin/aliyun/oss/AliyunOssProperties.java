@@ -19,7 +19,7 @@ public class AliyunOssProperties {
     private String bucket;
     /** oss endpoint */
     private String endpoint;
-    /** 上传的域名  https://aliyuncs.com/ 注意斜杠结尾 */
+    /** 上传的域名  <a href="https://aliyuncs.com/">https://aliyuncs.com/</a> 注意斜杠结尾 */
     private String host;
     /** 授权过期时间 默认 0， 单位毫秒 */
     private long expire = 0;

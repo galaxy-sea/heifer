@@ -27,9 +27,4 @@ public class IamRoleServiceImpl extends ServiceImpl<IamRoleDao, IamRole, Long> i
         return super.getBaseMapper().selectByIamTenantId(iamTenantId);
     }
 
-    @Override
-    public List<RoleDto> ListRoleDto(Long accountId, Long tenantId) {
-        return super.getBaseMapper().selectRoleDtoBy(accountId, tenantId);
-    }
-
 }

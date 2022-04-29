@@ -126,18 +126,20 @@ public class OssStorageResource implements WritableResource {
      * @return The URL for the OSS resource, if a URL stream handler is registered for the
      * oss protocol.
      */
+    @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
     @Override
     public URL getURL() throws IOException {
         return this.location.toURL();
     }
 
     @Override
-    public URI getURI() throws IOException {
+    @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
+    public URI getURI() {
         return this.location;
     }
 
     @Override
-    public File getFile() throws IOException {
+    public File getFile() {
         throw new UnsupportedOperationException(
                 getDescription() + " cannot be resolved to absolute file path");
     }
@@ -161,7 +163,7 @@ public class OssStorageResource implements WritableResource {
     }
 
     @Override
-    public Resource createRelative(String relativePath) throws IOException {
+    public Resource createRelative(String relativePath) {
         return new OssStorageResource(this.oss,
                 this.location.resolve(relativePath).toString(), this.beanFactory);
     }
@@ -215,6 +217,8 @@ public class OssStorageResource implements WritableResource {
      * @throws com.aliyun.oss.OSSException    it is thrown upon error when accessing OSS
      * @throws com.aliyun.oss.ClientException it is the one thrown by the client side when accessing OSS
      */
+    @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
+
     public OSSObject getOSSObject() {
         return this.oss.getObject(this.bucketName, this.objectKey);
     }

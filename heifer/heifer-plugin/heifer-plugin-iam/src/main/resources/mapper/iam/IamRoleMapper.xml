@@ -25,11 +25,4 @@
         update_by
     </sql>
 
-    <select id="selectRoleDtoBy" resultType="plus.wcj.heifer.plugin.iam.dto.RoleDto">
-        SELECT rr.id,
-        rr.name
-        FROM rbac_role rr
-        WHERE EXISTS(SELECT 1 FROM rbac_account_role_rel rarr WHERE rarr.rbac_account_id = #{accountId} AND rr.id = rarr.rbac_role_id)
-        AND rr.rbac_tenant_id = #{tenantId}
-    </select>
 </mapper>

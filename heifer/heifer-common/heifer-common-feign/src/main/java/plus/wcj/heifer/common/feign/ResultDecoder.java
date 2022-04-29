@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
  * @since 2022/4/8
  */
 public class ResultDecoder implements Decoder {
-    private Decoder decoder;
+    private final Decoder decoder;
 
     public ResultDecoder(Decoder decoder) {
         this.decoder = decoder;

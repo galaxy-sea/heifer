@@ -12,6 +12,7 @@ import java.util.Random;
  * @author changjin wei(魏昌进)
  * @since 2022/1/6
  */
+@SuppressWarnings({"NullableProblems", "ConstantConditions"})
 public class RandomTtlRedisCache extends RedisCache {
     private final int timeToLiveOffset;
     private final long timeToLive;
