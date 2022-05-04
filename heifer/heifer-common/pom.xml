@@ -18,6 +18,7 @@
         <module>heifer-common-nacos-discovery</module>
         <module>heifer-common-feign</module>
         <module>heifer-common-mybatis-plus</module>
+        <module>heifer-common-apisix</module>
     </modules>
 
     <properties>
