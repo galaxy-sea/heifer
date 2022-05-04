@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: heifer-common-apisix-example
+  jackson:
+    default-property-inclusion: non_null
+    generator:
+      WRITE_NUMBERS_AS_STRINGS: true
+      WRITE_BIGDECIMAL_AS_PLAIN: true
+    serialization:
+      INDENT_OUTPUT: false
+    deserialization:
+      READ_ENUMS_USING_TO_STRING: true
+  cloud:
+    nacos:
+      server-addr: heifer.wcj.plus
+      discovery:
+        namespace: 412dea8f-91c7-4ba4-8d7c-cdd16fae16d3
+server:
+  port: 0
+
+apisix:
+  server-addr: http://192.168.31.112:9080
+  server-path: apisix/admin/
+  token: edd1c9f034335f136f87ad84b625c8f1

@@ -22,6 +22,7 @@
         <module>heifer-api</module>
         <module>heifer-common-redis-examples</module>
         <module>heifer-plugin-aliyun-oss-example</module>
+        <module>heifer-common-apisix-example</module>
     </modules>
 
     <properties>
