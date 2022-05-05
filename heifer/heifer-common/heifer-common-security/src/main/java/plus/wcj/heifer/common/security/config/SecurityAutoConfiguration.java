@@ -31,6 +31,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,13 +51,13 @@ import java.util.Set;
 @AutoConfigureOrder(AutoConfigureOrder.DEFAULT_ORDER - 1000)
 public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
     private IgnoreWebSecurityProperties ignoreWebSecurityProperties;
-    private ObjectProvider<IamOncePerRequestFilter> iamOncePerRequestFilterObjectProvider;
+    private ObjectProvider<List<IamOncePerRequestFilter>> iamOncePerRequestFilterObjectProviderLists;
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     @Autowired
-    public SecurityAutoConfiguration(IgnoreWebSecurityProperties ignoreWebSecurityProperties, ObjectProvider<IamOncePerRequestFilter> iamOncePerRequestFilterObjectProvider, RequestMappingHandlerMapping requestMappingHandlerMapping) {
+    public SecurityAutoConfiguration(IgnoreWebSecurityProperties ignoreWebSecurityProperties, ObjectProvider<List<IamOncePerRequestFilter>> iamOncePerRequestFilterObjectProviderLists, RequestMappingHandlerMapping requestMappingHandlerMapping) {
         this.ignoreWebSecurityProperties = ignoreWebSecurityProperties;
-        this.iamOncePerRequestFilterObjectProvider = iamOncePerRequestFilterObjectProvider;
+        this.iamOncePerRequestFilterObjectProviderLists = iamOncePerRequestFilterObjectProviderLists;
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
     }
 
@@ -110,7 +111,12 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
 
         // 添加自定义 JWT 过滤器
         //noinspection ConstantConditions
-        http.addFilterBefore(iamOncePerRequestFilterObjectProvider.getIfAvailable(), BasicAuthenticationFilter.class);
+        List<IamOncePerRequestFilter> filterList = iamOncePerRequestFilterObjectProviderLists.getIfAvailable();
+        if (!CollectionUtils.isEmpty(filterList)) {
+            for (IamOncePerRequestFilter iamOncePerRequestFilter : filterList) {
+                http.addFilterBefore(iamOncePerRequestFilter, BasicAuthenticationFilter.class);
+            }
+        }
     }
 
     /**
