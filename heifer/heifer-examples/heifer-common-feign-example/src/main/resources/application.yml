@@ -5,3 +5,8 @@ spring:
     nacos:
       discovery:
         server-addr: heifer.wcj.plus
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
