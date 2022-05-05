@@ -12,6 +12,7 @@ public class ResultException extends RuntimeException {
      * 业务异常信息信息
      */
     private final ResultStatus resultStatus;
+    /** 异常信息占位符 */
     private final Object[] ages;
 
     public ResultException() {
