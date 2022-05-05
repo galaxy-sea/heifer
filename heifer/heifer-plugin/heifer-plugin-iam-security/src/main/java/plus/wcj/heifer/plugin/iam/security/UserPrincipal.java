@@ -1,4 +1,4 @@
-package plus.wcj.heifer.common.security;
+package plus.wcj.heifer.plugin.iam.security;
 
 
 import lombok.Data;

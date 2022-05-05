@@ -1,6 +1,6 @@
 package plus.wcj.heifer.plugin.iam.security.support;
 
-import plus.wcj.heifer.common.security.UserPrincipal;
+import plus.wcj.heifer.plugin.iam.security.UserPrincipal;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.metadata.tenant.DataPowersDto;

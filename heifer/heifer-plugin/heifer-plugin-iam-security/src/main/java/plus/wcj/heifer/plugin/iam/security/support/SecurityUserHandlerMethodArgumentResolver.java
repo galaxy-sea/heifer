@@ -1,7 +1,6 @@
 package plus.wcj.heifer.plugin.iam.security.support;
 
-import plus.wcj.heifer.common.security.UserPrincipal;
-import plus.wcj.heifer.metadata.tenant.Tenant;
+import plus.wcj.heifer.plugin.iam.security.UserPrincipal;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;

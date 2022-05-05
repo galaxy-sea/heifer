@@ -1,7 +1,6 @@
 package plus.wcj.heifer.plugin.iam.security;
 
 import com.nimbusds.jwt.JWTClaimsSet;
-import plus.wcj.heifer.common.security.UserPrincipal;
 import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
