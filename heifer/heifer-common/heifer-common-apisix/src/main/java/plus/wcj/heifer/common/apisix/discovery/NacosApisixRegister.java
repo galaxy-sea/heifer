@@ -51,34 +51,40 @@ public class NacosApisixRegister implements ApisixRegister {
         String namespace = this.nacosDiscoveryProperties.getNamespace();
         String group = this.nacosDiscoveryProperties.getGroup();
         String service = this.nacosDiscoveryProperties.getService();
-
         namespace = StringUtils.hasText(namespace) ? namespace : "public";
+
         String id = namespace + "@" + group + "@" + service;
+        id = DigestUtils.md5DigestAsHex(id.getBytes(StandardCharsets.UTF_8));
+
 
         if (!this.hasUpstream(id)) {
-            this.putUpstream(id, namespace, group, service);
+            this.putUpstream(id);
         }
         if (!this.hasRoute(id)) {
-            this.putRoute(id, service);
+            this.putRoute(id);
         }
     }
 
-    private void putRoute(String routeId, String service) {
+    private void putRoute(String routeId) {
         Map<String, Object> body = new LinkedHashMap<String, Object>() {{
-            put("name", service);
-            put("desc", routeId);
-            put("uri", "/" + service + "/*");
+            put("name", nacosDiscoveryProperties.getService());
+            put("uri", "/" + nacosDiscoveryProperties.getService() + "/*");
 
+            put("labels", new LinkedHashMap<String, String>() {{
+                put("nacos_namespace", StringUtils.hasText(nacosDiscoveryProperties.getNamespace()) ? nacosDiscoveryProperties.getNamespace() : "public");
+                put("nacos_group", nacosDiscoveryProperties.getGroup());
+                put("nacos_service", nacosDiscoveryProperties.getService());
+            }});
             put("plugins", new LinkedHashMap<String, Object>() {{
                 put("proxy-rewrite", new LinkedHashMap<String, Object>() {{
-                    put("regex_uri", new String[]{"^/" + service + "/(.*)", "/$1"});
+                    put("regex_uri", new String[]{"^/" + nacosDiscoveryProperties.getService() + "/(.*)", "/$1"});
                 }});
             }});
-            put("upstream_id", DigestUtils.md5DigestAsHex(routeId.getBytes(StandardCharsets.UTF_8)));
+            put("upstream_id", routeId);
         }};
 
         try {
-            ResponseEntity<String> response = this.routeClient.route(DigestUtils.md5DigestAsHex(routeId.getBytes(StandardCharsets.UTF_8)), body, this.apisixProperties.getToken());
+            ResponseEntity<String> response = this.routeClient.route(routeId, body, this.apisixProperties.getToken());
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new RuntimeException("Apisix Register Error");
             }
@@ -92,7 +98,7 @@ public class NacosApisixRegister implements ApisixRegister {
 
     private boolean hasRoute(String routeId) {
         try {
-            ResponseEntity<String> response = this.routeClient.route(DigestUtils.md5DigestAsHex(routeId.getBytes(StandardCharsets.UTF_8)), this.apisixProperties.getToken());
+            ResponseEntity<String> response = this.routeClient.route(routeId, this.apisixProperties.getToken());
             HttpStatus statusCode = response.getStatusCode();
             return HttpStatus.OK.equals(statusCode);
         } catch (FeignException.NotFound e) {
@@ -105,24 +111,28 @@ public class NacosApisixRegister implements ApisixRegister {
 
     }
 
-    private void putUpstream(String upstreamId, String namespace, String group, String service) {
+    private void putUpstream(String upstreamId) {
         Map<String, Object> body = new LinkedHashMap<String, Object>() {{
             put("type", "roundrobin");
             put("scheme", "http");
             put("discovery_type", "nacos");
             put("pass_host", "pass");
-            put("name", upstreamId);
-            put("desc", upstreamId);
-            put("service_name", service);
+            put("name", nacosDiscoveryProperties.getService());
+            put("service_name", nacosDiscoveryProperties.getService());
+            put("labels", new LinkedHashMap<String, String>() {{
+                put("nacos_namespace", StringUtils.hasText(nacosDiscoveryProperties.getNamespace()) ? nacosDiscoveryProperties.getNamespace() : "public");
+                put("nacos_group", nacosDiscoveryProperties.getGroup());
+                put("nacos_service", nacosDiscoveryProperties.getService());
+            }});
 
             put("discovery_args", new LinkedHashMap<String, Object>() {{
-                put("group_name", group);
-                put("namespace_id", namespace);
+                put("group_name", nacosDiscoveryProperties.getGroup());
+                put("namespace_id", StringUtils.hasText(nacosDiscoveryProperties.getNamespace()) ? nacosDiscoveryProperties.getNamespace() : "public");
             }});
         }};
 
         try {
-            ResponseEntity<String> response = this.upstreamClient.upstream(DigestUtils.md5DigestAsHex(upstreamId.getBytes(StandardCharsets.UTF_8)), body, this.apisixProperties.getToken());
+            ResponseEntity<String> response = this.upstreamClient.upstream(upstreamId, body, this.apisixProperties.getToken());
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new RuntimeException("Apisix Register Error");
             }
@@ -136,7 +146,7 @@ public class NacosApisixRegister implements ApisixRegister {
 
     private boolean hasUpstream(String upstreamId) {
         try {
-            ResponseEntity<String> response = this.upstreamClient.upstream(DigestUtils.md5DigestAsHex(upstreamId.getBytes(StandardCharsets.UTF_8)), this.apisixProperties.getToken());
+            ResponseEntity<String> response = this.upstreamClient.upstream(upstreamId, this.apisixProperties.getToken());
             HttpStatus statusCode = response.getStatusCode();
             return HttpStatus.OK.equals(statusCode);
         } catch (FeignException.NotFound e) {
