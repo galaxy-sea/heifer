@@ -13,14 +13,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2022-01-13
  */
 @Data
-@ConfigurationProperties(prefix = "apisix")
+@ConfigurationProperties(prefix = "heifer.apisix")
 public class ApisixProperties {
 
     /**
      * Apisix 地址
      */
     private String serverAddr = "http://192.168.0.1:9080/";
-
+    /**
+     * apisix path路径
+     */
     private String serverPath = "apisix/admin/";
 
     /**
@@ -29,4 +31,8 @@ public class ApisixProperties {
     private String token = "edd1c9f034335f136f87ad84b625c8f1";
 
 
+    /**
+     * 定时器表达式
+     */
+    private int synSleep = 1000 * 5;
 }
