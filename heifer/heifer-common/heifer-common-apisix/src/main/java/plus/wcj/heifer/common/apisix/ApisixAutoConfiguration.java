@@ -1,6 +1,5 @@
 package plus.wcj.heifer.common.apisix;
 
-import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.registry.NacosServiceRegistryAutoConfiguration;
 import plus.wcj.heifer.common.apisix.admin.api.RouteClient;
 import plus.wcj.heifer.common.apisix.admin.api.UpstreamClient;
@@ -9,6 +8,7 @@ import plus.wcj.heifer.common.apisix.discovery.NacosApisixRegister;
 import plus.wcj.heifer.common.apisix.properties.ApisixProperties;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -22,11 +22,11 @@ import org.springframework.context.annotation.Bean;
 @AutoConfigureAfter(NacosServiceRegistryAutoConfiguration.class)
 public class ApisixAutoConfiguration {
 
-
     @Bean
-    public ApisixRegister apisixRegister(NacosDiscoveryProperties nacosDiscoveryProperties, ApisixProperties apisixProperties,
-                                         RouteClient routeClient, UpstreamClient upstreamClient) {
-        return new NacosApisixRegister(nacosDiscoveryProperties, apisixProperties, routeClient, upstreamClient);
+    @ConditionalOnMissingBean(ApisixRegister.class)
+    public ApisixRegister<?> apisixRegister(ApisixProperties apisixProperties,
+                                            RouteClient routeClient, UpstreamClient upstreamClient) {
+        return new NacosApisixRegister(apisixProperties, routeClient, upstreamClient);
     }
 
 }
