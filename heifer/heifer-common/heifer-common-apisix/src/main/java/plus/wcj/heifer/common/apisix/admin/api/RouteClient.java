@@ -11,13 +11,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.util.Map;
 
 /**
- *
- *<a href="https://apisix.apache.org/zh/docs/apisix/admin-api/#route">https://apisix.apache.org/zh/docs/apisix/admin-api/#route</a>
+ * <a href="https://apisix.apache.org/zh/docs/apisix/admin-api/#route">https://apisix.apache.org/zh/docs/apisix/admin-api/#route</a>
  *
  * @author changjin wei(魏昌进)
  * @since 2022/5/4
  */
-@FeignClient(name = "routeClient", url = "${apisix.server-addr}", path = "${apisix.server-path}")
+@FeignClient(name = "routeClient", url = "${heifer.apisix.server-addr?heifer.apisix.server-addr:http://192.168.31.112:9080}", path = "${heifer.apisix.server-path?heifer.apisix.server-path:apisix/admin/}")
 public interface RouteClient {
     /**
      * 获取资源
