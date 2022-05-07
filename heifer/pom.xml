@@ -71,19 +71,23 @@
                 <version>${maven-deploy-plugin.version}</version>
             </plugin>
 
-            <!--<plugin>-->
-            <!--    <groupId>org.apache.maven.plugins</groupId>-->
-            <!--    <artifactId>maven-javadoc-plugin</artifactId>-->
-            <!--    <version>${maven-javadoc-plugin.version}</version>-->
-            <!--    <executions>-->
-            <!--        <execution>-->
-            <!--            <phase>package</phase>-->
-            <!--            <goals>-->
-            <!--                <goal>jar</goal>-->
-            <!--            </goals>-->
-            <!--        </execution>-->
-            <!--    </executions>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -131,18 +135,21 @@
         </plugins>
     </build>
 
-    <!--<repositories>-->
-    <!--    <repository>-->
-    <!--        <id>spring</id>-->
-    <!--        <url>https://maven.aliyun.com/repository/spring</url>-->
-    <!--        <releases>-->
-    <!--            <enabled>true</enabled>-->
-    <!--        </releases>-->
-    <!--        <snapshots>-->
-    <!--            <enabled>true</enabled>-->
-    <!--        </snapshots>-->
-    <!--    </repository>-->
-    <!--</repositories>-->
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo,manual</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>changjin wei</name>
+            <email>weichangjin1996@gmail.com</email>
+            <url>https://github.com/galaxy-sea/</url>
+        </developer>
+    </developers>
 
 </project>
