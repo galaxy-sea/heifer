@@ -8,12 +8,12 @@ import plus.wcj.heifer.common.apisix.admin.api.RouteClient;
 import plus.wcj.heifer.common.apisix.admin.api.UpstreamClient;
 import plus.wcj.heifer.common.apisix.properties.ApisixProperties;
 
+import org.springframework.cloud.client.discovery.event.InstanceRegisteredEvent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,50 +24,46 @@ import java.util.Map;
  * @author changjin wei(魏昌进)
  * @since 2022/5/4
  */
-public class NacosApisixRegister implements ApisixRegister {
+public class NacosApisixRegister implements ApisixRegister<NacosDiscoveryProperties> {
 
     private static final Logger log = LoggerFactory.getLogger(NacosApisixRegister.class);
-    private final NacosDiscoveryProperties nacosDiscoveryProperties;
 
     private final ApisixProperties apisixProperties;
     private final RouteClient routeClient;
     private final UpstreamClient upstreamClient;
 
-    public NacosApisixRegister(NacosDiscoveryProperties nacosDiscoveryProperties, ApisixProperties apisixProperties, RouteClient routeClient, UpstreamClient upstreamClient) {
-        this.nacosDiscoveryProperties = nacosDiscoveryProperties;
+    public NacosApisixRegister(ApisixProperties apisixProperties, RouteClient routeClient, UpstreamClient upstreamClient) {
         this.apisixProperties = apisixProperties;
         this.routeClient = routeClient;
         this.upstreamClient = upstreamClient;
     }
 
-    @PostConstruct
-    public void init() {
-        this.register();
-    }
-
 
     @Override
-    public void register() {
-        String namespace = this.nacosDiscoveryProperties.getNamespace();
-        String group = this.nacosDiscoveryProperties.getGroup();
-        String service = this.nacosDiscoveryProperties.getService();
+    public void register(InstanceRegisteredEvent<NacosDiscoveryProperties> instanceRegisteredEvent) {
+
+        NacosDiscoveryProperties nacosDiscoveryProperties = instanceRegisteredEvent.getConfig();
+
+        String namespace = nacosDiscoveryProperties.getNamespace();
+        String group = nacosDiscoveryProperties.getGroup();
+        String service = nacosDiscoveryProperties.getService();
         namespace = StringUtils.hasText(namespace) ? namespace : "public";
 
         String id = namespace + "@" + group + "@" + service;
         id = DigestUtils.md5DigestAsHex(id.getBytes(StandardCharsets.UTF_8));
 
 
-        if (!this.hasUpstream(id)) {
-            this.putUpstream(id);
+        if (!this.hasUpstream(id, nacosDiscoveryProperties)) {
+            this.putUpstream(id, nacosDiscoveryProperties);
         }
-        if (!this.hasRoute(id)) {
-            this.putRoute(id);
+        if (!this.hasRoute(id, nacosDiscoveryProperties)) {
+            this.putRoute(id, nacosDiscoveryProperties);
         }
     }
 
-    private void putRoute(String routeId) {
+    private void putRoute(String routeId, NacosDiscoveryProperties nacosDiscoveryProperties) {
         Map<String, Object> body = new LinkedHashMap<String, Object>() {{
-            put("name", nacosDiscoveryProperties.getService());
+            put("name", routeId);
             put("uri", "/" + nacosDiscoveryProperties.getService() + "/*");
 
             put("labels", new LinkedHashMap<String, String>() {{
@@ -88,7 +84,7 @@ public class NacosApisixRegister implements ApisixRegister {
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new RuntimeException("Apisix Register Error");
             }
-            log.info("apisix route register success, routeId is #{}", routeId);
+            log.info("apisix route register success, routeId is {}", routeId);
         } catch (Exception e) {
             log.error("Apisix Register Error");
             throw new RuntimeException(e);
@@ -96,7 +92,7 @@ public class NacosApisixRegister implements ApisixRegister {
 
     }
 
-    private boolean hasRoute(String routeId) {
+    private boolean hasRoute(String routeId, NacosDiscoveryProperties nacosDiscoveryProperties) {
         try {
             ResponseEntity<String> response = this.routeClient.route(routeId, this.apisixProperties.getToken());
             HttpStatus statusCode = response.getStatusCode();
@@ -111,13 +107,13 @@ public class NacosApisixRegister implements ApisixRegister {
 
     }
 
-    private void putUpstream(String upstreamId) {
+    private void putUpstream(String upstreamId, NacosDiscoveryProperties nacosDiscoveryProperties) {
         Map<String, Object> body = new LinkedHashMap<String, Object>() {{
             put("type", "roundrobin");
             put("scheme", "http");
             put("discovery_type", "nacos");
             put("pass_host", "pass");
-            put("name", nacosDiscoveryProperties.getService());
+            put("name", upstreamId);
             put("service_name", nacosDiscoveryProperties.getService());
             put("labels", new LinkedHashMap<String, String>() {{
                 put("nacos_namespace", StringUtils.hasText(nacosDiscoveryProperties.getNamespace()) ? nacosDiscoveryProperties.getNamespace() : "public");
@@ -136,7 +132,7 @@ public class NacosApisixRegister implements ApisixRegister {
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new RuntimeException("Apisix Register Error");
             }
-            log.info("apisix upstream register success, upstreamId is #{}", upstreamId);
+            log.info("apisix upstream register success, upstreamId is {}", upstreamId);
         } catch (Exception e) {
             log.error("Apisix Register Error");
             throw new RuntimeException(e);
@@ -144,7 +140,7 @@ public class NacosApisixRegister implements ApisixRegister {
     }
 
 
-    private boolean hasUpstream(String upstreamId) {
+    private boolean hasUpstream(String upstreamId, NacosDiscoveryProperties nacosDiscoveryProperties) {
         try {
             ResponseEntity<String> response = this.upstreamClient.upstream(upstreamId, this.apisixProperties.getToken());
             HttpStatus statusCode = response.getStatusCode();
