@@ -73,7 +73,7 @@ public enum ResultStatusEnum implements ResultStatus {
     ////////////////////////////////////////////////////
     /** sms服务商网络异常 */
     SMS_NETWORK_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "sms-0001", "Short message service network Exception"),
-    /** @see <a href="https://help.aliyun.com/document_detail/101346.html?spm=a2c4g.11186623.6.629.38335ebf8Fi7vd">首页 > 短信服务 > 开发指南 > API参考 > 错误码 > API 错误码</a> */
+    /** @see <a href="https://help.aliyun.com/document_detail/101346.html?spm=a2c4g.11186623.6.629.38335ebf8Fi7vd">API 错误码</a> */
     SMS_SEND_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "sms-0002", "Short message send fail"),
 
     ////////////////////////////////////////////////////

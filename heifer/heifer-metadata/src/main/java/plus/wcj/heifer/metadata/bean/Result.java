@@ -24,8 +24,17 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
+ *
+ * 前后端和微服务的交互格式
+ * {
+ *   "code": "",
+ *   "message": "",
+ *   "data": {}
+ * }
+ *
+ *
  * @author changjin wei(魏昌进)
- * @since  2021/4/23
+ * @since 2021/4/23
  */
 @Getter
 @ToString
@@ -47,26 +56,60 @@ public final class Result<T> {
         this.data = data;
     }
 
-    /** 业务成功返回业务代码和描述信息 */
+    /**
+     * @return new {@link Result}
+     */
     public static Result<Void> success() {
         return Result.of(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getMessage(), null);
     }
 
-    /** 业务成功返回业务代码,描述和返回的参数 */
+    /**
+     * 业务成功返回业务代码,描述和返回的参数
+     *
+     * @param data 返回的对象
+     * @param <T> 返回的类型
+     *
+     * @return new {@link Result}
+     */
     public static <T> Result<T> success(T data) {
         return Result.of(ResultStatusEnum.SUCCESS.getCode(), ResultStatusEnum.SUCCESS.getMessage(), data);
     }
 
-    /** 业务异常返回业务代码,描述和返回的参数 */
+    /**
+     * 业务异常返回业务代码,描述和返回的参数
+     *
+     * @param resultStatus 返回的状态 {@link ResultStatus}
+     * @param <T> 返回的类型
+     *
+     * @return new {@link Result}
+     */
     public static <T> Result<T> fail(ResultStatus resultStatus) {
         return Result.of(resultStatus.getCode(), resultStatus.getMessage(), null);
     }
 
+    /**
+     * 业务异常返回业务代码,描述和返回的参数
+     *
+     * @param resultStatus 返回的状态 {@link ResultStatus}
+     * @param data 返回的对象
+     * @param <T> 返回的类型
+     *
+     * @return new {@link Result}
+     */
     public static <T> Result<T> fail(ResultStatus resultStatus, T data) {
         return Result.of(resultStatus.getCode(), resultStatus.getMessage(), data);
     }
 
-    /** 业务异常返回业务代码,描述和返回的参数 */
+    /**
+     * 业务异常返回业务代码,描述和返回的参数
+     *
+     * @param code 返回的错误码
+     * @param message 返回的消息
+     * @param data 返回的对象
+     * @param <T> 返回的类型
+     *
+     * @return new {@link Result}
+     */
     public static <T> Result<T> of(String code, String message, T data) {
         return new Result<>(code, message, data);
     }

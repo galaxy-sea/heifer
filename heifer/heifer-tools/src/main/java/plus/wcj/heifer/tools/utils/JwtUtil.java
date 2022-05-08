@@ -51,10 +51,10 @@ public class JwtUtil {
     /**
      * 序列化 claimsSet
      *
-     * @param claimsSet
-     * @param key
+     * @param claimsSet {@link JWTClaimsSet}
+     * @param key 密钥
      *
-     * @return
+     * @return jwt token
      */
     public static String createJwt(JWTClaimsSet claimsSet, String key) {
         SignedJWT signedJwt = new SignedJWT(JWS_HEADER, claimsSet);
@@ -71,10 +71,10 @@ public class JwtUtil {
     /**
      * 反序列化
      *
-     * @param authorization
-     * @param key
+     * @param authorization token
+     * @param key 密钥
      *
-     * @return
+     * @return {@link JWTClaimsSet}
      */
     public static JWTClaimsSet parseAuthorization(String authorization, String key) {
         String jwt = authorization.startsWith(BEARER) ? authorization.substring(BEARER.length()) : authorization;
@@ -85,9 +85,10 @@ public class JwtUtil {
     /**
      * 反序列化
      *
-     * @param jwt
+     * @param jwt token
+     * @param key 密钥
      *
-     * @return
+     * @return JWTClaimsSet
      */
     public static JWTClaimsSet parseJwt(String jwt, String key) {
         try {

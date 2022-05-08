@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
+ * <a href="https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#spring-cloud-feign-inheritance">spring-cloud-feign-inheritance</a>
  * @author changjin wei(魏昌进)
- * @see <a href="https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#spring-cloud-feign-inheritance">feign 继承支持<a/>
  * @since 2022-01-13
  */
 public interface UserPrincipalService {
@@ -35,7 +35,7 @@ public interface UserPrincipalService {
      * @param accountId 账号id
      * @param tenantId 租户id
      *
-     * @return
+     * @return 权限列表
      */
     @GetMapping("/account/getAllPermission")
     @Cacheable(cacheNames = "permission", key = "#accountId+':'+#tenantId")
@@ -46,7 +46,7 @@ public interface UserPrincipalService {
      * @param accountId 账号id
      * @param tenantId 租户id
      *
-     * @return
+     * @return 功能列表
      */
     @GetMapping("/account/getAllPower")
     @Cacheable(cacheNames = "power", key = "#accountId+':'+#tenantId")

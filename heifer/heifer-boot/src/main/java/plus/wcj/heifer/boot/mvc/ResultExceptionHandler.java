@@ -60,7 +60,7 @@ import java.nio.file.AccessDeniedException;
  * @since 2021/7/8
  */
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 
 @ControllerAdvice
 @RestControllerAdvice
@@ -92,6 +92,7 @@ public class ResultExceptionHandler {
      *
      * @param ex the target exception
      * @param request the current request
+     * @return ResponseEntity
      */
     @ExceptionHandler({
 
@@ -183,94 +184,194 @@ public class ResultExceptionHandler {
     }
 
 
-    /** 自定义异常处理 */
+    /**
+     * 自定义异常处理
+     * @param ex {@link ResultException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleResultException(ResultException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ex.getResultStatus(), null, ex.getAges(), ex, headers, request);
     }
 
-
+    /**
+     * 拒绝访问
+     * @param ex {@link AccessDeniedException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     private ResponseEntity<Result<?>> handleAccessDeniedException(AccessDeniedException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.FORBIDDEN, ex, headers, request);
     }
 
-    // private ResponseEntity<Result<?>> handleBadCredentialsException(BadCredentialsException ex, HttpHeaders headers, WebRequest request) {
-    //     return this.handleExceptionInternal(ResultStatusEnum.INCORRECT_USERNAME_OR_PASSWORD, ex, headers, request);
-    // }
 
-
-    /** validation校验 */
+    /**
+     * validation校验
+     * @param ex {@link BindException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleBindException(BindException ex, HttpHeaders headers, WebRequest request) {
         FieldError fieldError = ex.getFieldError();
         BindObjectError bindObjectError = new BindObjectError(fieldError.getDefaultMessage(), fieldError.getField(), fieldError.getCode());
         return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, bindObjectError, null, ex, headers, request);
     }
 
-    /** 所有未知异常 */
+    /**
+     * 所有未知异常
+     * @param ex {@link Exception}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleException(Exception ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.INTERNAL_SERVER_ERROR, ex, headers, request);
     }
 
-    /** 当请求处理程序不支持特定的请求方法时抛出异常 */
+    /**
+     * 当请求处理程序不支持特定的请求方法时抛出异常
+     * @param ex {@link HttpRequestMethodNotSupportedException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.METHOD_NOT_ALLOWED, ex, headers, request);
     }
 
-    /** 当客户端 POST、PUT 或 PATCH 请求处理程序不支持的类型的内容时引发异常。 */
+    /**
+     * 当客户端 POST、PUT 或 PATCH 请求处理程序不支持的类型的内容时引发异常。
+     * @param ex {@link HttpMediaTypeNotSupportedException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.UNSUPPORTED_MEDIA_TYPE, ex, headers, request);
     }
 
-    /** 当请求处理程序无法生成客户端可接受的响应时抛出异常。 */
+    /**
+     * 当请求处理程序无法生成客户端可接受的响应时抛出异常。
+     * @param ex {@link HttpMediaTypeNotAcceptableException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleHttpMediaTypeNotAcceptableException(HttpMediaTypeNotAcceptableException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.NOT_ACCEPTABLE, ex, headers, request);
     }
 
-    /** 指示从 URL 提取的 URI 变量中不存在@RequestMapping方法的方法参数中预期的路径变量。 通常，这意味着 URI 模板与方法参数上声明的路径变量名称不匹配 */
+    /**
+     * 指示从 URL 提取的 URI 变量中不存在@RequestMapping方法的方法参数中预期的路径变量。 通常，这意味着 URI 模板与方法参数上声明的路径变量名称不匹配
+     * @param ex {@link MissingPathVariableException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleMissingPathVariableException(MissingPathVariableException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.INTERNAL_SERVER_ERROR, ex, headers, request);
     }
 
-    /** 表示缺少参数 */
+    /**
+     * 表示缺少参数
+     * @param ex {@link MissingServletRequestParameterException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, ex, headers, request);
     }
 
-    /** 致命绑定异常，当我们想将绑定异常视为不可恢复时抛出 */
+    /**
+     * 致命绑定异常，当我们想将绑定异常视为不可恢复时抛出
+     * @param ex {@link ServletRequestBindingException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleServletRequestBindingException(ServletRequestBindingException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, ex, headers, request);
     }
 
-    /** 当无法为 bean 属性找到合适的编辑器或转换器时抛出异常 */
+    /**
+     * 当无法为 bean 属性找到合适的编辑器或转换器时抛出异常
+     * @param ex {@link ConversionNotSupportedException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleConversionNotSupportedException(ConversionNotSupportedException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.INTERNAL_SERVER_ERROR, ex, headers, request);
     }
 
-    /** 尝试设置 bean 属性时因类型不匹配引发异常 */
+    /**
+     * 尝试设置 bean 属性时因类型不匹配引发异常
+     * @param ex {@link TypeMismatchException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleTypeMismatchException(TypeMismatchException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, ex, headers, request);
     }
 
-    /** 当HttpMessageConverter.read方法失败时由HttpMessageConverter实现抛出。 */
+    /**
+     * 当HttpMessageConverter.read方法失败时由HttpMessageConverter实现抛出。
+     * @param ex {@link HttpMessageNotReadableException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, ex, headers, request);
     }
 
-    /** 当HttpMessageConverter.write方法失败时由HttpMessageConverter实现抛出 */
+    /**
+     * 当HttpMessageConverter.write方法失败时由HttpMessageConverter实现抛出
+     * @param ex {@link HttpMessageNotWritableException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleHttpMessageNotWritableException(HttpMessageNotWritableException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.INTERNAL_SERVER_ERROR, ex, headers, request);
     }
 
-    /** 当无法找到由其名称标识的“multipart/form-data”请求的一部分时引发。<br/>这可能是因为请求不是多部分/表单数据请求，因为该部分不存在于请求中，或者因为 Web 应用程序没有正确配置来处理多部分请求，例如没有MultipartResolver */
+    /**
+     * 当无法找到由其名称标识的“multipart/form-data”请求的一部分时引发.
+     * 这可能是因为请求不是多部分/表单数据请求，因为该部分不存在于请求中，或者因为 Web 应用程序没有正确配置来处理多部分请求，例如没有MultipartResolver
+     * @param ex {@link MissingServletRequestPartException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleMissingServletRequestPartException(MissingServletRequestPartException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, ex, headers, request);
     }
 
-    /** 没有这个方法 */
+    /**
+     * 没有这个方法
+     * @param ex {@link NoHandlerFoundException}
+     * @param headers 要返回的headers
+     * @param request the current request
+     * @return new {@link ResponseEntity}
+     */
     protected ResponseEntity<Result<?>> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, WebRequest request) {
         return this.handleExceptionInternal(ResultStatusEnum.NOT_FOUND, ex, headers, request);
     }
 
-    /** 异步请求超时时抛出的异常。<br/> 或者，应用程序可以注册DeferredResultProcessingInterceptor或CallableProcessingInterceptor以通过 MVC Java 配置或 MVC XML 命名空间或直接通过RequestMappingHandlerAdapter属性来处理超时 */
+    /**
+     * 异步请求超时时抛出的异常.
+     * 或者，应用程序可以注册DeferredResultProcessingInterceptor或CallableProcessingInterceptor以通过 MVC Java 配置或 MVC XML 命名空间或直接通过RequestMappingHandlerAdapter属性来处理超时
+     * @param ex {@link AsyncRequestTimeoutException}
+     * @param headers 要返回的headers
+     * @param webRequest webRequest
+     * @return new {@link ResponseEntity} ResponseEntity
+     */
     protected ResponseEntity<Result<?>> handleAsyncRequestTimeoutException(AsyncRequestTimeoutException ex, HttpHeaders headers, WebRequest webRequest) {
         return this.handleExceptionInternal(ResultStatusEnum.SERVICE_UNAVAILABLE, ex, headers, webRequest);
     }

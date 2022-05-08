@@ -41,7 +41,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RestControllerAdvice
 @ControllerAdvice
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     /** 判断类或者方法是否使用了 @ResponseResultBody */

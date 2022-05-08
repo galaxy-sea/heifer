@@ -31,16 +31,26 @@ public interface UserService {
 
     String path = "feign";
 
-    /** 原生 ResponseBody返回 */
+    /**
+     * 原生 ResponseBody返回
+     * @param id id
+     * @return User
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/users/{id}")
     User getUser(@PathVariable("id") long id);
 
-    /** 自定义 ResultResponseBody 统一返回 */
+    /**
+     * 自定义 ResultResponseBody 统一返回
+     * @return User
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/Resultv1")
     @ResultResponseBody
     User getResultv1();
 
-    /** 硬编码 Result<User> 统一返回同时带上ResultResponseBody统一返回 */
+    /**
+     * 硬编码 Result 统一返回同时带上ResultResponseBody统一返回
+     * @return {@link Result}
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/Resulv2")
     @ResultResponseBody
     Result<User> getResultv2();

@@ -42,6 +42,7 @@ public interface IService<T, ID extends Serializable> {
 
     /**
      * 查询总记录数
+     * @return count sum
      */
     int count();
 
@@ -49,6 +50,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 Wrapper 条件，查询总记录数
      *
      * @param queryEntity 实体对象封装操作类
+     * @return count sum
      */
     int count(T queryEntity);
 
@@ -57,6 +59,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 ID 查询
      *
      * @param id 主键ID
+     * @return one object Entity
      */
     T get(ID id);
 
@@ -65,15 +68,17 @@ public interface IService<T, ID extends Serializable> {
      * 根据 Wrapper，查询一条记录
      *
      * @param queryEntity 实体对象封装操作类
+     * @return  key value
      */
     Map<String, Object> getMap(T queryEntity);
 
 
     /**
-     * 根据 Wrapper，查询一条记录 <br/>
+     * 根据 Wrapper，查询一条记录
      * <p>结果集，如果是多个会抛出异常，随机取一条加上限制条件 wrapper.last("LIMIT 1")</p>
      *
      * @param queryEntity 实体对象封装操作类
+     * @return one object Entity
      */
     T get(T queryEntity);
 
@@ -82,6 +87,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param queryEntity 实体对象封装操作类
      * @param throwEx 有多个 result 是否抛出异常
+     * @return one object Entity
      */
     T get(T queryEntity, boolean throwEx);
 
@@ -90,6 +96,7 @@ public interface IService<T, ID extends Serializable> {
      * 查询所有
      *
      * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     * @return list object Entity
      */
     List<T> list();
 
@@ -97,6 +104,7 @@ public interface IService<T, ID extends Serializable> {
      * 查询列表
      *
      * @param queryEntity 实体对象封装操作类
+     * @return list object Entity
      */
     List<T> list(T queryEntity);
 
@@ -104,6 +112,7 @@ public interface IService<T, ID extends Serializable> {
      * 查询（根据ID 批量查询）
      *
      * @param idList 主键ID列表
+     * @return list object Entity
      */
     List<T> list(Collection<? extends ID> idList);
 
@@ -111,6 +120,7 @@ public interface IService<T, ID extends Serializable> {
      * 查询（根据 columnMap 条件）
      *
      * @param columnMap 表字段 map 对象
+     * @return list object Entity
      */
     List<T> list(Map<String, Object> columnMap);
 
@@ -119,6 +129,7 @@ public interface IService<T, ID extends Serializable> {
      * 查询所有列表
      *
      * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
+     * @return list key value
      */
     List<Map<String, Object>> listMaps();
 
@@ -127,12 +138,14 @@ public interface IService<T, ID extends Serializable> {
      * 查询列表
      *
      * @param queryEntity 实体对象封装操作类
+     * @return list key value
      */
     List<Map<String, Object>> listMaps(T queryEntity);
 
 
     /**
      * 查询全部记录
+     * @return list object
      */
     List<Object> listObjs();
 
@@ -140,6 +153,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 Wrapper 条件，查询全部记录
      *
      * @param queryEntity 实体对象封装操作类
+     * @return list Entity
      */
     List<Object> listObjs(T queryEntity);
 
@@ -147,6 +161,7 @@ public interface IService<T, ID extends Serializable> {
      * 无条件翻页查询
      *
      * @param page 翻页对象
+     * @return page  object Entity
      *
      * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
      */
@@ -157,6 +172,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param page 翻页对象
      * @param queryEntity 实体对象封装操作类
+     * @return page object Entity
      */
     <E extends IPage<T>> E page(E page, T queryEntity);
 
@@ -164,6 +180,7 @@ public interface IService<T, ID extends Serializable> {
      * 无条件翻页查询
      *
      * @param page 翻页对象
+     * @return page object Entity
      *
      * @see com.baomidou.mybatisplus.core.toolkit.Wrappers#emptyWrapper()
      */
@@ -171,6 +188,7 @@ public interface IService<T, ID extends Serializable> {
 
     /**
      * 翻页查询
+     * @return page key value
      *
      * @param page 翻页对象
      * @param queryEntity 实体对象封装操作类
@@ -182,6 +200,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 queryEntity 条件，删除记录
      *
      * @param queryEntity 实体类
+     * @return true or false
      */
     boolean remove(T queryEntity);
 
@@ -189,6 +208,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 ID 删除
      *
      * @param id 主键ID
+     * @return true or false
      */
     boolean remove(ID id);
 
@@ -197,6 +217,7 @@ public interface IService<T, ID extends Serializable> {
      * 删除（根据ID 批量删除）
      *
      * @param idList 主键ID列表
+     * @return true or false
      */
     boolean remove(Collection<? extends ID> idList);
 
@@ -205,6 +226,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 columnMap 条件，删除记录
      *
      * @param columnMap 表字段 map 对象
+     * @return true or false
      */
     boolean remove(Map<String, Object> columnMap);
 
@@ -213,6 +235,7 @@ public interface IService<T, ID extends Serializable> {
      * 插入一条记录（选择字段，策略插入）
      *
      * @param entity 实体对象
+     * @return true or false
      */
     boolean save(T entity);
 
@@ -220,6 +243,7 @@ public interface IService<T, ID extends Serializable> {
      * 插入（批量）
      *
      * @param entityList 实体对象集合
+     * @return true or false
      */
     boolean save(Collection<T> entityList);
 
@@ -228,6 +252,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param entityList 实体对象集合
      * @param batchSize 插入批次数量
+     * @return true or false
      */
     boolean save(Collection<T> entityList, int batchSize);
 
@@ -236,6 +261,7 @@ public interface IService<T, ID extends Serializable> {
      * 批量修改插入
      *
      * @param entityList 实体对象集合
+     * @return true or false
      */
     boolean saveOrUpdate(Collection<T> entityList);
 
@@ -244,6 +270,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param entityList 实体对象集合
      * @param batchSize 每次的数量
+     * @return true or false
      */
     boolean saveOrUpdate(Collection<T> entityList, int batchSize);
 
@@ -252,6 +279,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 ID 选择修改
      *
      * @param entity 实体对象
+     * @return true or false
      */
     boolean update(T entity);
 
@@ -261,6 +289,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param entity 实体对象
      * @param updateEntity 实体对象封装操作类
+     * @return true or false
      */
     boolean update(T entity, T updateEntity);
 
@@ -268,8 +297,8 @@ public interface IService<T, ID extends Serializable> {
      * 根据ID 批量更新
      *
      * @param entityList 实体对象集合
+     * @return true or false
      */
-
     boolean update(Collection<T> entityList);
 
     /**
@@ -277,6 +306,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param entityList 实体对象集合
      * @param batchSize 更新批次数量
+     * @return true or false
      */
     boolean update(Collection<T> entityList, int batchSize);
 
@@ -284,6 +314,7 @@ public interface IService<T, ID extends Serializable> {
      * TableId 注解存在更新记录，否插入一条记录
      *
      * @param entity 实体对象
+     * @return true or false
      */
     boolean saveOrUpdate(T entity);
 

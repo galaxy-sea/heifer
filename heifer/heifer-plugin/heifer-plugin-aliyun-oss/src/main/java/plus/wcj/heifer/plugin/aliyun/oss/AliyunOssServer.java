@@ -43,7 +43,7 @@ import java.util.Map;
 /**
  * @author changjin wei(魏昌进)
  * @see <a href="https://help.aliyun.com/document_detail/31927.htm?spm=a2c4g.11186623.2.9.17487d9cnTKLr7#concept-qp2-g4y-5db">服务端签名直传并设置上传回调 </a>
- * @see <a href="https://help.aliyun.com/document_detail/91868.html?spm=a2c4g.11186623.6.1751.1b707a74R0LCkS">服务端签名直传并设置上传回调 > Java </a>
+ * @see <a href="https://help.aliyun.com/document_detail/91868.html?spm=a2c4g.11186623.6.1751.1b707a74R0LCkS">服务端签名直传并设置上传回调 </a>
  * @since 2021/7/16
  */
 @Component
