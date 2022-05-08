@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HelloService {
 
-    @Cacheable(value = "timestamp",key = "#id")
+    @Cacheable(value = "timestamp", key = "#id")
     public long timestamp(String id) {
         return System.currentTimeMillis();
     }

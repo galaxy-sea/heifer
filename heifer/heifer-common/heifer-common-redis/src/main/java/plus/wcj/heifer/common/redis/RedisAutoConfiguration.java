@@ -16,29 +16,22 @@
 
 package plus.wcj.heifer.common.redis;
 
-import plus.wcj.heifer.common.redis.data.RandomTtlRedisCacheManager;
 import plus.wcj.heifer.common.redis.lock.LockService;
 import plus.wcj.heifer.common.redis.lock.LockServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
-import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.integration.redis.util.RedisLockRegistry;
-
-import java.time.Duration;
 
 /**
  * @author changjin wei(魏昌进)
@@ -50,11 +43,6 @@ import java.time.Duration;
 @AutoConfigureOrder(value = Ordered.HIGHEST_PRECEDENCE)
 public class RedisAutoConfiguration {
 
-    private final CacheProperties cacheProperties;
-
-    @Value(value = "${spring.cache.redis.time-offset-to-live}")
-    private Duration timeToLiveOffset;
-
     @Bean
     public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<?, ?> template = new RedisTemplate<>();
@@ -64,28 +52,6 @@ public class RedisAutoConfiguration {
         template.setEnableTransactionSupport(false);
         template.afterPropertiesSet();
         return template;
-    }
-
-
-    @Bean
-    public RandomTtlRedisCacheManager randomTtlRedisCacheManager(RedisConnectionFactory redisConnectionFactory) {
-        RedisCacheWriter redisCacheWriter = RedisCacheWriter.lockingRedisCacheWriter(redisConnectionFactory);
-        CacheProperties.Redis redisProperties = cacheProperties.getRedis();
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-        config = config.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()));
-        if (redisProperties.getTimeToLive() != null) {
-            config = config.entryTtl(redisProperties.getTimeToLive());
-        }
-        if (redisProperties.getKeyPrefix() != null) {
-            config = config.prefixCacheNameWith(redisProperties.getKeyPrefix());
-        }
-        if (!redisProperties.isCacheNullValues()) {
-            config = config.disableCachingNullValues();
-        }
-        if (!redisProperties.isUseKeyPrefix()) {
-            config = config.disableKeyPrefix();
-        }
-        return new RandomTtlRedisCacheManager(redisCacheWriter, config, timeToLiveOffset == null ? 0 : (int) timeToLiveOffset.toMillis());
     }
 
 

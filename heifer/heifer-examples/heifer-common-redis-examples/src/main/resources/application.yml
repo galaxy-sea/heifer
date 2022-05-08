@@ -3,7 +3,7 @@ spring:
     name: heifer-common-redis-examples
   redis:
     host: heifer.wcj.plus
-    password: 123456
+    password: weichangjin
     port: 6379
     # 连接超时时间（记得添加单位，Duration）
     timeout: 10000ms
