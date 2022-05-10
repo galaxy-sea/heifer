@@ -4,7 +4,6 @@ spring:
   jackson:
     default-property-inclusion: non_null
     generator:
-      WRITE_NUMBERS_AS_STRINGS: true
       WRITE_BIGDECIMAL_AS_PLAIN: true
     serialization:
       INDENT_OUTPUT: false

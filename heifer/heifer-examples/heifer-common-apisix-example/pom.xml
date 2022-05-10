@@ -25,21 +25,9 @@
 
     <dependencies>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-boot</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-common-nacos-discovery</artifactId>
         </dependency>
 
 
@@ -49,14 +37,19 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true </optional>
+        </dependency>
+
+        <dependency>
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-common-feign</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true </optional>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-nacos-discovery</artifactId>
         </dependency>
 
     </dependencies>
