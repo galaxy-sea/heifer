@@ -14,24 +14,36 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.apisix.discovery;
+package plus.wcj.heifer.common.apisix.properties;
 
-import org.springframework.cloud.client.discovery.event.InstanceRegisteredEvent;
-import org.springframework.context.event.EventListener;
+import lombok.Data;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * 将本地信息注册到Apisix中
+ * <p>
+ * Apisix的配置类
+ * </p>
  *
  * @author changjin wei(魏昌进)
- * @since 2022/5/4
+ * @since 2022-01-13
  */
-public interface ApisixRegister<T> {
+@Data
+@ConfigurationProperties(prefix = "heifer.apisix")
+public class ApisixProperties {
 
     /**
-     * 注册
+     * Apisix 地址
      */
+    private String serverAddr = "http://192.168.0.1:9080/";
+    /**
+     * apisix path路径
+     */
+    private String serverPath = "apisix/admin/";
 
-    @EventListener
-    void register(InstanceRegisteredEvent<T> instanceRegisteredEvent);
+    /**
+     * Apisix token
+     */
+    private String token = "edd1c9f034335f136f87ad84b625c8f1";
 
 }

@@ -16,18 +16,21 @@
 
 package plus.wcj.heifer.common.apisix;
 
-import com.alibaba.cloud.nacos.registry.NacosServiceRegistryAutoConfiguration;
 import plus.wcj.heifer.common.apisix.admin.api.RouteClient;
-import plus.wcj.heifer.common.apisix.admin.api.UpstreamClient;
-import plus.wcj.heifer.common.apisix.discovery.ApisixRegister;
-import plus.wcj.heifer.common.apisix.discovery.NacosApisixRegister;
+import plus.wcj.heifer.common.apisix.plugins.ProxyRewritePlugin;
 import plus.wcj.heifer.common.apisix.properties.ApisixProperties;
+import plus.wcj.heifer.common.apisix.routes.RoutesCustomizer;
+import plus.wcj.heifer.common.apisix.upstreams.NacosUpstreamCustomizer;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 /**
  * @author changjin wei(魏昌进)
@@ -35,14 +38,33 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableFeignClients(basePackages = "plus.wcj.heifer.common.apisix.admin.api")
 @EnableConfigurationProperties(ApisixProperties.class)
-@AutoConfigureAfter(NacosServiceRegistryAutoConfiguration.class)
+@AutoConfigureAfter(name = "com.alibaba.cloud.nacos.discovery.NacosDiscoveryAutoConfiguration")
 public class ApisixAutoConfiguration {
 
+
     @Bean
-    @ConditionalOnMissingBean(ApisixRegister.class)
-    public ApisixRegister<?> apisixRegister(ApisixProperties apisixProperties,
-                                            RouteClient routeClient, UpstreamClient upstreamClient) {
-        return new NacosApisixRegister(apisixProperties, routeClient, upstreamClient);
+    @ConditionalOnMissingBean(name = "proxyRewritePlugin")
+    public ProxyRewritePlugin proxyRewritePlugin() {
+        return new ProxyRewritePlugin();
     }
 
+    @Bean
+    @ConditionalOnMissingBean(name = "routesCustomizer")
+    public RoutesCustomizer routesCustomizer() {
+        return new RoutesCustomizer();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "nacosUpstreamCustomizer")
+    @ConditionalOnBean(name = "nacosProperties")
+    public NacosUpstreamCustomizer nacosUpstreamCustomizer() {
+        return new NacosUpstreamCustomizer();
+    }
+
+    @Bean
+    public SimpleApisixRegister simpleApisixRegister(RouteClient routeClient,
+                                                     ObjectProvider<List<ApisixCustomizer>> apisixCustomizers,
+                                                     ApisixProperties apisixProperties) {
+        return new SimpleApisixRegister(routeClient, apisixCustomizers, apisixProperties);
+    }
 }

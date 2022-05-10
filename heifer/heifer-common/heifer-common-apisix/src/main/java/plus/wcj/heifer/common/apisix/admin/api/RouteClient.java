@@ -16,6 +16,8 @@
 
 package plus.wcj.heifer.common.apisix.admin.api;
 
+import plus.wcj.heifer.common.apisix.Route;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,15 +26,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import java.util.Map;
-
 /**
  * <a href="https://apisix.apache.org/zh/docs/apisix/admin-api/#route">https://apisix.apache.org/zh/docs/apisix/admin-api/#route</a>
  *
  * @author changjin wei(魏昌进)
  * @since 2022/5/4
  */
-@FeignClient(name = "routeClient", url = "${heifer.apisix.server-addr?heifer.apisix.server-addr:http://192.168.31.112:9080}", path = "${heifer.apisix.server-path?heifer.apisix.server-path:apisix/admin/}")
+@FeignClient(name = "routeClient",
+        url = "${heifer.apisix.server-addr?heifer.apisix.server-addr:http://192.168.31.112:9080}",
+        path = "${heifer.apisix.server-path?heifer.apisix.server-path:apisix/admin/}")
 public interface RouteClient {
     /**
      * 获取资源
@@ -56,5 +58,5 @@ public interface RouteClient {
      * @return json string
      */
     @PutMapping("routes/{id}")
-    ResponseEntity<String> route(@PathVariable("id") String id, @RequestBody Map<String, Object> body, @RequestHeader(Constants.TOKEN_KEY) String token);
+    ResponseEntity<String> route(@PathVariable("id") String id, @RequestHeader(Constants.TOKEN_KEY) String token, @RequestBody Route body);
 }

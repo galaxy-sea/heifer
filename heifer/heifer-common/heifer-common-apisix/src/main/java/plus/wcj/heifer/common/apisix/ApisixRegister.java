@@ -14,41 +14,15 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.apisix.properties;
-
-import lombok.Data;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
+package plus.wcj.heifer.common.apisix;
 
 /**
- * <p>
- * Apisix的配置类
- * </p>
+ * 将本地信息注册到Apisix中
  *
  * @author changjin wei(魏昌进)
- * @since 2022-01-13
+ * @since 2022/5/4
  */
-@Data
-@ConfigurationProperties(prefix = "heifer.apisix")
-public class ApisixProperties {
-
-    /**
-     * Apisix 地址
-     */
-    private String serverAddr = "http://192.168.0.1:9080/";
-    /**
-     * apisix path路径
-     */
-    private String serverPath = "apisix/admin/";
-
-    /**
-     * Apisix token
-     */
-    private String token = "edd1c9f034335f136f87ad84b625c8f1";
+public interface ApisixRegister {
 
 
-    /**
-     * 定时器表达式
-     */
-    private int synSleep = 1000 * 5;
 }
