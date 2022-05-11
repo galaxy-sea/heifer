@@ -50,10 +50,7 @@ public class ProxyRewritePlugin implements ApisixCustomizer {
     @Override
     public void customizer(Route route) {
         Map<String, Object> plugins = route.getPlugins();
-        if (plugins == null) {
-            plugins = new LinkedHashMap<>();
-            route.setPlugins(plugins);
-        }
+
         plugins.put("proxy-rewrite", new LinkedHashMap<String, Object>() {{
             put("regex_uri", new LinkedList<String>() {{
                 add("^/" + applicationName + "/(.*)");

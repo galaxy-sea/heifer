@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -63,4 +64,14 @@ public class Route {
     private Object createTime;
     @JsonProperty("update_time")
     private Object updateTime;
+
+    public synchronized Map<String, Object> getPlugins() {
+        if (plugins == null) {
+            plugins = new LinkedHashMap<>();
+        }
+        return plugins;
+    }
+
+
+
 }
