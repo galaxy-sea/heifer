@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true </optional>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -52,10 +52,21 @@
             <artifactId>heifer-common-nacos-discovery</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-api</artifactId>
+        </dependency>
+
     </dependencies>
-
-
-
 
 
 </project>

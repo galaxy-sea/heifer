@@ -4,7 +4,6 @@ spring:
   jackson:
     default-property-inclusion: non_null
     generator:
-      WRITE_NUMBERS_AS_STRINGS: true
       WRITE_BIGDECIMAL_AS_PLAIN: true
     serialization:
       INDENT_OUTPUT: false
@@ -13,5 +12,18 @@ spring:
   cloud:
     nacos:
       server-addr: heifer.wcj.plus
+  zipkin:
+    base-url: http://192.168.31.112:9411/
+  sleuth:
+    sampler:
+      probability: 1.0
 server:
   port: 0
+
+heifer:
+  apisix:
+    server-addr: http://192.168.31.112:9080
+    server-path: apisix/admin/
+    token: edd1c9f034335f136f87ad84b625c8f1
+    syn-sleep: 3000
+

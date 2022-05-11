@@ -16,16 +16,19 @@
 
 package plus.wcj.heifer.common.apisix.examples;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import plus.wck.heifer.api.UserService;
 
-@SpringBootApplication
-@EnableFeignClients
-public class HeiferCommonApisixtExamplesApplication {
+import org.springframework.cloud.openfeign.FeignClient;
 
-    public static void main(String[] args) {
-        SpringApplication.run(HeiferCommonApisixtExamplesApplication.class, args);
-    }
+/**
+ * @author changjin wei(魏昌进)
+ * @since 2022/4/20
+ */
+@FeignClient(value = "heifer-boot-examples", path = UserService.path)
+public interface UserClient extends UserService {
+
+
+
+
 
 }

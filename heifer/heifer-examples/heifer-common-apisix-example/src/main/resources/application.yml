@@ -12,6 +12,11 @@ spring:
   cloud:
     nacos:
       server-addr: heifer.wcj.plus
+  zipkin:
+    base-url: http://192.168.31.112:9411/
+  sleuth:
+    sampler:
+      probability: 1.0
 server:
   port: 0
 
