@@ -39,11 +39,11 @@ import java.util.LinkedHashMap;
  * @since 2022/5/9
  */
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
-public class NacosUpstreamCustomizer implements ApisixCustomizer {
+public class NacosUpstream implements ApisixCustomizer {
 
     private NacosDiscoveryProperties nacosDiscoveryProperties;
 
-    public NacosUpstreamCustomizer() {
+    public NacosUpstream() {
 
     }
 

@@ -21,7 +21,7 @@ import plus.wcj.heifer.common.apisix.plugins.ProxyRewritePlugin;
 import plus.wcj.heifer.common.apisix.plugins.ZipkinPlugin;
 import plus.wcj.heifer.common.apisix.properties.ApisixProperties;
 import plus.wcj.heifer.common.apisix.routes.RoutesCustomizer;
-import plus.wcj.heifer.common.apisix.upstreams.NacosUpstreamCustomizer;
+import plus.wcj.heifer.common.apisix.upstreams.NacosUpstream;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -67,8 +67,8 @@ public class ApisixAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(name = "nacosUpstreamCustomizer")
     @ConditionalOnBean(name = "nacosProperties")
-    public NacosUpstreamCustomizer nacosUpstreamCustomizer() {
-        return new NacosUpstreamCustomizer();
+    public NacosUpstream nacosUpstreamCustomizer() {
+        return new NacosUpstream();
     }
 
     @Bean
