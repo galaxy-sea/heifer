@@ -24,9 +24,9 @@ import plus.wcj.heifer.common.apisix.routes.RoutesCustomizer;
 import plus.wcj.heifer.common.apisix.upstreams.NacosUpstreamCustomizer;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +39,7 @@ import java.util.List;
  */
 @EnableFeignClients(basePackages = "plus.wcj.heifer.common.apisix.admin.api")
 @EnableConfigurationProperties(ApisixProperties.class)
-@AutoConfigureAfter(name = "com.alibaba.cloud.nacos.discovery.NacosDiscoveryAutoConfiguration")
+@ConditionalOnWebApplication
 public class ApisixAutoConfiguration {
 
 
