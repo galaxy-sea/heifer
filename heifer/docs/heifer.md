@@ -1,39 +1,42 @@
-
 <!-- TOC -->
 
 - [1. 使用特性](#1-使用特性)
-    - [1.1. heifer boot](#11-heifer-boot)
-        - [1.1.1. ExceptionHandler](#111-exceptionhandler)
-        - [1.1.2. ResponseBodyAdvice](#112-responsebodyadvice)
-        - [1.1.3. validation](#113-validation)
-        - [1.1.4. 异常](#114-异常)
-            - [1.1.4.1. 自定义异常枚举](#1141-自定义异常枚举)
-            - [1.1.4.2. 异常信息国际化](#1142-异常信息国际化)
-    - [1.2. heifer-common-apisix](#12-heifer-common-apisix)
-    - [1.3. heifer-common-dynamic-datasource](#13-heifer-common-dynamic-datasource)
-    - [1.4. heifer-common-feign](#14-heifer-common-feign)
-        - [1.4.1. 使用 okhttp](#141-使用-okhttp)
-        - [1.4.2. ResponseBodyAdvice自动拆箱](#142-responsebodyadvice自动拆箱)
-        - [1.4.3. rpc快速失败](#143-rpc快速失败)
-    - [1.5. heifer-common-mybatis-plus](#15-heifer-common-mybatis-plus)
-    - [1.6. heifer-common-nacos-discovery](#16-heifer-common-nacos-discovery)
-    - [1.7. heifer-common-redis](#17-heifer-common-redis)
-        - [1.7.1. Cache Abstraction](#171-cache-abstraction)
-        - [1.7.2. lock](#172-lock)
-    - [1.8. heifer-common-security](#18-heifer-common-security)
-        - [1.8.1. 自定义登陆](#181-自定义登陆)
-        - [1.8.2. 自定义拦截器](#182-自定义拦截器)
-        - [1.8.3. 忽略路由拦截](#183-忽略路由拦截)
-    - [1.9. heifer-gateway](#19-heifer-gateway)
-    - [1.10. heifer-metadata](#110-heifer-metadata)
-    - [1.11. heifer-plugin-aliyun-oss](#111-heifer-plugin-aliyun-oss)
-        - [1.11.1. 服务端签名后直传](#1111-服务端签名后直传)
-        - [1.11.2. Resource支持](#1112-resource支持)
-    - [1.12. heifer-plugin-iam](#112-heifer-plugin-iam)
-    - [1.13. heifer-plugin-iam-security](#113-heifer-plugin-iam-security)
-        - [1.13.1. 权限拦截](#1131-权限拦截)
-        - [1.13.2. user解析](#1132-user解析)
-        - [1.13.3. 数据权限](#1133-数据权限)
+  - [1.1. heifer boot](#11-heifer-boot)
+    - [1.1.1. ExceptionHandler](#111-exceptionhandler)
+    - [1.1.2. ResponseBodyAdvice](#112-responsebodyadvice)
+    - [1.1.3. validation](#113-validation)
+    - [1.1.4. 异常](#114-异常)
+      - [1.1.4.1. 自定义异常枚举](#1141-自定义异常枚举)
+      - [1.1.4.2. 异常信息国际化](#1142-异常信息国际化)
+  - [1.2. heifer-common-apisix](#12-heifer-common-apisix)
+    - [1.2.1. Route 生成规则](#121-route-生成规则)
+      - [1.2.1.1. Spring Booth](#1211-spring-booth)
+      - [1.2.1.2. Spring Cloud](#1212-spring-cloud)
+    - [Zipkin](#zipkin)
+  - [1.3. heifer-common-dynamic-datasource](#13-heifer-common-dynamic-datasource)
+  - [1.4. heifer-common-feign](#14-heifer-common-feign)
+    - [1.4.1. 使用 okhttp](#141-使用-okhttp)
+    - [1.4.2. ResponseBodyAdvice自动拆箱](#142-responsebodyadvice自动拆箱)
+    - [1.4.3. rpc快速失败](#143-rpc快速失败)
+  - [1.5. heifer-common-mybatis-plus](#15-heifer-common-mybatis-plus)
+  - [1.6. heifer-common-nacos-discovery](#16-heifer-common-nacos-discovery)
+  - [1.7. heifer-common-redis](#17-heifer-common-redis)
+    - [1.7.1. Cache Abstraction](#171-cache-abstraction)
+    - [1.7.2. lock](#172-lock)
+  - [1.8. heifer-common-security](#18-heifer-common-security)
+    - [1.8.1. 自定义登陆](#181-自定义登陆)
+    - [1.8.2. 自定义拦截器](#182-自定义拦截器)
+    - [1.8.3. 忽略路由拦截](#183-忽略路由拦截)
+  - [1.9. heifer-gateway](#19-heifer-gateway)
+  - [1.10. heifer-metadata](#110-heifer-metadata)
+  - [1.11. heifer-plugin-aliyun-oss](#111-heifer-plugin-aliyun-oss)
+    - [1.11.1. 服务端签名后直传](#1111-服务端签名后直传)
+    - [1.11.2. Resource支持](#1112-resource支持)
+  - [1.12. heifer-plugin-iam](#112-heifer-plugin-iam)
+  - [1.13. heifer-plugin-iam-security](#113-heifer-plugin-iam-security)
+    - [1.13.1. 权限拦截](#1131-权限拦截)
+    - [1.13.2. user解析](#1132-user解析)
+    - [1.13.3. 数据权限](#1133-数据权限)
 
 <!-- /TOC -->
 
@@ -126,7 +129,6 @@ public enum plus.wcj.heifer.boot.common.exception.ResultStatusEnum implements Re
 }
 ```
 
-
 #### 1.1.4.2. 异常信息国际化
 
 默认添加异常信息国际化
@@ -146,14 +148,115 @@ plus.wcj.heifer.boot.common.exception.ResultStatusEnum.SUCCESS=OK{}
 
 
 ## 1.2. heifer-common-apisix
-apisix是一个高性能网关用于替代Spring Cloud Gateway.
 
-[apisix官网](https://apisix.apache.org/)
-[apisix引入nacos](https://apisix.apache.org/docs/apisix/discovery/nacos)
+大部分公司的网关设计都为``流量网关（nginx）``+``业务网关（gateway）``两层网关的设计，流量网关主要用web服务器和上游负载均衡，业务网关主要用于Spring Cloud环境下的负载均衡， heifer在设计之初也是采用了两层网关设计，两层网关设计增加了通讯成本和运维成本。
 
-每个 service 在第启动的时候会去apisix检查是否采摘当前service的配置信息, 如果配置信息不存在就会创建一个Upstream和一个Route,
 
-判断是否存在service的实现采用了nacos相同的方式, 用``md5(namespace + "@" + group + "@" + service)``生成唯一ID用作Upstream和Route的ID,如果UpstreamID存在就不会做任何操作,如果UpstreamID存在就不会做任何操作,Route也是同理
+```mermaid
+flowchart TB
+    nginx --> web(wbe工程) & gateway(Spring Cloud Gateway)
+    gateway --> server(微服务集群)
+
+```
+
+每个 service 在第启动的时候会去Apache APISIX检查是否采摘当前service的配置信息, 如果配置信息不存在就会创建一个Route.
+id使用md5生成
+
+
+目前和Apache APISIX集成的相关插件
+
+| 插件名称                | 默认开启                      | 相关依赖                              |
+| ----------------------- | ----------------------------- | ------------------------------------- |
+| RoutesCustomizer        | 开启                          | web环境                               |
+| ProxyRewritePlugin      | 开启                          | web环境                               |
+| NacosUpstreamCustomizer | 引入nacos后自动开启           | Spring Cloud Alibaba nacos  discovery |
+| ZipkinPlugin            | 引入sleuth和zipkin2后自动开启 | spring-cloud-sleuth-zipkin            |
+
+
+### 1.2.1. Route 生成规则
+Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心的原因，Route注册upstream会有所变化，其他的基本上都是一致的
+#### 1.2.1.1. Spring Booth
+```json
+{
+  "uri": "/heifer-boot-examples/*",
+  "name": "heifer-boot-examples",
+  "desc": "Heifer create",
+  "plugins": {
+    "proxy-rewrite": {
+      "regex_uri": [
+        "^/heifer-boot-examples/(.*)",
+        "/$1"
+      ]
+    }
+  },
+  "upstream": {
+    "nodes": [
+      {
+        "host": "192.168.31.64",
+        "port": 58329,
+        "weight": 1
+      }
+    ],
+    "type": "roundrobin",
+    "hash_on": "vars",
+    "scheme": "http",
+    "pass_host": "pass"
+  },
+  "labels": {
+    "service": "heifer-boot-examples",
+    "source": "SPRING_BOOT"
+  },
+  "status": 1
+}
+```
+#### 1.2.1.2. Spring Cloud
+``` json
+{
+  "uri": "/heifer-boot-examples/*",
+  "name": "heifer-boot-examples",
+  "desc": "Heifer create",
+  "plugins": {
+    "proxy-rewrite": {
+      "regex_uri": ["^/heifer-boot-examples/(.*)", "/$1"]
+    }
+  },
+  "upstream": {
+    "type": "roundrobin",
+    "hash_on": "vars",
+    "scheme": "http",
+    "discovery_type": "nacos",
+    "discovery_args": {
+      "group_name": "DEFAULT_GROUP",
+      "namespace_id": "public"
+    },
+    "pass_host": "pass",
+    "service_name": "heifer-boot-examples"
+  },
+  "labels": {
+    "group": "DEFAULT_GROUP",
+    "namespace": "public",
+    "service": "heifer-boot-examples",
+    "source": "SPRING_CLOUD_ALIBABA"
+  },
+  "status": 1
+}
+```
+### Zipkin
+引入Zipk后json数据增加一下数据
+```json
+{
+  "plugins": {
+    "zipkin": {
+      "endpoint": "http://192.168.31.112:9411/api/v2/spans",
+      "sample_ratio": 1,
+      "service_name": "heifer-common-apisix-example-APISIX",
+      "span_version": 2
+    }
+  }
+}
+
+```
+
 
 ## 1.3. heifer-common-dynamic-datasource
 感觉没有多少用处, 还不如直接买阿里云的高性能服务器
