@@ -14,37 +14,23 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.apisix;
+package plus.wcj.heifer.common.apisix.plugins;
 
-import lombok.Data;
+import plus.wcj.heifer.common.apisix.ApisixCustomizer;
+import plus.wcj.heifer.common.apisix.Route;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
- * <p>
- * Apisix的配置类
- * </p>
- *
  * @author changjin wei(魏昌进)
- * @since 2022-01-13
+ * @since 2022/5/13
  */
-@Data
-@ConfigurationProperties(prefix = "heifer.apisix")
-public class ApisixProperties {
+public class CorsPlugin implements ApisixCustomizer {
 
-    /**
-     * Apisix 地址
-     */
-    private String serverAddr = "http://192.168.0.1:9080/";
-    /**
-     * apisix path路径
-     */
-    private String serverPath = "apisix/admin/";
-
-    /**
-     * Apisix token
-     */
-    private String token = "edd1c9f034335f136f87ad84b625c8f1";
-
-    private boolean cors = false;
+    @Override
+    public void customizer(Route route) {
+        Map<String, Object> plugins = route.getPlugins();
+        plugins.put("cors", new LinkedHashMap<>());
+    }
 }

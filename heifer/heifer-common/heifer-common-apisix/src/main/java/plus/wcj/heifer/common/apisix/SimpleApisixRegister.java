@@ -19,7 +19,6 @@ package plus.wcj.heifer.common.apisix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import plus.wcj.heifer.common.apisix.admin.api.RouteClient;
-import plus.wcj.heifer.common.apisix.properties.ApisixProperties;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

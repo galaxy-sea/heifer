@@ -17,9 +17,9 @@
 package plus.wcj.heifer.common.apisix;
 
 import plus.wcj.heifer.common.apisix.admin.api.RouteClient;
+import plus.wcj.heifer.common.apisix.plugins.CorsPlugin;
 import plus.wcj.heifer.common.apisix.plugins.ProxyRewritePlugin;
 import plus.wcj.heifer.common.apisix.plugins.ZipkinPlugin;
-import plus.wcj.heifer.common.apisix.properties.ApisixProperties;
 import plus.wcj.heifer.common.apisix.routes.RoutesCustomizer;
 import plus.wcj.heifer.common.apisix.upstreams.NacosUpstream;
 
@@ -42,6 +42,11 @@ import java.util.List;
 @ConditionalOnWebApplication
 public class ApisixAutoConfiguration {
 
+    @Bean
+    @ConditionalOnMissingBean(name = "corsPlugin")
+    public CorsPlugin corsPlugin() {
+        return new CorsPlugin();
+    }
 
     @Bean
     @ConditionalOnMissingBean(name = "proxyRewritePlugin")
@@ -54,7 +59,6 @@ public class ApisixAutoConfiguration {
     public RoutesCustomizer routesCustomizer() {
         return new RoutesCustomizer();
     }
-
 
     @Bean
     @ConditionalOnMissingBean(name = "zipkinPlugin")
