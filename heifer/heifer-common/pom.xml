@@ -12,13 +12,14 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>heifer-common-security</module>
-        <module>heifer-common-dynamic-datasource</module>
-        <module>heifer-common-redis</module>
-        <module>heifer-common-nacos-discovery</module>
-        <module>heifer-common-feign</module>
-        <module>heifer-common-mybatis-plus</module>
         <module>heifer-common-apisix</module>
+        <module>heifer-common-dynamic-datasource</module>
+        <module>heifer-common-feign</module>
+        <module>heifer-common-http</module>
+        <module>heifer-common-mybatis-plus</module>
+        <module>heifer-common-nacos-discovery</module>
+        <module>heifer-common-security</module>
+        <module>heifer-common-redis</module>
     </modules>
 
     <properties>
