@@ -46,14 +46,7 @@ public class HeiferHttpAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "httpETagCache")
-    @ConditionalOnBean(name = {"cacheManager"})
-    public HttpETagCache httpETagCache(CacheManager cacheManager, Sequence sequence) {
-        return new HttpETagCache(cacheManager, sequence);
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(name = {"cacheManager","httpETagCache"})
+    @ConditionalOnMissingBean(name = {"cacheManager", "httpETagCache"})
     public HttpETagCache httpETagCache(Sequence sequence) {
         return new HttpETagCache(new ConcurrentMapCacheManager(), sequence);
     }
@@ -74,7 +67,19 @@ public class HeiferHttpAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(name = "httpIfNoneMatchFilter")
-    public HttpIfNoneMatchFilter httpIfNoneMatchFilter(HttpETagCache httpETagCache){
+    public HttpIfNoneMatchFilter httpIfNoneMatchFilter(HttpETagCache httpETagCache) {
         return new HttpIfNoneMatchFilter(httpETagCache);
     }
+
+    // @Configuration
+    public static class HaveCacheManagerAutoConfiguration {
+        @Bean
+        @ConditionalOnMissingBean(name = "httpETagCache")
+        @ConditionalOnBean(name = {"cacheManager"})
+        public HttpETagCache httpETagCache(CacheManager cacheManager, Sequence sequence) {
+            return new HttpETagCache(cacheManager, sequence);
+        }
+    }
+
+
 }

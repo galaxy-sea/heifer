@@ -50,6 +50,27 @@ public @interface HttpCacheControl {
 
     String value() default "max-age=190501, public";
 
-    CacheControl cacheControl() default @CacheControl;
+
+    long maxAge() default 0;
+
+    boolean noCache() default false;
+
+    boolean noStore() default false;
+
+    boolean mustRevalidate() default false;
+
+    boolean noTransform() default false;
+
+    boolean cachePublic() default false;
+
+    boolean cachePrivate() default false;
+
+    boolean proxyRevalidate() default false;
+
+    long staleWhileRevalidate() default 0;
+
+    long staleIfError() default 0;
+
+    long sMaxAge() default 0;
 }
 

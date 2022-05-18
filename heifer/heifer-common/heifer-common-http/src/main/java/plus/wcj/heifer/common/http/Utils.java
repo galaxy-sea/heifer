@@ -16,12 +16,13 @@
 
 package plus.wcj.heifer.common.http;
 
-import plus.wcj.heifer.common.http.cache.control.CacheControl;
+import plus.wcj.heifer.common.http.cache.control.HttpCacheControl;
 
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.http.CacheControl;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -47,7 +48,7 @@ public class Utils {
         return PARSER.parseExpression(spelExpression).getValue(context).toString();
     }
 
-    public static String toHeaderValue( CacheControl cacheControl, String defaultValue) {
+    public static String toHeaderValue(HttpCacheControl cacheControl) {
         StringJoiner stringJoiner = new StringJoiner(", ");
         if (cacheControl.maxAge() != 0) {
             stringJoiner.add("max-age=" + cacheControl.maxAge());
@@ -84,7 +85,7 @@ public class Utils {
         }
         String cacheControlValue = stringJoiner.toString();
 
-        return StringUtils.hasLength(cacheControlValue) ? cacheControlValue : defaultValue;
+        return StringUtils.hasLength(cacheControlValue) ? cacheControlValue : cacheControl.value();
     }
 
 
