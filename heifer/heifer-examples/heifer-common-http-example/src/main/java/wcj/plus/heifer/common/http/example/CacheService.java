@@ -14,33 +14,22 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.http.cache.control;
+package wcj.plus.heifer.common.http.example;
+
+import plus.wcj.heifer.common.http.cache.control.HttpETag;
+
+import org.springframework.stereotype.Service;
+
 
 /**
  * @author changjin wei(魏昌进)
- * @since 2022/5/18
+ * @since 2022/5/15
  */
-public @interface CacheControl {
+@Service
+public class CacheService {
 
-    long maxAge() default 0;
-
-    boolean noCache() default false;
-
-    boolean noStore() default false;
-
-    boolean mustRevalidate() default false;
-
-    boolean noTransform() default false;
-
-    boolean cachePublic() default false;
-
-    boolean cachePrivate() default false;
-
-    boolean proxyRevalidate() default false;
-
-    long staleWhileRevalidate() default 0;
-
-    long staleIfError() default 0;
-
-    long sMaxAge() default 0;
+    @HttpETag(key = "#id")
+    public String modify(String id) {
+        return "hello CacheService";
+    }
 }

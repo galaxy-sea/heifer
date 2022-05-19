@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: heifer-common-http-example
+server:
+  port: 8745
