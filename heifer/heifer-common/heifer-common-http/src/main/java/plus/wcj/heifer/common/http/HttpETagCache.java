@@ -32,18 +32,25 @@ import java.util.Objects;
  */
 public class HttpETagCache {
 
-    private final CacheManager cacheManager;
+
+    private final Cache keyCache;
+    private final Cache valueCache;
+
     private final Sequence sequence;
-    public static final String KEY_NAME = "eTag";
+    private static final String KEY_NAME = "eTag:k";
+    private static final String VALUE_NAME = "eTag:v";
 
     public HttpETagCache(CacheManager cacheManager, Sequence sequence) {
-        this.cacheManager = cacheManager;
         this.sequence = sequence;
+        this.keyCache = cacheManager.getCache(KEY_NAME);
+        this.valueCache = cacheManager.getCache(VALUE_NAME);
     }
 
     /**
      * 双向维护 key和eTag的关系
+     *
      * @param key 唯一资源绑定关系
+     *
      * @return eTag
      */
     public String put(String key) {
@@ -51,36 +58,54 @@ public class HttpETagCache {
             return null;
         }
         String eTag = "\"" + sequence.nextId() + "\"";
-        Cache cache = cacheManager.getCache(KEY_NAME);
-        cache.put(key, eTag);
-        cache.put(eTag, key);
+        String oldETag = keyCache.get(key, String.class);
+        if (StringUtils.hasText(oldETag)) {
+            valueCache.evict(oldETag);
+        }
+        keyCache.put(key, eTag);
+        valueCache.put(eTag, key);
         return eTag;
     }
 
     /**
      * 通过key获取eTag
+     *
      * @param key 唯一资源绑定关系
+     *
      * @return eTag
      */
     public String get(String key) {
         if (!StringUtils.hasText(key)) {
             return null;
         }
-        Cache cache = cacheManager.getCache(KEY_NAME);
-        return cache.get(key, String.class);
+        return keyCache.get(key, String.class);
+    }
+
+    /**
+     * 通过key获取eTag,
+     * @param key
+     * @return 存在则返回默认的eTag不存在则返回一个默认的
+     */
+    public String getOrDefault(String key) {
+        if (!StringUtils.hasText(key)) {
+            return null;
+        }
+        String eTag = keyCache.get(key, String.class);
+        return StringUtils.hasText(eTag) ? eTag : put(key);
     }
 
 
     /**
-     *  查看eTag存在嘛
+     * 查看eTag存在嘛
+     *
      * @param eTag eTag
+     *
      * @return 存在这个eTag就返回对应的key
      */
     public boolean hasETag(String eTag) {
         if (!StringUtils.hasText(eTag)) {
             return false;
         }
-        Cache cache = cacheManager.getCache(KEY_NAME);
-        return Objects.nonNull(cache.get(eTag));
+        return Objects.nonNull(valueCache.get(eTag));
     }
 }

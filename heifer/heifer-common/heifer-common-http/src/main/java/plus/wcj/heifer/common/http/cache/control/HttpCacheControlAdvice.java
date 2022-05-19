@@ -46,7 +46,7 @@ public class HttpCacheControlAdvice implements AfterReturningAdvice {
         String spelExpression = httpCacheControl.key();
         String cacheControl = Utils.toHeaderValue(httpCacheControl);
         String key = Utils.parser(spelExpression, method, args);
-        String eTag = httpETagCache.get(key);
+        String eTag = httpETagCache.getOrDefault(key);
         response.setHeader(HttpHeaders.ETAG, eTag);
         response.setHeader(HttpHeaders.CACHE_CONTROL, cacheControl);
     }
