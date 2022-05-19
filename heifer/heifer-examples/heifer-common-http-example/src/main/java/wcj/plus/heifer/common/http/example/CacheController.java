@@ -91,7 +91,7 @@ public class CacheController {
                                            "                });\n" +
                                            "            });\n" +
                                            "            $(\"button:nth-child(3)\").click(function () {\n" +
-                                           "                $.post(\"/cache/2\", function (data, status) {\n" +
+                                           "                $.post(\"/cache/1\", function (data, status) {\n" +
                                            "                    $(\"ol\").append(\"<li>cache1: \" + data.data + \"</li>\");\n" +
                                            "                });\n" +
                                            "            });\n" +
