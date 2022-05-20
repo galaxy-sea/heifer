@@ -13,6 +13,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
 /**
+ *
+ * Sequence. copy <a href="https://gitee.com/yu120/sequence/">https://gitee.com/yu120/sequence/</a>
+ *<p>
  * 基于Twitter的Snowflake算法实现分布式高效有序ID生产黑科技(sequence)——升级版Snowflake
  *
  * <br>

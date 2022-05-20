@@ -25,7 +25,9 @@ import java.lang.annotation.Target;
 
 
 /**
- * mapping 缓存注解, 会在response上面加上 cache-control
+ * mapping 缓存注解, 会在response Headers 上面加上 cache-control 和 eTag两个标签,
+ *
+ * eTag标签会和key进行绑定
  * <p>
  * <a hrefdefault"https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">http Cache-Control</a>
  *

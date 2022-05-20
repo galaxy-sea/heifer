@@ -7,6 +7,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ *
+ *
+ * SystemClock. copy <a href="https://gitee.com/yu120/sequence/">https://gitee.com/yu120/sequence/</a>
+ * <p>
  * System Clock
  * <p>
  * 利用ScheduledExecutorService实现高并发场景下System.curentTimeMillis()的性能问题的优化.

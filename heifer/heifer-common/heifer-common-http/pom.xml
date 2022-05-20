@@ -58,6 +58,11 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-apisix</artifactId>
+            <optional>true</optional>
+        </dependency>
 
     </dependencies>
 

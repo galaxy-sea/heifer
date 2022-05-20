@@ -14,31 +14,24 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.http.cache.control;
+package plus.wcj.heifer.common.http.proxy.cache;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import plus.wcj.heifer.common.apisix.ApisixCustomizer;
+import plus.wcj.heifer.common.apisix.Route;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * etag绑定唯一key,
- *
  * @author changjin wei(魏昌进)
- * @since 2022/5/15
+ * @since 2022/5/20
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface HttpETag {
+public class ApisixProxyCache implements ApisixCustomizer {
+    @Override
+    public void customizer(Route route) {
+        Map<String, Object> plugins = route.getPlugins();
+        plugins.put("proxy-cache", new HashMap<String, Object>() {{
 
-    /**
-     * eTag绑定一个唯一资源key,
-     *
-     * 支持部分spel表达式,
-     *
-     * @return key
-     */
-    String key();
+        }});
+    }
 }
