@@ -25,6 +25,7 @@ import plus.wcj.heifer.common.apisix.upstreams.NacosUpstream;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -43,25 +44,26 @@ import java.util.List;
 public class ApisixAutoConfiguration {
 
     @Bean
-    @ConditionalOnMissingBean(name = "corsPlugin")
+    @ConditionalOnMissingBean
     public CorsPlugin corsPlugin() {
         return new CorsPlugin();
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "proxyRewritePlugin")
+    @ConditionalOnMissingBean
     public ProxyRewritePlugin proxyRewritePlugin() {
         return new ProxyRewritePlugin();
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "routesCustomizer")
+    @ConditionalOnMissingBean
+    @ConditionalOnClass(name = "org.springframework.cloud.commons.util.InetUtils")
     public RoutesCustomizer routesCustomizer() {
         return new RoutesCustomizer();
     }
 
     @Bean
-    @ConditionalOnMissingBean(name = "zipkinPlugin")
+    @ConditionalOnMissingBean
     @ConditionalOnBean(name = "zipkinSender")
     public ZipkinPlugin zipkinPlugin() {
         return new ZipkinPlugin();
@@ -69,7 +71,7 @@ public class ApisixAutoConfiguration {
 
 
     @Bean
-    @ConditionalOnMissingBean(name = "nacosUpstreamCustomizer")
+    @ConditionalOnMissingBean
     @ConditionalOnBean(name = "nacosProperties")
     public NacosUpstream nacosUpstreamCustomizer() {
         return new NacosUpstream();

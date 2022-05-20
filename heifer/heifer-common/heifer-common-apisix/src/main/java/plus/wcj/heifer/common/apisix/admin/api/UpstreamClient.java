@@ -32,7 +32,9 @@ import java.util.Map;
  * @author changjin wei(魏昌进)
  * @since 2022/5/4
  */
-@FeignClient(name = "upstreamClient", url = "${heifer.apisix.server-addr?heifer.apisix.server-addr:http://192.168.31.112:9080}", path = "${heifer.apisix.server-path?heifer.apisix.server-path:apisix/admin/}")
+@FeignClient(name = "upstreamClient",
+        url = "${heifer.apisix.server-addr}",
+        path = "${heifer.apisix.server-path}")
 public interface UpstreamClient {
 
     /**

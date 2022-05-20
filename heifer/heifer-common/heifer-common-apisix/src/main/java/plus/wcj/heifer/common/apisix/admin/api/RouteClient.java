@@ -33,8 +33,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
  * @since 2022/5/4
  */
 @FeignClient(name = "routeClient",
-        url = "${heifer.apisix.server-addr?heifer.apisix.server-addr:http://192.168.31.112:9080}",
-        path = "${heifer.apisix.server-path?heifer.apisix.server-path:apisix/admin/}")
+        url = "${heifer.apisix.server-addr}",
+        path = "${heifer.apisix.server-path}")
 public interface RouteClient {
     /**
      * 获取资源
