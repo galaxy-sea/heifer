@@ -31,6 +31,10 @@ public class ApisixProxyCache implements ApisixCustomizer {
     public void customizer(Route route) {
         Map<String, Object> plugins = route.getPlugins();
         plugins.put("proxy-cache", new HashMap<String, Object>() {{
+            put("hide_cache_headers", false);
+            put("cache_control", true);
+
+
 
         }});
     }

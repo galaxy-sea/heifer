@@ -23,10 +23,12 @@ import plus.wcj.heifer.common.http.cache.control.HttpCacheControlAdvice;
 import plus.wcj.heifer.common.http.cache.control.HttpETag;
 import plus.wcj.heifer.common.http.cache.control.HttpETagAdvice;
 import plus.wcj.heifer.common.http.cache.control.HttpIfNoneMatchFilter;
+import plus.wcj.heifer.common.http.proxy.cache.ApisixProxyCache;
 import plus.wcj.heifer.common.http.sequence.Sequence;
 
 import org.springframework.aop.Advisor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -80,5 +82,14 @@ public class HeiferHttpAutoConfiguration {
         }
     }
 
+
+    public static class  ApisixProxyCacheAutoConfiguration{
+        @Bean
+        @ConditionalOnMissingBean
+        @ConditionalOnClass(name = "plus.wcj.heifer.common.apisix.ApisixCustomizer")
+        public ApisixProxyCache apisixProxyCache() {
+            return new ApisixProxyCache();
+        }
+    }
 
 }
