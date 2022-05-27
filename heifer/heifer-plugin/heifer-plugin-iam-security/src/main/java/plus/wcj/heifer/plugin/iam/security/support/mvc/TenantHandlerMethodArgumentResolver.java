@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.security.support;
+package plus.wcj.heifer.plugin.iam.security.support.mvc;
 
-import plus.wcj.heifer.plugin.iam.security.UserPrincipal;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.metadata.tenant.DataPowersDto;
 import plus.wcj.heifer.metadata.tenant.Tenant;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
+import plus.wcj.heifer.plugin.iam.security.UserPrincipal;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;

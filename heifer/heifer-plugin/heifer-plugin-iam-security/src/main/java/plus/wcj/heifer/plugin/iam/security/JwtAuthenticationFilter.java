@@ -16,6 +16,8 @@
 
 package plus.wcj.heifer.plugin.iam.security;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.nimbusds.jwt.JWTClaimsSet;
 import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
@@ -24,7 +26,6 @@ import plus.wcj.heifer.tools.utils.JwtUtil;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
@@ -34,21 +35,24 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author changjin wei(魏昌进)
  * @since 2021/12/21
  */
-public class JwtTokenAuthenticationFilter extends IamOncePerRequestFilter {
+public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtProperties jwtProperties;
     private final UserPrincipalService userPrincipalService;
 
-    public static final String TENANT_ID = "Tenant-Id";
+    private final Cache<String, UserPrincipal> cache = Caffeine.newBuilder()
+                                                               .expireAfterWrite(10, TimeUnit.MINUTES)
+                                                               .maximumSize(10000)
+                                                               .build();
 
 
-    public JwtTokenAuthenticationFilter(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, UserPrincipalService userPrincipalService) {
+    public JwtAuthenticationFilter(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, UserPrincipalService userPrincipalService) {
         this.handlerExceptionResolver = handlerExceptionResolver;
         this.jwtProperties = jwtProperties;
         this.userPrincipalService = userPrincipalService;
@@ -57,12 +61,10 @@ public class JwtTokenAuthenticationFilter extends IamOncePerRequestFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         try {
-
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-            if (StringUtils.hasLength(authorization)) {
-                JWTClaimsSet jwtClaimsSet = JwtUtil.parseAuthorization(authorization, jwtProperties.getKey());
-                UserPrincipal userPrincipal = this.getUserPrincipal(jwtClaimsSet, request.getHeader(TENANT_ID));
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
+            if (StringUtils.hasText(authorization)) {
+                String tenantId = request.getHeader(Constant.TENANT_ID);
+                UsernamePasswordAuthenticationToken authentication = this.toAuthentication(authorization, tenantId);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             filterChain.doFilter(request, response);
@@ -71,29 +73,41 @@ public class JwtTokenAuthenticationFilter extends IamOncePerRequestFilter {
         }
     }
 
+    /**
+     * 获取 UsernamePasswordAuthenticationToken 对象
+     * <p>
+     * 每次都会刷新一下 Permissions 权限,保持 权限是最新的
+     *
+     * @param authorization token
+     * @param tenantId 租户id
+     *
+     * @return UsernamePasswordAuthenticationToken对象
+     */
+    private UsernamePasswordAuthenticationToken toAuthentication(String authorization, String tenantId) {
+        UserPrincipal userPrincipal = cache.get(authorization + ":" + tenantId, key -> {
+            JWTClaimsSet jwtClaimsSet = JwtUtil.parseAuthorization(authorization, jwtProperties.getKey());
+            return this.getUserPrincipal(jwtClaimsSet, tenantId);
+        });
+        if (userPrincipal.getTenantId() != null) {
+            List<String> allPermission = userPrincipalService.listPermission(userPrincipal.getId(), userPrincipal.getTenantId());
+            userPrincipal.setPermissions(allPermission);
+        }
+        return new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
+    }
+
 
     /**
      * 获取{@link UserPrincipal}
      *
      * @param jwtClaimsSet JSON Web Token (JWT) claims set.
-     * @param headerTenantId 租户id 可以为null
+     * @param tenantId_ 租户id 可以为null
      *
      * @return UserPrincipal
      */
-    private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, String headerTenantId) {
+    private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, String tenantId_) {
         Long accountId = Long.valueOf(jwtClaimsSet.getJWTID());
-        UserPrincipal userPrincipal = new UserPrincipal();
-        userPrincipal.setId(accountId);
-        userPrincipal.setUsername(jwtClaimsSet.getSubject());
-
-        if (StringUtils.hasText(headerTenantId)) {
-            Long tenantId = NumberUtils.parseNumber(headerTenantId, Long.class);
-            List<String> allPermission = userPrincipalService.listPermission(accountId, tenantId);
-            List<SimpleGrantedAuthority> authorities = allPermission.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-            userPrincipal.setAuthorities(authorities);
-            userPrincipal.setTenantId(tenantId);
-        }
-
-        return userPrincipal;
+        String username = jwtClaimsSet.getSubject();
+        Long tenantId = StringUtils.hasText(tenantId_) ? null : NumberUtils.parseNumber(tenantId_, Long.class);
+        return new UserPrincipal(accountId, username, tenantId, true);
     }
 }

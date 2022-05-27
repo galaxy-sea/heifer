@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.security.support;
+package plus.wcj.heifer.plugin.iam.security.support.mvc;
 
 import plus.wcj.heifer.plugin.iam.security.UserPrincipal;
 

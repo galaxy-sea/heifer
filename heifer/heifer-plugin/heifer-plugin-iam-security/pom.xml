@@ -42,9 +42,18 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-openfeign-core</artifactId>
             <optional>true</optional>
-            <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
 
     </dependencies>
 

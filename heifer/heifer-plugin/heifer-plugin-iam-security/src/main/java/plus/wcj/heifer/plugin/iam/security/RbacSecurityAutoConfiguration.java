@@ -21,8 +21,8 @@ import plus.wcj.heifer.common.security.config.SecurityAutoConfiguration;
 import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
-import plus.wcj.heifer.plugin.iam.security.support.SecurityUserHandlerMethodArgumentResolver;
-import plus.wcj.heifer.plugin.iam.security.support.TenantHandlerMethodArgumentResolver;
+import plus.wcj.heifer.plugin.iam.security.support.mvc.SecurityUserHandlerMethodArgumentResolver;
+import plus.wcj.heifer.plugin.iam.security.support.mvc.TenantHandlerMethodArgumentResolver;
 
 import lombok.AllArgsConstructor;
 
@@ -57,7 +57,7 @@ public class RbacSecurityAutoConfiguration implements WebMvcConfigurer {
     @Bean
     @ConditionalOnMissingBean(IamOncePerRequestFilter.class)
     public IamOncePerRequestFilter authenticationService() {
-        return new JwtTokenAuthenticationFilter(handlerExceptionResolver, jwtProperties, userPrincipalService);
+        return new JwtAuthenticationFilter(handlerExceptionResolver, jwtProperties, userPrincipalService);
     }
 
 

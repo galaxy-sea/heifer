@@ -14,22 +14,13 @@
  * limitations under the License.
  */
 
-package wcj.plus.heifer.common.http.example;
-
-import plus.wcj.heifer.common.http.cache.control.HttpETag;
-
-import org.springframework.stereotype.Service;
-
+package plus.wcj.heifer.plugin.iam.security;
 
 /**
  * @author changjin wei(魏昌进)
- * @since 2022/5/15
+ * @since 2022/5/27
  */
-@Service
-public class CacheService {
+public abstract class Constant {
+    public static final String TENANT_ID = "Tenant-Id";
 
-    @HttpETag(key = "#id")
-    public String modify(String id) {
-        return "hello CacheService";
-    }
 }

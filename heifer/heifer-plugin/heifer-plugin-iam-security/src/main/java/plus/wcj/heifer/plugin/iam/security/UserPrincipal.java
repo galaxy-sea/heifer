@@ -17,13 +17,10 @@
 package plus.wcj.heifer.plugin.iam.security;
 
 
-import lombok.Data;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,40 +33,37 @@ import java.util.stream.Collectors;
  * @author changjin wei(魏昌进)
  * @since 2022-01-13
  */
-@Data
 public class UserPrincipal implements UserDetails {
     /** 主键 */
-    private Long id;
+    private final Long id;
 
     /** 用户名 */
-    private String username;
+    private final String username;
 
     /** 密码 */
     private String password;
 
     /** 状态，启用-1，禁用-0 */
-    private boolean isEnabled;
+    private final boolean isEnabled;
 
     /** 租户id */
-    private Long tenantId;
-
-    /** 功能权限 */
-    private List<String> permissions;
-
+    private final Long tenantId;
     private List<? extends GrantedAuthority> authorities;
 
+    public UserPrincipal(Long id, String username, Long tenantId, boolean isEnabled) {
+        this.id = id;
+        this.username = username;
+        this.isEnabled = isEnabled;
+        this.tenantId = tenantId;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.authorities == null) {
-            if (this.permissions == null) {
-                this.authorities = new ArrayList<>();
-            } else {
-                this.authorities = this.permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-            }
-            this.permissions = null;
-        }
-        return this.authorities;
+        return authorities;
+    }
+
+    public void setPermissions(List<String> permissions) {
+        this.authorities = permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override
@@ -100,5 +94,13 @@ public class UserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.isEnabled;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
     }
 }
