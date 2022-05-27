@@ -1,6 +1,0 @@
-# AutoConfiguration
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  plus.wcj.heifer.common.http.HeiferHttpAutoConfiguration,\
-  plus.wcj.heifer.common.http.HeiferHttpAutoConfiguration.HaveCacheManagerAutoConfiguration,\
-  plus.wcj.heifer.common.http.HeiferHttpAutoConfiguration.ApisixProxyCacheAutoConfiguration
-

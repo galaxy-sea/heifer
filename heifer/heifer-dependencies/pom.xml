@@ -11,7 +11,7 @@
 
 
     <properties>
-        <revision>0.0.5-SNAPSHOT</revision>
+        <revision>0.0.6-SNAPSHOT</revision>
 
 
         <spring-boot.version>2.6.7</spring-boot.version>
@@ -165,11 +165,6 @@
                 <version>${revision}</version>
             </dependency>
 
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-http</artifactId>
-                <version>${revision}</version>
-            </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
                 <artifactId>heifer-common-mybatis-plus</artifactId>
