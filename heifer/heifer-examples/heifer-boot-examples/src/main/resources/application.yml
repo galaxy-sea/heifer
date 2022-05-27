@@ -1,6 +1,12 @@
 spring:
   application:
     name: heifer-boot-examples
+  jackson:
+    default-property-inclusion: non_null
+    generator:
+      WRITE_BIGDECIMAL_AS_PLAIN: true
+    serialization:
+      INDENT_OUTPUT: false
   session:
     store-type: none
   web:
@@ -17,8 +23,8 @@ server:
   # 端口
   port: 8725
   # GZIP 压缩
-  compression:
-    enabled: true
+#  compression:
+#    enabled: true
   error:
     whitelabel:
       # 是否启用在服务器错误时在浏览器中显示的默认错误页面
@@ -37,7 +43,11 @@ server:
     threads:
       max: 200
       min-spare: 10
-
+heifer:
+  apisix:
+    server-addr: http://192.168.31.112:9080
+    server-path: apisix/admin/
+    token: edd1c9f034335f136f87ad84b625c8f1
 logging:
   #  pattern:
   #    console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(%M[%L]) %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"

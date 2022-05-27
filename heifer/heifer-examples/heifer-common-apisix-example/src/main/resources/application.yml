@@ -25,4 +25,3 @@ heifer:
     server-addr: http://192.168.31.112:9080
     server-path: apisix/admin/
     token: edd1c9f034335f136f87ad84b625c8f1
-    syn-sleep: 3000
