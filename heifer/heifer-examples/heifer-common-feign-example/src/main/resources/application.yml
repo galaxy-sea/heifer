@@ -10,3 +10,6 @@ feign:
     enabled: true
   httpclient:
     enabled: false
+libby:
+  http-client-cache-path: ./httpCache
+  http-client-cache-max-size: 2105131412

@@ -44,6 +44,11 @@
 
         <dependency>
             <groupId>plus.wcj</groupId>
+            <artifactId>libby-http-cache-control</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
             <artifactId>heifer-common-apisix</artifactId>
         </dependency>
 
@@ -61,6 +66,11 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>libby-http-cache-control</artifactId>
         </dependency>
 
         <dependency>

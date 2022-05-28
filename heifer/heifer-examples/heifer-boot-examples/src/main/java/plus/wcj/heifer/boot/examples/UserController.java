@@ -17,6 +17,7 @@
 package plus.wcj.heifer.boot.examples;
 
 import plus.wcj.heifer.metadata.bean.Result;
+import plus.wcj.libby.http.cache.control.annotation.HttpCacheControl;
 import plus.wck.heifer.api.User;
 import plus.wck.heifer.api.UserService;
 
@@ -31,10 +32,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = UserService.path)
 public class UserController implements UserService {
     @Override
+    @HttpCacheControl(key = "123", maxAge = 5, cachePublic = true)
     public User getUser(long id) {
         User user = new User();
         user.setName("xiaowei");
-        user.setAge(13);
+        user.setAge((int) (System.currentTimeMillis()%100000));
 
         return user;
     }

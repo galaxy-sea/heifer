@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>wcj.plus</groupId>
     <artifactId>heifer-common-feign-example</artifactId>
     <version>${revision}</version>
     <name>heifer-common-feign-example</name>
@@ -33,6 +32,11 @@
         <dependency>
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-common-nacos-discovery</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>libby-http-cache-control</artifactId>
         </dependency>
 
         <dependency>

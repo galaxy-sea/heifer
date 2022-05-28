@@ -31,6 +31,7 @@
         <springfox.version>3.0.0</springfox.version>
         <swagger.version>1.5.20</swagger.version>
         <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
+        <libby-http-cache-control.version>2022.1.2</libby-http-cache-control.version>
 
 
         <!-- Maven Plugin Versions -->
@@ -137,6 +138,12 @@
                 <groupId>com.nimbusds</groupId>
                 <artifactId>nimbus-jose-jwt</artifactId>
                 <version>${nimbus-jose-jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>libby-http-cache-control</artifactId>
+                <version>${libby-http-cache-control.version}</version>
             </dependency>
 
 
