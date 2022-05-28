@@ -43,12 +43,7 @@ public class UserClientTest {
         user.setName("xiaowei");
         user.setAge(13);
 
-        // Assert.isTrue(user.equals(getUser));
-        System.out.println(userClient.getUser(1).getAge());
-        Thread.sleep(1);
-        System.out.println(userClient.getUser(1).getAge());
-        Thread.sleep(11);
-        System.out.println(userClient.getUser(1).getAge());
+        Assert.isTrue(user.equals(getUser));
     }
 
 
