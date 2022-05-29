@@ -36,7 +36,7 @@ public class UserController implements UserService {
     public User getUser(long id) {
         User user = new User();
         user.setName("xiaowei");
-        user.setAge((int) (System.currentTimeMillis()%100000));
+        user.setAge(13);
 
         return user;
     }
