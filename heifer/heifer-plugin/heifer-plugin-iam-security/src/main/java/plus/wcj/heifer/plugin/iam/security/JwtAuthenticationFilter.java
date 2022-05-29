@@ -20,6 +20,8 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.nimbusds.jwt.JWTClaimsSet;
 import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
+import plus.wcj.heifer.metadata.exception.ResultException;
+import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
 import plus.wcj.heifer.tools.utils.JwtUtil;
@@ -34,6 +36,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +50,7 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
     private final UserPrincipalService userPrincipalService;
 
     private final Cache<String, UserPrincipal> cache = Caffeine.newBuilder()
-                                                               .expireAfterWrite(10, TimeUnit.MINUTES)
+                                                               .expireAfterAccess(10, TimeUnit.MINUTES)
                                                                .maximumSize(10000)
                                                                .build();
 
@@ -84,10 +87,19 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
      * @return UsernamePasswordAuthenticationToken对象
      */
     private UsernamePasswordAuthenticationToken toAuthentication(String authorization, String tenantId) {
-        UserPrincipal userPrincipal = cache.get(authorization + ":" + tenantId, key -> {
+
+        String cacheKey = authorization + ":" + tenantId;
+
+        UserPrincipal userPrincipal = cache.get(cacheKey, key -> {
             JWTClaimsSet jwtClaimsSet = JwtUtil.parseAuthorization(authorization, jwtProperties.getKey());
             return this.getUserPrincipal(jwtClaimsSet, tenantId);
         });
+
+        if (JwtUtil.isValidExp(userPrincipal.getExpirationTime(), new Date())) {
+            cache.invalidate(cacheKey);
+            throw new ResultException(ResultStatusEnum.EXPIRED_TOKEN);
+        }
+
         if (userPrincipal.getTenantId() != null) {
             List<String> allPermission = userPrincipalService.listPermission(userPrincipal.getId(), userPrincipal.getTenantId());
             userPrincipal.setPermissions(allPermission);
@@ -105,9 +117,10 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
      * @return UserPrincipal
      */
     private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, String tenantId_) {
+        Date expirationTime = jwtClaimsSet.getExpirationTime();
         Long accountId = Long.valueOf(jwtClaimsSet.getJWTID());
         String username = jwtClaimsSet.getSubject();
         Long tenantId = StringUtils.hasText(tenantId_) ? null : NumberUtils.parseNumber(tenantId_, Long.class);
-        return new UserPrincipal(accountId, username, tenantId, true);
+        return new UserPrincipal(accountId, username, tenantId, true, expirationTime);
     }
 }

@@ -110,24 +110,27 @@ public class JwtUtil {
      * @throws ParseException
      * @throws JOSEException
      */
-    private static void verify(SignedJWT signedJwt, MACVerifier verifier) throws ParseException, JOSEException {
+    public static void verify(SignedJWT signedJwt, MACVerifier verifier) throws ParseException, JOSEException {
 
         if (!signedJwt.verify(verifier)) {
             throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
         }
         JWTClaimsSet claimsSet = signedJwt.getJWTClaimsSet();
 
-        // throw new ResultException(ResultStatus.UNAUTHORIZED);
         final Date now = new Date();
         final Date exp = claimsSet.getExpirationTime();
 
-        if (exp == null || !DateUtils.isAfter(exp, now, MAX_CLOCK_SKEW_SECONDS)) {
+        if (exp == null || DateUtils.isBefore(exp, now, MAX_CLOCK_SKEW_SECONDS)) {
             throw new ResultException(ResultStatusEnum.EXPIRED_TOKEN);
         }
 
         final Date nbf = claimsSet.getNotBeforeTime();
-        if (nbf == null || !DateUtils.isBefore(nbf, now, MAX_CLOCK_SKEW_SECONDS)) {
+        if (nbf == null || DateUtils.isAfter(nbf, now, MAX_CLOCK_SKEW_SECONDS)) {
             throw new ResultException(ResultStatusEnum.TOKEN_BEFORE_USE_TIME);
         }
+    }
+
+    public static boolean isValidExp(Date exp, Date now) {
+        return exp != null && DateUtils.isAfter(exp, now, MAX_CLOCK_SKEW_SECONDS);
     }
 }

@@ -22,6 +22,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,11 +51,14 @@ public class UserPrincipal implements UserDetails {
     private final Long tenantId;
     private List<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String username, Long tenantId, boolean isEnabled) {
+    private final Date expirationTime;
+
+    public UserPrincipal(Long id, String username, Long tenantId, boolean isEnabled, Date expirationTime) {
         this.id = id;
         this.username = username;
         this.isEnabled = isEnabled;
         this.tenantId = tenantId;
+        this.expirationTime = expirationTime;
     }
 
     @Override
@@ -102,5 +106,9 @@ public class UserPrincipal implements UserDetails {
 
     public Long getTenantId() {
         return tenantId;
+    }
+
+    public Date getExpirationTime() {
+        return expirationTime;
     }
 }
