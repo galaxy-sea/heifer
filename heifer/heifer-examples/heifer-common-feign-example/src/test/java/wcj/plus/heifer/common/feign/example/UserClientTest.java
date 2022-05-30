@@ -43,6 +43,11 @@ public class UserClientTest {
         user.setName("xiaowei");
         user.setAge(13);
 
+
+        userClient.getUser(1);
+
+        userClient.getUser(1);
+
         Assert.isTrue(user.equals(getUser));
     }
 

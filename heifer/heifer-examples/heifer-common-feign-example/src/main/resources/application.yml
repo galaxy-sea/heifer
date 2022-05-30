@@ -7,9 +7,15 @@ spring:
         server-addr: heifer.wcj.plus
 feign:
   okhttp:
-    enabled: true
-  httpclient:
     enabled: false
+  httpclient:
+    enabled: true
 libby:
-  http-client-cache-path: ./httpCache
-  http-client-cache-max-size: 2105131412
+  ok-http:
+    cache-directory: "./libby"
+    cache-max-size: 2105131412
+  httpclient:
+    cache-type: MEMORY
+    cache-directory: "./libby"
+    max-object-size: 210513
+    max-cache-entries: 1412
