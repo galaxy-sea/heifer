@@ -47,7 +47,7 @@ import java.util.List;
 @AutoConfigureBefore(SecurityAutoConfiguration.class)
 @EnableWebSecurity
 @AllArgsConstructor
-public class RbacSecurityAutoConfiguration implements WebMvcConfigurer {
+public class IamSecurityAutoConfiguration implements WebMvcConfigurer {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtProperties jwtProperties;

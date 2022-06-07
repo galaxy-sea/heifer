@@ -32,7 +32,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan("plus.wcj.heifer.plugin.iam")
 @MapperScan("plus.wcj.heifer.plugin.iam.dao")
 @EnableConfigurationProperties(JwtProperties.class)
-public class RbacAutoConfiguration {
+public class IamAutoConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {

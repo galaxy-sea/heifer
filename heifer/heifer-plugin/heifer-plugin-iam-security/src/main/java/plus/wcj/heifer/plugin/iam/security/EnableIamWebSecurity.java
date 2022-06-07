@@ -35,5 +35,5 @@ import java.lang.annotation.Target;
 
 @EnableWebSecurity
 @EnableFeignClients(clients = UserPrincipalClient.class)
-public @interface EnableRbacWebSecurity {
+public @interface EnableIamWebSecurity {
 }
