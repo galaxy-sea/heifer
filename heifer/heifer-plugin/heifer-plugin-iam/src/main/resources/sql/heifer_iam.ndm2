@@ -2269,328 +2269,6 @@
           },
           {
             "objectType": "Table_MYSQL",
-            "name": "iam_account_manage",
-            "comment": "账户与租户的绑定关系",
-            "engine": "",
-            "characterSet": "",
-            "collation": "",
-            "autoIncrement": 0,
-            "tablespace": "",
-            "storage": "",
-            "insertMethod": "",
-            "connection": "",
-            "checksum": false,
-            "rowFormat": "",
-            "avgRowLength": 0,
-            "maxRows": 0,
-            "minRows": 0,
-            "keyBlockSize": 0,
-            "packKeys": "",
-            "delayKeyWrite": false,
-            "dataDirectory": "",
-            "indexDirectory": "",
-            "statsAutoRecalc": "",
-            "statsPersistent": "",
-            "statsSamplePages": 0,
-            "union": "",
-            "pageCheckSum": false,
-            "transactional": false,
-            "compression": "",
-            "oldName": "",
-            "encryption": false,
-            "createOptions": "",
-            "createTime": "",
-            "checkTime": "",
-            "dataFree": 0,
-            "dataLength": 0,
-            "indexLength": 0,
-            "maxDataLength": 0,
-            "rows": 0,
-            "updateTime": "",
-            "DDL": "",
-            "partitionBy": "",
-            "partitionByExpr": "",
-            "partitions": 0,
-            "partitionKeyAlgorithm": "",
-            "subPartitionBy": "",
-            "subPartitionByExpr": "",
-            "subPartitions": 0,
-            "subPartitionKeyAlgorithm": "",
-            "fields": [
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "主键ID",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "iam_account_id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "账户id",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "iam_account_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "iam_tenant_id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "租户id",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "iam_tenant_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "iam_dept_id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "部门id",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "iam_dept_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_time",
-                "type": "timestamp",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "CURRENT_TIMESTAMP",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_time"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_by",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_by"
-              }
-            ],
-            "indexes": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_MYSQL",
-              "name": "",
-              "fields": [
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "id",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                }
-              ],
-              "oldName": "",
-              "indexMethod": "",
-              "comment": ""
-            },
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a20",
-                "fields": [
-                  "iam_account_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_account",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "OneOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a21",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a22",
-                "fields": [
-                  "iam_dept_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_dept",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "OneOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              }
-            ],
-            "triggers": [],
-            "tablePartitions": []
-          },
-          {
-            "objectType": "Table_MYSQL",
             "name": "iam_role_data_power",
             "comment": "角色数据权限",
             "engine": "",
@@ -4073,6 +3751,354 @@
             ],
             "triggers": [],
             "tablePartitions": []
+          },
+          {
+            "objectType": "Table_MYSQL",
+            "name": "iam_account_manage",
+            "comment": "账户与租户的绑定关系",
+            "engine": "",
+            "characterSet": "",
+            "collation": "",
+            "autoIncrement": 0,
+            "tablespace": "",
+            "storage": "",
+            "insertMethod": "",
+            "connection": "",
+            "checksum": false,
+            "rowFormat": "",
+            "avgRowLength": 0,
+            "maxRows": 0,
+            "minRows": 0,
+            "keyBlockSize": 0,
+            "packKeys": "",
+            "delayKeyWrite": false,
+            "dataDirectory": "",
+            "indexDirectory": "",
+            "statsAutoRecalc": "",
+            "statsPersistent": "",
+            "statsSamplePages": 0,
+            "union": "",
+            "pageCheckSum": false,
+            "transactional": false,
+            "compression": "",
+            "oldName": "",
+            "encryption": false,
+            "createOptions": "",
+            "createTime": "",
+            "checkTime": "",
+            "dataFree": 0,
+            "dataLength": 0,
+            "indexLength": 0,
+            "maxDataLength": 0,
+            "rows": 0,
+            "updateTime": "",
+            "DDL": "",
+            "partitionBy": "",
+            "partitionByExpr": "",
+            "partitions": 0,
+            "partitionKeyAlgorithm": "",
+            "subPartitionBy": "",
+            "subPartitionByExpr": "",
+            "subPartitions": 0,
+            "subPartitionKeyAlgorithm": "",
+            "fields": [
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "主键ID",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "iam_account_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "账户id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "iam_account_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "iam_tenant_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "租户id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "iam_tenant_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "iam_dept_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "部门id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "iam_dept_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "super_admin",
+                "type": "bit",
+                "length": 1,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "false",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "是否超级管理员",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "super_admin"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_time",
+                "type": "timestamp",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_by",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_by"
+              }
+            ],
+            "indexes": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_MYSQL",
+              "name": "",
+              "fields": [
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "id",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                }
+              ],
+              "oldName": "",
+              "indexMethod": "",
+              "comment": ""
+            },
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a20",
+                "fields": [
+                  "iam_account_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "iam_account",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a21",
+                "fields": [
+                  "iam_tenant_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "iam_tenant",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "ManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a22",
+                "fields": [
+                  "iam_dept_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "iam_dept",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "OneOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              }
+            ],
+            "triggers": [],
+            "tablePartitions": []
           }
         ],
         "views": []
@@ -4097,8 +4123,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account",
-          "x": 150,
-          "y": 1210,
+          "x": 1860,
+          "y": 1190,
           "width": 482,
           "height": 303,
           "isBold": false,
@@ -4113,9 +4139,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role",
-          "x": 1210,
-          "y": 210,
-          "width": 289,
+          "x": 1110,
+          "y": 980,
+          "width": 285,
           "height": 219,
           "isBold": false,
           "titleColor": {
@@ -4129,9 +4155,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_role_rel",
-          "x": 240,
-          "y": 220,
-          "width": 297,
+          "x": 1300,
+          "y": 1240,
+          "width": 293,
           "height": 198,
           "isBold": false,
           "titleColor": {
@@ -4145,8 +4171,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_permission",
-          "x": 1190,
-          "y": 790,
+          "x": 210,
+          "y": 340,
           "width": 342,
           "height": 282,
           "isBold": false,
@@ -4161,9 +4187,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role_authority",
-          "x": 1190,
-          "y": 480,
-          "width": 337,
+          "x": 220,
+          "y": 990,
+          "width": 333,
           "height": 198,
           "isBold": false,
           "titleColor": {
@@ -4177,9 +4203,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_authority",
-          "x": 800,
-          "y": 1180,
-          "width": 337,
+          "x": 220,
+          "y": 90,
+          "width": 333,
           "height": 198,
           "isBold": false,
           "titleColor": {
@@ -4193,8 +4219,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_tenant",
-          "x": 1940,
-          "y": 410,
+          "x": 1880,
+          "y": 240,
           "width": 232,
           "height": 198,
           "isBold": false,
@@ -4209,9 +4235,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_dept",
-          "x": 1880,
-          "y": 1540,
-          "width": 289,
+          "x": 2520,
+          "y": 480,
+          "width": 286,
           "height": 240,
           "isBold": false,
           "titleColor": {
@@ -4225,9 +4251,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_data_power",
-          "x": 1880,
-          "y": 1970,
-          "width": 297,
+          "x": 2850,
+          "y": 500,
+          "width": 293,
           "height": 198,
           "isBold": false,
           "titleColor": {
@@ -4241,9 +4267,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role_data_power",
-          "x": 2280,
-          "y": 410,
-          "width": 289,
+          "x": 2520,
+          "y": 770,
+          "width": 285,
           "height": 198,
           "isBold": false,
           "titleColor": {
@@ -4257,9 +4283,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_tenant_authority",
-          "x": 1190,
-          "y": 1180,
-          "width": 337,
+          "x": 600,
+          "y": 390,
+          "width": 333,
           "height": 177,
           "isBold": false,
           "titleColor": {
@@ -4273,10 +4299,10 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_manage",
-          "x": 1210,
-          "y": 1410,
-          "width": 297,
-          "height": 198,
+          "x": 1960,
+          "y": 490,
+          "width": 293,
+          "height": 219,
           "isBold": false,
           "titleColor": {
             "r": 55,
@@ -4289,9 +4315,9 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_access",
-          "x": 1190,
-          "y": 1710,
-          "width": 347,
+          "x": 1570,
+          "y": 510,
+          "width": 343,
           "height": 177,
           "isBold": false,
           "titleColor": {
@@ -4304,32 +4330,11 @@
       ],
       "layers": [
         {
-          "name": "rbac模型",
-          "x": 100,
-          "y": 100,
-          "width": 1551,
-          "height": 1911,
-          "layerColor": {
-            "r": 100,
-            "g": 234,
-            "b": 136,
-            "a": 1
-          },
-          "fontName": "Arial Unicode MS",
-          "fontSize": 14,
-          "fontColor": {
-            "r": 51,
-            "g": 51,
-            "b": 51,
-            "a": 1
-          }
-        },
-        {
           "name": "组织架构",
-          "x": 1710,
-          "y": 360,
-          "width": 921,
-          "height": 1864,
+          "x": 1050,
+          "y": 130,
+          "width": 1349,
+          "height": 1420,
           "layerColor": {
             "r": 251,
             "g": 2,
@@ -4346,11 +4351,32 @@
           }
         },
         {
-          "name": "rbac扩展",
-          "x": 750,
-          "y": 1120,
-          "width": 839,
-          "height": 822,
+          "name": "数据权限",
+          "x": 2460,
+          "y": 430,
+          "width": 739,
+          "height": 598,
+          "layerColor": {
+            "r": 33,
+            "g": 254,
+            "b": 128,
+            "a": 1
+          },
+          "fontName": "Arial Unicode MS",
+          "fontSize": 14,
+          "fontColor": {
+            "r": 51,
+            "g": 51,
+            "b": 51,
+            "a": 1
+          }
+        },
+        {
+          "name": "功能权限",
+          "x": 160,
+          "y": 40,
+          "width": 835,
+          "height": 1203,
           "layerColor": {
             "r": 100,
             "g": 234,
@@ -4376,17 +4402,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1514,
-              "y": 420
+              "x": 1250,
+              "y": 965
             },
             {
-              "x": 1925,
-              "y": 420
+              "x": 1250,
+              "y": 430
+            },
+            {
+              "x": 1865,
+              "y": 430
             }
           ],
           "label": {
-            "x": 1438,
-            "y": 347,
+            "x": 1186,
+            "y": 900,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4410,17 +4440,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 552,
-              "y": 320
+              "x": 1285,
+              "y": 1340
             },
             {
-              "x": 1195,
-              "y": 320
+              "x": 1250,
+              "y": 1340
+            },
+            {
+              "x": 1250,
+              "y": 1214
             }
           ],
           "label": {
-            "x": 853,
-            "y": 140,
+            "x": 1606,
+            "y": 1160,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4444,17 +4478,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 390,
-              "y": 433
+              "x": 1608,
+              "y": 1340
             },
             {
-              "x": 390,
-              "y": 1195
+              "x": 1845,
+              "y": 1340
             }
           ],
           "label": {
-            "x": 338,
-            "y": 301,
+            "x": 1544,
+            "y": 1232,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4478,17 +4512,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1360,
-              "y": 465
+              "x": 568,
+              "y": 1080
             },
             {
-              "x": 1360,
-              "y": 444
+              "x": 1095,
+              "y": 1080
             }
           ],
           "label": {
-            "x": 1158,
-            "y": 393,
+            "x": 0,
+            "y": 1187,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4512,17 +4546,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1360,
-              "y": 693
+              "x": 380,
+              "y": 975
             },
             {
-              "x": 1360,
-              "y": 775
+              "x": 380,
+              "y": 637
             }
           ],
           "label": {
-            "x": 1313,
-            "y": 501,
+            "x": 0,
+            "y": 990,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4546,21 +4580,29 @@
           "visible": true,
           "vertices": [
             {
-              "x": 970,
-              "y": 1393
+              "x": 205,
+              "y": 190
             },
             {
-              "x": 970,
-              "y": 1430
+              "x": 40,
+              "y": 190
             },
             {
-              "x": 647,
-              "y": 1430
+              "x": 40,
+              "y": 1610
+            },
+            {
+              "x": 2100,
+              "y": 1610
+            },
+            {
+              "x": 2100,
+              "y": 1508
             }
           ],
           "label": {
-            "x": 500,
-            "y": 1106,
+            "x": 0,
+            "y": 137,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4584,21 +4626,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 970,
-              "y": 1165
+              "x": 380,
+              "y": 303
             },
             {
-              "x": 970,
-              "y": 930
-            },
-            {
-              "x": 1175,
-              "y": 930
+              "x": 380,
+              "y": 325
             }
           ],
           "label": {
-            "x": 330,
-            "y": 963,
+            "x": 0,
+            "y": 263,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4622,17 +4660,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2030,
-              "y": 1525
+              "x": 2660,
+              "y": 465
             },
             {
-              "x": 2030,
-              "y": 623
+              "x": 2660,
+              "y": 340
+            },
+            {
+              "x": 2127,
+              "y": 340
             }
           ],
           "label": {
-            "x": 2470,
-            "y": 1554,
+            "x": 3100,
+            "y": 494,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4656,17 +4698,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2030,
-              "y": 1955
+              "x": 2835,
+              "y": 600
             },
             {
-              "x": 2030,
-              "y": 1795
+              "x": 2821,
+              "y": 600
             }
           ],
           "label": {
-            "x": 1928,
-            "y": 1693,
+            "x": 2741,
+            "y": 330,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4690,21 +4732,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1865,
-              "y": 2070
+              "x": 3000,
+              "y": 713
             },
             {
-              "x": 390,
-              "y": 2070
+              "x": 3000,
+              "y": 1340
             },
             {
-              "x": 390,
-              "y": 1528
+              "x": 2357,
+              "y": 1340
             }
           ],
           "label": {
-            "x": 2232,
-            "y": 1890,
+            "x": 3359,
+            "y": 560,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4728,25 +4770,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2430,
-              "y": 395
+              "x": 2660,
+              "y": 983
             },
             {
-              "x": 2430,
-              "y": 40
+              "x": 2660,
+              "y": 1080
             },
             {
-              "x": 1360,
-              "y": 40
-            },
-            {
-              "x": 1360,
-              "y": 195
+              "x": 1410,
+              "y": 1080
             }
           ],
           "label": {
-            "x": 2522,
-            "y": 163,
+            "x": 2752,
+            "y": 731,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4770,21 +4808,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2430,
-              "y": 623
+              "x": 2660,
+              "y": 755
             },
             {
-              "x": 2430,
-              "y": 1660
-            },
-            {
-              "x": 2184,
-              "y": 1660
+              "x": 2660,
+              "y": 735
             }
           ],
           "label": {
-            "x": 2522,
-            "y": 281,
+            "x": 2752,
+            "y": 433,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4808,25 +4842,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1542,
-              "y": 1190
+              "x": 948,
+              "y": 400
             },
             {
-              "x": 1830,
-              "y": 1190
+              "x": 930,
+              "y": 340
             },
             {
-              "x": 1830,
-              "y": 600
-            },
-            {
-              "x": 1950,
-              "y": 623
+              "x": 1865,
+              "y": 340
             }
           ],
           "label": {
-            "x": 1060,
-            "y": 1112,
+            "x": 0,
+            "y": 509,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4850,17 +4880,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1360,
-              "y": 1165
+              "x": 585,
+              "y": 480
             },
             {
-              "x": 1360,
-              "y": 1087
+              "x": 567,
+              "y": 480
             }
           ],
           "label": {
-            "x": 720,
-            "y": 1025,
+            "x": 0,
+            "y": 519,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -4884,17 +4914,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1195,
-              "y": 1510
+              "x": 2100,
+              "y": 724
             },
             {
-              "x": 647,
-              "y": 1510
+              "x": 2100,
+              "y": 1175
             }
           ],
           "label": {
-            "x": 1155,
-            "y": 1471,
+            "x": 2052,
+            "y": 673,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -4918,25 +4948,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1500,
-              "y": 1395
+              "x": 2100,
+              "y": 475
             },
             {
-              "x": 1890,
-              "y": 1410
-            },
-            {
-              "x": 1890,
-              "y": 600
-            },
-            {
-              "x": 1950,
-              "y": 623
+              "x": 2100,
+              "y": 453
             }
           ],
           "label": {
-            "x": 1502,
-            "y": 1364,
+            "x": 2102,
+            "y": 444,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -4960,21 +4982,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1522,
-              "y": 1600
+              "x": 2268,
+              "y": 600
             },
             {
-              "x": 1500,
-              "y": 1660
-            },
-            {
-              "x": 1865,
-              "y": 1660
+              "x": 2505,
+              "y": 600
             }
           ],
           "label": {
-            "x": 1512,
-            "y": 1561,
+            "x": 2258,
+            "y": 561,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -4998,17 +5016,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2265,
-              "y": 510
+              "x": 2505,
+              "y": 870
             },
             {
-              "x": 2187,
-              "y": 510
+              "x": 1510,
+              "y": 870
+            },
+            {
+              "x": 1510,
+              "y": 430
+            },
+            {
+              "x": 1865,
+              "y": 430
             }
           ],
           "label": {
-            "x": 2225,
-            "y": 471,
+            "x": 2465,
+            "y": 831,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -5032,25 +5058,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2192,
-              "y": 2070
+              "x": 3000,
+              "y": 485
             },
             {
-              "x": 2230,
-              "y": 2070
+              "x": 3000,
+              "y": 70
             },
             {
-              "x": 2230,
-              "y": 510
+              "x": 2000,
+              "y": 70
             },
             {
-              "x": 2187,
-              "y": 510
+              "x": 2000,
+              "y": 225
             }
           ],
           "label": {
-            "x": 2188,
-            "y": 2072,
+            "x": 3008,
+            "y": 495,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -5074,33 +5100,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 785,
-              "y": 1280
+              "x": 568,
+              "y": 190
             },
             {
-              "x": 690,
-              "y": 1280
+              "x": 1890,
+              "y": 190
             },
             {
-              "x": 690,
-              "y": 730
-            },
-            {
-              "x": 1770,
-              "y": 730
-            },
-            {
-              "x": 1770,
-              "y": 600
-            },
-            {
-              "x": 1950,
-              "y": 623
+              "x": 1865,
+              "y": 250
             }
           ],
           "label": {
-            "x": 795,
-            "y": 1241,
+            "x": 0,
+            "y": 345,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -5124,25 +5138,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 390,
-              "y": 205
+              "x": 1450,
+              "y": 1225
             },
             {
-              "x": 390,
-              "y": 160
+              "x": 1450,
+              "y": 430
             },
             {
-              "x": 2060,
-              "y": 160
-            },
-            {
-              "x": 2060,
-              "y": 395
+              "x": 1865,
+              "y": 430
             }
           ],
           "label": {
-            "x": 392,
-            "y": 174,
+            "x": 1452,
+            "y": 1194,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -5166,17 +5176,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1360,
-              "y": 1695
+              "x": 1928,
+              "y": 600
             },
             {
-              "x": 1360,
-              "y": 1623
+              "x": 1945,
+              "y": 600
             }
           ],
           "label": {
-            "x": 1362,
-            "y": 1664,
+            "x": 1918,
+            "y": 561,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
