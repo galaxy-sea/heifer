@@ -23,7 +23,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -52,6 +54,7 @@ public class UserPrincipal implements UserDetails {
     private List<? extends GrantedAuthority> authorities;
 
     private final Date expirationTime;
+    private final Map<String, String> metadata;
 
     public UserPrincipal(Long id, String username, Long tenantId, boolean isEnabled, Date expirationTime) {
         this.id = id;
@@ -59,6 +62,7 @@ public class UserPrincipal implements UserDetails {
         this.isEnabled = isEnabled;
         this.tenantId = tenantId;
         this.expirationTime = expirationTime;
+        this.metadata = new LinkedHashMap<>();
     }
 
     @Override
@@ -110,5 +114,9 @@ public class UserPrincipal implements UserDetails {
 
     public Date getExpirationTime() {
         return expirationTime;
+    }
+
+    public Map<String, String> getMetadata() {
+        return metadata;
     }
 }

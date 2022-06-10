@@ -26,6 +26,7 @@ import plus.wcj.heifer.plugin.iam.security.support.mvc.TenantHandlerMethodArgume
 
 import lombok.AllArgsConstructor;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +35,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,11 +55,17 @@ public class IamSecurityAutoConfiguration implements WebMvcConfigurer {
     private final JwtProperties jwtProperties;
     private final UserPrincipalService userPrincipalService;
 
+    private final ObjectProvider<List<UserPrincipalCustomizeService>> userPrincipalCustomizeServiceLists;
+
 
     @Bean
     @ConditionalOnMissingBean(IamOncePerRequestFilter.class)
     public IamOncePerRequestFilter authenticationService() {
-        return new JwtAuthenticationFilter(handlerExceptionResolver, jwtProperties, userPrincipalService);
+        return new JwtAuthenticationFilter(handlerExceptionResolver,
+                                           jwtProperties,
+                                           userPrincipalService,
+                                           userPrincipalCustomizeServiceLists.getIfAvailable(ArrayList::new)
+        );
     }
 
 

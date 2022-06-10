@@ -49,16 +49,19 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
     private final JwtProperties jwtProperties;
     private final UserPrincipalService userPrincipalService;
 
+    private final List<UserPrincipalCustomizeService> UserPrincipalCustomizeServiceLists;
+
     private final Cache<String, UserPrincipal> cache = Caffeine.newBuilder()
                                                                .expireAfterAccess(10, TimeUnit.MINUTES)
                                                                .maximumSize(10000)
                                                                .build();
 
 
-    public JwtAuthenticationFilter(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, UserPrincipalService userPrincipalService) {
+    public JwtAuthenticationFilter(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, UserPrincipalService userPrincipalService, List<UserPrincipalCustomizeService> userPrincipalCustomizeServiceLists) {
         this.handlerExceptionResolver = handlerExceptionResolver;
         this.jwtProperties = jwtProperties;
         this.userPrincipalService = userPrincipalService;
+        this.UserPrincipalCustomizeServiceLists = userPrincipalCustomizeServiceLists;
     }
 
     @Override
@@ -103,6 +106,10 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
         if (userPrincipal.getTenantId() != null) {
             List<String> allPermission = userPrincipalService.listPermission(userPrincipal.getId(), userPrincipal.getTenantId());
             userPrincipal.setPermissions(allPermission);
+        }
+
+        for (UserPrincipalCustomizeService customizeService : UserPrincipalCustomizeServiceLists) {
+            customizeService.customizeUserPrincipal(userPrincipal);
         }
         return new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
     }
