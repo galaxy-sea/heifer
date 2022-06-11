@@ -3,20 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>heifer</artifactId>
+        <artifactId>heifer-plugin</artifactId>
         <groupId>plus.wcj</groupId>
-        <version>${revision}</version>
+        <version>0.0.6-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>heifer-plugin</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>heifer-plugin-iam-security</module>
-        <module>heifer-plugin-aliyun-oss</module>
-        <module>heifer-plugin-iam</module>
-        <module>heifer-plugin-saas-differentiation</module>
-    </modules>
+    <artifactId>heifer-plugin-saas-differentiation</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
