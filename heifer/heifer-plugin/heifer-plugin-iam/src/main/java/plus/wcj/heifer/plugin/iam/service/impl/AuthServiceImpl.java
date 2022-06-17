@@ -28,17 +28,19 @@ import plus.wcj.heifer.plugin.iam.dto.JwtDto;
 import plus.wcj.heifer.plugin.iam.dto.LoginDto;
 import plus.wcj.heifer.plugin.iam.dto.RoleDto;
 import plus.wcj.heifer.plugin.iam.dto.TenantDto;
+import plus.wcj.heifer.plugin.iam.service.AbacCustomizeService;
 import plus.wcj.heifer.plugin.iam.service.AuthService;
 import plus.wcj.heifer.tools.utils.JwtUtil;
 
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,13 +49,20 @@ import java.util.stream.Stream;
  * @since 2021/12/23
  */
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@EnableConfigurationProperties(JwtProperties.class)
 public class AuthServiceImpl implements AuthService, UserPrincipalService {
 
     private final AuthDao authDao;
     private final PasswordEncoder passwordEncoder;
-
     private final JwtProperties jwtProperties;
+    private final List<AbacCustomizeService> abacCustomizeServiceList;
+
+    public AuthServiceImpl(AuthDao authDao, PasswordEncoder passwordEncoder, JwtProperties jwtProperties, ObjectProvider<List<AbacCustomizeService>> authCustomizeServiceObjectProviderLists) {
+        this.authDao = authDao;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtProperties = jwtProperties;
+        this.abacCustomizeServiceList = authCustomizeServiceObjectProviderLists.getIfAvailable(LinkedList::new);
+    }
 
     @Override
     public JwtDto login(LoginDto loginDto) {
@@ -91,9 +100,14 @@ public class AuthServiceImpl implements AuthService, UserPrincipalService {
         List<RoleDto> roleList = authDao.listRole(accountId, tenantId);
         List<String> permissionList = authDao.listPermission(accountId, tenantId, roleList);
 
-        return Stream.concat(roleList.stream().map(role -> "ROLE_" + role.getName()),
-                             permissionList.stream()
-        ).collect(Collectors.toList());
+        List<String> abacPermissionList = abacCustomizeServiceList.stream()
+                                                                  .map(abacCustomizeService -> abacCustomizeService.abacPermission(accountId, tenantId, roleList))
+                                                                  .filter(Objects::nonNull)
+                                                                  .collect(Collectors.toList());
+        return Stream.of(permissionList.stream(),
+                         abacPermissionList.stream(),
+                         roleList.stream().map(role -> "ROLE_" + role.getName())
+        ).flatMap(i -> i).collect(Collectors.toList());
     }
 
     @Override
