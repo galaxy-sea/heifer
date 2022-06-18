@@ -21,7 +21,6 @@ import feign.Response;
 import feign.codec.Decoder;
 import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
 import plus.wcj.heifer.metadata.bean.Result;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -43,7 +42,7 @@ public class ResultDecoder implements Decoder {
         Method method = response.request().requestTemplate().methodMetadata().method();
         boolean isResult = method.getReturnType() != Result.class && method.isAnnotationPresent(ResultResponseBody.class);
         if (isResult) {
-            ParameterizedTypeImpl resultType = ParameterizedTypeImpl.make(Result.class, new Type[]{type}, null);
+            ParameterizedTypeImpl resultType = new ParameterizedTypeImpl(Result.class, new Type[]{type});
             Result<?> result = (Result<?>) this.decoder.decode(response, resultType);
             return result.getData();
         }
