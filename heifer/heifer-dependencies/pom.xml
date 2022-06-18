@@ -33,6 +33,7 @@
         <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
         <libby-http-cache-control.version>2022.1.6</libby-http-cache-control.version>
 
+        <java.version>17</java.version>
 
         <!-- Maven Plugin Versions -->
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
@@ -40,8 +41,8 @@
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencyManagement>
