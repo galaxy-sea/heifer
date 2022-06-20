@@ -74,4 +74,16 @@
 
 ## 使用特性
 
-##  
+## 未来工作安排
+- swagger
+  - Spring Security和swagger整合
+- jdk17 测试
+- iam重构2.0 // 待定
+  - abac适配permission的策略 // 待定
+  - abac支持spel表达式 // 待定
+- 对接前端工程  // 待定
+- SaaS差异化 // 待定
+- Apache APISIX 替换 Spring Cloud Gateway // 待定
+  - 删除Spring Cloud Gateway // 待定
+- MyBatis plus 升级到 3.5.X // 待定
+- examples 完善 // 待定
