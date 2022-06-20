@@ -16,7 +16,15 @@
 
 package plus.wcj.heifer.common.swagger;
 
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,5 +44,27 @@ public class SwaggerAutoConfiguration {
     })
     public SecurityAnnotationOperationBuilderPlugin securityAnnotationOperationBuilderPlugin() {
         return new SecurityAnnotationOperationBuilderPlugin();
+    }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    public Docket docket() {
+        return new Docket(DocumentationType.OAS_30)
+                .apiInfo(this.apiInfo())
+                // .enableUrlTemplating(true)
+                .select()
+                // .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("heifer")
+                .description("heifer api")
+                .contact(new Contact("changjin wei", "wcj.plus", "wcj@wcj.plus"))
+                .version("1.0")
+                .build();
     }
 }
