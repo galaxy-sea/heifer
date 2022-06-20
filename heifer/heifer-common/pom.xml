@@ -19,6 +19,7 @@
         <module>heifer-common-nacos-discovery</module>
         <module>heifer-common-security</module>
         <module>heifer-common-redis</module>
+        <module>heifer-common-swagger</module>
     </modules>
 
     <properties>

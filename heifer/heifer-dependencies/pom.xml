@@ -200,6 +200,12 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-swagger</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>plus.wcj</groupId>
                 <artifactId>heifer-gateway</artifactId>
                 <version>${revision}</version>
             </dependency>
