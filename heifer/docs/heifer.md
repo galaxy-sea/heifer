@@ -292,42 +292,6 @@ web浏览器->A服务->B服务->C服务
 
 如果C服务发生了异常会被Spring Boot全局异常拦截,返回异常信息给B服务, B服务拦截``FeignException``将C服务的异常信息原封不动的返回给A服务, A服务拦截``FeignException``将信息原封不动的返回给web浏览器,
 
-## 1.5. heifer-common-http
-感觉还是有点用的模块，未来打算当作独立项目进行开发
-
-
-```java
-    @GetMapping("cache/{id}")
-    @HttpCacheControl(key = "#id", maxAge = 10)
-    public String getCache(@PathVariable String id) {
-        return ResponseEntity.ok()
-                             .body( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
-                             }})
-                ;
-    }
-```
-
-``@HttpCacheControl`` 会在 ``Response Header`` 上返回 ``Cache-Control: max-age=10`` 和 ``Etag: "403710060904730625"``
-
-
-```java
-    @PostMapping("cache/{id}")
-    @HttpETag(key = "#id")
-    public ResponseEntity<Map<String, String>> modify(@PathVariable String id) {
-        cacheService.modify(id);
-        return ResponseEntity.ok()
-                             .body(new LinkedHashMap<String, String>() {{
-                                 put("data", "modify: " + id);
-                             }})
-                ;
-    }
-```
-``@HttpETag``主要用于刷新``Etag``标签
-
-
-
-
-
 
 ## 1.6. heifer-common-mybatis-plus
 
