@@ -56,7 +56,7 @@ public class IamAccountController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public IamAccount getById(@NotNull Long id) {
-        return iamAccountService.get(id);
+        return iamAccountService.getById(id);
     }
 
     /** 分页查询 */
@@ -84,7 +84,7 @@ public class IamAccountController {
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return iamAccountService.remove(id);
+        return iamAccountService.removeById(id);
     }
 
     // TODO: 2022-04-23 weichangjin (魏昌进) 补充其他接口

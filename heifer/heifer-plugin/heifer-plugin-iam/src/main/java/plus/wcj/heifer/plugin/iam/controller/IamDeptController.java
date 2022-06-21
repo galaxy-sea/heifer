@@ -55,7 +55,7 @@ public class IamDeptController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public IamDept getById(@NotNull Long id) {
-        return iamDeptService.get(id);
+        return iamDeptService.getById(id);
     }
 
     /** 分页查询 */
@@ -83,7 +83,7 @@ public class IamDeptController {
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return iamDeptService.remove(id);
+        return iamDeptService.removeById(id);
     }
 
     // TODO: 2022-04-23 weichangjin (魏昌进) 补充其他接口

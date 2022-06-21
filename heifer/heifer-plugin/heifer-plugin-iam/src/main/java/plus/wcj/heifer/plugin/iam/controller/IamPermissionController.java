@@ -55,7 +55,7 @@ public class IamPermissionController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public IamPermission getById(@NotNull Long id) {
-        return iamPermissionService.get(id);
+        return iamPermissionService.getById(id);
     }
 
     /** 分页查询 */
@@ -83,7 +83,7 @@ public class IamPermissionController {
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return iamPermissionService.remove(id);
+        return iamPermissionService.removeById(id);
     }
 
     // TODO: 2022-04-23 weichangjin (魏昌进) 补充其他接口

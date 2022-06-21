@@ -55,7 +55,7 @@ public class IamRoleController {
     @GetMapping(params = "id")
     @ResultResponseBody
     public IamRole getById(@NotNull Long id) {
-        return iamRoleService.get(id);
+        return iamRoleService.getById(id);
     }
 
     /** 分页查询 */
@@ -83,7 +83,7 @@ public class IamRoleController {
     @DeleteMapping(params = "id")
     @ResultResponseBody
     public boolean removeById(@NotNull Long id) {
-        return iamRoleService.remove(id);
+        return iamRoleService.removeById(id);
     }
 
     // TODO: 2022-04-23 weichangjin (魏昌进) 补充其他接口
