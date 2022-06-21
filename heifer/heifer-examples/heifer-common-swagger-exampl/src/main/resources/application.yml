@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: heifer-common-swagger-exampl
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
