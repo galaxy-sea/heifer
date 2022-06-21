@@ -19,7 +19,7 @@
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
 
 
-        <mybatis-plus.version>3.4.3</mybatis-plus.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
 
         <seata.version>1.4.2</seata.version>
