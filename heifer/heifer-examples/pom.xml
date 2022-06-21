@@ -24,6 +24,7 @@
         <module>heifer-plugin-aliyun-oss-example</module>
         <module>heifer-common-apisix-example</module>
         <module>heifer-common-swagger-exampl</module>
+        <module>mybatis-plus-generator</module>
     </modules>
 
     <properties>
