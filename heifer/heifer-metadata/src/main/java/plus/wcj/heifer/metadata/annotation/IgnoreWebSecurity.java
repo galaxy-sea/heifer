@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * @author changjin wei(魏昌进)
  * @since 2022/1/3
  */
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
