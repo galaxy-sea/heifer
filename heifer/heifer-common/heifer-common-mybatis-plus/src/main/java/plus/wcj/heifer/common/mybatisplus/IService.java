@@ -82,7 +82,7 @@ public interface IService<T, ID extends Serializable> {
      * 插入（批量）
      *
      * @param entityList 实体对象集合
-     * @param batchSize  插入批次数量
+     * @param batchSize 插入批次数量
      */
     boolean saveBatch(Collection<T> entityList, int batchSize);
 
@@ -100,7 +100,7 @@ public interface IService<T, ID extends Serializable> {
      * 批量修改插入
      *
      * @param entityList 实体对象集合
-     * @param batchSize  每次的数量
+     * @param batchSize 每次的数量
      */
     boolean saveOrUpdateBatch(Collection<T> entityList, int batchSize);
 
@@ -116,9 +116,11 @@ public interface IService<T, ID extends Serializable> {
     /**
      * 根据 ID 删除
      *
-     * @param id      主键(类型必须与实体类型字段保持一致)
+     * @param id 主键(类型必须与实体类型字段保持一致)
      * @param useFill 是否启用填充(为true的情况,会将入参转换实体进行delete删除)
+     *
      * @return 删除结果
+     *
      * @since 3.5.0
      */
     default boolean removeById(Serializable id, boolean useFill) {
@@ -129,6 +131,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据实体(ID)删除
      *
      * @param entity 实体
+     *
      * @since 3.4.4
      */
     default boolean removeById(T entity) {
@@ -169,9 +172,11 @@ public interface IService<T, ID extends Serializable> {
     /**
      * 批量删除
      *
-     * @param list    主键ID或实体列表
+     * @param list 主键ID或实体列表
      * @param useFill 是否填充(为true的情况,会将入参转换实体进行delete删除)
+     *
      * @return 删除结果
+     *
      * @since 3.5.0
      */
     @Transactional(rollbackFor = Exception.class)
@@ -189,7 +194,9 @@ public interface IService<T, ID extends Serializable> {
      * 批量删除(jdbc批量提交)
      *
      * @param list 主键ID或实体列表(主键ID类型必须与实体类型字段保持一致)
+     *
      * @return 删除结果
+     *
      * @since 3.5.0
      */
     @Transactional(rollbackFor = Exception.class)
@@ -200,9 +207,11 @@ public interface IService<T, ID extends Serializable> {
     /**
      * 批量删除(jdbc批量提交)
      *
-     * @param list    主键ID或实体列表(主键ID类型必须与实体类型字段保持一致)
+     * @param list 主键ID或实体列表(主键ID类型必须与实体类型字段保持一致)
      * @param useFill 是否启用填充(为true的情况,会将入参转换实体进行delete删除)
+     *
      * @return 删除结果
+     *
      * @since 3.5.0
      */
     @Transactional(rollbackFor = Exception.class)
@@ -213,9 +222,11 @@ public interface IService<T, ID extends Serializable> {
     /**
      * 批量删除(jdbc批量提交)
      *
-     * @param list      主键ID或实体列表
+     * @param list 主键ID或实体列表
      * @param batchSize 批次大小
+     *
      * @return 删除结果
+     *
      * @since 3.5.0
      */
     default boolean removeBatchByIds(Collection<?> list, int batchSize) {
@@ -225,10 +236,12 @@ public interface IService<T, ID extends Serializable> {
     /**
      * 批量删除(jdbc批量提交)
      *
-     * @param list      主键ID或实体列表
+     * @param list 主键ID或实体列表
      * @param batchSize 批次大小
-     * @param useFill   是否启用填充(为true的情况,会将入参转换实体进行delete删除)
+     * @param useFill 是否启用填充(为true的情况,会将入参转换实体进行delete删除)
+     *
      * @return 删除结果
+     *
      * @since 3.5.0
      */
     default boolean removeBatchByIds(Collection<?> list, int batchSize, boolean useFill) {
@@ -256,7 +269,7 @@ public interface IService<T, ID extends Serializable> {
     /**
      * 根据 whereEntity 条件，更新记录
      *
-     * @param entity        实体对象
+     * @param entity 实体对象
      * @param updateWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper}
      */
     default boolean update(T entity, Wrapper<T> updateWrapper) {
@@ -277,7 +290,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据ID 批量更新
      *
      * @param entityList 实体对象集合
-     * @param batchSize  更新批次数量
+     * @param batchSize 更新批次数量
      */
     boolean updateBatchById(Collection<T> entityList, int batchSize);
 
@@ -329,7 +342,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 Wrapper，查询一条记录
      *
      * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
-     * @param throwEx      有多个 result 是否抛出异常
+     * @param throwEx 有多个 result 是否抛出异常
      */
     T getOne(Wrapper<T> queryWrapper, boolean throwEx);
 
@@ -344,7 +357,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 Wrapper，查询一条记录
      *
      * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
-     * @param mapper       转换函数
+     * @param mapper 转换函数
      */
     <V> V getObj(Wrapper<T> queryWrapper, Function<? super Object, V> mapper);
 
@@ -387,7 +400,7 @@ public interface IService<T, ID extends Serializable> {
     /**
      * 翻页查询
      *
-     * @param page         翻页对象
+     * @param page 翻页对象
      * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
      */
     default <E extends IPage<T>> E page(E page, Wrapper<T> queryWrapper) {
@@ -398,6 +411,7 @@ public interface IService<T, ID extends Serializable> {
      * 无条件翻页查询
      *
      * @param page 翻页对象
+     *
      * @see Wrappers#emptyWrapper()
      */
     default <E extends IPage<T>> E page(E page) {
@@ -451,7 +465,7 @@ public interface IService<T, ID extends Serializable> {
      * 根据 Wrapper 条件，查询全部记录
      *
      * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
-     * @param mapper       转换函数
+     * @param mapper 转换函数
      */
     default <V> List<V> listObjs(Wrapper<T> queryWrapper, Function<? super Object, V> mapper) {
         return getBaseMapper().selectObjs(queryWrapper).stream().filter(Objects::nonNull).map(mapper).collect(Collectors.toList());
@@ -460,7 +474,7 @@ public interface IService<T, ID extends Serializable> {
     /**
      * 翻页查询
      *
-     * @param page         翻页对象
+     * @param page 翻页对象
      * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
      */
     default <E extends IPage<Map<String, Object>>> E pageMaps(E page, Wrapper<T> queryWrapper) {
@@ -471,6 +485,7 @@ public interface IService<T, ID extends Serializable> {
      * 无条件翻页查询
      *
      * @param page 翻页对象
+     *
      * @see Wrappers#emptyWrapper()
      */
     default <E extends IPage<Map<String, Object>>> E pageMaps(E page) {
