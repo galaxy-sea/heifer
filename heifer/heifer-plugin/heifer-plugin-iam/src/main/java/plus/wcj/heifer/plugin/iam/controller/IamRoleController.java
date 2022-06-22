@@ -76,7 +76,7 @@ public class IamRoleController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) IamRole iamRole) {
-        return iamRoleService.update(iamRole);
+        return iamRoleService.updateById(iamRole);
     }
 
     /** id删除 */

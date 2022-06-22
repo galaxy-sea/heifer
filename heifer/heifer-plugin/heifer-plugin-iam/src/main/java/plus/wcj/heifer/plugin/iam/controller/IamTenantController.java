@@ -76,7 +76,7 @@ public class IamTenantController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) IamTenant iamTenant) {
-        return iamTenantService.update(iamTenant);
+        return iamTenantService.updateById(iamTenant);
     }
 
     /** id删除 */

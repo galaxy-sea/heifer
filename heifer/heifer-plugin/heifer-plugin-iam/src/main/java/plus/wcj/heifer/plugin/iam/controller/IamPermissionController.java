@@ -76,7 +76,7 @@ public class IamPermissionController {
     @PutMapping
     @ResultResponseBody
     public boolean updateById(@RequestBody @Validated(value = PutValid.class) IamPermission iamPermission) {
-        return iamPermissionService.update(iamPermission);
+        return iamPermissionService.updateById(iamPermission);
     }
 
     /** id删除 */
