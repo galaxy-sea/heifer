@@ -35,7 +35,7 @@ import java.util.function.Function;
  * @since 2021/10/25
  */
 @SuppressWarnings("CommentedOutCode")
-public interface IService<T, ID extends Serializable> {
+public interface ITenantService<T, ID extends Serializable> {
 
     /**
      * 默认批次提交数量

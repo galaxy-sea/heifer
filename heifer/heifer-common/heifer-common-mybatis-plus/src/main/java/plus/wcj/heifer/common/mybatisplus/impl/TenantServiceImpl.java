@@ -36,6 +36,7 @@ import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionUtils;
 import plus.wcj.heifer.common.mybatisplus.IService;
+import plus.wcj.heifer.common.mybatisplus.ITenantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +62,7 @@ import java.util.stream.Collectors;
  * @since 2021/10/25
  */
 @SuppressWarnings("AlibabaCommentsMustBeJavadocFormat")
-public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> implements IService<T, ID> {
+public class TenantServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> implements ITenantService<T, ID> {
 
     protected Log log = LogFactory.getLog(getClass());
 
@@ -134,7 +135,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
      *
      * @return ignore
      *
-     * @see #getSqlStatement(SqlMethod)
+     * @see #getSqlStatement(com.baomidou.mybatisplus.core.enums.SqlMethod)
      * @deprecated 3.4.0
      */
     @Deprecated
@@ -244,7 +245,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
      * @param consumer consumer
      *
      * @since 3.3.0
-     * @deprecated 3.3.1 后面我打算移除掉 {@link #executeBatch(Collection, int, BiConsumer)} }.
+     * @deprecated 3.3.1 后面我打算移除掉 {@link #executeBatch(java.util.Collection, int, java.util.function.BiConsumer)} }.
      */
     @Deprecated
     protected boolean executeBatch(Consumer<SqlSession> consumer) {
