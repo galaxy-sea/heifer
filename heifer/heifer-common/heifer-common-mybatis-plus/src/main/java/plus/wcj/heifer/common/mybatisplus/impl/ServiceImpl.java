@@ -17,8 +17,10 @@
 package plus.wcj.heifer.common.mybatisplus.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.Assert;
@@ -40,11 +42,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * The IOUtils. copy from Maven: com.baomidou:mybatis-plus-extension 3.5.2
@@ -279,7 +283,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
     }
 
     @Override
-    public boolean removeById(Serializable id) {
+    public boolean removeById(ID id) {
         TableInfo tableInfo = TableInfoHelper.getTableInfo(getEntityClass());
         if (tableInfo.isWithLogicDelete() && tableInfo.isWithUpdateFill()) {
             return removeById(id, true);
@@ -301,7 +305,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
     }
 
     @Override
-    public boolean removeById(Serializable id, boolean useFill) {
+    public boolean removeById(ID id, boolean useFill) {
         TableInfo tableInfo = TableInfoHelper.getTableInfo(entityClass);
         if (useFill && tableInfo.isWithLogicDelete()) {
             if (!entityClass.isAssignableFrom(id.getClass())) {
@@ -338,6 +342,184 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
                 sqlSession.update(sqlStatement, e);
             }
         });
+    }
+
+    /*
+     * 重写 IService default 方法
+     * 重写 IService default 方法
+     * 重写 IService default 方法
+     * 重写 IService default 方法
+     * 重写 IService default 方法
+     * 重写 IService default 方法
+     */
+
+    @Override
+    public boolean save(T entity) {
+        return SqlHelper.retBool(getBaseMapper().insert(entity));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean saveBatch(Collection<T> entityList) {
+        return saveBatch(entityList, DEFAULT_BATCH_SIZE);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean saveOrUpdateBatch(Collection<T> entityList) {
+        return saveOrUpdateBatch(entityList, DEFAULT_BATCH_SIZE);
+    }
+
+    @Override
+    public boolean removeById(T entity) {
+        return SqlHelper.retBool(getBaseMapper().deleteById(entity));
+    }
+
+    @Override
+    public boolean removeByMap(Map<String, Object> columnMap) {
+        Assert.notEmpty(columnMap, "error: columnMap must not be empty");
+        return SqlHelper.retBool(getBaseMapper().deleteByMap(columnMap));
+    }
+
+    @Override
+    public boolean remove(T queryWrapper) {
+        return SqlHelper.retBool(getBaseMapper().delete(new QueryWrapper<>(queryWrapper)));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean removeByIds(Collection<?> list, boolean useFill) {
+        if (CollectionUtils.isEmpty(list)) {
+            return false;
+        }
+        if (useFill) {
+            return removeBatchByIds(list, true);
+        }
+        return SqlHelper.retBool(getBaseMapper().deleteBatchIds(list));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean removeBatchByIds(Collection<?> list) {
+        return removeBatchByIds(list, DEFAULT_BATCH_SIZE);
+
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean removeBatchByIds(Collection<?> list, boolean useFill) {
+        return removeBatchByIds(list, DEFAULT_BATCH_SIZE, useFill);
+    }
+
+    @Override
+    public boolean updateById(T entity) {
+        return SqlHelper.retBool(getBaseMapper().updateById(entity));
+    }
+
+    @Override
+    public boolean update(T entity, T updateWrapper) {
+        return SqlHelper.retBool(getBaseMapper().update(entity, new UpdateWrapper<>(updateWrapper)));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateBatchById(Collection<T> entityList) {
+        return updateBatchById(entityList, DEFAULT_BATCH_SIZE);
+    }
+
+    @Override
+    public T getById(ID id) {
+        return getBaseMapper().selectById(id);
+    }
+
+    @Override
+    public List<T> listByIds(Collection<ID> idList) {
+        return getBaseMapper().selectBatchIds(idList);
+    }
+
+    @Override
+    public List<T> listByMap(Map<String, Object> columnMap) {
+        return getBaseMapper().selectByMap(columnMap);
+    }
+
+    @Override
+    public T getOne(T queryWrapper) {
+        return getOne(queryWrapper, true);
+    }
+
+    @Override
+    public long count() {
+        return count(null);
+    }
+
+    @Override
+    public long count(T queryWrapper) {
+        return SqlHelper.retCount(getBaseMapper().selectCount(new QueryWrapper<>(queryWrapper)));
+    }
+
+    @Override
+    public List<T> list(T queryWrapper) {
+        return getBaseMapper().selectList(new QueryWrapper<>(queryWrapper));
+    }
+
+    @Override
+    public List<T> list() {
+        return list(null);
+    }
+
+    @Override
+    public <E extends IPage<T>> E page(E page, T queryWrapper) {
+        return getBaseMapper().selectPage(page, new QueryWrapper<>(queryWrapper));
+    }
+
+    @Override
+    public <E extends IPage<T>> E page(E page) {
+        return page(page, null);
+    }
+
+    @Override
+    public List<Map<String, Object>> listMaps(T queryWrapper) {
+        return getBaseMapper().selectMaps(new QueryWrapper<>(queryWrapper));
+    }
+
+    @Override
+    public List<Map<String, Object>> listMaps() {
+        return listMaps(null);
+    }
+
+    @Override
+    public List<Object> listObjs() {
+        return listObjs(Function.identity());
+    }
+
+    @Override
+    public <V> List<V> listObjs(Function<? super Object, V> mapper) {
+        return listObjs(null, mapper);
+    }
+
+    @Override
+    public List<Object> listObjs(T queryWrapper) {
+        return listObjs(queryWrapper, Function.identity());
+    }
+
+    @Override
+    public <V> List<V> listObjs(T queryWrapper, Function<? super Object, V> mapper) {
+        return getBaseMapper().selectObjs(new QueryWrapper<>(queryWrapper)).stream().filter(Objects::nonNull).map(mapper).collect(Collectors.toList());
+    }
+
+    @Override
+    public <E extends IPage<Map<String, Object>>> E pageMaps(E page, T queryWrapper) {
+        return getBaseMapper().selectMapsPage(page, new QueryWrapper<>(queryWrapper));
+    }
+
+    @Override
+    public <E extends IPage<Map<String, Object>>> E pageMaps(E page) {
+        return pageMaps(page, null);
+    }
+
+    @Override
+    public boolean saveOrUpdate(T entity, T updateWrapper) {
+        return IService.super.saveOrUpdate(entity, updateWrapper);
     }
 
 }
