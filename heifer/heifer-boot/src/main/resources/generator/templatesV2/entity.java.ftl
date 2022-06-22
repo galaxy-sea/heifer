@@ -13,6 +13,9 @@ import lombok.Data;
 import lombok.experimental.Accessors;
     </#if>
 </#if>
+import javax.validation.constraints.NotNull;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+import plus.wcj.heifer.metadata.annotation.PostValid;
 
 /**
  * <p>
@@ -71,6 +74,7 @@ public class ${entity} {
         <#elseif field.convert>
     @TableId("${field.annotationColumnName}")
         </#if>
+    @NotNull(groups = {PutValid.class}, message = "${field.propertyName} is null")
         <#-- 普通字段 -->
     <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
@@ -89,6 +93,9 @@ public class ${entity} {
     <#-- 逻辑删除注解 -->
     <#if field.logicDeleteField>
     @TableLogic
+    </#if>
+    <#if field.customMap.Null=="NO" && field.propertyName != "createBy" && !field.keyFlag>
+    @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")
     </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>
