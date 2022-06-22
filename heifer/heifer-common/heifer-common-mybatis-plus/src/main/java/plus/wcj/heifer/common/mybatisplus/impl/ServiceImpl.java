@@ -16,7 +16,7 @@
 
 package plus.wcj.heifer.common.mybatisplus.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
@@ -61,8 +61,9 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
 
     protected Log log = LogFactory.getLog(getClass());
 
+    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
-    protected M baseMapper;
+    private M baseMapper;
 
     @Override
     public M getBaseMapper() {
@@ -217,20 +218,20 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
     }
 
     @Override
-    public T getOne(Wrapper<T> queryWrapper, boolean throwEx) {
+    public T getOne(T queryWrapper, boolean throwEx) {
         if (throwEx) {
-            return baseMapper.selectOne(queryWrapper);
+            return baseMapper.selectOne(new QueryWrapper<>(queryWrapper));
         }
-        return SqlHelper.getObject(log, baseMapper.selectList(queryWrapper));
+        return SqlHelper.getObject(log, baseMapper.selectList(new QueryWrapper<>(queryWrapper)));
     }
 
     @Override
-    public Map<String, Object> getMap(Wrapper<T> queryWrapper) {
-        return SqlHelper.getObject(log, baseMapper.selectMaps(queryWrapper));
+    public Map<String, Object> getMap(T queryWrapper) {
+        return SqlHelper.getObject(log, baseMapper.selectMaps(new QueryWrapper<>(queryWrapper)));
     }
 
     @Override
-    public <V> V getObj(Wrapper<T> queryWrapper, Function<? super Object, V> mapper) {
+    public <V> V getObj(T queryWrapper, Function<? super Object, V> mapper) {
         return SqlHelper.getObject(log, listObjs(queryWrapper, mapper));
     }
 
