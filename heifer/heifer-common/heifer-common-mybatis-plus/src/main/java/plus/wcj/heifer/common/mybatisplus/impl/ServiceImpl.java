@@ -65,8 +65,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
     @Autowired
     private M baseMapper;
 
-    @Override
-    public M getBaseMapper() {
+    protected M getBaseMapper() {
         return baseMapper;
     }
 
@@ -183,7 +182,7 @@ public class ServiceImpl<M extends BaseMapper<T>, T, ID extends Serializable> im
             String keyProperty = tableInfo.getKeyProperty();
             Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
             Object idVal = tableInfo.getPropertyValue(entity, tableInfo.getKeyProperty());
-            return StringUtils.checkValNull(idVal) || Objects.isNull(getById((Serializable) idVal)) ? save(entity) : updateById(entity);
+            return StringUtils.checkValNull(idVal) || Objects.isNull(getById((ID) idVal)) ? save(entity) : updateById(entity);
         }
         return false;
     }

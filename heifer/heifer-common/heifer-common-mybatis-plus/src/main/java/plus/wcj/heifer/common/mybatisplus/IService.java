@@ -103,7 +103,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param id 主键ID
      */
-    default boolean removeById(Serializable id) {
+    default boolean removeById(ID id) {
         return SqlHelper.retBool(getBaseMapper().deleteById(id));
     }
 
@@ -117,7 +117,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @since 3.5.0
      */
-    default boolean removeById(Serializable id, boolean useFill) {
+    default boolean removeById(ID id, boolean useFill) {
         throw new UnsupportedOperationException("不支持的方法!");
     }
 
@@ -301,7 +301,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param id 主键ID
      */
-    default T getById(Serializable id) {
+    default T getById(ID id) {
         return getBaseMapper().selectById(id);
     }
 
@@ -310,7 +310,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @param idList 主键ID列表
      */
-    default List<T> listByIds(Collection<? extends Serializable> idList) {
+    default List<T> listByIds(Collection<ID> idList) {
         return getBaseMapper().selectBatchIds(idList);
     }
 
@@ -492,7 +492,7 @@ public interface IService<T, ID extends Serializable> {
      *
      * @return BaseMapper
      */
-    BaseMapper<T> getBaseMapper();
+    // BaseMapper<T> getBaseMapper();
 
     /**
      * 获取 entity 的 class
