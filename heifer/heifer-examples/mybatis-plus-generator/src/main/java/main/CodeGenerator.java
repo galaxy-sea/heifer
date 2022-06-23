@@ -96,7 +96,12 @@ public class CodeGenerator {
                              builder.mapperBuilder().enableBaseColumnList().formatMapperFileName("%sDao");
 
                          }).templateConfig(builder -> {
-                             builder.controller("generator/templatesV2/controller.java").entity("generator/templatesV2/entity.java").mapper("generator/templatesV2/mapper.java").xml("generator/templatesV2/mapper.xml").service("generator/templatesV2/service.java").serviceImpl("generator/templatesV2/serviceImpl.java");
+                             builder.controller("generator/templates/controller.java")
+                                    .entity("generator/templates/entity.java")
+                                    .mapper("generator/templates/mapper.java")
+                                    .xml("generator/templates/mapper.xml")
+                                    .service("generator/templates/service.java")
+                                    .serviceImpl("generator/templates/serviceImpl.java");
                          }).injectionConfig(builder -> {
                              builder.beforeOutputFile((tableInfo, stringObjectMap) -> {
                                         tableInfo.setComment(pattern.matcher(tableInfo.getComment()).replaceAll(""));
