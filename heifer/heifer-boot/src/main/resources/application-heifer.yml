@@ -1,0 +1,84 @@
+server:
+  servlet:
+    session:
+      # 关闭session持久化
+      persistent: false
+      # session会话保持时间
+      timeout: 0
+      cookie:
+        # cookie最大数
+        max-age: 0
+      tracking-modes:
+#  tomcat: 需要后期调优
+spring:
+  redis:
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: -1ms
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 8
+        # 连接池中的最小空闲连接 默认 0
+        min-idle: 0
+  mvc:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: yyyy-MM-dd HH:mm:ss
+    throw-exception-if-no-handler-found: true
+  webflux:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: yyyy-MM-dd HH:mm:ss
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
+    generator:
+      WRITE_BIGDECIMAL_AS_PLAIN: true
+    serialization:
+      INDENT_OUTPUT: false
+  gson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  session:
+    # session 类型，
+    store-type: none
+    # session会话保持时间
+    timeout: 0
+  web:
+    resources:
+      add-mappings: false
+mybatis-plus:
+  # 检查配置文件
+  check-config-location: true
+  # xml影射路径
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: false
+    # 关闭一级缓存
+    local-cache-scope: statement
+    # 关闭二级缓存
+    cache-enabled: false
+    # 枚举类型处理方式
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    # MyBatis 自动映射时未知列或未知属性处理策略
+    auto-mapping-unknown-column-behavior: failing
+  global-config:
+    db-config:
+      # id生成类型
+      id-type: assign_id
+      # 表名是否使用驼峰转下划线命名,只对表名生效
+      table-underline: false
+
+logging:
+  level:
+    plus.wcj.heifer.common.feign.FeignExceptionHandler: debug
+    plus.wcj.heifer.boot.mvc.ResultExceptionHandler: debug
+    # spring 的日志
+#    org.springframework.web: debug   # 请求报文打印
+#    org.springframework.cache: trace # 缓存打印
+#    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace # 启动时打印Mapping集合

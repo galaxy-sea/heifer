@@ -18,7 +18,7 @@ package plus.wcj.heifer.metadata.properties;
 
 import lombok.Data;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * <p>
@@ -29,22 +29,20 @@ import org.springframework.beans.factory.annotation.Value;
  * @since 2022-01-13
  */
 @Data
+@ConfigurationProperties(prefix = "heifer.jwt")
 public class JwtProperties {
     /**
      * jwt 加密 key，默认值：xxxxxxxxxxxxxxx.
      */
-    @Value(value = "${heifer.jwt.key?heifer.jwt.key:xxxxxxxxxxxxxxx}")
-    private String key;
+    private String key = "xxxxxxxxxxxxxxx";
 
     /**
      * jwt 过期时间，默认值：600000 {@code 10 分钟}.
      */
-    @Value(value = "${heifer.jwt.ttl?heifer.jwt.ttl:600000}")
-    private Long ttl;
+    private Long ttl = 600000L;
 
     /**
      * 开启 记住我 之后 jwt 过期时间，默认值 604800000 {@code 7 天}
      */
-    @Value(value = "${heifer.jwt.remember?heifer.jwt.remember:604800000}")
-    private Long remember;
+    private Long remember = 604800000L;
 }
