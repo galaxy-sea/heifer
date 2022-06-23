@@ -6,7 +6,7 @@
 
 <#if enableCache>
     <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <cache type="${cacheClassName}"/>
 
 </#if>
 <#if baseResultMap>
@@ -38,20 +38,4 @@
     </sql>
 
 </#if>
-    <#--
- 外键生成
-<#list table.fields as field>
-    <#if field.name?ends_with("_id")>
-        <select id="selectBy${field.propertyName?cap_first}" resultMap="BaseResultMap">
-            SELECT
-            <include refid="Base_Column_List"/>
-            FROM ${table.name}
-            WHERE ${field.name} = ${'#{'+field.propertyName+'}'}
-        </select>
-
-    </#if>
-</#list>
- 外键生成
-    -->
-
 </mapper>

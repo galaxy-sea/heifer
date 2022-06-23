@@ -18,12 +18,12 @@ import java.util.List;
  */
 @Service
 <#if kotlin>
-open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}, ${cfg.idType}>(), ${table.serviceName} {
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
 
 }
 <#else>
-public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}, ${cfg.idType}> implements ${table.serviceName} {
-
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}, Long> implements ${table.serviceName} {
+    // 自动生成外键查询  请勿修改
  <#list table.fields as field>
   <#if field.name?ends_with("_id")>
     @Override
@@ -33,5 +33,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
   </#if>
  </#list>
+    // 自动生成外键查询  请勿修改
+
 }
 </#if>

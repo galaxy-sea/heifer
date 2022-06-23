@@ -3,8 +3,6 @@ package ${package.Service};
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
 
-import java.util.List;
-
 /**
  * <p>
  * ${table.comment!} 服务类
@@ -14,9 +12,10 @@ import java.util.List;
  * @since ${date}
  */
 <#if kotlin>
-interface ${table.serviceName} : ${superServiceClass}<${entity}, ${cfg.idType}>
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
 <#else>
-public interface ${table.serviceName} extends ${superServiceClass}<${entity}, ${cfg.idType}> {
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}, Long> {
+    // 自动生成外键查询  请勿修改
 
  <#list table.fields as field>
   <#if field.name?ends_with("_id")>
@@ -24,5 +23,6 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}, ${
 
   </#if>
  </#list>
+    // 自动生成外键查询  请勿修改
 }
 </#if>

@@ -3,27 +3,19 @@ package ${package.Entity};
 <#list table.importPackages as pkg>
 import ${pkg};
 </#list>
-<#if swagger2>
+<#if swagger>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
 <#if entityLombokModel>
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+    <#if chainModel>
 import lombok.experimental.Accessors;
+    </#if>
 </#if>
-<#if cfg.RedisHash>
-import org.springframework.data.redis.core.RedisHash;
-</#if>
-<#list cfg.implements as implement>
-import ${implement.getCanonicalName()};
-</#list>
-
-
-import plus.wcj.heifer.boot.extension.validator.PostValid;
-import plus.wcj.heifer.boot.extension.validator.PutValid;
-
 import javax.validation.constraints.NotNull;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+import plus.wcj.heifer.metadata.annotation.PostValid;
 
 /**
  * <p>
@@ -35,31 +27,27 @@ import javax.validation.constraints.NotNull;
  */
 <#if entityLombokModel>
 @Data
-    <#if superEntityClass??>
-@EqualsAndHashCode(callSuper = true)
-    <#else>
-@EqualsAndHashCode(callSuper = false)
-    </#if>
+    <#if chainModel>
 @Accessors(chain = true)
-</#if>
-<#if cfg.RedisHash>
-@RedisHash("${entity}")
+    </#if>
 </#if>
 <#if table.convert>
-@TableName("${table.name}")
+@TableName("${schemaName}${table.name}")
 </#if>
-<#if swagger2>
+<#if swagger>
 @ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
-public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> implements<#list cfg.implements as implement>, ${implement.getSimpleName()}</#list> {
+public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
 <#elseif activeRecord>
-public class ${entity} extends Model<${entity}> implements<#list cfg.implements as implement>, ${implement.getSimpleName()}</#list> {
+public class ${entity} extends Model<${entity}> {
+<#elseif entitySerialVersionUID>
+public class ${entity} implements Serializable {
 <#else>
-public class ${entity} implements Serializable<#list cfg.implements as implement>, ${implement.getSimpleName()}</#list> {
+public class ${entity} {
 </#if>
-
 <#if entitySerialVersionUID>
+
     private static final long serialVersionUID = 1L;
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
@@ -69,45 +57,45 @@ public class ${entity} implements Serializable<#list cfg.implements as implement
     </#if>
 
     <#if field.comment!?length gt 0>
-    /** ${field.comment} */
-        <#if swagger2>
-    @ApiModelProperty(value = "${field.comment}")
-        </#if>
-    </#if>
-    <#if field.keyFlag>
-    @NotNull(groups = {PutValid.class}, message = "id is null")
-    <#else>
-        <#if field.customMap.NULL=="NO" && field.propertyName != "createBy">
-    @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")
+        <#if swagger>
+    @ApiModelProperty("${field.comment}")
+        <#else>
+    /**
+     * ${field.comment}
+     */
         </#if>
     </#if>
     <#if field.keyFlag>
         <#-- 主键 -->
         <#if field.keyIdentityFlag>
-    @TableId(value = "${field.name}", type = IdType.AUTO)
+    @TableId(value = "${field.annotationColumnName}", type = IdType.AUTO)
         <#elseif idType??>
-    @TableId(value = "${field.name}", type = IdType.${idType})
+    @TableId(value = "${field.annotationColumnName}", type = IdType.${idType})
         <#elseif field.convert>
-    @TableId("${field.name}")
+    @TableId("${field.annotationColumnName}")
         </#if>
+    @NotNull(groups = {PutValid.class}, message = "${field.propertyName} is null")
         <#-- 普通字段 -->
     <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
         <#if field.convert>
-    @TableField(value = "${field.name}", fill = FieldFill.${field.fill})
+    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill})
         <#else>
     @TableField(fill = FieldFill.${field.fill})
         </#if>
     <#elseif field.convert>
-    @TableField("${field.name}")
+    @TableField("${field.annotationColumnName}")
     </#if>
     <#-- 乐观锁注解 -->
-    <#if (versionFieldName!"") == field.name>
+    <#if field.versionField>
     @Version
     </#if>
     <#-- 逻辑删除注解 -->
-    <#if (logicDeleteFieldName!"") == field.name>
+    <#if field.logicDeleteField>
     @TableLogic
+    </#if>
+    <#if field.customMap.Null=="NO" && field.propertyName != "createBy" && !field.keyFlag>
+    @NotNull(groups = {PostValid.class}, message = "${field.propertyName} is null")
     </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>
@@ -124,13 +112,13 @@ public class ${entity} implements Serializable<#list cfg.implements as implement
         return ${field.propertyName};
     }
 
-    <#if entityBuilderModel>
+    <#if chainModel>
     public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
     <#else>
     public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
     </#if>
         this.${field.propertyName} = ${field.propertyName};
-        <#if entityBuilderModel>
+        <#if chainModel>
         return this;
         </#if>
     }
@@ -145,7 +133,7 @@ public class ${entity} implements Serializable<#list cfg.implements as implement
 </#if>
 <#if activeRecord>
     @Override
-    protected Serializable pkVal() {
+    public Serializable pkVal() {
     <#if keyPropertyName??>
         return this.${keyPropertyName};
     <#else>
