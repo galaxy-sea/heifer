@@ -77,14 +77,14 @@
 ## 未来工作安排
 - 近期工作安排
 - swagger
-  - ~~Spring Security和swagger整合~~ 
+  - swagger自动添加到Spring Security拦截白名单
 - jdk17 测试
 - iam重构2.0 // 待定
   - abac适配permission的策略 // 待定
   - abac支持spel表达式 // 待定
 - 对接前端工程  // 待定
-- SaaS差异化 // 待定
-- MyBatis plus 升级到 3.5.X // 待定
+- SaaS差异化 // 待定 
+- TenantService 的功能可能会存在风险不可控, 暂停开发吧 // 暂停
 - examples 完善 // 待定
 
 - 长远工作安排
