@@ -2,6 +2,7 @@ package ${package.Service};
 
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
+import java.util.List;
 
 /**
  * <p>

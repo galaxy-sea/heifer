@@ -5,6 +5,9 @@ import ${superMapperClassPackage};
 <#if mapperAnnotation>
 import org.apache.ibatis.annotations.Mapper;
 </#if>
+import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import java.util.List;
 
 /**
  * <p>
@@ -25,7 +28,7 @@ public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
  <#list table.fields as field>
   <#if field.name?ends_with("_id")>
     default List<${entity}> selectBy${field.propertyName?cap_first}(@Param("${field.propertyName}") ${field.propertyType} ${field.propertyName}){
-        return this.selectList(new LambdaQueryWrapper<${entity}>().eq(RbacRole::get${field.propertyName?cap_first}, ${field.propertyName}));
+        return this.selectList(new LambdaQueryWrapper<${entity}>().eq(${entity}::get${field.propertyName?cap_first}, ${field.propertyName}));
     }
 
   </#if>
