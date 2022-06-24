@@ -68,13 +68,13 @@ import java.util.Set;
 public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
     private IgnoreWebSecurityProperties ignoreWebSecurityProperties;
     private ObjectProvider<List<IamOncePerRequestFilter>> iamOncePerRequestFilterObjectProviderLists;
-    private RequestMappingHandlerMapping requestMappingHandlerMapping;
+    private ObjectProvider<RequestMappingHandlerMapping> requestMappingHandlerMappingObjectProvider;
 
     @Autowired
-    public SecurityAutoConfiguration(IgnoreWebSecurityProperties ignoreWebSecurityProperties, ObjectProvider<List<IamOncePerRequestFilter>> iamOncePerRequestFilterObjectProviderLists, RequestMappingHandlerMapping requestMappingHandlerMapping) {
+    public SecurityAutoConfiguration(IgnoreWebSecurityProperties ignoreWebSecurityProperties, ObjectProvider<List<IamOncePerRequestFilter>> iamOncePerRequestFilterObjectProviderLists, ObjectProvider<RequestMappingHandlerMapping> requestMappingHandlerMappingObjectProvider) {
         this.ignoreWebSecurityProperties = ignoreWebSecurityProperties;
         this.iamOncePerRequestFilterObjectProviderLists = iamOncePerRequestFilterObjectProviderLists;
-        this.requestMappingHandlerMapping = requestMappingHandlerMapping;
+        this.requestMappingHandlerMappingObjectProvider = requestMappingHandlerMappingObjectProvider;
     }
 
     @Bean
@@ -132,7 +132,6 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
-        //noinspection ConstantConditions
         List<IamOncePerRequestFilter> filterList = iamOncePerRequestFilterObjectProviderLists.getIfAvailable();
         if (!CollectionUtils.isEmpty(filterList)) {
             for (IamOncePerRequestFilter iamOncePerRequestFilter : filterList) {
@@ -149,7 +148,8 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         WebSecurity.IgnoredRequestConfigurer ignoring = web.ignoring();
-        this.ignoreAnnotation(ignoring, this.requestMappingHandlerMapping);
+        //noinspection ConstantConditions
+        this.ignoreAnnotation(ignoring, this.requestMappingHandlerMappingObjectProvider.getIfAvailable());
         this.ignoreProperties(ignoring, this.ignoreWebSecurityProperties);
     }
 
