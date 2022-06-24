@@ -133,9 +133,6 @@ public class ResultExceptionHandler {
         if (ex instanceof BindException) {
             return this.handleBindException((BindException) ex, headers, request);
         }
-        // if (ex instanceof BadCredentialsException) {
-        //     return this.handleBadCredentialsException((BadCredentialsException) ex, headers, request);
-        // }
         if (ex instanceof AccessDeniedException) {
             return this.handleAccessDeniedException((AccessDeniedException) ex, headers, request);
         }
