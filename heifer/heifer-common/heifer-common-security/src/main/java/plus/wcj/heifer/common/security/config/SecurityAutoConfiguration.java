@@ -116,7 +116,13 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
             // 异常处理
-            .and().exceptionHandling();
+            .and().exceptionHandling()
+            .authenticationEntryPoint((request, response, authException) -> {
+                throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
+            })
+            .accessDeniedHandler((request, response, accessDeniedException) -> {
+                throw new ResultException(ResultStatusEnum.FORBIDDEN);
+            });
         // .authenticationEntryPoint((request, response, authException) -> {
         //     throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
         // })
