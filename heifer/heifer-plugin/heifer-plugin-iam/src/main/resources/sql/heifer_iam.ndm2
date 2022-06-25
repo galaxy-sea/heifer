@@ -872,23 +872,6 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a18",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
                 "name": "a19",
                 "fields": [
                   "iam_permission_id"
@@ -1233,25 +1216,7 @@
               "indexMethod": "",
               "comment": ""
             },
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a9",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              }
-            ],
+            "foreignKeys": [],
             "triggers": [],
             "tablePartitions": []
           },
@@ -2246,23 +2211,6 @@
                 "sourceCardinality": "ZeroOrManyRelationship",
                 "targetCardinality": "OneAndOnlyOneRelationship",
                 "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a23",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
               }
             ],
             "triggers": [],
@@ -2539,23 +2487,6 @@
                 ],
                 "referenceSchema": "Default",
                 "referenceTable": "iam_account",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a24",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
                 "referenceFields": [
                   "id"
                 ],
@@ -2848,23 +2779,6 @@
                 "sourceCardinality": "ZeroOrManyRelationship",
                 "targetCardinality": "OneAndOnlyOneRelationship",
                 "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a25",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
               }
             ],
             "triggers": [],
@@ -3141,23 +3055,6 @@
                 ],
                 "referenceSchema": "Default",
                 "referenceTable": "iam_account",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a26",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
                 "referenceFields": [
                   "id"
                 ],
@@ -3478,23 +3375,6 @@
                 "onDelete": "",
                 "onUpdate": "",
                 "sourceCardinality": "OneOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a21",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ManyRelationship",
                 "targetCardinality": "OneAndOnlyOneRelationship",
                 "oldName": ""
               },
@@ -4076,23 +3956,6 @@
                 "sourceCardinality": "NoneRelationship",
                 "targetCardinality": "NoneRelationship",
                 "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "A29",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "NoneRelationship",
-                "oldName": ""
               }
             ],
             "triggers": [],
@@ -4373,21 +4236,6 @@
                 ],
                 "referenceSchema": "Default",
                 "referenceTable": "iam_strategy",
-                "referenceFields": [],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "NoneRelationship",
-                "targetCardinality": "NoneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "A31",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
                 "referenceFields": [],
                 "onDelete": "",
                 "onUpdate": "",
@@ -4998,23 +4846,6 @@
             "foreignKeys": [
               {
                 "objectType": "ForeignKey_MYSQL",
-                "name": "a2",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
                 "name": "a32",
                 "fields": [
                   "iam_dept_id"
@@ -5042,8 +4873,8 @@
   "diagrams": [
     {
       "name": "Diagram 1",
-      "paperWidth": 6,
-      "paperHeight": 2,
+      "paperWidth": 4,
+      "paperHeight": 3,
       "tableFont": "Arial Unicode MS",
       "tableFontSize": 14,
       "isBalckWhite": false,
@@ -5057,8 +4888,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account",
-          "x": 3020,
-          "y": 740,
+          "x": 1570,
+          "y": 1650,
           "width": 482,
           "height": 303,
           "isBold": false,
@@ -5073,8 +4904,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role",
-          "x": 2340,
-          "y": 800,
+          "x": 890,
+          "y": 1390,
           "width": 285,
           "height": 240,
           "isBold": false,
@@ -5089,8 +4920,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_role_rel",
-          "x": 2680,
-          "y": 790,
+          "x": 1660,
+          "y": 1410,
           "width": 293,
           "height": 198,
           "isBold": false,
@@ -5105,8 +4936,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_permission",
-          "x": 4050,
-          "y": 1110,
+          "x": 470,
+          "y": 710,
           "width": 342,
           "height": 282,
           "isBold": false,
@@ -5121,8 +4952,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role_authority",
-          "x": 3670,
-          "y": 1150,
+          "x": 870,
+          "y": 750,
           "width": 333,
           "height": 198,
           "isBold": false,
@@ -5137,8 +4968,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_authority",
-          "x": 4060,
-          "y": 790,
+          "x": 90,
+          "y": 750,
           "width": 333,
           "height": 198,
           "isBold": false,
@@ -5153,8 +4984,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_tenant",
-          "x": 1020,
-          "y": 1810,
+          "x": 1260,
+          "y": 2260,
           "width": 232,
           "height": 198,
           "isBold": false,
@@ -5169,8 +5000,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_dept",
-          "x": 1550,
-          "y": 330,
+          "x": 890,
+          "y": 1690,
           "width": 286,
           "height": 240,
           "isBold": false,
@@ -5185,8 +5016,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_data_power",
-          "x": 1150,
-          "y": 350,
+          "x": 430,
+          "y": 2470,
           "width": 293,
           "height": 198,
           "isBold": false,
@@ -5201,8 +5032,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role_data_power",
-          "x": 1890,
-          "y": 350,
+          "x": 430,
+          "y": 1710,
           "width": 285,
           "height": 198,
           "isBold": false,
@@ -5217,8 +5048,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_tenant_authority",
-          "x": 4060,
-          "y": 1820,
+          "x": 480,
+          "y": 1040,
           "width": 333,
           "height": 177,
           "isBold": false,
@@ -5233,8 +5064,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_manage",
-          "x": 1260,
-          "y": 1050,
+          "x": 1230,
+          "y": 1700,
           "width": 293,
           "height": 219,
           "isBold": false,
@@ -5249,8 +5080,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_access",
-          "x": 1210,
-          "y": 1320,
+          "x": 1200,
+          "y": 2010,
           "width": 343,
           "height": 198,
           "isBold": false,
@@ -5265,8 +5096,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_strategy",
-          "x": 160,
-          "y": 2060,
+          "x": 490,
+          "y": 100,
           "width": 317,
           "height": 177,
           "isBold": false,
@@ -5281,8 +5112,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_tenant_strategy",
-          "x": 530,
-          "y": 2050,
+          "x": 850,
+          "y": 90,
           "width": 328,
           "height": 198,
           "isBold": false,
@@ -5297,8 +5128,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_tenant_strategy_authority",
-          "x": 150,
-          "y": 1810,
+          "x": 480,
+          "y": 340,
           "width": 333,
           "height": 198,
           "isBold": false,
@@ -5313,10 +5144,10 @@
       "layers": [
         {
           "name": "组织架构",
-          "x": 970,
-          "y": 690,
-          "width": 2586,
-          "height": 1373,
+          "x": 830,
+          "y": 1330,
+          "width": 1271,
+          "height": 1178,
           "layerColor": {
             "r": 251,
             "g": 2,
@@ -5334,10 +5165,10 @@
         },
         {
           "name": "数据权限",
-          "x": 1090,
-          "y": 280,
-          "width": 1134,
-          "height": 350,
+          "x": 370,
+          "y": 1650,
+          "width": 403,
+          "height": 1070,
           "layerColor": {
             "r": 33,
             "g": 254,
@@ -5355,10 +5186,10 @@
         },
         {
           "name": "rbac+acl功能权限",
-          "x": 3620,
-          "y": 740,
-          "width": 835,
-          "height": 1310,
+          "x": 40,
+          "y": 650,
+          "width": 1218,
+          "height": 619,
           "layerColor": {
             "r": 100,
             "g": 234,
@@ -5376,8 +5207,8 @@
         },
         {
           "name": "abac功能权限",
-          "x": 100,
-          "y": 1750,
+          "x": 420,
+          "y": 40,
           "width": 813,
           "height": 556,
           "layerColor": {
@@ -5398,48 +5229,6 @@
       ],
       "relations": [
         {
-          "name": "a2",
-          "sourceTableName": "iam_role",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 2350,
-              "y": 1055
-            },
-            {
-              "x": 2350,
-              "y": 1690
-            },
-            {
-              "x": 1240,
-              "y": 1690
-            },
-            {
-              "x": 1240,
-              "y": 1795
-            }
-          ],
-          "label": {
-            "x": 2286,
-            "y": 970,
-            "width": 50,
-            "height": 40,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
           "name": "a3",
           "sourceTableName": "iam_account_role_rel",
           "sourceSchemaName": "Default",
@@ -5447,17 +5236,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2665,
-              "y": 890
+              "x": 1645,
+              "y": 1510
             },
             {
-              "x": 2640,
-              "y": 890
+              "x": 1190,
+              "y": 1510
             }
           ],
           "label": {
-            "x": 2986,
-            "y": 710,
+            "x": 1966,
+            "y": 1330,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5481,17 +5270,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2988,
-              "y": 890
+              "x": 1810,
+              "y": 1623
             },
             {
-              "x": 3005,
-              "y": 890
+              "x": 1810,
+              "y": 1635
             }
           ],
           "label": {
-            "x": 2924,
-            "y": 782,
+            "x": 1758,
+            "y": 1503,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5515,25 +5304,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 3655,
-              "y": 1160
+              "x": 1030,
+              "y": 963
             },
             {
-              "x": 3680,
-              "y": 1100
-            },
-            {
-              "x": 2620,
-              "y": 1100
-            },
-            {
-              "x": 2620,
-              "y": 1055
+              "x": 1030,
+              "y": 1375
             }
           ],
           "label": {
-            "x": 3343,
-            "y": 1267,
+            "x": 710,
+            "y": 1058,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5557,17 +5338,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 4018,
-              "y": 1250
+              "x": 855,
+              "y": 850
             },
             {
-              "x": 4035,
-              "y": 1250
+              "x": 827,
+              "y": 850
             }
           ],
           "label": {
-            "x": 3686,
-            "y": 1257,
+            "x": 543,
+            "y": 857,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5591,17 +5372,29 @@
           "visible": true,
           "vertices": [
             {
-              "x": 4045,
-              "y": 890
+              "x": 260,
+              "y": 963
             },
             {
-              "x": 3517,
-              "y": 890
+              "x": 260,
+              "y": 2840
+            },
+            {
+              "x": 2160,
+              "y": 2840
+            },
+            {
+              "x": 2160,
+              "y": 1810
+            },
+            {
+              "x": 2067,
+              "y": 1810
             }
           ],
           "label": {
-            "x": 3840,
-            "y": 837,
+            "x": 47,
+            "y": 898,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5625,59 +5418,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 4220,
-              "y": 1003
+              "x": 438,
+              "y": 850
             },
             {
-              "x": 4220,
-              "y": 1095
+              "x": 455,
+              "y": 850
             }
           ],
           "label": {
-            "x": 3840,
-            "y": 963,
-            "width": 50,
-            "height": 40,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a9",
-          "sourceTableName": "iam_dept",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 1610,
-              "y": 585
-            },
-            {
-              "x": 1610,
-              "y": 1570
-            },
-            {
-              "x": 1240,
-              "y": 1570
-            },
-            {
-              "x": 1240,
-              "y": 1795
-            }
-          ],
-          "label": {
-            "x": 2050,
-            "y": 594,
+            "x": 46,
+            "y": 822,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5701,17 +5452,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1458,
-              "y": 450
+              "x": 738,
+              "y": 2570
             },
             {
-              "x": 1535,
-              "y": 450
+              "x": 1030,
+              "y": 2570
+            },
+            {
+              "x": 1030,
+              "y": 1945
             }
           ],
           "label": {
-            "x": 1344,
-            "y": 180,
+            "x": 624,
+            "y": 2300,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5735,25 +5490,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1290,
-              "y": 335
+              "x": 570,
+              "y": 2683
             },
             {
-              "x": 1290,
-              "y": 160
+              "x": 570,
+              "y": 2780
             },
             {
-              "x": 3260,
-              "y": 160
+              "x": 1810,
+              "y": 2780
             },
             {
-              "x": 3260,
-              "y": 725
+              "x": 1810,
+              "y": 1968
             }
           ],
           "label": {
-            "x": 1649,
-            "y": 202,
+            "x": 929,
+            "y": 2530,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5777,25 +5532,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2190,
-              "y": 450
+              "x": 570,
+              "y": 1695
             },
             {
-              "x": 2290,
-              "y": 450
+              "x": 570,
+              "y": 1510
             },
             {
-              "x": 2290,
-              "y": 920
-            },
-            {
-              "x": 2325,
-              "y": 920
+              "x": 875,
+              "y": 1510
             }
           ],
           "label": {
-            "x": 2270,
-            "y": 210,
+            "x": 662,
+            "y": 1463,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5819,51 +5570,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1875,
-              "y": 450
+              "x": 730,
+              "y": 1810
             },
             {
-              "x": 1851,
-              "y": 450
+              "x": 875,
+              "y": 1810
             }
           ],
           "label": {
-            "x": 1975,
-            "y": 120,
-            "width": 50,
-            "height": 40,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a18",
-          "sourceTableName": "iam_tenant_authority",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 4045,
-              "y": 1900
-            },
-            {
-              "x": 1267,
-              "y": 1900
-            }
-          ],
-          "label": {
-            "x": 3353,
-            "y": 2009,
+            "x": 810,
+            "y": 1480,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5887,17 +5604,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 4220,
-              "y": 1805
+              "x": 640,
+              "y": 1025
             },
             {
-              "x": 4220,
-              "y": 1407
+              "x": 640,
+              "y": 1007
             }
           ],
           "label": {
-            "x": 3627,
-            "y": 1852,
+            "x": 47,
+            "y": 1072,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5921,59 +5638,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1568,
-              "y": 1160
+              "x": 1538,
+              "y": 1810
             },
             {
-              "x": 3260,
-              "y": 1160
-            },
-            {
-              "x": 3260,
-              "y": 1058
+              "x": 1555,
+              "y": 1810
             }
           ],
           "label": {
-            "x": 1508,
-            "y": 1121,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a21",
-          "sourceTableName": "iam_account_manage",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 1245,
-              "y": 1160
-            },
-            {
-              "x": 1160,
-              "y": 1160
-            },
-            {
-              "x": 1160,
-              "y": 1795
-            }
-          ],
-          "label": {
-            "x": 1255,
-            "y": 1121,
+            "x": 1478,
+            "y": 1771,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -5997,181 +5672,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1490,
-              "y": 1035
+              "x": 1215,
+              "y": 1810
             },
             {
-              "x": 1490,
-              "y": 560
-            },
-            {
-              "x": 1535,
-              "y": 560
+              "x": 1191,
+              "y": 1810
             }
           ],
           "label": {
-            "x": 1492,
-            "y": 1004,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a23",
-          "sourceTableName": "iam_role_data_power",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 1875,
-              "y": 540
-            },
-            {
-              "x": 1890,
-              "y": 1630
-            },
-            {
-              "x": 1240,
-              "y": 1630
-            },
-            {
-              "x": 1240,
-              "y": 1795
-            }
-          ],
-          "label": {
-            "x": 1835,
-            "y": 501,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a24",
-          "sourceTableName": "iam_account_data_power",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 1135,
-              "y": 540
-            },
-            {
-              "x": 1150,
-              "y": 1795
-            }
-          ],
-          "label": {
-            "x": 1151,
-            "y": 542,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a25",
-          "sourceTableName": "iam_account_authority",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 4220,
-              "y": 775
-            },
-            {
-              "x": 4220,
-              "y": 100
-            },
-            {
-              "x": 1030,
-              "y": 100
-            },
-            {
-              "x": 1030,
-              "y": 1795
-            }
-          ],
-          "label": {
-            "x": 3664,
-            "y": 938,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "a26",
-          "sourceTableName": "iam_account_role_rel",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 2680,
-              "y": 1003
-            },
-            {
-              "x": 2680,
-              "y": 1750
-            },
-            {
-              "x": 1250,
-              "y": 1750
-            },
-            {
-              "x": 1250,
-              "y": 1795
-            }
-          ],
-          "label": {
-            "x": 2682,
-            "y": 952,
+            "x": 1225,
+            "y": 1771,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6195,17 +5706,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1380,
-              "y": 1305
+              "x": 1370,
+              "y": 1995
             },
             {
-              "x": 1380,
-              "y": 1284
+              "x": 1370,
+              "y": 1934
             }
           ],
           "label": {
-            "x": 1382,
-            "y": 1274,
+            "x": 1372,
+            "y": 1964,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6229,55 +5740,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 515,
-              "y": 2150
+              "x": 835,
+              "y": 190
             },
             {
-              "x": 492,
-              "y": 2150
+              "x": 822,
+              "y": 190
             }
           ],
           "label": {
-            "x": 531,
-            "y": 2152,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "A29",
-          "sourceTableName": "iam_tenant_strategy",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 873,
-              "y": 2150
-            },
-            {
-              "x": 1140,
-              "y": 2150
-            },
-            {
-              "x": 1140,
-              "y": 2023
-            }
-          ],
-          "label": {
-            "x": 869,
-            "y": 2152,
+            "x": 851,
+            "y": 192,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6301,51 +5774,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 320,
-              "y": 2023
+              "x": 640,
+              "y": 325
             },
             {
-              "x": 320,
-              "y": 2045
+              "x": 640,
+              "y": 292
             }
           ],
           "label": {
-            "x": 322,
-            "y": 1972,
-            "width": 50,
-            "height": 31,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "A31",
-          "sourceTableName": "iam_tenant_strategy_authority",
-          "sourceSchemaName": "Default",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 498,
-              "y": 1900
-            },
-            {
-              "x": 1005,
-              "y": 1900
-            }
-          ],
-          "label": {
-            "x": 488,
-            "y": 1861,
+            "x": 642,
+            "y": 294,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6369,29 +5808,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 320,
-              "y": 1795
+              "x": 640,
+              "y": 553
             },
             {
-              "x": 320,
-              "y": 40
-            },
-            {
-              "x": 4510,
-              "y": 40
-            },
-            {
-              "x": 4510,
-              "y": 1250
-            },
-            {
-              "x": 4407,
-              "y": 1250
+              "x": 640,
+              "y": 695
             }
           ],
           "label": {
-            "x": 322,
-            "y": 1764,
+            "x": 642,
+            "y": 502,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6415,25 +5842,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2480,
-              "y": 785
+              "x": 1030,
+              "y": 1645
             },
             {
-              "x": 2480,
-              "y": 220
-            },
-            {
-              "x": 1690,
-              "y": 220
-            },
-            {
-              "x": 1690,
-              "y": 315
+              "x": 1030,
+              "y": 1675
             }
           ],
           "label": {
-            "x": 2432,
-            "y": 754,
+            "x": 982,
+            "y": 1594,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
