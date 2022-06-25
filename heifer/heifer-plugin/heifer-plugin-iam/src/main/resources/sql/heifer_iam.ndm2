@@ -278,306 +278,6 @@
           },
           {
             "objectType": "Table_MYSQL",
-            "name": "iam_role",
-            "comment": "角色表",
-            "engine": "",
-            "characterSet": "",
-            "collation": "",
-            "autoIncrement": 0,
-            "tablespace": "",
-            "storage": "",
-            "insertMethod": "",
-            "connection": "",
-            "checksum": false,
-            "rowFormat": "",
-            "avgRowLength": 0,
-            "maxRows": 0,
-            "minRows": 0,
-            "keyBlockSize": 0,
-            "packKeys": "",
-            "delayKeyWrite": false,
-            "dataDirectory": "",
-            "indexDirectory": "",
-            "statsAutoRecalc": "",
-            "statsPersistent": "",
-            "statsSamplePages": 0,
-            "union": "",
-            "pageCheckSum": false,
-            "transactional": false,
-            "compression": "",
-            "oldName": "",
-            "encryption": false,
-            "createOptions": "",
-            "createTime": "",
-            "checkTime": "",
-            "dataFree": 0,
-            "dataLength": 0,
-            "indexLength": 0,
-            "maxDataLength": 0,
-            "rows": 0,
-            "updateTime": "",
-            "DDL": "",
-            "partitionBy": "",
-            "partitionByExpr": "",
-            "partitions": 0,
-            "partitionKeyAlgorithm": "",
-            "subPartitionBy": "",
-            "subPartitionByExpr": "",
-            "subPartitions": 0,
-            "subPartitionKeyAlgorithm": "",
-            "fields": [
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "主键ID",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "iam_tenant_id",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "租户id",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "iam_tenant_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "name",
-                "type": "varchar",
-                "length": 50,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "名称",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "name"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_time",
-                "type": "timestamp",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "CURRENT_TIMESTAMP",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_time"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_by",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_by"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "update_time",
-                "type": "timestamp",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": true,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "update_time"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "update_by",
-                "type": "bigint",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": true,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "update_by"
-              }
-            ],
-            "indexes": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_MYSQL",
-              "name": "",
-              "fields": [
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "id",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                },
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": ""
-                }
-              ],
-              "oldName": "",
-              "indexMethod": "",
-              "comment": ""
-            },
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "a2",
-                "fields": [
-                  "iam_tenant_id"
-                ],
-                "referenceSchema": "Default",
-                "referenceTable": "iam_tenant",
-                "referenceFields": [
-                  "id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ZeroOrManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              }
-            ],
-            "triggers": [],
-            "tablePartitions": []
-          },
-          {
-            "objectType": "Table_MYSQL",
             "name": "iam_permission",
             "comment": "功能权限",
             "engine": "",
@@ -4983,6 +4683,356 @@
             "foreignKeys": [],
             "triggers": [],
             "tablePartitions": []
+          },
+          {
+            "objectType": "Table_MYSQL",
+            "name": "iam_role",
+            "comment": "角色表",
+            "engine": "",
+            "characterSet": "",
+            "collation": "",
+            "autoIncrement": 0,
+            "tablespace": "",
+            "storage": "",
+            "insertMethod": "",
+            "connection": "",
+            "checksum": false,
+            "rowFormat": "",
+            "avgRowLength": 0,
+            "maxRows": 0,
+            "minRows": 0,
+            "keyBlockSize": 0,
+            "packKeys": "",
+            "delayKeyWrite": false,
+            "dataDirectory": "",
+            "indexDirectory": "",
+            "statsAutoRecalc": "",
+            "statsPersistent": "",
+            "statsSamplePages": 0,
+            "union": "",
+            "pageCheckSum": false,
+            "transactional": false,
+            "compression": "",
+            "oldName": "",
+            "encryption": false,
+            "createOptions": "",
+            "createTime": "",
+            "checkTime": "",
+            "dataFree": 0,
+            "dataLength": 0,
+            "indexLength": 0,
+            "maxDataLength": 0,
+            "rows": 0,
+            "updateTime": "",
+            "DDL": "",
+            "partitionBy": "",
+            "partitionByExpr": "",
+            "partitions": 0,
+            "partitionKeyAlgorithm": "",
+            "subPartitionBy": "",
+            "subPartitionByExpr": "",
+            "subPartitions": 0,
+            "subPartitionKeyAlgorithm": "",
+            "fields": [
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "主键ID",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "iam_tenant_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "租户id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "iam_tenant_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "iam_dept_id",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "部门id",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "iam_dept_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "name",
+                "type": "varchar",
+                "length": 50,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "名称",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "name"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_time",
+                "type": "timestamp",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "CURRENT_TIMESTAMP",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_by",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_by"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "update_time",
+                "type": "timestamp",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": true,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "update_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "update_by",
+                "type": "bigint",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": true,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "update_by"
+              }
+            ],
+            "indexes": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_MYSQL",
+              "name": "",
+              "fields": [
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "id",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                },
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": ""
+                }
+              ],
+              "oldName": "",
+              "indexMethod": "",
+              "comment": ""
+            },
+            "foreignKeys": [
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a2",
+                "fields": [
+                  "iam_tenant_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "iam_tenant",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": ""
+              },
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "a32",
+                "fields": [
+                  "iam_dept_id"
+                ],
+                "referenceSchema": "Default",
+                "referenceTable": "iam_dept",
+                "referenceFields": [
+                  "id"
+                ],
+                "onDelete": "",
+                "onUpdate": "",
+                "sourceCardinality": "NoneRelationship",
+                "targetCardinality": "NoneRelationship",
+                "oldName": ""
+              }
+            ],
+            "triggers": [],
+            "tablePartitions": []
           }
         ],
         "views": []
@@ -4992,7 +5042,7 @@
   "diagrams": [
     {
       "name": "Diagram 1",
-      "paperWidth": 5,
+      "paperWidth": 6,
       "paperHeight": 2,
       "tableFont": "Arial Unicode MS",
       "tableFontSize": 14,
@@ -5007,8 +5057,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account",
-          "x": 2140,
-          "y": 870,
+          "x": 3020,
+          "y": 740,
           "width": 482,
           "height": 303,
           "isBold": false,
@@ -5023,10 +5073,10 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role",
-          "x": 1950,
-          "y": 1470,
+          "x": 2340,
+          "y": 800,
           "width": 285,
-          "height": 219,
+          "height": 240,
           "isBold": false,
           "titleColor": {
             "r": 55,
@@ -5039,8 +5089,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_role_rel",
-          "x": 2240,
-          "y": 1220,
+          "x": 2680,
+          "y": 790,
           "width": 293,
           "height": 198,
           "isBold": false,
@@ -5055,8 +5105,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_permission",
-          "x": 3180,
-          "y": 1660,
+          "x": 4050,
+          "y": 1110,
           "width": 342,
           "height": 282,
           "isBold": false,
@@ -5071,8 +5121,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role_authority",
-          "x": 2800,
-          "y": 1700,
+          "x": 3670,
+          "y": 1150,
           "width": 333,
           "height": 198,
           "isBold": false,
@@ -5087,8 +5137,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_authority",
-          "x": 3180,
-          "y": 920,
+          "x": 4060,
+          "y": 790,
           "width": 333,
           "height": 198,
           "isBold": false,
@@ -5103,8 +5153,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_tenant",
-          "x": 1610,
-          "y": 1430,
+          "x": 1020,
+          "y": 1810,
           "width": 232,
           "height": 198,
           "isBold": false,
@@ -5119,8 +5169,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_dept",
-          "x": 1350,
-          "y": 460,
+          "x": 1550,
+          "y": 330,
           "width": 286,
           "height": 240,
           "isBold": false,
@@ -5135,8 +5185,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_data_power",
-          "x": 1350,
-          "y": 210,
+          "x": 1150,
+          "y": 350,
           "width": 293,
           "height": 198,
           "isBold": false,
@@ -5151,8 +5201,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_role_data_power",
-          "x": 1690,
-          "y": 480,
+          "x": 1890,
+          "y": 350,
           "width": 285,
           "height": 198,
           "isBold": false,
@@ -5167,8 +5217,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_tenant_authority",
-          "x": 3180,
-          "y": 1990,
+          "x": 4060,
+          "y": 1820,
           "width": 333,
           "height": 177,
           "isBold": false,
@@ -5183,8 +5233,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_account_manage",
-          "x": 1350,
-          "y": 910,
+          "x": 1260,
+          "y": 1050,
           "width": 293,
           "height": 219,
           "isBold": false,
@@ -5199,8 +5249,8 @@
           "type": "table",
           "schemaName": "Default",
           "tableName": "iam_access",
-          "x": 1320,
-          "y": 1180,
+          "x": 1210,
+          "y": 1320,
           "width": 343,
           "height": 198,
           "isBold": false,
@@ -5216,7 +5266,7 @@
           "schemaName": "Default",
           "tableName": "iam_strategy",
           "x": 160,
-          "y": 1530,
+          "y": 2060,
           "width": 317,
           "height": 177,
           "isBold": false,
@@ -5232,7 +5282,7 @@
           "schemaName": "Default",
           "tableName": "iam_tenant_strategy",
           "x": 530,
-          "y": 1520,
+          "y": 2050,
           "width": 328,
           "height": 198,
           "isBold": false,
@@ -5248,7 +5298,7 @@
           "schemaName": "Default",
           "tableName": "iam_tenant_strategy_authority",
           "x": 150,
-          "y": 1270,
+          "y": 1810,
           "width": 333,
           "height": 198,
           "isBold": false,
@@ -5264,9 +5314,9 @@
         {
           "name": "组织架构",
           "x": 970,
-          "y": 810,
-          "width": 1711,
-          "height": 930,
+          "y": 690,
+          "width": 2586,
+          "height": 1373,
           "layerColor": {
             "r": 251,
             "g": 2,
@@ -5284,10 +5334,10 @@
         },
         {
           "name": "数据权限",
-          "x": 1290,
-          "y": 160,
-          "width": 734,
-          "height": 598,
+          "x": 1090,
+          "y": 280,
+          "width": 1134,
+          "height": 350,
           "layerColor": {
             "r": 33,
             "g": 254,
@@ -5305,10 +5355,10 @@
         },
         {
           "name": "rbac+acl功能权限",
-          "x": 2740,
-          "y": 870,
+          "x": 3620,
+          "y": 740,
           "width": 835,
-          "height": 1360,
+          "height": 1310,
           "layerColor": {
             "r": 100,
             "g": 234,
@@ -5327,7 +5377,7 @@
         {
           "name": "abac功能权限",
           "x": 100,
-          "y": 1220,
+          "y": 1750,
           "width": 813,
           "height": 556,
           "layerColor": {
@@ -5355,17 +5405,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1935,
-              "y": 1580
+              "x": 2350,
+              "y": 1055
             },
             {
-              "x": 1857,
-              "y": 1580
+              "x": 2350,
+              "y": 1690
+            },
+            {
+              "x": 1240,
+              "y": 1690
+            },
+            {
+              "x": 1240,
+              "y": 1795
             }
           ],
           "label": {
-            "x": 1879,
-            "y": 1507,
+            "x": 2286,
+            "y": 970,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5389,21 +5447,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2380,
-              "y": 1433
+              "x": 2665,
+              "y": 890
             },
             {
-              "x": 2380,
-              "y": 1580
-            },
-            {
-              "x": 2250,
-              "y": 1580
+              "x": 2640,
+              "y": 890
             }
           ],
           "label": {
-            "x": 2693,
-            "y": 1241,
+            "x": 2986,
+            "y": 710,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5427,17 +5481,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2380,
-              "y": 1205
+              "x": 2988,
+              "y": 890
             },
             {
-              "x": 2380,
-              "y": 1188
+              "x": 3005,
+              "y": 890
             }
           ],
           "label": {
-            "x": 2328,
-            "y": 1105,
+            "x": 2924,
+            "y": 782,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5461,21 +5515,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2785,
-              "y": 1800
+              "x": 3655,
+              "y": 1160
             },
             {
-              "x": 2090,
-              "y": 1800
+              "x": 3680,
+              "y": 1100
             },
             {
-              "x": 2090,
-              "y": 1704
+              "x": 2620,
+              "y": 1100
+            },
+            {
+              "x": 2620,
+              "y": 1055
             }
           ],
           "label": {
-            "x": 2473,
-            "y": 1907,
+            "x": 3343,
+            "y": 1267,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5499,17 +5557,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 3148,
-              "y": 1800
+              "x": 4018,
+              "y": 1250
             },
             {
-              "x": 3165,
-              "y": 1800
+              "x": 4035,
+              "y": 1250
             }
           ],
           "label": {
-            "x": 2816,
-            "y": 1807,
+            "x": 3686,
+            "y": 1257,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5533,17 +5591,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 3165,
-              "y": 1020
+              "x": 4045,
+              "y": 890
             },
             {
-              "x": 2637,
-              "y": 1020
+              "x": 3517,
+              "y": 890
             }
           ],
           "label": {
-            "x": 2960,
-            "y": 967,
+            "x": 3840,
+            "y": 837,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5567,17 +5625,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 3350,
-              "y": 1133
+              "x": 4220,
+              "y": 1003
             },
             {
-              "x": 3350,
-              "y": 1645
+              "x": 4220,
+              "y": 1095
             }
           ],
           "label": {
-            "x": 2970,
-            "y": 1093,
+            "x": 3840,
+            "y": 963,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5601,25 +5659,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1335,
-              "y": 580
+              "x": 1610,
+              "y": 585
             },
             {
-              "x": 1210,
-              "y": 580
+              "x": 1610,
+              "y": 1570
             },
             {
-              "x": 1210,
-              "y": 1440
+              "x": 1240,
+              "y": 1570
             },
             {
-              "x": 1595,
-              "y": 1440
+              "x": 1240,
+              "y": 1795
             }
           ],
           "label": {
-            "x": 1783,
-            "y": 601,
+            "x": 2050,
+            "y": 594,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5643,17 +5701,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1500,
-              "y": 423
+              "x": 1458,
+              "y": 450
             },
             {
-              "x": 1500,
-              "y": 445
+              "x": 1535,
+              "y": 450
             }
           ],
           "label": {
-            "x": 1398,
-            "y": 141,
+            "x": 1344,
+            "y": 180,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5677,21 +5735,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1658,
-              "y": 310
+              "x": 1290,
+              "y": 335
             },
             {
-              "x": 2380,
-              "y": 310
+              "x": 1290,
+              "y": 160
             },
             {
-              "x": 2380,
-              "y": 855
+              "x": 3260,
+              "y": 160
+            },
+            {
+              "x": 3260,
+              "y": 725
             }
           ],
           "label": {
-            "x": 2005,
-            "y": 169,
+            "x": 1649,
+            "y": 202,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5715,21 +5777,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1990,
-              "y": 580
+              "x": 2190,
+              "y": 450
             },
             {
-              "x": 2090,
-              "y": 580
+              "x": 2290,
+              "y": 450
             },
             {
-              "x": 2090,
-              "y": 1455
+              "x": 2290,
+              "y": 920
+            },
+            {
+              "x": 2325,
+              "y": 920
             }
           ],
           "label": {
-            "x": 2070,
-            "y": 340,
+            "x": 2270,
+            "y": 210,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5753,17 +5819,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1675,
-              "y": 580
+              "x": 1875,
+              "y": 450
             },
             {
-              "x": 1651,
-              "y": 580
+              "x": 1851,
+              "y": 450
             }
           ],
           "label": {
-            "x": 1775,
-            "y": 250,
+            "x": 1975,
+            "y": 120,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5787,21 +5853,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 3165,
-              "y": 2080
+              "x": 4045,
+              "y": 1900
             },
             {
-              "x": 1730,
-              "y": 2080
-            },
-            {
-              "x": 1730,
-              "y": 1643
+              "x": 1267,
+              "y": 1900
             }
           ],
           "label": {
-            "x": 2473,
-            "y": 2189,
+            "x": 3353,
+            "y": 2009,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5825,17 +5887,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 3350,
-              "y": 1975
+              "x": 4220,
+              "y": 1805
             },
             {
-              "x": 3350,
-              "y": 1957
+              "x": 4220,
+              "y": 1407
             }
           ],
           "label": {
-            "x": 2757,
-            "y": 2022,
+            "x": 3627,
+            "y": 1852,
             "width": 50,
             "height": 40,
             "fontName": "Arial Unicode MS",
@@ -5859,17 +5921,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1658,
-              "y": 1020
+              "x": 1568,
+              "y": 1160
             },
             {
-              "x": 2125,
-              "y": 1020
+              "x": 3260,
+              "y": 1160
+            },
+            {
+              "x": 3260,
+              "y": 1058
             }
           ],
           "label": {
-            "x": 1598,
-            "y": 981,
+            "x": 1508,
+            "y": 1121,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -5893,25 +5959,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1335,
-              "y": 1020
+              "x": 1245,
+              "y": 1160
             },
             {
-              "x": 1270,
-              "y": 1020
+              "x": 1160,
+              "y": 1160
             },
             {
-              "x": 1270,
-              "y": 1430
-            },
-            {
-              "x": 1620,
-              "y": 1415
+              "x": 1160,
+              "y": 1795
             }
           ],
           "label": {
-            "x": 1345,
-            "y": 981,
+            "x": 1255,
+            "y": 1121,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -5935,17 +5997,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1500,
-              "y": 895
+              "x": 1490,
+              "y": 1035
             },
             {
-              "x": 1500,
-              "y": 715
+              "x": 1490,
+              "y": 560
+            },
+            {
+              "x": 1535,
+              "y": 560
             }
           ],
           "label": {
-            "x": 1502,
-            "y": 864,
+            "x": 1492,
+            "y": 1004,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -5969,17 +6035,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1830,
-              "y": 693
+              "x": 1875,
+              "y": 540
             },
             {
-              "x": 1830,
-              "y": 1415
+              "x": 1890,
+              "y": 1630
+            },
+            {
+              "x": 1240,
+              "y": 1630
+            },
+            {
+              "x": 1240,
+              "y": 1795
             }
           ],
           "label": {
-            "x": 1782,
-            "y": 642,
+            "x": 1835,
+            "y": 501,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6003,25 +6077,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1335,
-              "y": 310
+              "x": 1135,
+              "y": 540
             },
             {
               "x": 1150,
-              "y": 310
-            },
-            {
-              "x": 1150,
-              "y": 1440
-            },
-            {
-              "x": 1595,
-              "y": 1440
+              "y": 1795
             }
           ],
           "label": {
-            "x": 1351,
-            "y": 312,
+            "x": 1151,
+            "y": 542,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6045,29 +6111,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 3350,
-              "y": 905
+              "x": 4220,
+              "y": 775
             },
             {
-              "x": 3350,
+              "x": 4220,
               "y": 100
             },
             {
-              "x": 1090,
+              "x": 1030,
               "y": 100
             },
             {
-              "x": 1090,
-              "y": 1450
-            },
-            {
-              "x": 1595,
-              "y": 1450
+              "x": 1030,
+              "y": 1795
             }
           ],
           "label": {
-            "x": 2794,
-            "y": 1068,
+            "x": 3664,
+            "y": 938,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6091,21 +6153,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 2225,
-              "y": 1320
+              "x": 2680,
+              "y": 1003
             },
             {
-              "x": 1840,
-              "y": 1320
+              "x": 2680,
+              "y": 1750
             },
             {
-              "x": 1840,
-              "y": 1415
+              "x": 1250,
+              "y": 1750
+            },
+            {
+              "x": 1250,
+              "y": 1795
             }
           ],
           "label": {
-            "x": 2235,
-            "y": 1281,
+            "x": 2682,
+            "y": 952,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6129,17 +6195,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1500,
-              "y": 1165
+              "x": 1380,
+              "y": 1305
             },
             {
-              "x": 1500,
-              "y": 1144
+              "x": 1380,
+              "y": 1284
             }
           ],
           "label": {
-            "x": 1502,
-            "y": 1134,
+            "x": 1382,
+            "y": 1274,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6164,16 +6230,16 @@
           "vertices": [
             {
               "x": 515,
-              "y": 1620
+              "y": 2150
             },
             {
               "x": 492,
-              "y": 1620
+              "y": 2150
             }
           ],
           "label": {
             "x": 531,
-            "y": 1622,
+            "y": 2152,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6198,16 +6264,20 @@
           "vertices": [
             {
               "x": 873,
-              "y": 1620
+              "y": 2150
             },
             {
-              "x": 1620,
-              "y": 1643
+              "x": 1140,
+              "y": 2150
+            },
+            {
+              "x": 1140,
+              "y": 2023
             }
           ],
           "label": {
             "x": 869,
-            "y": 1622,
+            "y": 2152,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6232,16 +6302,16 @@
           "vertices": [
             {
               "x": 320,
-              "y": 1483
+              "y": 2023
             },
             {
               "x": 320,
-              "y": 1515
+              "y": 2045
             }
           ],
           "label": {
             "x": 322,
-            "y": 1432,
+            "y": 1972,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6266,16 +6336,16 @@
           "vertices": [
             {
               "x": 498,
-              "y": 1450
+              "y": 1900
             },
             {
-              "x": 1595,
-              "y": 1450
+              "x": 1005,
+              "y": 1900
             }
           ],
           "label": {
             "x": 488,
-            "y": 1411,
+            "y": 1861,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
@@ -6300,28 +6370,70 @@
           "vertices": [
             {
               "x": 320,
-              "y": 1255
+              "y": 1795
             },
             {
               "x": 320,
               "y": 40
             },
             {
-              "x": 3640,
+              "x": 4510,
               "y": 40
             },
             {
-              "x": 3640,
-              "y": 1800
+              "x": 4510,
+              "y": 1250
             },
             {
-              "x": 3537,
-              "y": 1800
+              "x": 4407,
+              "y": 1250
             }
           ],
           "label": {
             "x": 322,
-            "y": 1224,
+            "y": 1764,
+            "width": 50,
+            "height": 31,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "a32",
+          "sourceTableName": "iam_role",
+          "sourceSchemaName": "Default",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 2480,
+              "y": 785
+            },
+            {
+              "x": 2480,
+              "y": 220
+            },
+            {
+              "x": 1690,
+              "y": 220
+            },
+            {
+              "x": 1690,
+              "y": 315
+            }
+          ],
+          "label": {
+            "x": 2432,
+            "y": 754,
             "width": 50,
             "height": 31,
             "fontName": "Arial Unicode MS",
