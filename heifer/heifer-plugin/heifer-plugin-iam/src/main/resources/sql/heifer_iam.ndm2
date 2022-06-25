@@ -4873,7 +4873,7 @@
   "diagrams": [
     {
       "name": "Diagram 1",
-      "paperWidth": 4,
+      "paperWidth": 3,
       "paperHeight": 3,
       "tableFont": "Arial Unicode MS",
       "tableFontSize": 14,
