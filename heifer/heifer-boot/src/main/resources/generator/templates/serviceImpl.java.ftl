@@ -27,9 +27,9 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
  <#list table.fields as field>
   <#if field.name?ends_with("_id")>
     @Override
-    public List<${entity}> listBy${field.propertyName?cap_first}(${field.propertyType} ${field.propertyName}){
+    public List<${entity}> listBy${field.propertyName?cap_first}(${field.propertyType} ${field.propertyName}) {
         return super.getBaseMapper().selectBy${field.propertyName?cap_first}(${field.propertyName});
-   }
+    }
 
   </#if>
  </#list>
