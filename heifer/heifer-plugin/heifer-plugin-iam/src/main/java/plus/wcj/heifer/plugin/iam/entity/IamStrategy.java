@@ -30,16 +30,16 @@ import plus.wcj.heifer.metadata.annotation.PostValid;
 
 /**
  * <p>
- * 角色表
+ * abac策略规则
  * </p>
  *
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
 @Data
-@TableName("iam_role")
-@ApiModel(value = "IamRole对象", description = "角色表")
-public class IamRole implements Serializable {
+@TableName("iam_strategy")
+@ApiModel(value = "IamStrategy对象", description = "abac策略规则")
+public class IamStrategy implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,25 +48,17 @@ public class IamRole implements Serializable {
     @NotNull(groups = {PutValid.class}, message = "id is null")
     private Long id;
 
-    @ApiModelProperty("租户id")
-    @NotNull(groups = {PostValid.class}, message = "iamTenantId is null")
-    private Long iamTenantId;
+    @ApiModelProperty("策略，需要硬编码")
+    @NotNull(groups = {PostValid.class}, message = "strategyEnum is null")
+    private String strategyEnum;
 
-    @ApiModelProperty("部门id")
-    @NotNull(groups = {PostValid.class}, message = "iamDeptId is null")
-    private Long iamDeptId;
-
-    @ApiModelProperty("名称")
-    @NotNull(groups = {PostValid.class}, message = "name is null")
-    private String name;
-
-    private LocalDateTime createTime;
+    @ApiModelProperty("策略名称")
+    @NotNull(groups = {PostValid.class}, message = "strategyName is null")
+    private String strategyName;
 
     private Long createBy;
 
-    private LocalDateTime updateTime;
-
-    private Long updateBy;
+    private LocalDateTime createTime;
 
 
 }

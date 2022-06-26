@@ -18,24 +18,24 @@ package plus.wcj.heifer.plugin.iam.service;
 
 
 import plus.wcj.heifer.common.mybatisplus.IService;
-import plus.wcj.heifer.plugin.iam.entity.IamRole;
+import plus.wcj.heifer.plugin.iam.entity.IamTenantStrategy;
 
 import java.util.List;
 
 /**
  * <p>
- * 角色表 服务类
+ * 租户配置的策略规则 服务类
  * </p>
  *
  * @author weichangjin (魏昌进)
- * @since 2022-04-23
+ * @since 2022-06-26
  */
-public interface IamRoleService extends IService<IamRole, Long> {
+public interface IamTenantStrategyService extends IService<IamTenantStrategy, Long> {
     // 自动生成外键查询  请勿修改
 
-    List<IamRole> listByIamTenantId(Long iamTenantId);
+    List<IamTenantStrategy> listByIamStrategyId(Long iamStrategyId);
 
-    List<IamRole> listByIamDeptId(Long iamDeptId);
+    List<IamTenantStrategy> listByIamTenantId(Long iamTenantId);
 
     // 自动生成外键查询  请勿修改
 }

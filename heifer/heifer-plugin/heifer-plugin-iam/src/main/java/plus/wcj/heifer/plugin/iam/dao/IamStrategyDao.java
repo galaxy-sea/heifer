@@ -14,28 +14,21 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.service;
+package plus.wcj.heifer.plugin.iam.dao;
 
 
-import plus.wcj.heifer.common.mybatisplus.IService;
-import plus.wcj.heifer.plugin.iam.entity.IamRole;
-
-import java.util.List;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import plus.wcj.heifer.plugin.iam.entity.IamStrategy;
 
 /**
  * <p>
- * 角色表 服务类
+ * abac策略规则 Mapper 接口
  * </p>
  *
  * @author weichangjin (魏昌进)
- * @since 2022-04-23
+ * @since 2022-06-26
  */
-public interface IamRoleService extends IService<IamRole, Long> {
-    // 自动生成外键查询  请勿修改
-
-    List<IamRole> listByIamTenantId(Long iamTenantId);
-
-    List<IamRole> listByIamDeptId(Long iamDeptId);
-
+public interface IamStrategyDao extends BaseMapper<IamStrategy> {
+     // 自动生成外键查询  请勿修改
     // 自动生成外键查询  请勿修改
 }

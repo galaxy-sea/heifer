@@ -16,29 +16,30 @@
 
 package plus.wcj.heifer.plugin.iam.dao;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-import plus.wcj.heifer.plugin.iam.entity.IamRole;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import plus.wcj.heifer.plugin.iam.entity.IamTenantStrategy;
 
 import java.util.List;
 
 /**
  * <p>
- * 角色表 Mapper 接口
+ * 租户配置的策略规则 Mapper 接口
  * </p>
  *
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
-public interface IamRoleDao extends BaseMapper<IamRole> {
-    // 自动生成外键查询  请勿修改
-    default List<IamRole> selectByIamTenantId(@Param("iamTenantId") Long iamTenantId) {
-        return this.selectList(new LambdaQueryWrapper<IamRole>().eq(IamRole::getIamTenantId, iamTenantId));
+public interface IamTenantStrategyDao extends BaseMapper<IamTenantStrategy> {
+     // 自动生成外键查询  请勿修改
+    default List<IamTenantStrategy> selectByIamStrategyId(@Param("iamStrategyId") Long iamStrategyId){
+        return this.selectList(new LambdaQueryWrapper<IamTenantStrategy>().eq(IamTenantStrategy::getIamStrategyId, iamStrategyId));
     }
 
-    default List<IamRole> selectByIamDeptId(@Param("iamDeptId") Long iamDeptId) {
-        return this.selectList(new LambdaQueryWrapper<IamRole>().eq(IamRole::getIamDeptId, iamDeptId));
+    default List<IamTenantStrategy> selectByIamTenantId(@Param("iamTenantId") Long iamTenantId){
+        return this.selectList(new LambdaQueryWrapper<IamTenantStrategy>().eq(IamTenantStrategy::getIamTenantId, iamTenantId));
     }
 
     // 自动生成外键查询  请勿修改

@@ -17,25 +17,12 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=weichangjin (魏昌进) -->
-<!-- since=2022-04-23 -->
+<!-- since=2022-06-26 -->
 <mapper namespace="plus.wcj.heifer.plugin.iam.dao.IamRoleDataPowerDao">
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.iam.entity.IamRoleDataPower">
-        <id column="id" property="id" />
-        <result column="iam_role_id" property="iamRoleId" />
-        <result column="iam_dept_id" property="iamDeptId" />
-        <result column="iam_tenant_id" property="iamTenantId" />
-        <result column="create_time" property="createTime" />
-        <result column="create_by" property="createBy" />
-    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,
-        iam_role_id,
-        iam_dept_id,
-        iam_tenant_id,
-        create_time,
-        create_by
+        id, iam_role_id, iam_dept_id, iam_tenant_id, create_time, create_by
     </sql>
+
 </mapper>

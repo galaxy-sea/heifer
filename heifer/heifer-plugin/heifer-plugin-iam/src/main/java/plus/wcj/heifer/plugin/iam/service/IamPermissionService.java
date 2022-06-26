@@ -31,7 +31,9 @@ import java.util.List;
  * @since 2022-04-23
  */
 public interface IamPermissionService extends IService<IamPermission, Long> {
+    // 自动生成外键查询  请勿修改
 
     List<IamPermission> listByParentId(Long parentId);
 
+    // 自动生成外键查询  请勿修改
 }

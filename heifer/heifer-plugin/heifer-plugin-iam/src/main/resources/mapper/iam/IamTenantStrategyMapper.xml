@@ -18,11 +18,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=weichangjin (魏昌进) -->
 <!-- since=2022-06-26 -->
-<mapper namespace="plus.wcj.heifer.plugin.iam.dao.IamDeptDao">
+<mapper namespace="plus.wcj.heifer.plugin.iam.dao.IamTenantStrategyDao">
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, parent_id, iam_tenant_id, name, create_time, create_by, update_time, update_by
+        id, iam_strategy_id, iam_tenant_id, strategy_value, create_by, create_time
     </sql>
 
 </mapper>

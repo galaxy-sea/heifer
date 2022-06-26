@@ -26,9 +26,11 @@ import plus.wcj.heifer.plugin.iam.service.IamPermissionService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,48 +45,50 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author weichangjin (魏昌进)
- * @since 2022-04-23
+ * @since 2022-06-26
  */
+@ResultResponseBody
 @RestController
-@RequestMapping("/iam-permission")
+@RequestMapping("/iam/iamPermission")
 @RequiredArgsConstructor
 public class IamPermissionController {
+
     private final IamPermissionService iamPermissionService;
 
     /** id查询 */
-    @GetMapping(params = "id")
-    @ResultResponseBody
-    public IamPermission getById(@NotNull Long id) {
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('iamPermission:get')")
+    public IamPermission getById(@NotNull @PathVariable Long id) {
         return iamPermissionService.getById(id);
     }
 
     /** 分页查询 */
     @GetMapping
-    @ResultResponseBody
+    @PreAuthorize("hasAuthority('iamPermission')")
     public Page<IamPermission> page(Page<IamPermission> page, IamPermission iamPermission, Tenant tenant) {
         return iamPermissionService.page(page, iamPermission);
     }
 
     /** 保存 */
     @PostMapping
-    @ResultResponseBody
-    public boolean save(@RequestBody @Validated(value = PostValid.class) IamPermission iamPermission, Tenant tenant) {
+    @PreAuthorize("hasAuthority('iamPermission:post')")
+    public boolean save(@Validated(value = PostValid.class) @RequestBody IamPermission iamPermission, Tenant tenant) {
         return iamPermissionService.save(iamPermission);
     }
 
     /** 修改 */
-    @PutMapping
-    @ResultResponseBody
-    public boolean updateById(@RequestBody @Validated(value = PutValid.class) IamPermission iamPermission) {
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('iamPermission:put')")
+    public boolean updateById(@NotNull @PathVariable Long id, @Validated(value = PutValid.class) @RequestBody IamPermission iamPermission) {
+        iamPermission.setId(id);
         return iamPermissionService.updateById(iamPermission);
     }
 
     /** id删除 */
-    @DeleteMapping(params = "id")
-    @ResultResponseBody
-    public boolean removeById(@NotNull Long id) {
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('iamPermission:delete')")
+    public boolean removeById(@NotNull @PathVariable Long id) {
         return iamPermissionService.removeById(id);
     }
 
-    // TODO: 2022-04-23 weichangjin (魏昌进) 补充其他接口
 }

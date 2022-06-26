@@ -16,13 +16,14 @@
 
 package plus.wcj.heifer.plugin.iam.controller;
 
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import plus.wcj.heifer.metadata.annotation.PostValid;
 import plus.wcj.heifer.metadata.annotation.PutValid;
 import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
 import plus.wcj.heifer.metadata.tenant.Tenant;
-import plus.wcj.heifer.plugin.iam.entity.IamAccount;
-import plus.wcj.heifer.plugin.iam.service.IamAccountService;
+import plus.wcj.heifer.plugin.iam.entity.IamStrategy;
+import plus.wcj.heifer.plugin.iam.service.IamStrategyService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +42,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- * 账户表 前端控制器
+ * abac策略规则 前端控制器
  * </p>
  *
  * @author weichangjin (魏昌进)
@@ -49,46 +50,46 @@ import javax.validation.constraints.NotNull;
  */
 @ResultResponseBody
 @RestController
-@RequestMapping("/iam/iamAccount")
+@RequestMapping("/iam/iamStrategy")
 @RequiredArgsConstructor
-public class IamAccountController {
+public class IamStrategyController {
 
-    private final IamAccountService iamAccountService;
+    private final IamStrategyService iamStrategyService;
 
     /** id查询 */
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('iamAccount:get')")
-    public IamAccount getById(@NotNull @PathVariable Long id) {
-        return iamAccountService.getById(id);
+    @PreAuthorize("hasAuthority('iamStrategy:get')")
+    public IamStrategy getById(@NotNull @PathVariable Long id) {
+        return iamStrategyService.getById(id);
     }
 
     /** 分页查询 */
     @GetMapping
-    @PreAuthorize("hasAuthority('iamAccount')")
-    public Page<IamAccount> page(Page<IamAccount> page, IamAccount iamAccount, Tenant tenant) {
-        return iamAccountService.page(page, iamAccount);
+    @PreAuthorize("hasAuthority('iamStrategy')")
+    public Page<IamStrategy> page(Page<IamStrategy> page, IamStrategy iamStrategy, Tenant tenant) {
+        return iamStrategyService.page(page, iamStrategy);
     }
 
     /** 保存 */
     @PostMapping
-    @PreAuthorize("hasAuthority('iamAccount:post')")
-    public boolean save(@Validated(value = PostValid.class) @RequestBody IamAccount iamAccount, Tenant tenant) {
-        return iamAccountService.save(iamAccount);
+    @PreAuthorize("hasAuthority('iamStrategy:post')")
+    public boolean save(@Validated(value = PostValid.class) @RequestBody IamStrategy iamStrategy, Tenant tenant) {
+        return iamStrategyService.save(iamStrategy);
     }
 
     /** 修改 */
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('iamAccount:put')")
-    public boolean updateById(@NotNull @PathVariable Long id, @Validated(value = PutValid.class) @RequestBody IamAccount iamAccount) {
-        iamAccount.setId(id);
-        return iamAccountService.updateById(iamAccount);
+    @PreAuthorize("hasAuthority('iamStrategy:put')")
+    public boolean updateById(@NotNull @PathVariable Long id, @Validated(value = PutValid.class) @RequestBody IamStrategy iamStrategy) {
+        iamStrategy.setId(id);
+        return iamStrategyService.updateById(iamStrategy);
     }
 
     /** id删除 */
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('iamAccount:delete')")
+    @PreAuthorize("hasAuthority('iamStrategy:delete')")
     public boolean removeById(@NotNull @PathVariable Long id) {
-        return iamAccountService.removeById(id);
+        return iamStrategyService.removeById(id);
     }
 
 }

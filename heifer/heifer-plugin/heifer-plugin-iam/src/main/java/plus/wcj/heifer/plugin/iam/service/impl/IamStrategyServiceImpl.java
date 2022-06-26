@@ -14,28 +14,27 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.service;
+package plus.wcj.heifer.plugin.iam.service.impl;
 
 
-import plus.wcj.heifer.common.mybatisplus.IService;
-import plus.wcj.heifer.plugin.iam.entity.IamRole;
+import plus.wcj.heifer.common.mybatisplus.impl.ServiceImpl;
+import plus.wcj.heifer.plugin.iam.dao.IamStrategyDao;
+import plus.wcj.heifer.plugin.iam.entity.IamStrategy;
+import plus.wcj.heifer.plugin.iam.service.IamStrategyService;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 角色表 服务类
+ * abac策略规则 服务实现类
  * </p>
  *
  * @author weichangjin (魏昌进)
- * @since 2022-04-23
+ * @since 2022-06-26
  */
-public interface IamRoleService extends IService<IamRole, Long> {
+@Service
+public class IamStrategyServiceImpl extends ServiceImpl<IamStrategyDao, IamStrategy, Long> implements IamStrategyService {
+    // 自动生成外键查询  请勿修改
     // 自动生成外键查询  请勿修改
 
-    List<IamRole> listByIamTenantId(Long iamTenantId);
-
-    List<IamRole> listByIamDeptId(Long iamDeptId);
-
-    // 自动生成外键查询  请勿修改
 }

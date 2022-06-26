@@ -30,16 +30,16 @@ import plus.wcj.heifer.metadata.annotation.PostValid;
 
 /**
  * <p>
- * 角色表
+ * 租户配置的策略规则与功能权限的绑定
  * </p>
  *
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
 @Data
-@TableName("iam_role")
-@ApiModel(value = "IamRole对象", description = "角色表")
-public class IamRole implements Serializable {
+@TableName("iam_tenant_strategy_authority")
+@ApiModel(value = "IamTenantStrategyAuthority对象", description = "租户配置的策略规则与功能权限的绑定")
+public class IamTenantStrategyAuthority implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,25 +48,21 @@ public class IamRole implements Serializable {
     @NotNull(groups = {PutValid.class}, message = "id is null")
     private Long id;
 
-    @ApiModelProperty("租户id")
+    @ApiModelProperty("abac权限id")
+    @NotNull(groups = {PostValid.class}, message = "iamTenantStrategyId is null")
+    private Long iamTenantStrategyId;
+
+    @ApiModelProperty("组织id")
     @NotNull(groups = {PostValid.class}, message = "iamTenantId is null")
     private Long iamTenantId;
 
-    @ApiModelProperty("部门id")
-    @NotNull(groups = {PostValid.class}, message = "iamDeptId is null")
-    private Long iamDeptId;
-
-    @ApiModelProperty("名称")
-    @NotNull(groups = {PostValid.class}, message = "name is null")
-    private String name;
-
-    private LocalDateTime createTime;
+    @ApiModelProperty("功能权限id")
+    @NotNull(groups = {PostValid.class}, message = "iamPermissionId is null")
+    private Long iamPermissionId;
 
     private Long createBy;
 
-    private LocalDateTime updateTime;
-
-    private Long updateBy;
+    private LocalDateTime createTime;
 
 
 }

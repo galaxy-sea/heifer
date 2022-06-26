@@ -17,33 +17,12 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=weichangjin (魏昌进) -->
-<!-- since=2022-04-23 -->
+<!-- since=2022-06-26 -->
 <mapper namespace="plus.wcj.heifer.plugin.iam.dao.IamPermissionDao">
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="plus.wcj.heifer.plugin.iam.entity.IamPermission">
-        <id column="id" property="id" />
-        <result column="parent_id" property="parentId" />
-        <result column="name" property="name" />
-        <result column="permission" property="permission" />
-        <result column="type" property="type" />
-        <result column="sort" property="sort" />
-        <result column="create_time" property="createTime" />
-        <result column="create_by" property="createBy" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_by" property="updateBy" />
-    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,
-        parent_id,
-        name,
-        permission,
-        type,
-        sort,
-        create_time,
-        create_by,
-        update_time,
-        update_by
+        id, parent_id, name, permission, type, sort, create_time, create_by, update_time, update_by
     </sql>
+
 </mapper>

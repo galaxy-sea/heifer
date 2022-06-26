@@ -17,21 +17,16 @@
 package plus.wcj.heifer.plugin.iam.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import plus.wcj.heifer.metadata.annotation.PostValid;
-import plus.wcj.heifer.metadata.annotation.PutValid;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
+import lombok.Data;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Date;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+import plus.wcj.heifer.metadata.annotation.PostValid;
 
 /**
  * <p>
@@ -39,45 +34,34 @@ import java.util.Date;
  * </p>
  *
  * @author weichangjin (魏昌进)
- * @since 2022-04-23
+ * @since 2022-06-26
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("iam_role_data_power")
 @ApiModel(value = "IamRoleDataPower对象", description = "角色数据权限")
 public class IamRoleDataPower implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** 主键id */
-    @ApiModelProperty(value = "主键id")
-    @NotNull(groups = {PutValid.class}, message = "id is null")
+    @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @NotNull(groups = {PutValid.class}, message = "id is null")
     private Long id;
 
-    /** 角色id */
-    @ApiModelProperty(value = "角色id")
+    @ApiModelProperty("角色id")
     @NotNull(groups = {PostValid.class}, message = "iamRoleId is null")
-    @TableField("iam_role_id")
     private Long iamRoleId;
 
-    /** 部门id */
-    @ApiModelProperty(value = "部门id")
+    @ApiModelProperty("部门id")
     @NotNull(groups = {PostValid.class}, message = "iamDeptId is null")
-    @TableField("iam_dept_id")
     private Long iamDeptId;
 
-    /** 租户id */
-    @ApiModelProperty(value = "租户id")
+    @ApiModelProperty("租户id")
     @NotNull(groups = {PostValid.class}, message = "iamTenantId is null")
-    @TableField("iam_tenant_id")
     private Long iamTenantId;
 
-    @TableField("create_time")
-    private Date createTime;
+    private LocalDateTime createTime;
 
-    @TableField("create_by")
     private Long createBy;
 
 

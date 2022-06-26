@@ -18,24 +18,18 @@ package plus.wcj.heifer.plugin.iam.service;
 
 
 import plus.wcj.heifer.common.mybatisplus.IService;
-import plus.wcj.heifer.plugin.iam.entity.IamRole;
-
-import java.util.List;
+import plus.wcj.heifer.plugin.iam.entity.IamStrategy;
 
 /**
  * <p>
- * 角色表 服务类
+ * abac策略规则 服务类
  * </p>
  *
  * @author weichangjin (魏昌进)
- * @since 2022-04-23
+ * @since 2022-06-26
  */
-public interface IamRoleService extends IService<IamRole, Long> {
+public interface IamStrategyService extends IService<IamStrategy, Long> {
     // 自动生成外键查询  请勿修改
-
-    List<IamRole> listByIamTenantId(Long iamTenantId);
-
-    List<IamRole> listByIamDeptId(Long iamDeptId);
 
     // 自动生成外键查询  请勿修改
 }

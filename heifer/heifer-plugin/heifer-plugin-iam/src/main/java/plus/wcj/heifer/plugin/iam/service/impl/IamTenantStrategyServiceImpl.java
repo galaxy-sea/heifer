@@ -18,9 +18,9 @@ package plus.wcj.heifer.plugin.iam.service.impl;
 
 
 import plus.wcj.heifer.common.mybatisplus.impl.ServiceImpl;
-import plus.wcj.heifer.plugin.iam.dao.IamRoleDao;
-import plus.wcj.heifer.plugin.iam.entity.IamRole;
-import plus.wcj.heifer.plugin.iam.service.IamRoleService;
+import plus.wcj.heifer.plugin.iam.dao.IamTenantStrategyDao;
+import plus.wcj.heifer.plugin.iam.entity.IamTenantStrategy;
+import plus.wcj.heifer.plugin.iam.service.IamTenantStrategyService;
 
 import org.springframework.stereotype.Service;
 
@@ -28,24 +28,24 @@ import java.util.List;
 
 /**
  * <p>
- * 角色表 服务实现类
+ * 租户配置的策略规则 服务实现类
  * </p>
  *
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
 @Service
-public class IamRoleServiceImpl extends ServiceImpl<IamRoleDao, IamRole, Long> implements IamRoleService {
+public class IamTenantStrategyServiceImpl extends ServiceImpl<IamTenantStrategyDao, IamTenantStrategy, Long> implements IamTenantStrategyService {
     // 自动生成外键查询  请勿修改
     @Override
-    public List<IamRole> listByIamTenantId(Long iamTenantId) {
-        return super.getBaseMapper().selectByIamTenantId(iamTenantId);
-    }
+    public List<IamTenantStrategy> listByIamStrategyId(Long iamStrategyId){
+        return super.getBaseMapper().selectByIamStrategyId(iamStrategyId);
+   }
 
     @Override
-    public List<IamRole> listByIamDeptId(Long iamDeptId) {
-        return super.getBaseMapper().selectByIamDeptId(iamDeptId);
-    }
+    public List<IamTenantStrategy> listByIamTenantId(Long iamTenantId){
+        return super.getBaseMapper().selectByIamTenantId(iamTenantId);
+   }
 
     // 自动生成外键查询  请勿修改
 
