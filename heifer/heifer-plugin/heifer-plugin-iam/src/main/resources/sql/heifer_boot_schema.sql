@@ -209,7 +209,7 @@ CREATE TABLE `iam_tenant_strategy`  (
 DROP TABLE IF EXISTS iam_tenant_strategy_authority;
 CREATE TABLE `iam_tenant_strategy_authority`  (
   `id` bigint(0) UNSIGNED NOT NULL COMMENT '主键ID',
-  `iam_strategy_id` bigint(0) UNSIGNED NOT NULL COMMENT 'abac权限id',
+  `iam_tenant_strategy_id` bigint(0) UNSIGNED NOT NULL COMMENT 'abac权限id',
   `iam_tenant_id` bigint(0) UNSIGNED NOT NULL COMMENT '组织id',
   `iam_permission_id` bigint(0) UNSIGNED NOT NULL COMMENT '功能权限id',
   `create_by` bigint(0) UNSIGNED NOT NULL,
