@@ -51,7 +51,6 @@ public class ${table.controllerName} extends ${superControllerClass} {
 <#else>
 public class ${table.controllerName} {
 </#if>
-
     private final ${table.serviceName} ${table.serviceName?uncap_first};
 
     /** id查询 */
