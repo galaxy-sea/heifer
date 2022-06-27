@@ -77,7 +77,7 @@
 ## 未来工作安排
 - 近期工作安排
 - swagger
-  - swagger自动添加到Spring Security拦截白名单
+  - swagger自动添加到Spring Security拦截白名单  // 暂停 存在安全问题, 使用者自行处理
 - jdk17 测试
 - iam重构2.0 // 待定
   - abac适配permission的策略 // 待定
