@@ -11,11 +11,10 @@
 
 
     <properties>
-        <revision>0.0.6-SNAPSHOT</revision>
+        <revision>0.0.7-SNAPSHOT</revision>
 
-
-        <spring-boot.version>2.6.7</spring-boot.version>
-        <spring-cloud.version>2021.0.2</spring-cloud.version>
+        <spring-boot.version>2.6.9</spring-boot.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
 
 
@@ -24,16 +23,15 @@
 
         <seata.version>1.4.2</seata.version>
 
-        <xk-time.version>3.2.2.Mini</xk-time.version>
-        <nimbus-jose-jwt.version>9.21</nimbus-jose-jwt.version>
-        <jasypt.version>3.0.3</jasypt.version>
+        <xk-time.version>3.2.3.Mini</xk-time.version>
+        <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
+        <jasypt.version>3.0.4</jasypt.version>
 
         <springfox.version>3.0.0</springfox.version>
         <swagger.version>1.5.20</swagger.version>
         <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
         <libby-http-cache-control.version>2022.1.6</libby-http-cache-control.version>
         <mapstruct>1.5.2.Final</mapstruct>
-        <java.version>17</java.version>
 
         <!-- Maven Plugin Versions -->
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
@@ -41,8 +39,13 @@
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+
+        <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     </properties>
 
     <dependencyManagement>
