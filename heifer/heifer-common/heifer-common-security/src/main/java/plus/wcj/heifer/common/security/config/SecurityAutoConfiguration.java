@@ -123,12 +123,6 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
             .accessDeniedHandler((request, response, accessDeniedException) -> {
                 throw new ResultException(ResultStatusEnum.FORBIDDEN);
             });
-        // .authenticationEntryPoint((request, response, authException) -> {
-        //     throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
-        // })
-        // .accessDeniedHandler((request, response, accessDeniedException) -> {
-        //     throw new ResultException(ResultStatusEnum.FORBIDDEN);
-        // });
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
