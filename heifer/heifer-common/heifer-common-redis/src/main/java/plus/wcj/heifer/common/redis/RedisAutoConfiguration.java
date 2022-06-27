@@ -39,7 +39,6 @@ import org.springframework.integration.redis.util.RedisLockRegistry;
  */
 @EnableCaching
 @EnableConfigurationProperties(CacheProperties.class)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @AutoConfigureOrder(value = Ordered.HIGHEST_PRECEDENCE)
 public class RedisAutoConfiguration {
 
