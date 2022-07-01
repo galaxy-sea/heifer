@@ -35,7 +35,7 @@ import java.util.Date;
  * @author changjin wei(魏昌进)
  * @since 2021/12/22
  */
-public class JwtUtil {
+public final class JwtUtil {
 
     public static final String BEARER = "Bearer ";
 
@@ -47,6 +47,9 @@ public class JwtUtil {
             // 设置密钥 ID ( kid ) 参数。
             // .keyID("kid")
             .build();
+
+    private JwtUtil() {
+    }
 
     /**
      * 序列化 claimsSet
