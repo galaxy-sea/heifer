@@ -20,7 +20,10 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import plus.wcj.heifer.plugin.iam.security.Constant;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -30,12 +33,16 @@ import javax.servlet.http.HttpServletRequest;
  * @author changjin wei(魏昌进)
  * @since 2022/5/27
  */
+@Order(value = Ordered.HIGHEST_PRECEDENCE + 100)
 public class JwtRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        template.header(HttpHeaders.AUTHORIZATION, request.getHeader(HttpHeaders.AUTHORIZATION));
-        template.header(Constant.TENANT_ID, request.getHeader(Constant.TENANT_ID));
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes instanceof ServletRequestAttributes servletRequestAttributes) {
+            HttpServletRequest request = servletRequestAttributes.getRequest();
+            template.header(HttpHeaders.AUTHORIZATION, request.getHeader(HttpHeaders.AUTHORIZATION));
+            template.header(Constant.TENANT_ID, request.getHeader(Constant.TENANT_ID));
+        }
     }
 }
