@@ -17,12 +17,14 @@
 package plus.wcj.heifer.plugin.iam.security;
 
 
+import feign.RequestInterceptor;
 import plus.wcj.heifer.common.security.config.SecurityAutoConfiguration;
 import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
 import plus.wcj.heifer.plugin.iam.security.support.mvc.SecurityUserHandlerMethodArgumentResolver;
 import plus.wcj.heifer.plugin.iam.security.support.mvc.TenantHandlerMethodArgumentResolver;
+import plus.wcj.heifer.plugin.iam.security.support.openfeign.JwtRequestInterceptor;
 
 import lombok.AllArgsConstructor;
 
@@ -59,7 +61,7 @@ public class IamSecurityAutoConfiguration implements WebMvcConfigurer {
 
 
     @Bean
-    @ConditionalOnMissingBean(IamOncePerRequestFilter.class)
+    @ConditionalOnMissingBean
     public IamOncePerRequestFilter authenticationService() {
         return new JwtAuthenticationFilter(handlerExceptionResolver,
                                            jwtProperties,
@@ -68,6 +70,11 @@ public class IamSecurityAutoConfiguration implements WebMvcConfigurer {
         );
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public RequestInterceptor jwtRequestInterceptor() {
+        return new JwtRequestInterceptor();
+    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
