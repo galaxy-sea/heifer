@@ -50,22 +50,23 @@ public class TenantHandlerMethodArgumentResolver implements HandlerMethodArgumen
     @SuppressWarnings("NullableProblems")
     @Override
     public Tenant resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (userPrincipal == null) {
-            throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserPrincipal userPrincipal) {
+            DataPowersDto dataPowersDto = null;
+            if (userPrincipal.getTenantId() != null) {
+                dataPowersDto = userPrincipalService.listPower(userPrincipal.getTenantId(), userPrincipal.getId());
+            }
+            dataPowersDto = DataPowersDto.init(dataPowersDto);
+            return new Tenant(userPrincipal.getId(),
+                              userPrincipal.getUsername(),
+                              userPrincipal.getTenantId(),
+                              dataPowersDto.getDeptId(),
+                              dataPowersDto.getDataPowers(),
+                              dataPowersDto.getTenantDataPower(),
+                              dataPowersDto.getDeptDataPower()
+            );
         }
-        DataPowersDto dataPowersDto = null;
-        if (userPrincipal.getTenantId() != null) {
-            dataPowersDto = userPrincipalService.listPower(userPrincipal.getTenantId(), userPrincipal.getId());
-        }
-        dataPowersDto = DataPowersDto.init(dataPowersDto);
-        return new Tenant(userPrincipal.getId(),
-                          userPrincipal.getUsername(),
-                          userPrincipal.getTenantId(),
-                          dataPowersDto.getDeptId(),
-                          dataPowersDto.getDataPowers(),
-                          dataPowersDto.getTenantDataPower(),
-                          dataPowersDto.getDeptDataPower()
-        );
+        throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
     }
 }

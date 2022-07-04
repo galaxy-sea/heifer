@@ -16,6 +16,8 @@
 
 package plus.wcj.heifer.plugin.iam.security.support.mvc;
 
+import plus.wcj.heifer.metadata.exception.ResultException;
+import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.plugin.iam.security.UserPrincipal;
 
 import org.springframework.core.MethodParameter;
@@ -41,6 +43,10 @@ public class SecurityUserHandlerMethodArgumentResolver implements HandlerMethodA
     @SuppressWarnings("NullableProblems")
     @Override
     public UserPrincipal resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        return (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserPrincipal userPrincipal) {
+            return userPrincipal;
+        }
+        throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
     }
 }
