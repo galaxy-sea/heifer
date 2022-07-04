@@ -20,7 +20,10 @@ package plus.wcj.heifer.plugin.iam.security;
  * @author changjin wei(魏昌进)
  * @since 2022/5/27
  */
-public abstract class Constant {
+public class Constant {
+
     public static final String TENANT_ID = "Tenant-Id";
 
+    private Constant() {
+    }
 }
