@@ -19,9 +19,6 @@ package plus.wcj.heifer.common.redis;
 import plus.wcj.heifer.common.redis.lock.LockService;
 import plus.wcj.heifer.common.redis.lock.LockServiceImpl;
 
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

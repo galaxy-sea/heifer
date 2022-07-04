@@ -19,10 +19,8 @@ package plus.wcj.heifer.boot.mvc;
 import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
 import plus.wcj.heifer.metadata.bean.Result;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.MediaType;

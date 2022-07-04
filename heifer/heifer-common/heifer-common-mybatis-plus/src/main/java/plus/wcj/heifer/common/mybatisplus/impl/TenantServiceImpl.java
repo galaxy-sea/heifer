@@ -35,7 +35,6 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionUtils;
-import plus.wcj.heifer.common.mybatisplus.IService;
 import plus.wcj.heifer.common.mybatisplus.ITenantService;
 
 import org.springframework.beans.factory.annotation.Autowired;

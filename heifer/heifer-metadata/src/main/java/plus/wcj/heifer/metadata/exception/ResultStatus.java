@@ -49,7 +49,7 @@ public interface ResultStatus {
      *
      * @return 枚举名称
      *
-     * @see Enum#name
+     * @see Enum#name()
      */
     String name();
 
