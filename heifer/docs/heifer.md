@@ -393,7 +393,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: heifer.wcj.plus:8848
+        server-addr: nuc8i7.wcj.plus:8848
     gateway:
       discovery:
         locator:

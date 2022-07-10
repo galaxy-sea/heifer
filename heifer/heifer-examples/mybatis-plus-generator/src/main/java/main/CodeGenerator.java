@@ -46,7 +46,7 @@ public class CodeGenerator {
 
     // 新工程需要配置一次 start
     private static final String parent = "main";  // 设置父包名
-    private static final String url = "jdbc:mysql://47.114.167.xxx:3306/heifer_boot?useUnicode=true&useSSL=false&characterEncoding=utf8";
+    private static final String url = "jdbc:mysql://nuc8i7.wcj.plus:3306/heifer_boot?useUnicode=true&useSSL=false&characterEncoding=utf8";
     private static final String username = "root";
     private static final String password = "weichangjin";
 

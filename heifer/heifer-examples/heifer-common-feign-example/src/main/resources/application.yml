@@ -4,7 +4,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: heifer.wcj.plus
+        server-addr: nuc8i7.wcj.plus:8848
 feign:
   okhttp:
     enabled: false

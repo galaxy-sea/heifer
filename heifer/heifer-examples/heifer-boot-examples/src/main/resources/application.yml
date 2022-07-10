@@ -18,7 +18,7 @@ spring:
 
   cloud:
     nacos:
-      server-addr: heifer.wcj.plus:8848
+      server-addr: nuc8i7.wcj.plus:8848
 server:
   # 端口
   port: 8725
@@ -45,7 +45,7 @@ server:
       min-spare: 10
 heifer:
   apisix:
-    server-addr: http://192.168.31.112:9080
+    server-addr: http://nuc8i7.wcj.plus:9080
     server-path: apisix/admin/
     token: edd1c9f034335f136f87ad84b625c8f1
 #logging:
@@ -62,5 +62,5 @@ heifer:
 
 logging:
   logstash:
-    destination: 192.168.31.112:5044
+    destination: nuc8i7.wcj.plus:5044
 
