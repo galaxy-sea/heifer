@@ -40,9 +40,6 @@ import io.swagger.annotations.ApiOperation;
  * @since ${date}
  */
 @ResultResponseBody
-<#if swagger>
-@Api(tags="${table.comment!}")
-</#if>
 <#if restControllerStyle>
 @RestController
 <#else>
@@ -50,6 +47,9 @@ import io.swagger.annotations.ApiOperation;
 </#if>
 @RequestMapping("<#if package.ModuleName?? && package.ModuleName != "">/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
 @RequiredArgsConstructor
+<#if swagger>
+@Api(tags="${table.comment!}")
+</#if>
 <#if kotlin>
 class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
 <#else>
