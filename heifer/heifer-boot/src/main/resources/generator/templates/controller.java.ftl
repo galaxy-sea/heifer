@@ -26,6 +26,10 @@ import org.springframework.stereotype.Controller;
 <#if superControllerClassPackage??>
 import ${superControllerClassPackage};
 </#if>
+<#if swagger>
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+</#if>
 
 /**
  * <p>
@@ -36,6 +40,9 @@ import ${superControllerClassPackage};
  * @since ${date}
  */
 @ResultResponseBody
+<#if swagger>
+@Api(tags="${table.comment!}")
+</#if>
 <#if restControllerStyle>
 @RestController
 <#else>
@@ -56,6 +63,9 @@ public class ${table.controllerName} {
     /** id查询 */
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('${table.entityPath}:get')")
+    <#if swagger>
+    @ApiOperation("id查询")
+    </#if>
     public ${entity} getById(@NotNull @PathVariable Long id) {
         return ${table.serviceName?uncap_first}.getById(id);
     }
@@ -63,6 +73,9 @@ public class ${table.controllerName} {
     /** 分页查询 */
     @GetMapping
     @PreAuthorize("hasAuthority('${table.entityPath}')")
+    <#if swagger>
+    @ApiOperation("分页查询")
+    </#if>
     public Page<${entity}> page(Page<${entity}> page, ${entity} ${entity?uncap_first}, Tenant tenant) {
         return ${table.serviceName?uncap_first}.page(page, ${entity?uncap_first});
     }
@@ -70,6 +83,9 @@ public class ${table.controllerName} {
     /** 保存 */
     @PostMapping
     @PreAuthorize("hasAuthority('${table.entityPath}:post')")
+    <#if swagger>
+    @ApiOperation("保存")
+    </#if>
     public boolean save(@Validated(value = PostValid.class) @RequestBody ${entity} ${entity?uncap_first}, Tenant tenant) {
         return ${table.serviceName?uncap_first}.save(${entity?uncap_first});
     }
@@ -77,6 +93,9 @@ public class ${table.controllerName} {
     /** 修改 */
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('${table.entityPath}:put')")
+    <#if swagger>
+    @ApiOperation("修改")
+    </#if>
     public boolean updateById(@NotNull @PathVariable Long id, @Validated(value = PutValid.class) @RequestBody ${entity} ${entity?uncap_first}) {
         ${entity?uncap_first}.setId(id);
         return ${table.serviceName?uncap_first}.updateById(${entity?uncap_first});
@@ -85,6 +104,9 @@ public class ${table.controllerName} {
     /** id删除 */
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('${table.entityPath}:delete')")
+    <#if swagger>
+    @ApiOperation("id删除")
+    </#if>
     public boolean removeById(@NotNull @PathVariable Long id) {
         return ${table.serviceName?uncap_first}.removeById(id);
     }
