@@ -19,6 +19,8 @@ spring:
   cloud:
     nacos:
       server-addr: nuc8i7.wcj.plus:8848
+  zipkin:
+    base-url: http://nuc8i7.wcj.plus:9411
 server:
   # 端口
   port: 8725
@@ -63,4 +65,5 @@ heifer:
 logging:
   logstash:
     destination: nuc8i7.wcj.plus:5044
+
 
