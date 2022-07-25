@@ -126,53 +126,53 @@ public class ResultExceptionHandler {
     })
     public final ResponseEntity<Result<?>> exceptionHandler(Exception ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
-        if (ex instanceof ResultException) {
-            return this.handleResultException((ResultException) ex, headers, request);
+        if (ex instanceof ResultException resultException) {
+            return this.handleResultException(resultException, headers, request);
         }
-        if (ex instanceof BindException) {
-            return this.handleBindException((BindException) ex, headers, request);
+        if (ex instanceof BindException exception) {
+            return this.handleBindException(exception, headers, request);
         }
-        if (ex instanceof AccessDeniedException) {
-            return this.handleAccessDeniedException((AccessDeniedException) ex, headers, request);
+        if (ex instanceof AccessDeniedException accessDeniedException) {
+            return this.handleAccessDeniedException(accessDeniedException, headers, request);
         }
-        if (ex instanceof HttpRequestMethodNotSupportedException) {
-            return this.handleHttpRequestMethodNotSupportedException((HttpRequestMethodNotSupportedException) ex, headers, request);
+        if (ex instanceof HttpRequestMethodNotSupportedException httpRequestMethodNotSupportedException) {
+            return this.handleHttpRequestMethodNotSupportedException(httpRequestMethodNotSupportedException, headers, request);
         }
-        if (ex instanceof HttpMediaTypeNotSupportedException) {
-            return this.handleHttpMediaTypeNotSupportedException((HttpMediaTypeNotSupportedException) ex, headers, request);
+        if (ex instanceof HttpMediaTypeNotSupportedException httpMediaTypeNotSupportedException) {
+            return this.handleHttpMediaTypeNotSupportedException(httpMediaTypeNotSupportedException, headers, request);
         }
-        if (ex instanceof HttpMediaTypeNotAcceptableException) {
-            return this.handleHttpMediaTypeNotAcceptableException((HttpMediaTypeNotAcceptableException) ex, headers, request);
+        if (ex instanceof HttpMediaTypeNotAcceptableException httpMediaTypeNotAcceptableException) {
+            return this.handleHttpMediaTypeNotAcceptableException(httpMediaTypeNotAcceptableException, headers, request);
         }
-        if (ex instanceof MissingPathVariableException) {
-            return this.handleMissingPathVariableException((MissingPathVariableException) ex, headers, request);
+        if (ex instanceof MissingPathVariableException missingPathVariableException) {
+            return this.handleMissingPathVariableException(missingPathVariableException, headers, request);
         }
-        if (ex instanceof MissingServletRequestParameterException) {
-            return this.handleMissingServletRequestParameterException((MissingServletRequestParameterException) ex, headers, request);
+        if (ex instanceof MissingServletRequestParameterException missingServletRequestParameterException) {
+            return this.handleMissingServletRequestParameterException(missingServletRequestParameterException, headers, request);
         }
-        if (ex instanceof ServletRequestBindingException) {
-            return this.handleServletRequestBindingException((ServletRequestBindingException) ex, headers, request);
+        if (ex instanceof ServletRequestBindingException servletRequestBindingException) {
+            return this.handleServletRequestBindingException(servletRequestBindingException, headers, request);
         }
-        if (ex instanceof ConversionNotSupportedException) {
-            return this.handleConversionNotSupportedException((ConversionNotSupportedException) ex, headers, request);
+        if (ex instanceof ConversionNotSupportedException conversionNotSupportedException) {
+            return this.handleConversionNotSupportedException(conversionNotSupportedException, headers, request);
         }
-        if (ex instanceof TypeMismatchException) {
-            return this.handleTypeMismatchException((TypeMismatchException) ex, headers, request);
+        if (ex instanceof TypeMismatchException typeMismatchException) {
+            return this.handleTypeMismatchException(typeMismatchException, headers, request);
         }
-        if (ex instanceof HttpMessageNotReadableException) {
-            return this.handleHttpMessageNotReadableException((HttpMessageNotReadableException) ex, headers, request);
+        if (ex instanceof HttpMessageNotReadableException httpMessageNotReadableException) {
+            return this.handleHttpMessageNotReadableException(httpMessageNotReadableException, headers, request);
         }
-        if (ex instanceof HttpMessageNotWritableException) {
-            return this.handleHttpMessageNotWritableException((HttpMessageNotWritableException) ex, headers, request);
+        if (ex instanceof HttpMessageNotWritableException httpMessageNotWritableException) {
+            return this.handleHttpMessageNotWritableException(httpMessageNotWritableException, headers, request);
         }
-        if (ex instanceof MissingServletRequestPartException) {
-            return this.handleMissingServletRequestPartException((MissingServletRequestPartException) ex, headers, request);
+        if (ex instanceof MissingServletRequestPartException missingServletRequestPartException) {
+            return this.handleMissingServletRequestPartException(missingServletRequestPartException, headers, request);
         }
-        if (ex instanceof NoHandlerFoundException) {
-            return this.handleNoHandlerFoundException((NoHandlerFoundException) ex, headers, request);
+        if (ex instanceof NoHandlerFoundException noHandlerFoundException) {
+            return this.handleNoHandlerFoundException(noHandlerFoundException, headers, request);
         }
-        if (ex instanceof AsyncRequestTimeoutException) {
-            return this.handleAsyncRequestTimeoutException((AsyncRequestTimeoutException) ex, headers, request);
+        if (ex instanceof AsyncRequestTimeoutException asyncRequestTimeoutException) {
+            return this.handleAsyncRequestTimeoutException(asyncRequestTimeoutException, headers, request);
         }
 
         // TODO: 2019/10/05 galaxy 这里可以自定义其他的异常拦截

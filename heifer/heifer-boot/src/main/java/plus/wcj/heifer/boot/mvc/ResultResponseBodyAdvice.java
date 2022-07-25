@@ -54,8 +54,8 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     }
 
     private Result<?> convert(Object body) {
-        if (body instanceof Result) {
-            return (Result<?>) body;
+        if (body instanceof Result result) {
+            return result;
         }
         return Result.success(body);
     }

@@ -109,7 +109,7 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
             private <T extends RequestMappingInfoHandlerMapping> void customizeSpringfoxHandlerMappings(List<T> mappings) {
                 List<T> copy = mappings.stream()
                                        .filter(mapping -> mapping.getPatternParser() == null)
-                                       .collect(Collectors.toList());
+                                       .toList();
                 mappings.clear();
                 mappings.addAll(copy);
             }
