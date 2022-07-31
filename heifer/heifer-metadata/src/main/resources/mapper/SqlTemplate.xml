@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2021-2022 the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- author=changjin wei(魏昌进) -->
+<!-- since=2022-07-31 -->
+<mapper namespace="plus.wcj.heifer.metadata.tenant.SqlTemplate">
+
+    <sql id="tenant">
+        <choose>
+            <when test="!tenant.deptDataPower">
+                ${tableAlias}.iam_dept_id IN
+                <foreach item="item" index="index" collection="tenant.dataPowers" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </when>
+            <when test="tenant.deptDataPower">
+                ${tableAlias}.iam_tenant_id = #{tenant.tenantId}
+            </when>
+        </choose>
+    </sql>
+</mapper>
