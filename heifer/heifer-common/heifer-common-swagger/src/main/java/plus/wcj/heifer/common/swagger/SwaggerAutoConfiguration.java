@@ -38,9 +38,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
@@ -77,7 +78,7 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
     public Docket docket() {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(this.apiInfo())
-                .ignoredParameterTypes(Tenant.class)
+                .ignoredParameterTypes(HttpServletResponse.class, HttpServletRequest.class, Tenant.class)
                 // .enableUrlTemplating(true)
                 .select()
                 // .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
@@ -126,7 +127,6 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
             }
         };
     }
-
 
 
 }
