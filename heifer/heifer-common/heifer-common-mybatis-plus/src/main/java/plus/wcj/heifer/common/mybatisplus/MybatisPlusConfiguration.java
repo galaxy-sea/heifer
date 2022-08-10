@@ -19,14 +19,12 @@ package plus.wcj.heifer.common.mybatisplus;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author changjin wei(魏昌进)
  * @since 2021/12/20
  */
-@ConditionalOnClass(name = "com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor")
 public class MybatisPlusConfiguration {
 
     @Bean
