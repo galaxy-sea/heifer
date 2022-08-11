@@ -21,6 +21,12 @@ spring:
       server-addr: nuc8i7.wcj.plus:8848
   zipkin:
     base-url: http://nuc8i7.wcj.plus:9411
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: root
+    password: test
 server:
   # 端口
   port: 8725

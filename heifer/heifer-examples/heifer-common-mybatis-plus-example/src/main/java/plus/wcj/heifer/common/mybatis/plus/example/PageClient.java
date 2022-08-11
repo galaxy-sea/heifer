@@ -16,16 +16,20 @@
 
 package plus.wcj.heifer.common.mybatis.plus.example;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 
-@SpringBootApplication
-@EnableFeignClients
-public class HeiferCommonMybatisPlusExampleApplication {
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.web.bind.annotation.GetMapping;
 
-    public static void main(String[] args) {
-        SpringApplication.run(HeiferCommonMybatisPlusExampleApplication.class, args);
-    }
+/**
+ * @author changjin wei(魏昌进)
+ * @since 2022/8/10
+ */
+@FeignClient(value = "heifer-boot-examples", path = "page")
+public interface PageClient {
+
+    @GetMapping
+    PageDTO pageDTO(@SpringQueryMap PageDTO pageDTO);
 
 }
