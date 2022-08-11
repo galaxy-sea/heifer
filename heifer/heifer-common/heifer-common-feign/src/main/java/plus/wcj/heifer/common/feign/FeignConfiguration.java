@@ -16,6 +16,7 @@
 
 package plus.wcj.heifer.common.feign;
 
+import feign.QueryMapEncoder;
 import feign.codec.Decoder;
 import feign.optionals.OptionalDecoder;
 
@@ -52,4 +53,13 @@ public class FeignConfiguration {
     public Decoder feignDecoder(ObjectProvider<HttpMessageConverterCustomizer> customizers) {
         return new OptionalDecoder(new ResponseEntityDecoder(new ResultDecoder(new SpringDecoder(this.messageConverters, customizers))));
     }
+
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnClass(name = {"com.baomidou.mybatisplus.core.metadata.IPage"})
+    public QueryMapEncoder pageSpringQueryMapEncoder() {
+        return new PageSpringQueryMapEncoder();
+    }
+
 }
