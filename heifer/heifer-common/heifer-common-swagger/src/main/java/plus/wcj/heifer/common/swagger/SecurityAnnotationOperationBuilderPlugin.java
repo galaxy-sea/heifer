@@ -45,6 +45,9 @@ public class SecurityAnnotationOperationBuilderPlugin implements OperationBuilde
         Optional<IgnoreWebSecurity> ignoreWebSecurity = context.findAnnotation(IgnoreWebSecurity.class)
                                                                .or(() -> context.findControllerAnnotation(IgnoreWebSecurity.class));
         if (ignoreWebSecurity.isEmpty()) {
+
+            securityNotes.append("`Authorization required` ");
+
             context.findAnnotation(PostAuthorize.class)
                    .or(() -> context.findControllerAnnotation(PostAuthorize.class))
                    .ifPresent(ann -> securityNotes.append("**PostAuthorize:** `").append(ann.value()).append("`"));
@@ -60,6 +63,8 @@ public class SecurityAnnotationOperationBuilderPlugin implements OperationBuilde
             context.findAnnotation(PreFilter.class)
                    .or(() -> context.findControllerAnnotation(PreFilter.class))
                    .ifPresent(ann -> securityNotes.append("**PreFilter:** `").append(ann.value()).append("`"));
+        } else {
+            securityNotes.append("`IgnoreWebSecurity`");
         }
         if (securityNotes.length() > 0) {
             String notes = context.operationBuilder().build().getNotes();
