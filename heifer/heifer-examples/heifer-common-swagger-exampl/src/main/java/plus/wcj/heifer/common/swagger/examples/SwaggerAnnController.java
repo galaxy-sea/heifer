@@ -1,5 +1,8 @@
 package plus.wcj.heifer.common.swagger.examples;
 
+import com.baomidou.mybatisplus.annotation.OrderBy;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
 import plus.wcj.heifer.metadata.tenant.Tenant;
@@ -49,7 +52,7 @@ public class SwaggerAnnController {
     @GetMapping("not")
     @ResultResponseBody
     @PreAuthorize("hasAuthority('admin123123')")
-    public Tenant testUser(Tenant tenant) {
+    public Tenant testUser(Tenant tenant, Tenant tenant2, Tenant tenant3, Tenant tenant4, @OrderByValid IPage<Tenant> page) {
         return tenant;
     }
 
