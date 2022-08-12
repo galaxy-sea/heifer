@@ -40,10 +40,6 @@ import java.util.StringJoiner;
  * @since 2022/8/12
  */
 public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlugin {
-
-    // TODO: 2022/8/12 changjin wei(魏昌进) 未测试， 未注册bean托管
-
-
     @Override
     public void apply(OperationContext context) {
         List<ResolvedMethodParameter> parameters = context.getParameters();
@@ -53,34 +49,49 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
             Class<?> erasedType = resolvedMethodParameter.getParameterType().getErasedType();
             if (IPage.class.isAssignableFrom(erasedType)) {
                 Optional<OrderByValid> annotation = resolvedMethodParameter.findAnnotation(OrderByValid.class);
-                List<String> orderItems = null;
-                if (annotation.isEmpty() || annotation.get().field() == null || annotation.get().field().length == 0) {
-                    ResolvedType boundType = resolvedMethodParameter.getParameterType().getTypeBindings().getBoundType(0);
-                    if (boundType != null) {
-                        Class<?> orderClass = boundType.getErasedType();
-                        orderItems = TableInfoHelper.getAllFields(orderClass)
-                                                    .stream()
-                                                    .map(Field::getName)
-                                                    .toList();
+                List<String> orderItems = this.toOrderItems(annotation);
 
-                    }
-                } else {
-                    String[] field = annotation.get().field();
-                    orderItems = Arrays.asList(field);
+                if (CollectionUtils.isEmpty(orderItems)) {
+                    orderItems = this.toOrderItems(resolvedMethodParameter);
                 }
 
                 if (!CollectionUtils.isEmpty(orderItems)) {
-                    StringJoiner stringJoiner = new StringJoiner(", ");
-                    for (String orderItem : orderItems) {
-                        stringJoiner.add(orderItem);
-                    }
-                    String notes = context.operationBuilder().build().getNotes();
-                    notes = StringUtils.hasText(notes) ? notes + "<br />" + stringJoiner : stringJoiner.toString();
-                    context.operationBuilder().notes(notes);
+                    this.joinNotes(orderItems, context);
                 }
                 return;
             }
         }
+    }
+
+    private void joinNotes(List<String> orderItems, OperationContext context) {
+        StringJoiner stringJoiner = new StringJoiner("` `", "`", "`");
+        for (String orderItem : orderItems) {
+            stringJoiner.add(orderItem);
+        }
+        String notes = context.operationBuilder().build().getNotes();
+        String order = "**OrderBy Field:** " + stringJoiner;
+
+        notes = StringUtils.hasText(notes) ? notes + "<p />" + order : order;
+        context.operationBuilder().notes(notes);
+    }
+
+    private List<String> toOrderItems(Optional<OrderByValid> annotation) {
+        if (annotation.isEmpty() || annotation.get().field() == null || annotation.get().field().length == 0) {
+            return null;
+        }
+        return Arrays.asList(annotation.get().field());
+    }
+
+    private List<String> toOrderItems(ResolvedMethodParameter resolvedMethodParameter) {
+        ResolvedType boundType = resolvedMethodParameter.getParameterType().getTypeBindings().getBoundType(0);
+        if (boundType == null) {
+            return null;
+        }
+        Class<?> orderClass = boundType.getErasedType();
+        return TableInfoHelper.getAllFields(orderClass)
+                              .stream()
+                              .map(Field::getName)
+                              .toList();
     }
 
     @Override

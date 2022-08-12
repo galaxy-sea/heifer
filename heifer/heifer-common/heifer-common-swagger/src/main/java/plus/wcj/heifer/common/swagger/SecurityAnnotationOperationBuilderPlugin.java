@@ -47,23 +47,23 @@ public class SecurityAnnotationOperationBuilderPlugin implements OperationBuilde
         if (ignoreWebSecurity.isEmpty()) {
             context.findAnnotation(PostAuthorize.class)
                    .or(() -> context.findControllerAnnotation(PostAuthorize.class))
-                   .ifPresent(ann -> securityNotes.append("**@PostAuthorize:** `").append(ann.value()).append("`"));
+                   .ifPresent(ann -> securityNotes.append("**PostAuthorize:** `").append(ann.value()).append("`"));
 
             context.findAnnotation(PostFilter.class)
                    .or(() -> context.findControllerAnnotation(PostFilter.class))
-                   .ifPresent(ann -> securityNotes.append("**@PostFilter:** `").append(ann.value()).append("`"));
+                   .ifPresent(ann -> securityNotes.append("**PostFilter:** `").append(ann.value()).append("`"));
 
             context.findAnnotation(PreAuthorize.class)
                    .or(() -> context.findControllerAnnotation(PreAuthorize.class))
-                   .ifPresent(ann -> securityNotes.append("**@PreAuthorize:** `").append(ann.value()).append("`"));
+                   .ifPresent(ann -> securityNotes.append("**PreAuthorize:** `").append(ann.value()).append("`"));
 
             context.findAnnotation(PreFilter.class)
                    .or(() -> context.findControllerAnnotation(PreFilter.class))
-                   .ifPresent(ann -> securityNotes.append("**@PreFilter:** `").append(ann.value()).append("`"));
+                   .ifPresent(ann -> securityNotes.append("**PreFilter:** `").append(ann.value()).append("`"));
         }
         if (securityNotes.length() > 0) {
             String notes = context.operationBuilder().build().getNotes();
-            notes = StringUtils.hasText(notes) ? notes + "<br />" + securityNotes : securityNotes.toString();
+            notes = StringUtils.hasText(notes) ? notes + "<p />" + securityNotes : securityNotes.toString();
             context.operationBuilder().notes(notes);
         }
     }

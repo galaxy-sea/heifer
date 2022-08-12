@@ -72,6 +72,16 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
         return new SecurityAnnotationOperationBuilderPlugin();
     }
 
+    @Bean
+    @ConditionalOnClass(name = {
+           "plus.wcj.heifer.common.mybatisplus.validation.OrderByValid"
+    })
+    public OrderByFieldsOperationBuilderPlugin orderByFieldsOperationBuilderPlugin() {
+        return new OrderByFieldsOperationBuilderPlugin();
+    }
+
+
+
 
     @Bean
     @ConditionalOnMissingBean
