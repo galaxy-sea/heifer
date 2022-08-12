@@ -17,8 +17,11 @@
 package plus.wcj.heifer.boot.examples;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
+import plus.wck.heifer.api.User;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,15 +36,17 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("page")
+@Validated
 public class PageController {
 
     @GetMapping
     public IPage pageDTO(IPage pageDTO, HttpServletRequest request, @RequestParam(value = "test", required = false) List<Long> test) {
+        return pageDTO;
+    }
 
 
-
-
-
+    @GetMapping("valid")
+    public IPage<User> pageDTO(@OrderByValid Page<User> pageDTO) {
         return pageDTO;
     }
 }

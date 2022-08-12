@@ -52,6 +52,7 @@ import org.springframework.web.context.request.async.AsyncRequestTimeoutExceptio
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.nio.file.AccessDeniedException;
 
 /**
@@ -103,6 +104,8 @@ public class ResultExceptionHandler {
             // 已知异常  虽然在这里重新添加一遍很傻逼，但是也许有个小可爱在if写了一样的代码呐
             // validation
             BindException.class,
+            ConstraintViolationException.class,
+
             // security
             // BadCredentialsException.class,
             AccessDeniedException.class,
@@ -131,6 +134,9 @@ public class ResultExceptionHandler {
         }
         if (ex instanceof BindException exception) {
             return this.handleBindException(exception, headers, request);
+        }
+        if (ex instanceof ConstraintViolationException exception) {
+            return this.handleConstraintViolationException(exception, headers, request);
         }
         if (ex instanceof AccessDeniedException accessDeniedException) {
             return this.handleAccessDeniedException(accessDeniedException, headers, request);
@@ -179,6 +185,9 @@ public class ResultExceptionHandler {
         return this.handleException(ex, headers, request);
     }
 
+    private ResponseEntity<Result<?>> handleConstraintViolationException(ConstraintViolationException ex, HttpHeaders headers, WebRequest request) {
+        return this.handleExceptionInternal(ResultStatusEnum.BAD_REQUEST, ex, headers, request);
+    }
 
     /**
      * 自定义异常处理
