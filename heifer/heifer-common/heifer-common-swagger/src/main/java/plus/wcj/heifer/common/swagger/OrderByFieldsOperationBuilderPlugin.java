@@ -26,6 +26,7 @@ import springfox.documentation.spi.service.OperationBuilderPlugin;
 import springfox.documentation.spi.service.contexts.OperationContext;
 import springfox.documentation.swagger.common.SwaggerPluginSupport;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -39,6 +40,7 @@ import java.util.StringJoiner;
  * @author changjin wei(魏昌进)
  * @since 2022/8/12
  */
+@Order(SwaggerPluginSupport.OAS_PLUGIN_ORDER + 101)
 public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlugin {
     @Override
     public void apply(OperationContext context) {
