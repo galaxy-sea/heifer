@@ -28,6 +28,7 @@ import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -78,6 +79,14 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
     })
     public OrderByFieldsOperationBuilderPlugin orderByFieldsOperationBuilderPlugin() {
         return new OrderByFieldsOperationBuilderPlugin();
+    }
+
+    @Bean
+    @ConditionalOnBean(name = {
+           "plus.wcj.heifer.boot.mvc.ResultResponseBodyAdvice"
+    })
+    public ResultResponseOperationBuilderPlugin resultResponseOperationBuilderPlugin() {
+        return new ResultResponseOperationBuilderPlugin();
     }
 
 
