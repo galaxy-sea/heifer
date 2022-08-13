@@ -46,7 +46,7 @@ public class SecurityAnnotationOperationBuilderPlugin implements OperationBuilde
                                                                .or(() -> context.findControllerAnnotation(IgnoreWebSecurity.class));
         if (ignoreWebSecurity.isEmpty()) {
 
-            securityNotes.append("`Authorization required` ");
+            securityNotes.append("**Authorization:** `required` ");
 
             context.findAnnotation(PostAuthorize.class)
                    .or(() -> context.findControllerAnnotation(PostAuthorize.class))

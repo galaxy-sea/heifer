@@ -82,8 +82,8 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    @ConditionalOnBean(name = {
-           "plus.wcj.heifer.boot.mvc.ResultResponseBodyAdvice"
+    @ConditionalOnClass(name = {
+           "plus.wcj.heifer.metadata.annotation.ResultResponseBody"
     })
     public ResultResponseOperationBuilderPlugin resultResponseOperationBuilderPlugin() {
         return new ResultResponseOperationBuilderPlugin();

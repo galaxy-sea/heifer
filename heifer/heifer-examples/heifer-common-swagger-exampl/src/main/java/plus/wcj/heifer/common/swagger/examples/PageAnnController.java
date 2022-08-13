@@ -57,4 +57,11 @@ public class PageAnnController {
         return page;
     }
 
+    @GetMapping("all")
+    @ResultResponseBody
+    @PreAuthorize("hasAuthority('admin123123')")
+    public Page<Tenant> all(Page<Tenant> page) {
+        return page;
+    }
+
 }
