@@ -40,6 +40,8 @@ public @interface OrderByValid {
 
     String[] field() default {};
 
+    String[] excludeField() default {};
+
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

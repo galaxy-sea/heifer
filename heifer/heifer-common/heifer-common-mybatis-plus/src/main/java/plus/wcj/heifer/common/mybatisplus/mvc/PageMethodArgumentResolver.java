@@ -40,7 +40,7 @@ import java.util.List;
 public class PageMethodArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return IPage.class.equals(parameter.getParameterType());
+        return IPage.class.isAssignableFrom(parameter.getParameterType());
     }
 
     @Override
@@ -62,7 +62,7 @@ public class PageMethodArgumentResolver implements HandlerMethodArgumentResolver
         for (int i = 0; ; i++) {
             String column = webRequest.getParameter(Constant.ORDERS + "[" + i + "].column");
             String asc = webRequest.getParameter(Constant.ORDERS + "[" + i + "].asc");
-            if (!StringUtils.hasText(column)){
+            if (!StringUtils.hasText(column)) {
                 return orderItemList;
             }
             orderItemList.add(new OrderItem(column, this.isAsc(asc)));
@@ -70,12 +70,9 @@ public class PageMethodArgumentResolver implements HandlerMethodArgumentResolver
     }
 
 
-    private boolean isAsc(String asc){
-        return!StringUtils.hasText(asc) || "true".equals(asc);
+    private boolean isAsc(String asc) {
+        return !StringUtils.hasText(asc) || "true".equals(asc);
     }
-
-
-
 
 
     private long getLong(NativeWebRequest webRequest, String name) {

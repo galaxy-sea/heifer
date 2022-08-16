@@ -57,6 +57,8 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
                     orderItems = this.toOrderItems(resolvedMethodParameter);
                 }
 
+                List.of(annotation.get().excludeField()).forEach(orderItems::remove);
+
                 if (!CollectionUtils.isEmpty(orderItems)) {
                     this.joinNotes(orderItems, context);
                 }
@@ -79,15 +81,15 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
 
     private List<String> toOrderItems(Optional<OrderByValid> annotation) {
         if (annotation.isEmpty() || annotation.get().field() == null || annotation.get().field().length == 0) {
-            return null;
+            return List.of();
         }
-        return Arrays.asList(annotation.get().field());
+        return Arrays.stream(annotation.get().field()).toList();
     }
 
     private List<String> toOrderItems(ResolvedMethodParameter resolvedMethodParameter) {
         ResolvedType boundType = resolvedMethodParameter.getParameterType().getTypeBindings().getBoundType(0);
         if (boundType == null) {
-            return null;
+            return List.of();
         }
         Class<?> orderClass = boundType.getErasedType();
         return TableInfoHelper.getAllFields(orderClass)

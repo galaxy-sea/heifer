@@ -75,6 +75,8 @@ public class OrderByValidator implements ConstraintValidator<OrderByValid, IPage
             Class<?> orderClass = this.getOrderClass();
             this.field = this.toField(orderClass);
         }
+
+        List.of(constraintAnnotation.excludeField()).forEach(this.field::remove);
     }
 
     private Set<String> toField(Class<?> orderClass) {
