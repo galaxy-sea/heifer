@@ -27,7 +27,7 @@
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
         <jasypt.version>3.0.4</jasypt.version>
 
-        <springfox.version>3.0.0</springfox.version>
+        <knife4j.version>3.0.3</knife4j.version>
         <swagger.version>1.5.20</swagger.version>
         <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
         <libby-http-cache-control.version>2022.1.6</libby-http-cache-control.version>
@@ -128,10 +128,11 @@
             </dependency>
 
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${springfox.version}</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>

@@ -28,15 +28,13 @@ import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,16 +49,8 @@ import java.util.List;
  */
 @Configuration
 @PropertySource("classpath:swagger.properties")
-public class SwaggerAutoConfiguration implements WebMvcConfigurer {
-
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.
-                addResourceHandler("/swagger-ui/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-                .resourceChain(false);
-    }
+@AutoConfigureBefore(com.github.xiaoymin.knife4j.spring.configuration.Knife4jAutoConfiguration.class)
+public class SwaggerAutoConfiguration {
 
     @Bean
     @ConditionalOnClass(name = {
@@ -75,7 +65,7 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnClass(name = {
-           "plus.wcj.heifer.common.mybatisplus.validation.OrderByValid"
+            "plus.wcj.heifer.common.mybatisplus.validation.OrderByValid"
     })
     public OrderByFieldsOperationBuilderPlugin orderByFieldsOperationBuilderPlugin() {
         return new OrderByFieldsOperationBuilderPlugin();
@@ -83,13 +73,20 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnClass(name = {
-           "plus.wcj.heifer.metadata.annotation.ResultResponseBody"
+            "plus.wcj.heifer.metadata.annotation.ResultResponseBody"
     })
     public ResultResponseOperationBuilderPlugin resultResponseOperationBuilderPlugin() {
         return new ResultResponseOperationBuilderPlugin();
     }
 
 
+    @Bean
+    @ConditionalOnClass(name = {
+            "com.baomidou.mybatisplus.core.metadata.IPage"
+    })
+    public PageIgnoreOperationBuilderPlugin pageIgnoreOperationBuilderPlugin() {
+        return new PageIgnoreOperationBuilderPlugin();
+    }
 
 
     @Bean
