@@ -56,11 +56,8 @@ public class OrderByValidator implements ConstraintValidator<OrderByValid, IPage
         for (OrderItem order : orders) {
             if (!field.contains(order.getColumn())) {
                 context.disableDefaultConstraintViolation();
-                context
-                        .buildConstraintViolationWithTemplate("User  already exists!")
+                context.buildConstraintViolationWithTemplate("SQL injection")
                         .addConstraintViolation();
-
-
                 return false;
             }
         }
