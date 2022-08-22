@@ -57,13 +57,19 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
                     orderItems = this.toOrderItems(resolvedMethodParameter);
                 }
 
-                List.of(annotation.get().excludeField()).forEach(orderItems::remove);
+                this.excludeField(orderItems, annotation);
 
                 if (!CollectionUtils.isEmpty(orderItems)) {
                     this.joinNotes(orderItems, context);
                 }
                 return;
             }
+        }
+    }
+
+    private void excludeField(List<String> orderItems, Optional<OrderByValid> annotation) {
+        if (annotation.isPresent()) {
+            List.of(annotation.get().excludeField()).forEach(orderItems::remove);
         }
     }
 
@@ -100,7 +106,7 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
 
     @Override
     public boolean supports(DocumentationType delimiter) {
-        return SwaggerPluginSupport.pluginDoesApply(delimiter);
+        return true;
     }
 
 

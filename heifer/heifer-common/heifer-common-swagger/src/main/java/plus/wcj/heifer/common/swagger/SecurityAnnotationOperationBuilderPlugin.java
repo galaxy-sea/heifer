@@ -75,6 +75,6 @@ public class SecurityAnnotationOperationBuilderPlugin implements OperationBuilde
 
     @Override
     public boolean supports(final DocumentationType delimiter) {
-        return SwaggerPluginSupport.pluginDoesApply(delimiter);
+        return true;
     }
 }
