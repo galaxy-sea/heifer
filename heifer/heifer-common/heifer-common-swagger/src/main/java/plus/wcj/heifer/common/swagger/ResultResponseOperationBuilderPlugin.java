@@ -41,7 +41,7 @@ public class ResultResponseOperationBuilderPlugin implements OperationBuilderPlu
 
         if (resultResponseBody.isPresent()) {
             String notes = context.operationBuilder().build().getNotes();
-            notes = StringUtils.hasText(notes) ? notes + "<p />" + "`ResultResponseBody`" : "`ResultResponseBody`";
+            notes = StringUtils.hasText(notes) ? notes + "<p />" + "**ResponseBody**: `Result`" : "`**ResponseBody**: `Result`";
             context.operationBuilder().notes(notes);
         }
 
