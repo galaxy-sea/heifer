@@ -49,6 +49,6 @@ public class ResultResponseOperationBuilderPlugin implements OperationBuilderPlu
 
     @Override
     public boolean supports(DocumentationType delimiter) {
-        return  true;
+        return true;
     }
 }
