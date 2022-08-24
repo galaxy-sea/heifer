@@ -17,6 +17,7 @@
 package plus.wcj.heifer.common.swagger;
 
 import plus.wcj.heifer.metadata.tenant.Tenant;
+import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -29,6 +30,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 @PropertySource("classpath:swagger.properties")
 @AutoConfigureBefore(com.github.xiaoymin.knife4j.spring.configuration.Knife4jAutoConfiguration.class)
+@Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerAutoConfiguration {
 
     @Bean
