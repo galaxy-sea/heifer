@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2022/6/20
  */
 @Configuration
-@PropertySource("classpath:swagger.properties")
+@PropertySource("classpath:application-swagger.properties")
 @AutoConfigureBefore(com.github.xiaoymin.knife4j.spring.configuration.Knife4jAutoConfiguration.class)
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerAutoConfiguration {
