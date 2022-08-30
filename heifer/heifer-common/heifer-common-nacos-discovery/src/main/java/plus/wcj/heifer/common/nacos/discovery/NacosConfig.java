@@ -16,7 +16,9 @@
 
 package plus.wcj.heifer.common.nacos.discovery;
 
+import com.alibaba.cloud.nacos.registry.NacosRegistration;
 import com.alibaba.cloud.nacos.registry.NacosRegistrationCustomizer;
+import com.alibaba.cloud.nacos.registry.NacosServiceRegistry;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.info.BuildProperties;
@@ -83,5 +85,10 @@ public class NacosConfig {
             metadata.put("project.version", buildProperties.getVersion());
             metadata.put("project.buildTime", dateTimeFormatter.format(buildProperties.getTime()));
         };
+    }
+
+    @Bean
+    public NacosServiceRegistryManage nacosServiceRegistryManage(NacosServiceRegistry nacosServiceRegistry, NacosRegistration nacosRegistration){
+        return new NacosServiceRegistryManage(nacosServiceRegistry, nacosRegistration);
     }
 }
