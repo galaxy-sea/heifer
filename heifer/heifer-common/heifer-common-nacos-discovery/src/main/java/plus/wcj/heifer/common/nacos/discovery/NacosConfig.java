@@ -17,7 +17,6 @@
 package plus.wcj.heifer.common.nacos.discovery;
 
 import com.alibaba.cloud.nacos.registry.NacosRegistration;
-import com.alibaba.cloud.nacos.registry.NacosRegistrationCustomizer;
 import com.alibaba.cloud.nacos.registry.NacosServiceRegistry;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -38,15 +37,10 @@ import java.util.Properties;
 public class NacosConfig {
 
     @Bean
-    public NacosRegistrationCustomizer jdkMetadata() {
+    public InstancePreRegisteredEventListener jdkMetadata() {
         return registration -> {
             Map<String, String> metadata = registration.getMetadata();
             Properties properties = System.getProperties();
-            // 项目启动pid
-            metadata.put("PID", properties.getProperty("PID"));
-            // 项的启动时间
-            metadata.put("startTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
 
             // Java版本
             metadata.put("java.version", properties.getProperty("java.version"));
@@ -70,14 +64,10 @@ public class NacosConfig {
 
     /**
      * see <a href="https://juejin.cn/post/6962294037122383886#heading-2">maven spring-boot-maven-plugin</a>
-     *
-     * @param buildProperties buildProperties info
-     *
-     * @return NacosRegistrationCustomizer
      */
     @Bean
     @ConditionalOnBean(BuildProperties.class)
-    public NacosRegistrationCustomizer buildPropertiesMetadata(BuildProperties buildProperties) {
+    public InstancePreRegisteredEventListener buildPropertiesMetadata(BuildProperties buildProperties) {
         return registration -> {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -88,7 +78,26 @@ public class NacosConfig {
     }
 
     @Bean
-    public NacosServiceRegistryManage nacosServiceRegistryManage(NacosServiceRegistry nacosServiceRegistry, NacosRegistration nacosRegistration){
+    public InstancePreRegisteredEventListener startMetadata() {
+        return new InstancePreRegisteredEventListener() {
+            private final String PID = System.getProperties().getProperty("PID");
+            private final String startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+            @Override
+            public void onApplicationEvent(NacosRegistration nacosRegistration) {
+                Map<String, String> metadata = nacosRegistration.getMetadata();
+                Properties properties = System.getProperties();
+                // 项目启动pid
+                metadata.put("PID", PID);
+                // 项的启动时间
+                metadata.put("startTime", startTime);
+            }
+
+        };
+    }
+
+    @Bean
+    public NacosServiceRegistryManage nacosServiceRegistryManage(NacosServiceRegistry nacosServiceRegistry, NacosRegistration nacosRegistration) {
         return new NacosServiceRegistryManage(nacosServiceRegistry, nacosRegistration);
     }
 }
