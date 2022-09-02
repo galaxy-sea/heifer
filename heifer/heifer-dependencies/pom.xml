@@ -214,6 +214,11 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-redis-discovery</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
                 <artifactId>heifer-common-security</artifactId>
                 <version>${revision}</version>
             </dependency>
