@@ -27,6 +27,12 @@
 
         <dependency>
             <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-nacos-discovery</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
             <artifactId>heifer-metadata</artifactId>
         </dependency>
 
