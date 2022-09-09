@@ -7,9 +7,9 @@ spring:
         server-addr: nuc8i7.wcj.plus:8848
 feign:
   okhttp:
-    enabled: false
-  httpclient:
     enabled: true
+  httpclient:
+    enabled: false
 libby:
   ok-http:
     cache-directory: "./libby"
