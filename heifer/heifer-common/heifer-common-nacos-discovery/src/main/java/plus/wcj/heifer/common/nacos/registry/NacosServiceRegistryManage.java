@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.nacos.discovery;
+package plus.wcj.heifer.common.nacos.registry;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.registry.NacosRegistration;
@@ -23,6 +23,8 @@ import com.alibaba.cloud.nacos.registry.NacosServiceRegistry;
 import java.util.Map;
 
 /**
+ * 修改 nacos metadata
+ *
  * @author changjin wei(魏昌进)
  * @since 2022/8/29
  */
@@ -37,6 +39,12 @@ public class NacosServiceRegistryManage {
         this.nacosRegistration = nacosRegistration;
     }
 
+    /**
+     * 全量更新nacos metadata.
+     * 初始化时候的metadata是可以覆盖但是无法删除
+     *
+     * @param metadata 元数据
+     */
     public void updateMetadata(Map<String, String> metadata) {
         NacosDiscoveryProperties nacosDiscoveryProperties = nacosRegistration.getNacosDiscoveryProperties();
         nacosDiscoveryProperties.setMetadata(metadata);

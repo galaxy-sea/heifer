@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.nacos.discovery;
+package plus.wcj.heifer.common.nacos.registry;
 
 import com.alibaba.cloud.nacos.registry.NacosRegistration;
 import com.alibaba.cloud.nacos.registry.NacosServiceRegistry;
