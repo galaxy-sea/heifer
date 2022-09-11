@@ -19,7 +19,7 @@ package plus.wcj.heifer.common.feign;
 import feign.FeignException;
 import feign.Response;
 import feign.codec.Decoder;
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.bean.Result;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class ResultDecoder implements Decoder {
     @Override
     public Object decode(Response response, Type type) throws IOException, FeignException {
         Method method = response.request().requestTemplate().methodMetadata().method();
-        boolean isResult = method.getReturnType() != Result.class && method.isAnnotationPresent(ResultResponseBody.class);
+        boolean isResult = method.getReturnType() != Result.class && method.isAnnotationPresent(ResponseBodyResult.class);
         if (isResult) {
             ParameterizedTypeImpl resultType = new ParameterizedTypeImpl(Result.class, new Type[]{type});
             Result<?> result = (Result<?>) this.decoder.decode(response, resultType);

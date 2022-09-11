@@ -16,7 +16,7 @@
 
 package plus.wcj.heifer.plugin.aliyun.oss;
 
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +37,7 @@ import java.util.WeakHashMap;
  * @since 2022/2/22
  */
 @RestController
-@ResultResponseBody
+@ResponseBodyResult
 @RequestMapping("/oss")
 public class OssController {
 

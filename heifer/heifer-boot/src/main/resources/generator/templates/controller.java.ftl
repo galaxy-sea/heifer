@@ -3,7 +3,7 @@ package ${package.Controller};
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
 import org.springframework.web.bind.annotation.RequestMapping;
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.tenant.Tenant;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ import io.swagger.annotations.ApiOperation;
  * @author ${author}
  * @since ${date}
  */
-@ResultResponseBody
+@ResponseBodyResult
 <#if restControllerStyle>
 @RestController
 <#else>

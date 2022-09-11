@@ -18,7 +18,7 @@ package plus.wcj.heifer.plugin.iam.controller;
 
 
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.plugin.iam.dto.JwtDto;
 import plus.wcj.heifer.plugin.iam.dto.LoginDto;
 import plus.wcj.heifer.plugin.iam.dto.TenantDto;
@@ -51,7 +51,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@ResultResponseBody
+@ResponseBodyResult
 public class AuthController {
 
     private final AuthService authService;

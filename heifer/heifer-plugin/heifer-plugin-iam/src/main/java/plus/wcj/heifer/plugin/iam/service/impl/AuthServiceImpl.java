@@ -30,7 +30,7 @@ import plus.wcj.heifer.plugin.iam.dto.RoleDto;
 import plus.wcj.heifer.plugin.iam.dto.TenantDto;
 import plus.wcj.heifer.plugin.iam.service.AbacCustomizeService;
 import plus.wcj.heifer.plugin.iam.service.AuthService;
-import plus.wcj.heifer.tools.utils.JwtUtil;
+import plus.wcj.heifer.tools.util.JwtUtils;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -85,12 +85,12 @@ public class AuthServiceImpl implements AuthService, UserPrincipalService {
                 .issueTime(new Date())
                 // jti – JWT ID 声明
                 .jwtID(account.getId().toString()).build();
-        String jwt = JwtUtil.createJwt(claimsSet, jwtProperties.getKey());
+        String jwt = JwtUtils.createJwt(claimsSet, jwtProperties.getKey());
         return new JwtDto(jwt);
     }
 
     public List<TenantDto> listAllTenant(String authorization) {
-        JWTClaimsSet jwtClaimsSet = JwtUtil.parseAuthorization(authorization, jwtProperties.getKey());
+        JWTClaimsSet jwtClaimsSet = JwtUtils.parseAuthorization(authorization, jwtProperties.getKey());
         String accountId = jwtClaimsSet.getJWTID();
         return authDao.selectAllTenant(accountId);
     }

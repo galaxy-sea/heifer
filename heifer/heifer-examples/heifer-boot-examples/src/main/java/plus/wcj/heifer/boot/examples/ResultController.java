@@ -16,7 +16,7 @@
 
 package plus.wcj.heifer.boot.examples;
 
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.bean.Result;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
@@ -36,7 +36,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping
-@ResultResponseBody
+@ResponseBodyResult
 public class ResultController {
 
     @GetMapping("hello")

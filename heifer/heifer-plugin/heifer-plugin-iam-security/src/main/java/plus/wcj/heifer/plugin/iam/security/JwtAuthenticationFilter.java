@@ -24,7 +24,7 @@ import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
-import plus.wcj.heifer.tools.utils.JwtUtil;
+import plus.wcj.heifer.tools.util.JwtUtils;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -94,11 +94,11 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
         String cacheKey = authorization + ":" + tenantId;
 
         UserPrincipal userPrincipal = cache.get(cacheKey, key -> {
-            JWTClaimsSet jwtClaimsSet = JwtUtil.parseAuthorization(authorization, jwtProperties.getKey());
+            JWTClaimsSet jwtClaimsSet = JwtUtils.parseAuthorization(authorization, jwtProperties.getKey());
             return this.getUserPrincipal(jwtClaimsSet, tenantId);
         });
 
-        if (JwtUtil.isValidExp(userPrincipal.getExpirationTime(), new Date())) {
+        if (JwtUtils.isValidExp(userPrincipal.getExpirationTime(), new Date())) {
             cache.invalidate(cacheKey);
             throw new ResultException(ResultStatusEnum.EXPIRED_TOKEN);
         }

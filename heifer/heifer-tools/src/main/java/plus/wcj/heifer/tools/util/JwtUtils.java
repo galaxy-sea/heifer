@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.tools.utils;
+package plus.wcj.heifer.tools.util;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JOSEObjectType;
@@ -35,7 +35,7 @@ import java.util.Date;
  * @author changjin wei(魏昌进)
  * @since 2021/12/22
  */
-public final class JwtUtil {
+public final class JwtUtils {
 
     public static final String BEARER = "Bearer ";
 
@@ -48,7 +48,7 @@ public final class JwtUtil {
             // .keyID("kid")
             .build();
 
-    private JwtUtil() {
+    private JwtUtils() {
     }
 
     /**

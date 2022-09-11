@@ -32,5 +32,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
 @ResponseBody
-public @interface ResultResponseBody {
+public @interface ResponseBodyResult {
 }

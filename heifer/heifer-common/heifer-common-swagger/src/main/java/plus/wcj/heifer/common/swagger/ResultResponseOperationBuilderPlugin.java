@@ -16,7 +16,7 @@
 
 package plus.wcj.heifer.common.swagger;
 
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.OperationBuilderPlugin;
 import springfox.documentation.spi.service.contexts.OperationContext;
@@ -36,8 +36,8 @@ public class ResultResponseOperationBuilderPlugin implements OperationBuilderPlu
 
     @Override
     public void apply(OperationContext context) {
-        Optional<ResultResponseBody> resultResponseBody = context.findAnnotation(ResultResponseBody.class)
-                                                                 .or(() -> context.findControllerAnnotation(ResultResponseBody.class));
+        Optional<ResponseBodyResult> resultResponseBody = context.findAnnotation(ResponseBodyResult.class)
+                                                                 .or(() -> context.findControllerAnnotation(ResponseBodyResult.class));
 
         if (resultResponseBody.isPresent()) {
             String notes = context.operationBuilder().build().getNotes();

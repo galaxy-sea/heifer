@@ -16,7 +16,7 @@
 
 package plus.wck.heifer.api;
 
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.bean.Result;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +44,7 @@ public interface UserService {
      * @return User
      */
     @RequestMapping(method = RequestMethod.GET, value = "/Resultv1")
-    @ResultResponseBody
+    @ResponseBodyResult
     User getResultv1();
 
     /**
@@ -52,6 +52,6 @@ public interface UserService {
      * @return {@link Result}
      */
     @RequestMapping(method = RequestMethod.GET, value = "/Resulv2")
-    @ResultResponseBody
+    @ResponseBodyResult
     Result<User> getResultv2();
 }

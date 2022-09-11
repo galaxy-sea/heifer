@@ -16,7 +16,7 @@
 
 package plus.wcj.heifer.boot.mvc;
 
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.bean.Result;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     /** 判断类或者方法是否使用了 @ResponseResultBody */
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResultResponseBody.class) || returnType.hasMethodAnnotation(ResultResponseBody.class);
+        return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBodyResult.class) || returnType.hasMethodAnnotation(ResponseBodyResult.class);
     }
 
     /** 当类或者方法使用了 @ResponseResultBody 就会调用这个方法 */

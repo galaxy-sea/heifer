@@ -20,7 +20,7 @@ package plus.wcj.heifer.plugin.iam.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import plus.wcj.heifer.metadata.annotation.PostValid;
 import plus.wcj.heifer.metadata.annotation.PutValid;
-import plus.wcj.heifer.metadata.annotation.ResultResponseBody;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.tenant.Tenant;
 import plus.wcj.heifer.plugin.iam.entity.IamTenant;
 import plus.wcj.heifer.plugin.iam.service.IamTenantService;
@@ -48,7 +48,7 @@ import javax.validation.constraints.NotNull;
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
-@ResultResponseBody
+@ResponseBodyResult
 @RestController
 @RequestMapping("/iam/iamTenant")
 @RequiredArgsConstructor

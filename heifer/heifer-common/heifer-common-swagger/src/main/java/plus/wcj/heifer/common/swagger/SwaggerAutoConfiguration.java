@@ -68,7 +68,7 @@ public class SwaggerAutoConfiguration {
 
     @Bean
     @ConditionalOnClass(name = {
-            "plus.wcj.heifer.metadata.annotation.ResultResponseBody"
+            "plus.wcj.heifer.metadata.annotation.ResponseBodyResult"
     })
     public ResultResponseOperationBuilderPlugin resultResponseOperationBuilderPlugin() {
         return new ResultResponseOperationBuilderPlugin();
