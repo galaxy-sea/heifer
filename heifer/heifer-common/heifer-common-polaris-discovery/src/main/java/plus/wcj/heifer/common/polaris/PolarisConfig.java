@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.nacos.registry;
+package plus.wcj.heifer.common.polaris;
 
-import com.alibaba.cloud.nacos.registry.NacosRegistration;
-import com.alibaba.cloud.nacos.registry.NacosServiceRegistry;
+import com.tencent.cloud.polaris.registry.PolarisRegistration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.info.BuildProperties;
@@ -31,13 +30,11 @@ import java.util.Properties;
 
 /**
  * @author changjin wei(魏昌进)
- * @since 2021/12/31
+ * @since 2022/9/12
  */
-
-public class NacosConfig {
-
+public class PolarisConfig {
     @Bean
-    public NacosInstancePreRegisteredEventListener jdkMetadata() {
+    public PolarisInstancePreRegisteredEventListener jdkMetadata() {
         return registration -> {
             Map<String, String> metadata = registration.getMetadata();
             Properties properties = System.getProperties();
@@ -67,7 +64,7 @@ public class NacosConfig {
      */
     @Bean
     @ConditionalOnBean(BuildProperties.class)
-    public NacosInstancePreRegisteredEventListener buildPropertiesMetadata(BuildProperties buildProperties) {
+    public PolarisInstancePreRegisteredEventListener buildPropertiesMetadata(BuildProperties buildProperties) {
         return registration -> {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -78,13 +75,13 @@ public class NacosConfig {
     }
 
     @Bean
-    public NacosInstancePreRegisteredEventListener startMetadata() {
-        return new NacosInstancePreRegisteredEventListener() {
+    public PolarisInstancePreRegisteredEventListener startMetadata() {
+        return new PolarisInstancePreRegisteredEventListener() {
             private final String PID = System.getProperties().getProperty("PID");
             private final String startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
             @Override
-            public void onApplicationEvent(NacosRegistration registration) {
+            public void onApplicationEvent(PolarisRegistration registration) {
                 Map<String, String> metadata = registration.getMetadata();
                 Properties properties = System.getProperties();
                 // 项目启动pid
@@ -94,10 +91,5 @@ public class NacosConfig {
             }
 
         };
-    }
-
-    @Bean
-    public NacosServiceRegistryManage nacosServiceRegistryManage(NacosServiceRegistry nacosServiceRegistry, NacosRegistration nacosRegistration) {
-        return new NacosServiceRegistryManage(nacosServiceRegistry, nacosRegistration);
     }
 }

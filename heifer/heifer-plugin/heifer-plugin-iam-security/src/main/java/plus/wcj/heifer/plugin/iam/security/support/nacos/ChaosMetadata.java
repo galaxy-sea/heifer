@@ -17,7 +17,7 @@
 package plus.wcj.heifer.plugin.iam.security.support.nacos;
 
 import com.alibaba.cloud.nacos.registry.NacosRegistration;
-import plus.wcj.heifer.common.nacos.registry.InstancePreRegisteredEventListener;
+import plus.wcj.heifer.common.nacos.registry.NacosInstancePreRegisteredEventListener;
 import plus.wcj.heifer.common.nacos.registry.NacosServiceRegistryManage;
 
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,7 +28,7 @@ import java.util.Map;
  * @author changjin wei(魏昌进)
  * @since 2022/8/31
  */
-public class ChaosMetadata implements InstancePreRegisteredEventListener {
+public class ChaosMetadata implements NacosInstancePreRegisteredEventListener {
 
     private final NacosServiceRegistryManage nacosServiceRegistryManage;
 

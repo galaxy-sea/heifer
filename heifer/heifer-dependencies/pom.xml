@@ -222,6 +222,16 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-polaris-discovery</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-discovery</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
                 <artifactId>heifer-common-redis</artifactId>
                 <version>${revision}</version>
             </dependency>

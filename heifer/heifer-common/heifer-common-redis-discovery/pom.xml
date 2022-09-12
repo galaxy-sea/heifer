@@ -21,7 +21,7 @@
     <parent>
         <artifactId>heifer-common</artifactId>
         <groupId>plus.wcj</groupId>
-        <version>0.0.7-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
