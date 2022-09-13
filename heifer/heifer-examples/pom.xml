@@ -25,6 +25,7 @@
         <module>heifer-common-apisix-example</module>
         <module>heifer-common-swagger-exampl</module>
         <module>mybatis-plus-generator</module>
+        <module>heifer-common-polaris-discovery-examples</module>
     </modules>
 
     <properties>

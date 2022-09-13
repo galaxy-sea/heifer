@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: heifer-common-nacos-discovery-example
+  cloud:
+    polaris:
+      address: grpc://nuc8i7.wcj.plus:8091
+      namespace: default
+
