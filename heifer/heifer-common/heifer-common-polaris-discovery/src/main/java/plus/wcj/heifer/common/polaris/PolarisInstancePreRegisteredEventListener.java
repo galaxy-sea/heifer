@@ -32,7 +32,7 @@ public interface PolarisInstancePreRegisteredEventListener extends InstancePreRe
      * TODO: 2022/9/12 changjin wei(魏昌进)  这里有个bug， com.tencent.cloud.polaris.registry.PolarisRegistration#getMetadata()115
      * 注册的时候会触发一次， 如果Polaris相关配置改变也会触发， 如修改metadata
      *
-     * @param polarisRegistration nacos注册实例
+     * @param polarisRegistration polaris注册实例
      */
     @Override
     void onApplicationEvent(PolarisRegistration polarisRegistration);
