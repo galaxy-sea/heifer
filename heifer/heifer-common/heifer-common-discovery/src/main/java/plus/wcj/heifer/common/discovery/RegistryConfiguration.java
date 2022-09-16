@@ -16,10 +16,7 @@
 
 package plus.wcj.heifer.common.discovery;
 
-import com.alibaba.cloud.nacos.registry.NacosRegistration;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.context.annotation.Bean;
@@ -36,8 +33,6 @@ import java.util.Properties;
  * @author changjin wei(魏昌进)
  * @since 2022/9/12
  */
-// TODO: 2022/9/13 changjin wei(魏昌进) see https://github.com/Tencent/spring-cloud-tencent/pull/583
-@ConditionalOnClass(NacosRegistration.class)
 public class RegistryConfiguration {
 
     @Bean

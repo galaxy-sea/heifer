@@ -19,8 +19,6 @@ package plus.wcj.heifer.common.discovery;
 import org.springframework.cloud.client.discovery.event.InstancePreRegisteredEvent;
 import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 
 /**
  * 再向注册中心注册前做一些特殊操作
@@ -30,10 +28,14 @@ import org.springframework.core.annotation.Order;
  */
 public interface InstancePreRegisteredEventListener<T extends Registration> {
 
-
+    /**
+     * 注册中心注册前的事件
+     *
+     * @param instancePreRegisteredEvent An event to fire before a service is registered.
+     */
     @EventListener
-    @Order(Ordered.HIGHEST_PRECEDENCE)
     default void onApplicationEvent(InstancePreRegisteredEvent instancePreRegisteredEvent) {
+        @SuppressWarnings("unchecked")
         T registration = (T) instancePreRegisteredEvent.getRegistration();
         onApplicationEvent(registration);
     }
@@ -41,7 +43,7 @@ public interface InstancePreRegisteredEventListener<T extends Registration> {
     /**
      * 注册中心注册前的事件
      *
-     * @param nacosRegistration nacos注册实例
+     * @param registration nacos注册实例
      */
     void onApplicationEvent(T registration);
 
