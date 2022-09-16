@@ -19,6 +19,9 @@ package plus.wcj.heifer.common.polaris.discovery.example;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -28,4 +31,12 @@ public class HeiferCommonPolarisDiscoveryExampleApplication {
         SpringApplication.run(HeiferCommonPolarisDiscoveryExampleApplication.class, args);
     }
 
+    @RequestMapping("hello")
+    @RestController
+    public static class TestCo{
+        @GetMapping
+        public String hello(){
+            return "hello";
+        }
+    }
 }
