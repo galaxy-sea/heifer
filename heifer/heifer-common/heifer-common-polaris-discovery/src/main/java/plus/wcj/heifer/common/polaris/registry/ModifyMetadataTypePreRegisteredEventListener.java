@@ -47,7 +47,7 @@ public class ModifyMetadataTypePreRegisteredEventListener implements PolarisInst
         Field metadataField = ReflectionUtils.findField(polarisRegistration.getClass(), "metadata");
         if (metadataField != null) {
             Map<String, String> metadata = new HashMap<>(polarisRegistration.getMetadata());
-            metadataField.setAccessible(true);
+            ReflectionUtils.makeAccessible(metadataField);
             ReflectionUtils.setField(metadataField, polarisRegistration, metadata);
         }
     }
