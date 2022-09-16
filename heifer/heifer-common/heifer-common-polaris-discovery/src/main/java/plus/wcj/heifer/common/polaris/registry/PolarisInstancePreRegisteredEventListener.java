@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.polaris;
+package plus.wcj.heifer.common.polaris.registry;
 
 import com.tencent.cloud.polaris.registry.PolarisRegistration;
 import plus.wcj.heifer.common.discovery.InstancePreRegisteredEventListener;
@@ -28,8 +28,6 @@ import plus.wcj.heifer.common.discovery.InstancePreRegisteredEventListener;
 public interface PolarisInstancePreRegisteredEventListener extends InstancePreRegisteredEventListener<PolarisRegistration> {
 
     /**
-     *
-     * TODO: 2022/9/12 changjin wei(魏昌进)  这里有个bug， com.tencent.cloud.polaris.registry.PolarisRegistration#getMetadata()115
      * 注册的时候会触发一次， 如果Polaris相关配置改变也会触发， 如修改metadata
      *
      * @param polarisRegistration polaris注册实例
