@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.nacos.registry;
+package plus.wcj.heifer.common.nacos;
 
 import com.alibaba.cloud.nacos.registry.NacosRegistration;
 import com.alibaba.cloud.nacos.registry.NacosServiceRegistry;
+import plus.wcj.heifer.common.nacos.registry.NacosServiceRegistryManage;
 
 import org.springframework.context.annotation.Bean;
 
