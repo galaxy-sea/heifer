@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.security;
+package plus.wcj.heifer.plugin.iam.security.support.registry;
+
+import plus.wcj.heifer.plugin.iam.security.util.ChaosUtils;
 
 /**
- * 为了满足ABAC模型 让每一个微服务都可以自定义自己的功能权限
- *
  * @author changjin wei(魏昌进)
- * @since 2022/6/10
+ * @since 2022/9/18
  */
-public interface UserPrincipalCustomizeService {
+public class ChaosMetadata {
 
-    /**
-     * 自定义UserPrincipal的数据
-     *
-     * @param iamUserDetails 用户信息
-     */
-    void customizeUserPrincipal(IamUserDetails iamUserDetails);
+    private final String chaos = ChaosUtils.gen();
 
+    public String getChaos() {
+        return chaos;
+    }
 }

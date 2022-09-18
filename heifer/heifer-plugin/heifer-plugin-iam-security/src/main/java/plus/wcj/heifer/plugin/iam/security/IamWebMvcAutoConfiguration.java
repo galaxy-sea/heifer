@@ -17,19 +17,21 @@
 package plus.wcj.heifer.plugin.iam.security;
 
 
-import feign.RequestInterceptor;
 import plus.wcj.heifer.common.security.config.SecurityAutoConfiguration;
 import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
+import plus.wcj.heifer.plugin.iam.security.support.mvc.ChaosAuthenticationFilter;
+import plus.wcj.heifer.plugin.iam.security.support.mvc.JwtAuthenticationFilter;
 import plus.wcj.heifer.plugin.iam.security.support.mvc.SecurityUserHandlerMethodArgumentResolver;
 import plus.wcj.heifer.plugin.iam.security.support.mvc.TenantHandlerMethodArgumentResolver;
-import plus.wcj.heifer.plugin.iam.security.support.openfeign.JwtRequestInterceptor;
+import plus.wcj.heifer.plugin.iam.security.support.registry.ChaosMetadata;
 
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -51,7 +53,7 @@ import java.util.List;
 @AutoConfigureBefore(SecurityAutoConfiguration.class)
 @EnableWebSecurity
 @AllArgsConstructor
-public class IamSecurityAutoConfiguration implements WebMvcConfigurer {
+public class IamWebMvcAutoConfiguration implements WebMvcConfigurer {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtProperties jwtProperties;
@@ -62,7 +64,7 @@ public class IamSecurityAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
-    public IamOncePerRequestFilter authenticationService() {
+    public IamOncePerRequestFilter iamOncePerRequestFilter() {
         return new JwtAuthenticationFilter(handlerExceptionResolver,
                                            jwtProperties,
                                            userPrincipalService,
@@ -72,8 +74,9 @@ public class IamSecurityAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
-    public RequestInterceptor jwtRequestInterceptor() {
-        return new JwtRequestInterceptor();
+    @ConditionalOnBean(ChaosMetadata.class)
+    public ChaosAuthenticationFilter chaosAuthenticationFilter(ChaosMetadata chaosMetadata) {
+        return new ChaosAuthenticationFilter(handlerExceptionResolver, chaosMetadata);
     }
 
     @Override

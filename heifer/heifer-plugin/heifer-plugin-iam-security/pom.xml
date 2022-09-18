@@ -33,6 +33,12 @@
 
         <dependency>
             <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-feign</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
             <artifactId>heifer-metadata</artifactId>
         </dependency>
 

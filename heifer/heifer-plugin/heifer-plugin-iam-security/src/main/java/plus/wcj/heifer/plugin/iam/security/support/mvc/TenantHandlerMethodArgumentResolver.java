@@ -21,7 +21,7 @@ import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.metadata.tenant.DataPowersDto;
 import plus.wcj.heifer.metadata.tenant.Tenant;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
-import plus.wcj.heifer.plugin.iam.security.UserPrincipal;
+import plus.wcj.heifer.plugin.iam.security.IamUserDetails;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,15 +52,15 @@ public class TenantHandlerMethodArgumentResolver implements HandlerMethodArgumen
     public Tenant resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserPrincipal userPrincipal) {
+        if (principal instanceof IamUserDetails iamUserDetails) {
             DataPowersDto dataPowersDto = null;
-            if (userPrincipal.getTenantId() != null) {
-                dataPowersDto = userPrincipalService.listPower(userPrincipal.getTenantId(), userPrincipal.getId());
+            if (iamUserDetails.getTenantId() != null) {
+                dataPowersDto = userPrincipalService.listPower(iamUserDetails.getTenantId(), iamUserDetails.getId());
             }
             dataPowersDto = DataPowersDto.init(dataPowersDto);
-            return new Tenant(userPrincipal.getId(),
-                              userPrincipal.getUsername(),
-                              userPrincipal.getTenantId(),
+            return new Tenant(iamUserDetails.getId(),
+                              iamUserDetails.getUsername(),
+                              iamUserDetails.getTenantId(),
                               dataPowersDto.getDeptId(),
                               dataPowersDto.getDataPowers(),
                               dataPowersDto.getTenantDataPower(),

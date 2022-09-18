@@ -17,7 +17,7 @@
 package plus.wcj.heifer.plugin.saas.differentiation.service;
 
 import plus.wcj.heifer.metadata.exception.ResultException;
-import plus.wcj.heifer.plugin.iam.security.UserPrincipal;
+import plus.wcj.heifer.plugin.iam.security.IamUserDetails;
 import plus.wcj.heifer.plugin.saas.differentiation.SaaSResultStatus;
 
 import org.springframework.beans.factory.ObjectProvider;
@@ -58,8 +58,8 @@ public final class SaaSProvider<T> {
 
 
     public T get() {
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Collection<? extends GrantedAuthority> authorities = userPrincipal.getAuthorities();
+        IamUserDetails iamUserDetails = (IamUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Collection<? extends GrantedAuthority> authorities = iamUserDetails.getAuthorities();
         for (GrantedAuthority authority : authorities) {
             String permission = authority.getAuthority();
             T saasService = saasServiceMap.get(permission);

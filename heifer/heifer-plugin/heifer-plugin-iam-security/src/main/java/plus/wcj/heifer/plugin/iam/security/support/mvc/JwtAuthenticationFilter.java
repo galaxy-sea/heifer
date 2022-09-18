@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.security;
+package plus.wcj.heifer.plugin.iam.security.support.mvc;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -24,6 +24,9 @@ import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
 import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
+import plus.wcj.heifer.plugin.iam.security.Constant;
+import plus.wcj.heifer.plugin.iam.security.IamUserDetails;
+import plus.wcj.heifer.plugin.iam.security.UserPrincipalCustomizeService;
 import plus.wcj.heifer.tools.util.JwtUtils;
 
 import org.springframework.http.HttpHeaders;
@@ -51,10 +54,10 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
 
     private final List<UserPrincipalCustomizeService> UserPrincipalCustomizeServiceLists;
 
-    private final Cache<String, UserPrincipal> cache = Caffeine.newBuilder()
-                                                               .expireAfterAccess(10, TimeUnit.MINUTES)
-                                                               .maximumSize(10000)
-                                                               .build();
+    private final Cache<String, IamUserDetails> cache = Caffeine.newBuilder()
+                                                                .expireAfterAccess(10, TimeUnit.MINUTES)
+                                                                .maximumSize(10000)
+                                                                .build();
 
 
     public JwtAuthenticationFilter(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties, UserPrincipalService userPrincipalService, List<UserPrincipalCustomizeService> userPrincipalCustomizeServiceLists) {
@@ -68,7 +71,7 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         try {
             String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-            if (StringUtils.hasText(authorization)) {
+            if (StringUtils.hasText(authorization) && authorization.startsWith(JwtUtils.BEARER)) {
                 String tenantId = request.getHeader(Constant.TENANT_ID);
                 UsernamePasswordAuthenticationToken authentication = this.toAuthentication(authorization, tenantId);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -93,41 +96,41 @@ public class JwtAuthenticationFilter extends IamOncePerRequestFilter {
 
         String cacheKey = authorization + ":" + tenantId;
 
-        UserPrincipal userPrincipal = cache.get(cacheKey, key -> {
+        IamUserDetails iamUserDetails = cache.get(cacheKey, key -> {
             JWTClaimsSet jwtClaimsSet = JwtUtils.parseAuthorization(authorization, jwtProperties.getKey());
             return this.getUserPrincipal(jwtClaimsSet, tenantId);
         });
 
-        if (JwtUtils.isValidExp(userPrincipal.getExpirationTime(), new Date())) {
+        if (JwtUtils.isValidExp(iamUserDetails.getExpirationTime(), new Date())) {
             cache.invalidate(cacheKey);
             throw new ResultException(ResultStatusEnum.EXPIRED_TOKEN);
         }
 
-        if (userPrincipal.getTenantId() != null) {
-            List<String> allPermission = userPrincipalService.listPermission(userPrincipal.getId(), userPrincipal.getTenantId());
-            userPrincipal.setPermissions(allPermission);
+        if (iamUserDetails.getTenantId() != null) {
+            List<String> allPermission = userPrincipalService.listPermission(iamUserDetails.getId(), iamUserDetails.getTenantId());
+            iamUserDetails.setPermissions(allPermission);
         }
 
         for (UserPrincipalCustomizeService customizeService : UserPrincipalCustomizeServiceLists) {
-            customizeService.customizeUserPrincipal(userPrincipal);
+            customizeService.customizeUserPrincipal(iamUserDetails);
         }
-        return new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(iamUserDetails, null, iamUserDetails.getAuthorities());
     }
 
 
     /**
-     * 获取{@link UserPrincipal}
+     * 获取{@link plus.wcj.heifer.plugin.iam.security.IamUserDetails}
      *
      * @param jwtClaimsSet JSON Web Token (JWT) claims set.
      * @param tenantId_ 租户id 可以为null
      *
      * @return UserPrincipal
      */
-    private UserPrincipal getUserPrincipal(JWTClaimsSet jwtClaimsSet, String tenantId_) {
+    private IamUserDetails getUserPrincipal(JWTClaimsSet jwtClaimsSet, String tenantId_) {
         Date expirationTime = jwtClaimsSet.getExpirationTime();
         Long accountId = Long.valueOf(jwtClaimsSet.getJWTID());
         String username = jwtClaimsSet.getSubject();
         Long tenantId = StringUtils.hasText(tenantId_) ? null : NumberUtils.parseNumber(tenantId_, Long.class);
-        return new UserPrincipal(accountId, username, tenantId, true, expirationTime);
+        return new IamUserDetails(accountId, username, tenantId, true, expirationTime);
     }
 }

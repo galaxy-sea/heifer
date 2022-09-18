@@ -24,6 +24,10 @@ public final class Constant {
 
     public static final String TENANT_ID = "Tenant-Id";
 
+    public static final String CHAOS_PREFIX = "Chaos ";
+
+    public static final String CHAOS_KEY = "chaos";
+
     private Constant() {
     }
 }

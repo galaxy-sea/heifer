@@ -16,107 +16,33 @@
 
 package plus.wcj.heifer.plugin.iam.security;
 
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
- * <p>
- * 自定义User
- * </p>
- *
  * @author changjin wei(魏昌进)
- * @since 2022-01-13
+ * @since 2022/9/18
  */
-public class UserPrincipal implements UserDetails {
-    /** 主键 */
-    private final Long id;
+public interface UserPrincipal {
 
-    /** 用户名 */
-    private final String username;
-
-    /** 密码 */
-    private String password;
-
-    /** 状态，启用-1，禁用-0 */
-    private final boolean isEnabled;
-
-    /** 租户id */
-    private final Long tenantId;
-    private List<? extends GrantedAuthority> authorities;
-
-    private final Date expirationTime;
-    private final Map<String, String> metadata;
-
-    public UserPrincipal(Long id, String username, Long tenantId, boolean isEnabled, Date expirationTime) {
-        this.id = id;
-        this.username = username;
-        this.isEnabled = isEnabled;
-        this.tenantId = tenantId;
-        this.expirationTime = expirationTime;
-        this.metadata = new LinkedHashMap<>();
+    default void setPermissions(List<String> permissions) {
+        throw new UnsupportedOperationException();
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+    default Long getId() {
+        throw new UnsupportedOperationException();
     }
 
-    public void setPermissions(List<String> permissions) {
-        this.authorities = permissions.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    default Long getTenantId() {
+        throw new UnsupportedOperationException();
     }
 
-    @Override
-    public String getPassword() {
-        return this.password;
+    default Date getExpirationTime() {
+        throw new UnsupportedOperationException();
     }
 
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.isEnabled;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public Date getExpirationTime() {
-        return expirationTime;
-    }
-
-    public Map<String, String> getMetadata() {
-        return metadata;
+    default Map<String, String> getMetadata() {
+        throw new UnsupportedOperationException();
     }
 }

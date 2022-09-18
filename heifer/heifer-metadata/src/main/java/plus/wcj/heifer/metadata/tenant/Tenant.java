@@ -28,7 +28,6 @@ import java.util.List;
  */
 @Getter
 @EqualsAndHashCode
-@RequiredArgsConstructor
 public class Tenant {
     /** 用户id */
     private final Long accountId;
@@ -48,4 +47,14 @@ public class Tenant {
     private final boolean tenantDataPower;
     /** 是否拥有当前tenant下的全部dept权限，租户管理员权限 */
     private final boolean deptDataPower;
+
+    public Tenant(Long accountId, String username, Long tenantId, Long deptId, List<Long> dataPowers, boolean tenantDataPower, boolean deptDataPower) {
+        this.accountId = accountId;
+        this.username = username;
+        this.tenantId = tenantId;
+        this.deptId = deptId;
+        this.dataPowers = dataPowers;
+        this.tenantDataPower = tenantDataPower;
+        this.deptDataPower = deptDataPower;
+    }
 }
