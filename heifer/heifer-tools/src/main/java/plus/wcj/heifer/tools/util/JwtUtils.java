@@ -80,7 +80,7 @@ public final class JwtUtils {
      * @return {@link JWTClaimsSet}
      */
     public static JWTClaimsSet parseAuthorization(String authorization, String key) {
-        String jwt = authorization.startsWith(BEARER) ? authorization.substring(BEARER.length()) : authorization;
+        String jwt = authorization.substring(BEARER.length());
         return parseJwt(jwt, key);
     }
 
