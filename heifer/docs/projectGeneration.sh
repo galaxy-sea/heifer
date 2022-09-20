@@ -15,23 +15,30 @@
 # limitations under the License.
 #
 
-heiferVersion="0.0.7-SNAPSHOT"
 group=
 artifact=
 name=
-description=
 package=
-# 17, 11, 8
+description=
+# 17, 11, 1.8
 java=
 # Cloud, Boot
-architecture=
+archetype=
+
+# ============
+heiferVersion="0.0.7-SNAPSHOT"
+BootVersion="0.0.7-SNAPSHOT"
+CloudVersion="0.0.7-SNAPSHOT"
+# ============
+
 
 funStart() {
     clear
     funTitle
     funProjectMetadata
-    loading
+    funLoading
     funEchoProjectMetadata
+    funGenerateProject
 }
 
 funTitle() {
@@ -39,7 +46,7 @@ funTitle() {
     echo "Welcome to heifer initializr. You don't have many choices here"
     echo "Heifer version: $heiferVersion"
     echo
-    loading
+    funLoading
     echo "Please enter project metadata"
     echo
 }
@@ -68,14 +75,6 @@ funProjectMetadata() {
         fi
     fi
 
-    if [ -z "${description}" ]; then
-        echo "description default: $artifact project for Heifer"
-        read -p "Description: " description
-        if [ -z "${description}" ]; then
-            description="$artifact project for Heifer"
-        fi
-    fi
-
     if [ -z "${package}" ]; then
         echo "Package name default: $group.$artifact"
         read -p "Package name: " package
@@ -84,63 +83,31 @@ funProjectMetadata() {
         fi
     fi
 
-    #    echo "Java version Optional: 17* 11 8"
-    #    read -p "Java version: " java
-    #    if [ -z "${java}" ]; then
-    #        java="17"
-    #    fi
-
-    if [ -z "${java}" ]; then
-        PS3='Java version optional: '
-        options=("Java 17 default" "Java 11" "Java 8")
-        select opt in "${options[@]}"; do
-            case $opt in
-            "Java 17 default")
-                java="17"
-                break
-                ;;
-            "Java 11")
-                echo "you chose choice 2"
-                java="17"
-                break
-                ;;
-            "Java 8")
-                echo "you chose choice 3"
-                java="8"
-                break
-                ;;
-            *)
-                java="17"
-                break
-                ;;
-            esac
-        done
+    if [ -z "${description}" ]; then
+        echo "description default: $artifact project for Heifer"
+        read -p "Description: " description
+        if [ -z "${description}" ]; then
+            description="$artifact project for Heifer"
+        fi
     fi
 
-    #    echo "Application architecture Optional: Cloud* Boot"
-    #    read -p "Application architecture: " architecture
-    #    if [ -z "${architecture}" ]; then
-    #        architecture="Cloud"
+    if [ -z "${java}" ]; then
+        echo "Java version Optional: 17* 11 8"
+        read -p "Java version: " java
+        case $java in
+        11) java="11" ;;
+        8) java="1.8" ;;
+        *) java="17" ;;
+        esac
+    fi
 
-    if [ -z "${architecture}" ]; then
-        PS3='Application architecture optional: '
-        options=("Cloud default" "Boot")
-        select opt in "${options[@]}"; do
-            case $opt in
-            "Cloud default")
-                architecture="Cloud"
-                break
-                ;;
-            "Boot")
-                architecture="Boot"
-                break
-                ;;
-            *)
-                architecture="Cloud"
-                break
-                ;;
-            esac
-        done
+    if [ -z "${archetype}" ]; then
+        echo "Application archetype Optional: Cloud* Boot"
+        read -p "Application archetype: " archetype
+        case $archetype in
+        "Boot") archetype="Boot" ;;
+        *) archetype="Cloud" ;;
+        esac
     fi
 }
 
@@ -154,20 +121,45 @@ funEchoProjectMetadata() {
     echo "Group: $group"
     echo "Artifact: $artifact"
     echo "Name: $name"
-    echo "Description: $description"
     echo "Package name: $package"
+    echo "Description: $description"
     echo "Java version: $java"
-    echo "Application architecture: $architecture"
+    echo "Application archetype: $archetype"
 
 }
 
-loading() {
+funLoading() {
     mark=''
     for ((ratio = 0; ${ratio} <= 100; ratio += 5)); do
         sleep 0.1
         printf "loading: [%-40s]%d%%\r" "${mark}" "${ratio}"
         mark="##${mark}"
     done
+}
+
+funGenerateProject() {
+    nameDirectory=${package//.//}
+    if [ "$archetype" = "Boot" ]; then
+        funCreateBootDirectory
+        funCreateBootFile
+    else
+        funCreateCloudDirectory
+        funCreateCloudFile
+    fi
+}
+
+funCreateBootDirectory() {
+    mkdir -vp $name/src/{main,test}/{java/$nameDirectory,resources}
+}
+
+funCreateCloudDirectory() {
+    mkdir -vp $name/{$name-api,$name-web,$name-start}/src/{main,test}/{java/$nameDirectory,resources}
+}
+funCreateBootFile(){
+
+}
+funCreateCloudFile(){
+
 }
 
 funStart
