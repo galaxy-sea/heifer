@@ -3,6 +3,10 @@ package $package;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * @author $author
+ * @since $since
+ */
 @SpringBootTest
 class $ApplicationNameApplicationTests {
 
