@@ -32,8 +32,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-
+// TODO: 2022/9/23 changjin wei(魏昌进) bug EnableWebSecurity重复了
 @EnableWebSecurity
+// TODO: 2022/9/23 changjin wei(魏昌进) bug  巨石服务下不应该引入
 @EnableFeignClients(clients = UserPrincipalClient.class)
 public @interface EnableIamWebSecurity {
 }
