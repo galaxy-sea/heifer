@@ -51,7 +51,6 @@ import java.util.List;
  * @since 2022-01-13
  */
 @AutoConfigureBefore(SecurityAutoConfiguration.class)
-@EnableWebSecurity
 @AllArgsConstructor
 public class IamWebMvcAutoConfiguration implements WebMvcConfigurer {
 

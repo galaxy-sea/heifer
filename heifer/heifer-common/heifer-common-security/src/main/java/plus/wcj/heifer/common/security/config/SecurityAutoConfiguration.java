@@ -60,7 +60,6 @@ import java.util.Set;
  * @since 2022-01-13
  */
 @Configuration
-@EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableConfigurationProperties(IgnoreWebSecurityProperties.class)
