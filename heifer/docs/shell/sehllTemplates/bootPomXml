@@ -20,6 +20,32 @@
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-boot</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-boot</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-mybatis-plus</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-plugin-iam</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-plugin-iam-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-common-swagger</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

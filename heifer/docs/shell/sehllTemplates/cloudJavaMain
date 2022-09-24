@@ -1,12 +1,19 @@
 package $package;
 
+import plus.wcj.heifer.plugin.iam.security.EnableIamWebSecurity;
+import springfox.documentation.oas.annotations.EnableOpenApi;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author $author
  * @since $since
  */
+@EnableOpenApi
+@EnableFeignClients
+@EnableIamWebSecurity
 @SpringBootApplication
 public class $ApplicationNameApplication {
 
