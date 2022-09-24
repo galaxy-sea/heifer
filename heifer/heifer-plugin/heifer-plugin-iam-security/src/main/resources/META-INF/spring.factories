@@ -2,4 +2,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   plus.wcj.heifer.plugin.iam.security.IamWebMvcAutoConfiguration,\
   plus.wcj.heifer.plugin.iam.security.support.IamFeignAutoAutoConfiguration,\
-  plus.wcj.heifer.plugin.iam.security.support.IamRegistryAutoAutoConfiguration
+  plus.wcj.heifer.plugin.iam.security.support.IamRegistryAutoAutoConfiguration,\
+  plus.wcj.heifer.plugin.iam.security.UserPrincipalServiceAutoConfiguration
