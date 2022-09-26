@@ -3,11 +3,14 @@
 - heifer-boot(基础完成)
 - heifer-common
     - heifer-common-apisix
+    - heifer-common-discovery
     - heifer-common-dynamic-datasource
     - heifer-common-feign
     - heifer-common-mybatis-plus
     - heifer-common-nacos-discovery
+    - heifer-common-polaris-discovery(未测试)
     - heifer-common-redis
+    - heifer-common-redis-discovery(未开始)
     - heifer-common-security(完成)
 - heifer-gateway
 - heifer-metadata(按需添加)
