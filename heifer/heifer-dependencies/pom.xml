@@ -91,7 +91,6 @@
             </dependency>
 
 
-
             <!--  orm  -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -211,6 +210,11 @@
             <dependency>
                 <groupId>plus.wcj</groupId>
                 <artifactId>heifer-common-feign</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-common-leaf</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
