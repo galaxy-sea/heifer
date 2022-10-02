@@ -66,8 +66,8 @@ public class GeneratorCode {
         // put("idType", idType);
     }};
 
-    private static final String pathInfo = System.getProperty("user.dir") + "/$name-service" + "/src/main/java/" + parent.replace('.', '/') + "/" + moduleName;
-    private static final String pathInfoxml = System.getProperty("user.dir") + "/$name-service" + "/src/main/resources/mapper/" + moduleName;
+    private static final String pathInfo = System.getProperty("user.dir") + "/heifer-test-service" + "/src/main/java/" + parent.replace('.', '/') + "/" + moduleName;
+    private static final String pathInfoXml = System.getProperty("user.dir") + "/heifer-test-service" + "/src/main/resources/mapper/" + moduleName;
 
     public static void main(String[] args) {
         FastAutoGenerator.create(new DataSourceConfig.Builder(url, username, password)
@@ -92,7 +92,7 @@ public class GeneratorCode {
                                         put(OutputFile.service, pathInfo + "/service");
                                         put(OutputFile.serviceImpl, pathInfo + "/service/impl");
                                         put(OutputFile.mapper, pathInfo + "/dao");
-                                        put(OutputFile.xml, pathInfoxml);
+                                        put(OutputFile.xml, pathInfoXml);
                                     }}); // 设置mapperXml生成路径
                          }).strategyConfig(builder -> {
                              builder.addInclude(tables) // 设置需要生成的表名
