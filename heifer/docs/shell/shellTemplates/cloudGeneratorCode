@@ -27,6 +27,7 @@ import plus.wcj.heifer.common.mybatisplus.IService;
 import plus.wcj.heifer.common.mybatisplus.impl.ServiceImpl;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -41,14 +42,14 @@ public class GeneratorCode {
     // 设置需要生成的表名
     private static final String[] tables = {""};
     // 设置父包模块名
-    // private static final String moduleName =
+    private static final String moduleName =
 
 
     // 新工程需要配置一次 start
     private static final String parent = "$package";  // 设置父包名
-    // private static final String url = "jdbc:mysql://{}/{}?useUnicode=true&useSSL=false&characterEncoding=utf8";
-    // private static final String username ={}
-    // private static final String password =}
+    private static final String url = "jdbc:mysql://{}/{}?useUnicode=true&useSSL=false&characterEncoding=utf8";
+    private static final String username =
+    private static final String password =
 
     private static final String idType = Long.class.getSimpleName();
 
@@ -57,7 +58,6 @@ public class GeneratorCode {
     // 下面的别动
     private static final String author = System.getenv("Duser_name") != null ? System.getenv("Duser_name") : System.getenv("USER");
     private static final String javaDir = System.getProperty("user.dir") + "/src/main/java";
-    private static final String xmlDir = System.getProperty("user.dir") + "/src/main/resources/mapper/" + moduleName;
     static final Pattern pattern = Pattern.compile("\\s*|\t|\r|\n");
 
     private static final Map<String, Object> map = new LinkedHashMap<String, Object>() {{
@@ -65,6 +65,9 @@ public class GeneratorCode {
         // put("implements", new Class[]{});
         // put("idType", idType);
     }};
+
+    private static final String pathInfo = System.getProperty("user.dir") + "/$name-service" + "/src/main/java/" + parent.replace('.', '/') + "/" + moduleName;
+    private static final String pathInfoxml = System.getProperty("user.dir") + "/$name-service" + "/src/main/resources/mapper/" + moduleName;
 
     public static void main(String[] args) {
         FastAutoGenerator.create(new DataSourceConfig.Builder(url, username, password)
@@ -80,8 +83,17 @@ public class GeneratorCode {
                                     .fileOverride() // 覆盖已生成文件
                                     .outputDir(javaDir); // 指定输出目录
                          }).packageConfig(builder -> {
-                             builder.parent(parent).moduleName(moduleName) // 设置父包模块名
-                                    .pathInfo(Collections.singletonMap(OutputFile.xml, xmlDir)); // 设置mapperXml生成路径
+                             builder.parent(parent)
+                                    .moduleName(moduleName) // 设置父包模块名
+                                    .mapper("dao")
+                                    .pathInfo(new HashMap<>(){{
+                                        put(OutputFile.entity, pathInfo + "/entity");
+                                        put(OutputFile.controller, pathInfo + "/controller");
+                                        put(OutputFile.service, pathInfo + "/service");
+                                        put(OutputFile.serviceImpl, pathInfo + "/service/impl");
+                                        put(OutputFile.mapper, pathInfo + "/dao");
+                                        put(OutputFile.xml, pathInfoxml);
+                                    }}); // 设置mapperXml生成路径
                          }).strategyConfig(builder -> {
                              builder.addInclude(tables) // 设置需要生成的表名
                                     .addTablePrefix("t_", "c_") // 设置过滤表前缀
@@ -112,6 +124,5 @@ public class GeneratorCode {
                          })
                          // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                          .templateEngine(new FreemarkerTemplateEngine()).execute();
-
     }
 }
