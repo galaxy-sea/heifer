@@ -15,10 +15,10 @@
  */
 
 /**
- * 这是一个很操蛋的模块设计啦，大部分代码都是复制出来的， 每次升级Spring Cloud版本都需要维护一下哦.</p>
+ * 这是一个很操蛋的模块设计啦，大部分代码都是复制出来的， 每次升级Spring Cloud版本都需要维护一下哦.
  *
  * {@link plus.wcj.heifer.common.feign.loadbalancer.LoadBalancerFeignRequestTransformer}
- * <a href="https://github.com/spring-cloud/spring-cloud-openfeign/pull/735">已经提交pr给了Spring Cloud OpenFeign 也不知道什么时候能够合并进去</a></p>
+ * <a href="https://github.com/spring-cloud/spring-cloud-openfeign/pull/735">已经提交pr给了Spring Cloud OpenFeign 也不知道什么时候能够合并进去</a>
  *
  * @author changjin wei(魏昌进)
  * @since 2022/8/30

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-/**
- *
- * 心情差，用Redis实现一个注册中心？让自己开心一下.
- *
- * @author changjin wei(魏昌进)
- * @since 2022/9/2
- */
 package plus.wcj.heifer.common.redis.dicovery;
+
+/**
+ * @author changjin wei(魏昌进)
+ * @since 2022/10/4
+ */
+public class RedisConfig {
+}
