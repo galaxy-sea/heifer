@@ -23,15 +23,16 @@ import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
- *
  * 前后端和微服务的交互格式
  * {
- *   "code": "",
- *   "message": "",
- *   "data": {}
+ * "code": "",
+ * "message": "",
+ * "data": {}
  * }
- *
  *
  * @author changjin wei(魏昌进)
  * @since 2021/4/23
@@ -40,6 +41,12 @@ import lombok.ToString;
 @ToString
 @SuppressWarnings("unused")
 public final class Result<T> {
+
+    public static final String RESULT_HEADER_KEY = "X-Result-Operation";
+
+    public static final String RESULT_HEADER_VALUE = "yes";
+    public static final List<String> RESULT_HEADER_VALUES = Collections.singletonList(Result.RESULT_HEADER_KEY);
+
     /** 业务错误码 */
     private String code;
     /** 信息描述 */

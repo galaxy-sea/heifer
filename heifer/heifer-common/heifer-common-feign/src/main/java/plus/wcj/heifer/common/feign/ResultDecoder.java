@@ -17,14 +17,18 @@
 package plus.wcj.heifer.common.feign;
 
 import feign.FeignException;
+import feign.MethodMetadata;
 import feign.Response;
 import feign.codec.Decoder;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.bean.Result;
 
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.util.CollectionUtils;
+
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.Collection;
 
 /**
  * @author changjin wei(魏昌进)
@@ -39,8 +43,14 @@ public class ResultDecoder implements Decoder {
 
     @Override
     public Object decode(Response response, Type type) throws IOException, FeignException {
-        Method method = response.request().requestTemplate().methodMetadata().method();
-        boolean isResult = method.getReturnType() != Result.class && method.isAnnotationPresent(ResponseBodyResult.class);
+        MethodMetadata methodMetadata = response.request().requestTemplate().methodMetadata();
+        Collection<String> resultHeaders = response.headers().get(Result.RESULT_HEADER_KEY);
+        // 将resultHeaders放在前面，可以减少反射
+        boolean isResult = (!CollectionUtils.isEmpty(resultHeaders) && resultHeaders.contains(Result.RESULT_HEADER_VALUE))
+                || AnnotatedElementUtils.hasAnnotation(methodMetadata.targetType(), ResponseBodyResult.class)
+                || methodMetadata.method().isAnnotationPresent(ResponseBodyResult.class)
+                || methodMetadata.method().getReturnType() == Result.class;
+
         if (isResult) {
             ParameterizedTypeImpl resultType = new ParameterizedTypeImpl(Result.class, new Type[]{type});
             Result<?> result = (Result<?>) this.decoder.decode(response, resultType);
