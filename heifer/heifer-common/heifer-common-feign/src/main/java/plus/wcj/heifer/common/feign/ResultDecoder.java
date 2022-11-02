@@ -46,12 +46,13 @@ public class ResultDecoder implements Decoder {
         MethodMetadata methodMetadata = response.request().requestTemplate().methodMetadata();
         Collection<String> resultHeaders = response.headers().get(Result.RESULT_HEADER_KEY);
         // 将resultHeaders放在前面，可以减少反射
-        boolean isResult = (!CollectionUtils.isEmpty(resultHeaders) && resultHeaders.contains(Result.RESULT_HEADER_VALUE))
-                || AnnotatedElementUtils.hasAnnotation(methodMetadata.targetType(), ResponseBodyResult.class)
+        if (Result.class == methodMetadata.method().getReturnType()) {
+            return this.decoder.decode(response, type);
+        }
+        boolean isResult = (CollectionUtils.isEmpty(resultHeaders) && resultHeaders.contains(Result.RESULT_HEADER_VALUE))
                 || methodMetadata.method().isAnnotationPresent(ResponseBodyResult.class)
-                || methodMetadata.method().getReturnType() == Result.class;
-
-        if (isResult) {
+                || AnnotatedElementUtils.hasAnnotation(methodMetadata.targetType(), ResponseBodyResult.class);
+        if (isResult){
             ParameterizedTypeImpl resultType = new ParameterizedTypeImpl(Result.class, new Type[]{type});
             Result<?> result = (Result<?>) this.decoder.decode(response, resultType);
             return result.getData();
