@@ -45,7 +45,7 @@ public class SimpleApisixRegister implements ApisixRegister {
 
     public SimpleApisixRegister(RouteClient routeClient, ObjectProvider<List<ApisixCustomizer>> apisixCustomizers, ApisixProperties apisixProperties) {
         this.routeClient = routeClient;
-        ApisixCustomizers = apisixCustomizers;
+        this.ApisixCustomizers = apisixCustomizers;
         this.apisixProperties = apisixProperties;
     }
 
