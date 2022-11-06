@@ -17,8 +17,8 @@
 package plus.wcj.heifer.boot;
 
 import org.hibernate.validator.HibernateValidator;
-import plus.wcj.heifer.boot.mvc.ResultExceptionHandler;
-import plus.wcj.heifer.boot.mvc.ResultResponseBodyAdvice;
+import plus.wcj.heifer.boot.web.ResultExceptionHandler;
+import plus.wcj.heifer.boot.web.mvc.ResultResponseBodyAdvice;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
