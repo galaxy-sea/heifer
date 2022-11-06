@@ -50,7 +50,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     /** 当类或者方法使用了 @ResponseResultBody 就会调用这个方法 */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        request.getHeaders().put(Result.RESULT_HEADER_KEY, Result.RESULT_HEADER_VALUES);
+        response.getHeaders().put(Result.RESULT_HEADER_KEY, Result.RESULT_HEADER_VALUES);
         return convert(body);
     }
 

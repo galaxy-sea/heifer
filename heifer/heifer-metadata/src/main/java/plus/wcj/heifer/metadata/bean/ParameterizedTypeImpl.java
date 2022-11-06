@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.feign;
+package plus.wcj.heifer.metadata.bean;
 
 
 import java.io.Serializable;

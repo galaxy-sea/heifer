@@ -45,7 +45,7 @@ public final class Result<T> {
     public static final String RESULT_HEADER_KEY = "X-Result-Operation";
 
     public static final String RESULT_HEADER_VALUE = "yes";
-    public static final List<String> RESULT_HEADER_VALUES = Collections.singletonList(Result.RESULT_HEADER_KEY);
+    public static final List<String> RESULT_HEADER_VALUES = Collections.singletonList(Result.RESULT_HEADER_VALUE);
 
     /** 业务错误码 */
     private String code;
