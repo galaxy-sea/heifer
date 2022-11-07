@@ -44,7 +44,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     /** 判断类或者方法是否使用了 @ResponseResultBody */
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBodyResult.class) || returnType.hasMethodAnnotation(ResponseBodyResult.class);
+        return returnType.getParameterType().isAssignableFrom(Result.class) || AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBodyResult.class) || returnType.hasMethodAnnotation(ResponseBodyResult.class);
     }
 
     /** 当类或者方法使用了 @ResponseResultBody 就会调用这个方法 */
