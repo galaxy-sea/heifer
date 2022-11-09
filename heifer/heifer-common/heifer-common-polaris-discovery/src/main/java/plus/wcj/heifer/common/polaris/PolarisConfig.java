@@ -16,7 +16,6 @@
 
 package plus.wcj.heifer.common.polaris;
 
-import plus.wcj.heifer.common.polaris.registry.ModifyMetadataTypePreRegisteredEventListener;
 import plus.wcj.heifer.common.polaris.registry.PolarisInstancePreRegisteredEventListener;
 
 import org.springframework.context.annotation.Bean;
@@ -27,9 +26,6 @@ import org.springframework.context.annotation.Bean;
  */
 public class PolarisConfig {
 
-    @Bean
-    public PolarisInstancePreRegisteredEventListener modifyMetadataTypePreRegisteredEventListener() {
-        return new ModifyMetadataTypePreRegisteredEventListener();
-    }
+
 
 }
