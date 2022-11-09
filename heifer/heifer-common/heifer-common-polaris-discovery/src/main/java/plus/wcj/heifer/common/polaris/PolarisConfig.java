@@ -16,9 +16,6 @@
 
 package plus.wcj.heifer.common.polaris;
 
-import plus.wcj.heifer.common.polaris.registry.PolarisInstancePreRegisteredEventListener;
-
-import org.springframework.context.annotation.Bean;
 
 /**
  * @author changjin wei(魏昌进)
