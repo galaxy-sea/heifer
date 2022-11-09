@@ -58,7 +58,7 @@
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.6.0-2021.0.3</version>
+                <version>${spring-cloud-tencent.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
