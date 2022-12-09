@@ -33,9 +33,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * @author changjin wei(魏昌进)
- * @since 2021/4/23
  * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurer#configureMessageConverters(java.util.List)
+ * @since 2021/4/23
  */
+@SuppressWarnings("NullableProblems")
 @RestControllerAdvice
 @ControllerAdvice
 @Slf4j
@@ -44,7 +45,9 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     /** 判断类或者方法是否使用了 @ResponseResultBody */
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return returnType.getParameterType().isAssignableFrom(Result.class) || AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBodyResult.class) || returnType.hasMethodAnnotation(ResponseBodyResult.class);
+        return AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBodyResult.class) ||
+                returnType.hasMethodAnnotation(ResponseBodyResult.class) ||
+                returnType.getParameterType().isAssignableFrom(Result.class);
     }
 
     /** 当类或者方法使用了 @ResponseResultBody 就会调用这个方法 */
@@ -55,7 +58,7 @@ public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     }
 
     private Result<?> convert(Object body) {
-        if (body instanceof Result result) {
+        if (body instanceof Result<?> result) {
             return result;
         }
         return Result.success(body);
