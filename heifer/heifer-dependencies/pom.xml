@@ -214,11 +214,6 @@
             </dependency>
             <dependency>
                 <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-leaf</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>plus.wcj</groupId>
                 <artifactId>heifer-common-apisix</artifactId>
                 <version>${revision}</version>
             </dependency>

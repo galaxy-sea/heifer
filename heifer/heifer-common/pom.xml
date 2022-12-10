@@ -23,7 +23,6 @@
         <module>heifer-common-redis-discovery</module>
         <module>heifer-common-polaris-discovery</module>
         <module>heifer-common-discovery</module>
-        <module>heifer-common-leaf</module>
     </modules>
 
     <properties>
