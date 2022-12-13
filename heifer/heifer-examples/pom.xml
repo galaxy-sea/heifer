@@ -23,7 +23,7 @@
         <module>heifer-common-redis-example</module>
         <module>heifer-plugin-aliyun-oss-example</module>
         <module>heifer-common-apisix-example</module>
-        <module>heifer-common-swagger-exampl</module>
+        <module>heifer-common-swagger-example</module>
         <module>mybatis-plus-generator</module>
         <module>heifer-common-polaris-discovery-example</module>
     </modules>
