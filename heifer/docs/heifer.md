@@ -187,13 +187,13 @@ Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心
 #### 1.2.1.1. Spring Booth
 ```json
 {
-  "uri": "/heifer-boot-examples/*",
-  "name": "heifer-boot-examples",
+  "uri": "/heifer-boot-example/*",
+  "name": "heifer-boot-example",
   "desc": "Heifer create",
   "plugins": {
     "proxy-rewrite": {
       "regex_uri": [
-        "^/heifer-boot-examples/(.*)",
+        "^/heifer-boot-example/(.*)",
         "/$1"
       ]
     }
@@ -212,7 +212,7 @@ Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心
     "pass_host": "pass"
   },
   "labels": {
-    "service": "heifer-boot-examples",
+    "service": "heifer-boot-example",
     "source": "SPRING_BOOT"
   },
   "status": 1
@@ -221,12 +221,12 @@ Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心
 #### 1.2.1.2. Spring Cloud
 ``` json
 {
-  "uri": "/heifer-boot-examples/*",
-  "name": "heifer-boot-examples",
+  "uri": "/heifer-boot-example/*",
+  "name": "heifer-boot-example",
   "desc": "Heifer create",
   "plugins": {
     "proxy-rewrite": {
-      "regex_uri": ["^/heifer-boot-examples/(.*)", "/$1"]
+      "regex_uri": ["^/heifer-boot-example/(.*)", "/$1"]
     }
   },
   "upstream": {
@@ -239,12 +239,12 @@ Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心
       "namespace_id": "public"
     },
     "pass_host": "pass",
-    "service_name": "heifer-boot-examples"
+    "service_name": "heifer-boot-example"
   },
   "labels": {
     "group": "DEFAULT_GROUP",
     "namespace": "public",
-    "service": "heifer-boot-examples",
+    "service": "heifer-boot-example",
     "source": "SPRING_CLOUD_ALIBABA"
   },
   "status": 1

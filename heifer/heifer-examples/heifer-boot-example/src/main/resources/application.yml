@@ -1,6 +1,6 @@
 spring:
   application:
-    name: heifer-boot-examples
+    name: heifer-boot-example
   jackson:
     default-property-inclusion: non_null
     generator:

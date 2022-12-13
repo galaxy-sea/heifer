@@ -14,7 +14,7 @@
 
 
     <modules>
-        <module>heifer-boot-examples</module>
+        <module>heifer-boot-example</module>
         <module>heifer-common-mybatis-plus-example</module>
         <module>heifer-common-nacos-discovery-example</module>
         <module>heifer-gateway-example</module>

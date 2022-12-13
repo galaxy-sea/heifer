@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>heifer-boot-examples</artifactId>
+    <artifactId>heifer-boot-example</artifactId>
     <version>${revision}</version>
-    <name>heifer-boot-examples</name>
-    <description>heifer-boot-examples</description>
+    <name>heifer-boot-example</name>
+    <description>heifer-boot-example</description>
 
     <parent>
         <artifactId>heifer-examples</artifactId>

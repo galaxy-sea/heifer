@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author changjin wei(魏昌进)
  * @since 2022/8/10
  */
-@FeignClient(value = "heifer-boot-examples", path = "page")
+@FeignClient(value = "heifer-boot-example", path = "page")
 public interface PageClient {
 
     @GetMapping

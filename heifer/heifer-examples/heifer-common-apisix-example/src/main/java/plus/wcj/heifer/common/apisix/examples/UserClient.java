@@ -24,7 +24,7 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author changjin wei(魏昌进)
  * @since 2022/4/20
  */
-@FeignClient(value = "heifer-boot-examples", path = UserService.path)
+@FeignClient(value = "heifer-boot-example", path = UserService.path)
 public interface UserClient extends UserService {
 
 

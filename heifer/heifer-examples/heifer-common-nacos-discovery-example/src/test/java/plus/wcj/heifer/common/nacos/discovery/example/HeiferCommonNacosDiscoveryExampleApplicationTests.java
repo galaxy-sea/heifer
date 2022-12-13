@@ -36,7 +36,7 @@ public class HeiferCommonNacosDiscoveryExampleApplicationTests {
 
     @Test
     public void contextLoads() throws NacosException, InterruptedException {
-        List<ServiceInstance> instances = discoveryClient.getInstances("heifer-boot-examples");
+        List<ServiceInstance> instances = discoveryClient.getInstances("heifer-boot-example");
         Assert.isTrue(!CollectionUtils.isEmpty(instances));
     }
 
