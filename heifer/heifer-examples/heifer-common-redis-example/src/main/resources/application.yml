@@ -1,6 +1,6 @@
 spring:
   application:
-    name: heifer-common-redis-examples
+    name: heifer-common-redis-example
   redis:
     host: nuc8i7.wcj.plus
     password: weichangjin

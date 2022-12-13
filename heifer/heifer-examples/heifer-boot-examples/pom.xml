@@ -49,10 +49,10 @@
             <artifactId>libby-http-cache-control</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-common-apisix</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>plus.wcj</groupId>-->
+        <!--    <artifactId>heifer-common-apisix</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>plus.wcj</groupId>
