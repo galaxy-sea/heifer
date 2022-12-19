@@ -31,6 +31,11 @@ import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
+import static plus.wcj.heifer.common.swagger.HtmlTool.ALIZARIN;
+import static plus.wcj.heifer.common.swagger.HtmlTool.b;
+import static plus.wcj.heifer.common.swagger.HtmlTool.code;
+import static plus.wcj.heifer.common.swagger.HtmlTool.p;
+
 /**
  * @author changjin wei(魏昌进)
  * @since 2022/6/20
@@ -45,30 +50,30 @@ public class SecurityAnnotationOperationBuilderPlugin implements OperationBuilde
         Optional<IgnoreWebSecurity> ignoreWebSecurity = context.findAnnotation(IgnoreWebSecurity.class)
                                                                .or(() -> context.findControllerAnnotation(IgnoreWebSecurity.class));
         if (ignoreWebSecurity.isEmpty()) {
-
-            securityNotes.append("**Authorization:** `required` ");
-
-            context.findAnnotation(PostAuthorize.class)
-                   .or(() -> context.findControllerAnnotation(PostAuthorize.class))
-                   .ifPresent(ann -> securityNotes.append("**PostAuthorize:** `").append(ann.value()).append("`"));
-
-            context.findAnnotation(PostFilter.class)
-                   .or(() -> context.findControllerAnnotation(PostFilter.class))
-                   .ifPresent(ann -> securityNotes.append("**PostFilter:** `").append(ann.value()).append("`"));
-
-            context.findAnnotation(PreAuthorize.class)
-                   .or(() -> context.findControllerAnnotation(PreAuthorize.class))
-                   .ifPresent(ann -> securityNotes.append("**PreAuthorize:** `").append(ann.value()).append("`"));
-
-            context.findAnnotation(PreFilter.class)
-                   .or(() -> context.findControllerAnnotation(PreFilter.class))
-                   .ifPresent(ann -> securityNotes.append("**PreFilter:** `").append(ann.value()).append("`"));
+            securityNotes.append(b("Authorization: ")).append(code("required ", ALIZARIN));
         } else {
-            securityNotes.append("`IgnoreWebSecurity`");
+            securityNotes.append(b("Authorization: ")).append(code("IgnoreWebSecurity", ALIZARIN));
         }
+
+        context.findAnnotation(PostAuthorize.class)
+               .or(() -> context.findControllerAnnotation(PostAuthorize.class))
+               .ifPresent(ann -> securityNotes.append(b("PostAuthorize: ")).append(code(ann.value())));
+
+        context.findAnnotation(PostFilter.class)
+               .or(() -> context.findControllerAnnotation(PostFilter.class))
+               .ifPresent(ann -> securityNotes.append(b("PostFilter: ")).append(code(ann.value())));
+
+        context.findAnnotation(PreAuthorize.class)
+               .or(() -> context.findControllerAnnotation(PreAuthorize.class))
+               .ifPresent(ann -> securityNotes.append(b("PreAuthorize: ")).append(code(ann.value())));
+
+        context.findAnnotation(PreFilter.class)
+               .or(() -> context.findControllerAnnotation(PreFilter.class))
+               .ifPresent(ann -> securityNotes.append(b("PreFilter: ")).append(code(ann.value())));
+
         if (securityNotes.length() > 0) {
             String notes = context.operationBuilder().build().getNotes();
-            notes = StringUtils.hasText(notes) ? notes + "<p />" + securityNotes : securityNotes.toString();
+            notes = StringUtils.hasText(notes) ? p(notes, securityNotes.toString()) : securityNotes.toString();
             context.operationBuilder().notes(notes);
         }
     }

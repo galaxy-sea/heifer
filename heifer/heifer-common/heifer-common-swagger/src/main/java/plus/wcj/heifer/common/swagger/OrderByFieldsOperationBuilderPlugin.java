@@ -34,7 +34,9 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.StringJoiner;
+
+import static plus.wcj.heifer.common.swagger.HtmlTool.b;
+import static plus.wcj.heifer.common.swagger.HtmlTool.p;
 
 /**
  * @author changjin wei(魏昌进)
@@ -67,6 +69,7 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
         }
     }
 
+    @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "OptionalIsPresent"})
     private void excludeField(List<String> orderItems, Optional<OrderByValid> annotation) {
         if (annotation.isPresent()) {
             List.of(annotation.get().excludeField()).forEach(orderItems::remove);
@@ -74,17 +77,18 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
     }
 
     private void joinNotes(List<String> orderItems, OperationContext context) {
-        StringJoiner stringJoiner = new StringJoiner("` `", "`", "`");
+        StringBuilder code = new StringBuilder();
         for (String orderItem : orderItems) {
-            stringJoiner.add(orderItem);
+            code.append(HtmlTool.code(orderItem));
         }
         String notes = context.operationBuilder().build().getNotes();
-        String order = "**OrderBy Field:** " + stringJoiner;
+        String order = b("OrderBy: ") + code;
 
-        notes = StringUtils.hasText(notes) ? notes + "<p />" + order : order;
+        notes = StringUtils.hasText(notes) ? p(notes, order) : order;
         context.operationBuilder().notes(notes);
     }
 
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private List<String> toOrderItems(Optional<OrderByValid> annotation) {
         if (annotation.isEmpty() || annotation.get().field() == null || annotation.get().field().length == 0) {
             return List.of();
@@ -104,6 +108,7 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
                               .toList();
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public boolean supports(DocumentationType delimiter) {
         return true;

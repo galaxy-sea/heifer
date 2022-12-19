@@ -27,6 +27,10 @@ import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
+import static plus.wcj.heifer.common.swagger.HtmlTool.b;
+import static plus.wcj.heifer.common.swagger.HtmlTool.code;
+import static plus.wcj.heifer.common.swagger.HtmlTool.p;
+
 /**
  * @author changjin wei(魏昌进)
  * @since 2022/8/13
@@ -41,7 +45,8 @@ public class ResultResponseOperationBuilderPlugin implements OperationBuilderPlu
 
         if (resultResponseBody.isPresent()) {
             String notes = context.operationBuilder().build().getNotes();
-            notes = StringUtils.hasText(notes) ? notes + "<p />" + "**ResponseBody**: `Result`" : "`**ResponseBody**: `Result`";
+            String result = b("ResponseBody: ") + code("Result");
+            notes = StringUtils.hasText(notes) ? p(notes, result) : result;
             context.operationBuilder().notes(notes);
         }
 

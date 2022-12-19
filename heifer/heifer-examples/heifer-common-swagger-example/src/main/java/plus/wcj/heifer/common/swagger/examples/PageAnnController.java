@@ -23,7 +23,10 @@ import plus.wcj.heifer.metadata.tenant.Tenant;
 
 import io.swagger.annotations.ApiOperation;
 
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +63,9 @@ public class PageAnnController {
     @GetMapping("all")
     @ResponseBodyResult
     @PreAuthorize("hasAuthority('admin123123')")
+    @PostFilter("hasAuthority('admin123123')")
+    @PostAuthorize("hasAuthority('admin123123')")
+    @PreFilter("hasAuthority('admin123123')")
     public Page<Tenant> all(Page<Tenant> page) {
         return page;
     }

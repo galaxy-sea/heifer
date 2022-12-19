@@ -41,7 +41,7 @@ public class PageIgnoreOperationBuilderPlugin extends AbstractOperationBuilderPl
 
     public static final String IGNORE_PARAMETER_EXTENSION_NAME = "x-ignoreParameters";
 
-    public static final String[] IGNORE = new String[]{"countId", "maxLimit", "optimizeCountSql", "pages", "records", "searchCount", "total"};
+    private static final String[] IGNORE = new String[]{"countId", "maxLimit", "optimizeCountSql", "pages", "records", "searchCount", "total"};
 
 
     @Override
@@ -52,6 +52,7 @@ public class PageIgnoreOperationBuilderPlugin extends AbstractOperationBuilderPl
     }
 
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public boolean supports(DocumentationType delimiter) {
         return true;
@@ -68,9 +69,10 @@ public class PageIgnoreOperationBuilderPlugin extends AbstractOperationBuilderPl
         return false;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void addExtensionParameters(String[] params, String extensionName, OperationContext context) {
         if (params != null && params.length > 0) {
-            Map<String, Boolean> map = new HashMap<>();
+            Map<String, Boolean> map = new HashMap<>(8);
             for (String ignore : params) {
                 if (ignore != null && !"".equals(ignore) && !"null".equals(ignore)) {
                     map.put(ignore, true);
@@ -80,9 +82,9 @@ public class PageIgnoreOperationBuilderPlugin extends AbstractOperationBuilderPl
                 List<Map<String, Boolean>> maps = new ArrayList<>();
                 maps.add(map);
                 ListVendorExtension<Map<String, Boolean>> listVendorExtension = new ListVendorExtension<>(extensionName, maps);
+                //noinspection rawtypes
                 List<VendorExtension> vendorExtensions = new ArrayList<>();
                 vendorExtensions.add(listVendorExtension);
-                //context.operationBuilder().extensions(Lists.newArrayList(listVendorExtension));
                 context.operationBuilder().extensions(vendorExtensions);
             }
         }
