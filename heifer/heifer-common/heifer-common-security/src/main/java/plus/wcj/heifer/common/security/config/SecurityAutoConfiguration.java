@@ -31,13 +31,13 @@ import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -150,7 +150,8 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
         Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
         for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : handlerMethods.entrySet()) {
             HandlerMethod handlerMethod = entry.getValue();
-            if (handlerMethod.hasMethodAnnotation(IgnoreWebSecurity.class)) {
+            if (AnnotatedElementUtils.hasAnnotation(handlerMethod.getBeanType(), IgnoreWebSecurity.class)
+                    || handlerMethod.hasMethodAnnotation(IgnoreWebSecurity.class)) {
                 Set<String> patternValues = entry.getKey().getPatternValues();
                 Set<RequestMethod> methods = entry.getKey().getMethodsCondition().getMethods();
                 if (CollectionUtils.isEmpty(methods)) {
