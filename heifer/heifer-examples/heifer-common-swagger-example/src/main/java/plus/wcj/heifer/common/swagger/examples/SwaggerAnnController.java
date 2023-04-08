@@ -2,7 +2,7 @@ package plus.wcj.heifer.common.swagger.examples;
 
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
-import plus.wcj.heifer.metadata.tenant.Tenant;
+import plus.wcj.heifer.metadata.iam.Tenant;
 
 import io.swagger.annotations.ApiOperation;
 

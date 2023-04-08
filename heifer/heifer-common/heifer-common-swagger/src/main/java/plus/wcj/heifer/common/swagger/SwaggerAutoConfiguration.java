@@ -16,7 +16,7 @@
 
 package plus.wcj.heifer.common.swagger;
 
-import plus.wcj.heifer.metadata.tenant.Tenant;
+import plus.wcj.heifer.metadata.iam.Tenant;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;

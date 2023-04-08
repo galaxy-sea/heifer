@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.metadata.tenant;
+package plus.wcj.heifer.metadata.iam;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 

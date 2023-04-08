@@ -19,7 +19,7 @@ package plus.wcj.heifer.common.swagger.examples;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
-import plus.wcj.heifer.metadata.tenant.Tenant;
+import plus.wcj.heifer.metadata.iam.Tenant;
 
 import io.swagger.annotations.ApiOperation;
 

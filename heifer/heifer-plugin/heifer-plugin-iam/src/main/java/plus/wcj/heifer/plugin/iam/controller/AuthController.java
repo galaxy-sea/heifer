@@ -22,7 +22,7 @@ import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.plugin.iam.dto.JwtDto;
 import plus.wcj.heifer.plugin.iam.dto.LoginDto;
 import plus.wcj.heifer.plugin.iam.dto.TenantDto;
-import plus.wcj.heifer.plugin.iam.service.AuthService;
+import plus.wcj.heifer.plugin.iam.auth.AuthService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

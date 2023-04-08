@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.metadata.tenant;
+package plus.wcj.heifer.metadata.iam;
 
 import lombok.Data;
 

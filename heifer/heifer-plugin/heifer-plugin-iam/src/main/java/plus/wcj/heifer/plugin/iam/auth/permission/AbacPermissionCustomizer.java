@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 the original author or authors.
+ * Copyright 2021-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,27 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.metadata.tenant;
+package plus.wcj.heifer.plugin.iam.auth.permission;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import plus.wcj.heifer.plugin.iam.dao.AuthDao;
+
+import java.util.List;
 
 /**
- * MyBatis sql 模版
- *
- * 用于规定一些通用的sql
- *
+ * 获取功能权限
  * @author changjin wei(魏昌进)
- * @since 2022/7/31
+ * @since 2023/4/5
  */
-interface SqlTemplate {
+@Component
+@RequiredArgsConstructor
+public class AbacPermissionCustomizer implements PermissionCustomizer{
+
+    private final AuthDao authDao;
+
+    public List<String> customize(Long accountId, Long tenantId) {
+        return authDao.selectByIamIamAccountIdAndTenantId(accountId, tenantId);
+    }
 
 }

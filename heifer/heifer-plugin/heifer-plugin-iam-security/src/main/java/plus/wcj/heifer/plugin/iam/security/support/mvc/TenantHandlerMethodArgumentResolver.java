@@ -18,9 +18,9 @@ package plus.wcj.heifer.plugin.iam.security.support.mvc;
 
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
-import plus.wcj.heifer.metadata.tenant.DataPowersDto;
-import plus.wcj.heifer.metadata.tenant.Tenant;
-import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
+import plus.wcj.heifer.metadata.iam.DataPowersDto;
+import plus.wcj.heifer.metadata.iam.Tenant;
+import plus.wcj.heifer.metadata.iam.UserPrincipalService;
 import plus.wcj.heifer.plugin.iam.security.IamUserDetails;
 
 import org.springframework.core.MethodParameter;

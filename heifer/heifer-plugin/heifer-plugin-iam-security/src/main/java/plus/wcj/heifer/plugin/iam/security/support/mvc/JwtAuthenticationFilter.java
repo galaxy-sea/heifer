@@ -23,7 +23,7 @@ import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
-import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
+import plus.wcj.heifer.metadata.iam.UserPrincipalService;
 import plus.wcj.heifer.plugin.iam.security.Constant;
 import plus.wcj.heifer.plugin.iam.security.IamUserDetails;
 import plus.wcj.heifer.plugin.iam.security.UserPrincipalCustomizeService;

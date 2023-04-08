@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 the original author or authors.
+ * Copyright 2021-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,35 +14,29 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.service.impl;
+package plus.wcj.heifer.plugin.iam.auth;
 
 import com.nimbusds.jwt.JWTClaimsSet;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
+import plus.wcj.heifer.metadata.iam.DataPowersDto;
+import plus.wcj.heifer.metadata.iam.UserPrincipalService;
 import plus.wcj.heifer.metadata.properties.JwtProperties;
-import plus.wcj.heifer.metadata.tenant.DataPowersDto;
-import plus.wcj.heifer.metadata.tenant.UserPrincipalService;
+import plus.wcj.heifer.plugin.iam.auth.permission.PermissionCustomizer;
 import plus.wcj.heifer.plugin.iam.dao.AuthDao;
 import plus.wcj.heifer.plugin.iam.dto.AccountDto;
 import plus.wcj.heifer.plugin.iam.dto.JwtDto;
 import plus.wcj.heifer.plugin.iam.dto.LoginDto;
-import plus.wcj.heifer.plugin.iam.dto.RoleDto;
 import plus.wcj.heifer.plugin.iam.dto.TenantDto;
-import plus.wcj.heifer.plugin.iam.service.AbacCustomizeService;
-import plus.wcj.heifer.plugin.iam.service.AuthService;
 import plus.wcj.heifer.tools.util.JwtUtils;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
+import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author changjin wei(魏昌进)
@@ -55,13 +49,13 @@ public class AuthServiceImpl implements AuthService, UserPrincipalService {
     private final AuthDao authDao;
     private final PasswordEncoder passwordEncoder;
     private final JwtProperties jwtProperties;
-    private final List<AbacCustomizeService> abacCustomizeServiceList;
+    private final List<PermissionCustomizer> permissionCustomizerList;
 
-    public AuthServiceImpl(AuthDao authDao, PasswordEncoder passwordEncoder, JwtProperties jwtProperties, ObjectProvider<List<AbacCustomizeService>> authCustomizeServiceObjectProviderLists) {
+    public AuthServiceImpl(AuthDao authDao, PasswordEncoder passwordEncoder, JwtProperties jwtProperties, List<PermissionCustomizer> permissionCustomizerList) {
         this.authDao = authDao;
         this.passwordEncoder = passwordEncoder;
         this.jwtProperties = jwtProperties;
-        this.abacCustomizeServiceList = authCustomizeServiceObjectProviderLists.getIfAvailable(LinkedList::new);
+        this.permissionCustomizerList = permissionCustomizerList;
     }
 
     @Override
@@ -97,17 +91,11 @@ public class AuthServiceImpl implements AuthService, UserPrincipalService {
 
     @Override
     public List<String> listPermission(Long accountId, Long tenantId) {
-        List<RoleDto> roleList = authDao.listRole(accountId, tenantId);
-        List<String> permissionList = authDao.listPermission(accountId, tenantId, roleList);
-
-        List<String> abacPermissionList = abacCustomizeServiceList.stream()
-                                                                  .map(abacCustomizeService -> abacCustomizeService.abacPermission(accountId, tenantId, roleList))
-                                                                  .filter(Objects::nonNull)
-                                                                  .collect(Collectors.toList());
-        return Stream.of(permissionList.stream(),
-                         abacPermissionList.stream(),
-                         roleList.stream().map(role -> "ROLE_" + role.getName())
-        ).flatMap(i -> i).collect(Collectors.toList());
+        return permissionCustomizerList.stream()
+                                       .map(permissionCustomizer -> permissionCustomizer.customize(accountId, tenantId))
+                                       .flatMap(Collection::stream)
+                                       .distinct()
+                                       .collect(Collectors.toList());
     }
 
     @Override

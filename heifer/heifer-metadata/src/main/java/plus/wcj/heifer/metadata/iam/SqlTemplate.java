@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.service;
-
-
-import plus.wcj.heifer.plugin.iam.dto.RoleDto;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+package plus.wcj.heifer.metadata.iam;
 
 /**
+ * MyBatis sql 模版
+ *
+ * 用于规定一些通用的sql
+ *
  * @author changjin wei(魏昌进)
- * @since 2021/12/23
+ * @since 2022/7/31
  */
-public interface AbacCustomizeService {
-
-    String abacPermission(@RequestParam Long accountId, @RequestParam Long tenantId, List<RoleDto> roleList);
+interface SqlTemplate {
 
 }

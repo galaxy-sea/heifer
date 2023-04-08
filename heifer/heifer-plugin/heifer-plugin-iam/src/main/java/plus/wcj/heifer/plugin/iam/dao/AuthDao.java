@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 the original author or authors.
+ * Copyright 2021-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package plus.wcj.heifer.plugin.iam.dao;
 
 import org.apache.ibatis.annotations.Param;
 import plus.wcj.heifer.plugin.iam.dto.AccountDto;
-import plus.wcj.heifer.plugin.iam.dto.RoleDto;
 import plus.wcj.heifer.plugin.iam.dto.TenantDto;
 
 import java.util.List;
@@ -27,7 +26,6 @@ import java.util.List;
  * @author changjin wei(魏昌进)
  * @since 2022/04/28
  */
-
 public interface AuthDao {
 
     /**
@@ -49,27 +47,6 @@ public interface AuthDao {
     List<TenantDto> selectAllTenant(@Param("accountId") String accountId);
 
     /**
-     * 获取账户在租户中的全部角色
-     *
-     * @param accountId 账户id
-     * @param tenantId 租户id
-     *
-     * @return 角色列表
-     */
-    List<RoleDto> listRole(@Param("accountId") Long accountId, @Param("tenantId") Long tenantId);
-
-    /**
-     * 获取账户在租户中的全部功能权限
-     *
-     * @param accountId 账户id
-     * @param tenantId 租户id
-     * @param roleList 角色列表 #{@link  plus.wcj.heifer.plugin.iam.dao.AuthDao#listRole(java.lang.Long, java.lang.Long)}
-     *
-     * @return 功能权限表达式列表
-     */
-    List<String> listPermission(@Param("accountId") Long accountId, @Param("tenantId") Long tenantId, @Param("roleList") List<RoleDto> roleList);
-
-    /**
      * 获取账户ID在租户中的全部数据权限
      *
      * @param accountId 账户id
@@ -88,4 +65,32 @@ public interface AuthDao {
      * @return 部门id
      */
     Long getDept(@Param("accountId") Long accountId, @Param("tenantId") Long tenantId);
+
+    /**
+     * 获取当前租户下的账户绑定的角色
+     *
+     * @param iamAccountId 账户id
+     * @param iamTenantId  租户id
+     * @return 角色名称
+     */
+    List<String> selectByIamIamAccountIdAndTenantId(@Param("iamAccountId") Long iamAccountId, @Param("iamTenantId") Long iamTenantId);
+
+
+    /**
+     * 获取当前租户下的账户绑定的ACL权限
+     *
+     * @param iamAccountId 账户id
+     * @param iamTenantId  租户id
+     * @return permission表达式
+     */
+    List<String> selectAclPermissionByIamIamAccountIdAndTenantId(@Param("iamAccountId") Long iamAccountId, @Param("iamTenantId") Long iamTenantId);
+
+    /**
+     * 获取当前租户下的账户绑定的RBAC权限
+     *
+     * @param iamAccountId 账户id
+     * @param iamTenantId  租户id
+     * @return permission表达式
+     */
+    List<String> selectRbacPermissionByIamIamAccountIdAndTenantId(@Param("iamAccountId") Long iamAccountId, @Param("iamTenantId") Long iamTenantId);
 }

@@ -18,7 +18,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- author=changjin wei(魏昌进) -->
 <!-- since=2022-07-31 -->
-<mapper namespace="plus.wcj.heifer.metadata.tenant.SqlTemplate">
+<mapper namespace="plus.wcj.heifer.metadata.iam.SqlTemplate">
 
     <sql id="tenant">
         <choose>

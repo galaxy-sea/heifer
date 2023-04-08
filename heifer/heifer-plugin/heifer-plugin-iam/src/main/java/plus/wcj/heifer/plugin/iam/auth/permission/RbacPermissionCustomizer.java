@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 the original author or authors.
+ * Copyright 2021-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,29 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.service;
+package plus.wcj.heifer.plugin.iam.auth.permission;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import plus.wcj.heifer.plugin.iam.dao.AuthDao;
 
-import plus.wcj.heifer.plugin.iam.dto.JwtDto;
-import plus.wcj.heifer.plugin.iam.dto.LoginDto;
-import plus.wcj.heifer.plugin.iam.dto.TenantDto;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 获取功能权限
  * @author changjin wei(魏昌进)
- * @since 2021/12/23
+ * @since 2023/4/5
  */
-public interface AuthService {
-    /**
-     * 登陆，
-     * @param loginDto 登陆信息
-     * @return jwt
-     */
-    JwtDto login(LoginDto loginDto);
+@Component
+@RequiredArgsConstructor
+public class RbacPermissionCustomizer implements PermissionCustomizer{
 
-    /**
-     * 获取当前账户下的租户信息
-     * @param authorization jwt
-     * @return 租户信息列表
-     */
-    List<TenantDto> listAllTenant(String authorization);
+    private final AuthDao authDao;
+
+    public List<String> customize(Long accountId, Long tenantId) {
+        // TODO: 2023/4/8 changjin wei(魏昌进) 未实现
+        return new ArrayList<>();
+    }
+
 }

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.metadata.tenant;
-
+package plus.wcj.heifer.metadata.iam;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +32,7 @@ public interface UserPrincipalService {
      * 尝试从缓存中获取功能权限，如果没有缓存中有就返回，缓存没有就从数据库中获取
      *
      * @param accountId 账号id
-     * @param tenantId 租户id
-     *
+     * @param tenantId  租户id
      * @return 权限列表
      */
     @GetMapping("/account/getAllPermission")

@@ -29,7 +29,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author changjin wei(魏昌进)
  * @since 2022/1/3
  */
-@ComponentScan("plus.wcj.heifer.plugin.iam")
+@ComponentScan("plus.wcj.heifer.plugin")
 @MapperScan("plus.wcj.heifer.plugin.iam.dao")
 @EnableConfigurationProperties(JwtProperties.class)
 public class IamAutoConfiguration {

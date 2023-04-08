@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2022 the original author or authors.
+ * Copyright 2021-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.plugin.iam.security;
+package plus.wcj.heifer.plugin.iam.auth.power;
 
-import plus.wcj.heifer.metadata.iam.UserPrincipalService;
-
-import org.springframework.cloud.openfeign.FeignClient;
+import java.util.Set;
 
 /**
+ * 获取数据权限
  * @author changjin wei(魏昌进)
- * @since 2022/1/13
+ * @since 2023/4/5
  */
-@FeignClient("iam")
-public interface UserPrincipalClient extends UserPrincipalService {
+public interface PowerCustomizer {
+
+    /**
+     * 自定义返回功能权限集合
+     *
+     * @return 功能权限
+     */
+    Set<String> customize();
 
 }
