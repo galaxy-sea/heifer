@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import plus.wcj.heifer.plugin.iam.dao.AuthDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,9 @@ public class AbacPermissionCustomizer implements PermissionCustomizer{
     private final AuthDao authDao;
 
     public List<String> customize(Long accountId, Long tenantId) {
-        return authDao.selectByIamIamAccountIdAndTenantId(accountId, tenantId);
+        // TODO: 2023/4/16 changjin wei(魏昌进)
+
+        return new ArrayList<>();
     }
 
 }

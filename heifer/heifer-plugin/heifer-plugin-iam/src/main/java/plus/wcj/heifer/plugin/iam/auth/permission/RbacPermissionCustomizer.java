@@ -35,8 +35,7 @@ public class RbacPermissionCustomizer implements PermissionCustomizer{
     private final AuthDao authDao;
 
     public List<String> customize(Long accountId, Long tenantId) {
-        // TODO: 2023/4/8 changjin wei(魏昌进) 未实现
-        return new ArrayList<>();
+        return authDao.selectRbacPermissionByIamIamAccountIdAndTenantId(accountId, tenantId);
     }
 
 }

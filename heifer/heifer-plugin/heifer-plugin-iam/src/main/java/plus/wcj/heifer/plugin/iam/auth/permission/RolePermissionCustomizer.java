@@ -19,10 +19,8 @@ package plus.wcj.heifer.plugin.iam.auth.permission;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import plus.wcj.heifer.plugin.iam.dao.AuthDao;
-import plus.wcj.heifer.plugin.iam.service.IamRoleService;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * 获取功能权限
@@ -34,9 +32,9 @@ import java.util.Set;
 public class RolePermissionCustomizer implements PermissionCustomizer{
 
     private final AuthDao authDao;
+    private static final String ROLE = "ROLE_";
 
     public List<String> customize(Long accountId, Long tenantId) {
-        return authDao.selectByIamIamAccountIdAndTenantId(accountId, tenantId);
+        return authDao.selectByIamIamAccountIdAndTenantId(accountId, tenantId).stream().map(role -> ROLE + role).toList();
     }
-
 }
