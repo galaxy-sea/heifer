@@ -33,6 +33,7 @@ import java.io.InputStream;
  * @author changjin wei(魏昌进)
  * @since 2022/4/22
  */
+@SuppressWarnings("deprecation")
 @SpringBootTest
 public class ResourceTest {
 

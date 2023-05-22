@@ -20,9 +20,6 @@ package plus.wcj.heifer.metadata.bean;
 import plus.wcj.heifer.metadata.exception.ResultStatus;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
-import lombok.Getter;
-import lombok.ToString;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -37,8 +34,6 @@ import java.util.List;
  * @author changjin wei(魏昌进)
  * @since 2021/4/23
  */
-@Getter
-@ToString
 @SuppressWarnings("unused")
 public final class Result<T> {
 
@@ -119,5 +114,26 @@ public final class Result<T> {
      */
     public static <T> Result<T> of(String code, String message, T data) {
         return new Result<>(code, message, data);
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+            "code='" + code + '\'' +
+            ", message='" + message + '\'' +
+            ", data=" + data +
+            '}';
     }
 }

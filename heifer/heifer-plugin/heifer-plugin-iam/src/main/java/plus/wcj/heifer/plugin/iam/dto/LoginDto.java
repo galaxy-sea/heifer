@@ -16,8 +16,6 @@
 
 package plus.wcj.heifer.plugin.iam.dto;
 
-import lombok.Data;
-
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -28,7 +26,6 @@ import javax.validation.constraints.NotEmpty;
  * @author changjin wei(魏昌进)
  * @since 2022-01-13
  */
-@Data
 public class LoginDto {
 
     /**
@@ -48,4 +45,36 @@ public class LoginDto {
      */
     private Boolean rememberMe;
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(Boolean rememberMe) {
+        this.rememberMe = rememberMe;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginDto{" +
+            "phone='" + phone + '\'' +
+            ", password='" + password + '\'' +
+            ", rememberMe=" + rememberMe +
+            '}';
+    }
 }

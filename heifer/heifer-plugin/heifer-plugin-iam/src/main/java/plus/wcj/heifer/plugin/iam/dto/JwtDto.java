@@ -16,9 +16,6 @@
 
 package plus.wcj.heifer.plugin.iam.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * <p>
  * JWT 响应返回
@@ -27,8 +24,6 @@ import lombok.Setter;
  * @author changjin wei(魏昌进)
  * @since 2022-01-13
  */
-@Getter
-@Setter
 public class JwtDto {
     /**
      * token 字段
@@ -41,5 +36,29 @@ public class JwtDto {
 
     public JwtDto(String token) {
         this.token = this.tokenType + token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getTokenType() {
+        return tokenType;
+    }
+
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
+    }
+
+    @Override
+    public String toString() {
+        return "JwtDto{" +
+            "token='" + token + '\'' +
+            ", tokenType='" + tokenType + '\'' +
+            '}';
     }
 }

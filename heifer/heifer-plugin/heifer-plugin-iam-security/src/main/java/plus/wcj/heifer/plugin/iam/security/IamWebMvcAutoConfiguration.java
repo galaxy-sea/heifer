@@ -27,8 +27,6 @@ import plus.wcj.heifer.plugin.iam.security.support.mvc.SecurityUserHandlerMethod
 import plus.wcj.heifer.plugin.iam.security.support.mvc.UserHandlerMethodArgumentResolver;
 import plus.wcj.heifer.plugin.iam.security.support.registry.ChaosMetadata;
 
-import lombok.AllArgsConstructor;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -50,7 +48,6 @@ import java.util.List;
  * @since 2022-01-13
  */
 @AutoConfigureBefore(SecurityAutoConfiguration.class)
-@AllArgsConstructor
 public class IamWebMvcAutoConfiguration implements WebMvcConfigurer {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
@@ -59,6 +56,14 @@ public class IamWebMvcAutoConfiguration implements WebMvcConfigurer {
 
     private final ObjectProvider<List<UserPrincipalCustomizeService>> userPrincipalCustomizeServiceLists;
 
+    public IamWebMvcAutoConfiguration(HandlerExceptionResolver handlerExceptionResolver, JwtProperties jwtProperties,
+                                      UserPrincipalService userPrincipalService,
+                                      ObjectProvider<List<UserPrincipalCustomizeService>> userPrincipalCustomizeServiceLists) {
+        this.handlerExceptionResolver = handlerExceptionResolver;
+        this.jwtProperties = jwtProperties;
+        this.userPrincipalService = userPrincipalService;
+        this.userPrincipalCustomizeServiceLists = userPrincipalCustomizeServiceLists;
+    }
 
     @Bean
     @ConditionalOnMissingBean

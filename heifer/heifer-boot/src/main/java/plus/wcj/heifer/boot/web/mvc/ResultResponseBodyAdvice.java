@@ -19,8 +19,6 @@ package plus.wcj.heifer.boot.web.mvc;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.bean.Result;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.MediaType;
@@ -39,7 +37,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @SuppressWarnings("NullableProblems")
 @RestControllerAdvice
 @ControllerAdvice
-@Slf4j
 public class ResultResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     /** 判断类或者方法是否使用了 @ResponseResultBody */

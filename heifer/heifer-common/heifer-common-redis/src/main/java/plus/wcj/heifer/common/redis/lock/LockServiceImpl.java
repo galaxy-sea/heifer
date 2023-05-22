@@ -16,8 +16,6 @@
 
 package plus.wcj.heifer.common.redis.lock;
 
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.integration.redis.util.RedisLockRegistry;
 import org.springframework.stereotype.Component;
 
@@ -30,10 +28,13 @@ import java.util.concurrent.locks.Lock;
  */
 @SuppressWarnings("unused")
 @Component
-@RequiredArgsConstructor
 public class LockServiceImpl implements LockService {
 
     private final RedisLockRegistry redisLockRegistry;
+
+    public LockServiceImpl(RedisLockRegistry redisLockRegistry) {
+        this.redisLockRegistry = redisLockRegistry;
+    }
 
     @Override
     public void lock(String lockKey) {

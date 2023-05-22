@@ -16,7 +16,6 @@
 
 package plus.wcj.heifer.plugin.iam.auth.permission;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import plus.wcj.heifer.plugin.iam.dao.AuthDao;
 
@@ -29,10 +28,13 @@ import java.util.List;
  * @since 2023/4/5
  */
 @Component
-@RequiredArgsConstructor
 public class AbacPermissionCustomizer implements PermissionCustomizer{
 
     private final AuthDao authDao;
+
+    public AbacPermissionCustomizer(AuthDao authDao) {
+        this.authDao = authDao;
+    }
 
     public List<String> customize(Long accountId, Long tenantId) {
         // TODO: 2023/4/16 changjin wei(魏昌进)

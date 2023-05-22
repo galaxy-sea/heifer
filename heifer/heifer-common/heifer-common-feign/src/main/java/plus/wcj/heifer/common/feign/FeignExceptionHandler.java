@@ -17,8 +17,8 @@
 package plus.wcj.heifer.common.feign;
 
 import feign.FeignException;
-
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -37,11 +37,12 @@ import java.util.Optional;
  * @author changjin wei(魏昌进)
  * @since 2022/4/7
  */
-@Slf4j
 @ControllerAdvice
 @RestControllerAdvice
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 public class FeignExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(FeignExceptionHandler.class);
 
     /**
      * 提供对标准 Feign 异常的处理
@@ -60,9 +61,9 @@ public class FeignExceptionHandler {
     }
 
     private ResponseEntity<?> handleFeignException(FeignException ex, HttpHeaders headers, @SuppressWarnings("unused") WebRequest request) {
-        log.error("feign调用异常\n{}: {}", ex.getClass(), ex.getMessage());
-        if (log.isDebugEnabled()) {
-            log.debug("小可爱，feign调用异常哦", ex);
+        logger.error("feign调用异常\n{}: {}", ex.getClass(), ex.getMessage());
+        if (logger.isDebugEnabled()) {
+            logger.debug("小可爱，feign调用异常哦", ex);
         }
         Optional<ByteBuffer> byteBuffer = ex.responseBody();
         int status = ex.status();

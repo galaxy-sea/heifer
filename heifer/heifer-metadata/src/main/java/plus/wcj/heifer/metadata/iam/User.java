@@ -16,17 +16,12 @@
 
 package plus.wcj.heifer.metadata.iam;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-
 import java.util.List;
 
 /**
  * @author changjin wei(魏昌进)
  * @since 2021/6/28
  */
-@Getter
-@EqualsAndHashCode
 public class User {
     /** 用户id */
     private final Long accountId;
@@ -55,5 +50,33 @@ public class User {
         this.dataPowers = dataPowers;
         this.tenantDataPower = tenantDataPower;
         this.deptDataPower = deptDataPower;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public List<Long> getDataPowers() {
+        return dataPowers;
+    }
+
+    public boolean isTenantDataPower() {
+        return tenantDataPower;
+    }
+
+    public boolean isDeptDataPower() {
+        return deptDataPower;
     }
 }

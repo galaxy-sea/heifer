@@ -16,8 +16,6 @@
 
 package plus.wcj.heifer.common.apisix;
 
-import lombok.Data;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -28,7 +26,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author changjin wei(魏昌进)
  * @since 2022-01-13
  */
-@Data
 @ConfigurationProperties(prefix = "heifer.apisix")
 public class ApisixProperties {
 
@@ -47,4 +44,46 @@ public class ApisixProperties {
     private String token = "edd1c9f034335f136f87ad84b625c8f1";
 
     private boolean cors = false;
+
+    public String getServerAddr() {
+        return serverAddr;
+    }
+
+    public void setServerAddr(String serverAddr) {
+        this.serverAddr = serverAddr;
+    }
+
+    public String getServerPath() {
+        return serverPath;
+    }
+
+    public void setServerPath(String serverPath) {
+        this.serverPath = serverPath;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isCors() {
+        return cors;
+    }
+
+    public void setCors(boolean cors) {
+        this.cors = cors;
+    }
+
+    @Override
+    public String toString() {
+        return "ApisixProperties{" +
+            "serverAddr='" + serverAddr + '\'' +
+            ", serverPath='" + serverPath + '\'' +
+            ", token='" + token + '\'' +
+            ", cors=" + cors +
+            '}';
+    }
 }

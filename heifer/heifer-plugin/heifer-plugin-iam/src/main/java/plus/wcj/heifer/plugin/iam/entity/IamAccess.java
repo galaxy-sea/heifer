@@ -16,13 +16,12 @@
 
 package plus.wcj.heifer.plugin.iam.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import plus.wcj.heifer.metadata.annotation.PostValid;
 import plus.wcj.heifer.metadata.annotation.PutValid;
 
-import lombok.Data;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -38,7 +37,6 @@ import java.time.LocalDateTime;
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
-@Data
 @TableName("iam_access")
 @ApiModel(value = "IamAccess对象", description = "开放平台信息")
 public class IamAccess implements Serializable {
@@ -66,5 +64,63 @@ public class IamAccess implements Serializable {
 
     private Long createBy;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIamAccountManageId() {
+        return iamAccountManageId;
+    }
+
+    public void setIamAccountManageId(Long iamAccountManageId) {
+        this.iamAccountManageId = iamAccountManageId;
+    }
+
+    public String getAccessKeyId() {
+        return accessKeyId;
+    }
+
+    public void setAccessKeyId(String accessKeyId) {
+        this.accessKeyId = accessKeyId;
+    }
+
+    public String getAccessKeySecret() {
+        return accessKeySecret;
+    }
+
+    public void setAccessKeySecret(String accessKeySecret) {
+        this.accessKeySecret = accessKeySecret;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
+    public String toString() {
+        return "IamAccess{" +
+            "id=" + id +
+            ", iamAccountManageId=" + iamAccountManageId +
+            ", accessKeyId='" + accessKeyId + '\'' +
+            ", accessKeySecret='" + accessKeySecret + '\'' +
+            ", createTime=" + createTime +
+            ", createBy=" + createBy +
+            '}';
+    }
 }

@@ -16,8 +16,6 @@
 
 package plus.wcj.heifer.metadata.properties;
 
-import lombok.Data;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -28,7 +26,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author changjin wei(魏昌进)
  * @since 2022-01-13
  */
-@Data
 @ConfigurationProperties(prefix = "heifer.jwt")
 public class JwtProperties {
     /**
@@ -45,4 +42,28 @@ public class JwtProperties {
      * 开启 记住我 之后 jwt 过期时间，默认值 604800000 {@code 7 天}
      */
     private Long remember = 604800000L;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public Long getTtl() {
+        return ttl;
+    }
+
+    public void setTtl(Long ttl) {
+        this.ttl = ttl;
+    }
+
+    public Long getRemember() {
+        return remember;
+    }
+
+    public void setRemember(Long remember) {
+        this.remember = remember;
+    }
 }

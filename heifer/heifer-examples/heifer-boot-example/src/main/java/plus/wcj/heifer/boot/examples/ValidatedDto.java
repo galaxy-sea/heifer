@@ -16,7 +16,6 @@
 
 package plus.wcj.heifer.boot.examples;
 
-import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -25,7 +24,6 @@ import java.math.BigDecimal;
  * @author changjin wei(魏昌进)
  * @since 2022/4/18
  */
-@Data
 public class ValidatedDto {
     @NotNull
     private String name;
@@ -39,4 +37,64 @@ public class ValidatedDto {
     private String nullTest;
 
     private GradeEnum gradeEnum;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
+
+    public String getNullTest() {
+        return nullTest;
+    }
+
+    public void setNullTest(String nullTest) {
+        this.nullTest = nullTest;
+    }
+
+    public GradeEnum getGradeEnum() {
+        return gradeEnum;
+    }
+
+    public void setGradeEnum(GradeEnum gradeEnum) {
+        this.gradeEnum = gradeEnum;
+    }
+
+    @Override
+    public String toString() {
+        return "ValidatedDto{" +
+            "name='" + name + '\'' +
+            ", status=" + status +
+            ", age=" + age +
+            ", money=" + money +
+            ", nullTest='" + nullTest + '\'' +
+            ", gradeEnum=" + gradeEnum +
+            '}';
+    }
 }

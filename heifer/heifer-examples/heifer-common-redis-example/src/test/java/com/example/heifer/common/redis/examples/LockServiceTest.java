@@ -16,14 +16,15 @@
 
 package com.example.heifer.common.redis.examples;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.junit.jupiter.api.Test;
 import plus.wcj.heifer.common.redis.lock.LockService;
-
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
@@ -32,8 +33,10 @@ import java.util.Date;
  * @since 2022/4/20
  */
 @SpringBootTest
-@Slf4j
 public class LockServiceTest {
+    private static final Logger logger = LoggerFactory.getLogger(LockServiceTest.class);
+
+
     @Autowired
     private LockService lockService;
 
@@ -50,8 +53,8 @@ public class LockServiceTest {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                log.info(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
-                log.info(String.valueOf(finalI));
+                logger.info(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+                logger.info(String.valueOf(finalI));
                 this.lockService.unlock(key);
             }
             ).start();
@@ -71,8 +74,8 @@ public class LockServiceTest {
             new Thread(() -> {
                 if (this.lockService.tryLock(key)) {
                     try {
-                        log.info(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
-                        log.info(String.valueOf(finalI));
+                        logger.info(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+                        logger.info(String.valueOf(finalI));
                         Thread.sleep(3000L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -81,7 +84,7 @@ public class LockServiceTest {
                         this.lockService.unlock(key);
                     }
                 } else {
-                    log.info("小可爱");
+                    logger.info("小可爱");
                 }
 
             }

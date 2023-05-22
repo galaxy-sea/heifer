@@ -16,17 +16,18 @@
 
 package plus.wcj.heifer.plugin.iam.entity;
 
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+
 import javax.validation.constraints.NotNull;
-import plus.wcj.heifer.metadata.annotation.PutValid;
-import plus.wcj.heifer.metadata.annotation.PostValid;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -36,7 +37,6 @@ import plus.wcj.heifer.metadata.annotation.PostValid;
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
-@Data
 @TableName("iam_tenant_authority")
 @ApiModel(value = "IamTenantAuthority对象", description = "租户拥有的权限")
 public class IamTenantAuthority implements Serializable {
@@ -61,4 +61,54 @@ public class IamTenantAuthority implements Serializable {
     private Long createBy;
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIamTenantId() {
+        return iamTenantId;
+    }
+
+    public void setIamTenantId(Long iamTenantId) {
+        this.iamTenantId = iamTenantId;
+    }
+
+    public Long getIamPermissionId() {
+        return iamPermissionId;
+    }
+
+    public void setIamPermissionId(Long iamPermissionId) {
+        this.iamPermissionId = iamPermissionId;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
+    public String toString() {
+        return "IamTenantAuthority{" +
+            "id=" + id +
+            ", iamTenantId=" + iamTenantId +
+            ", iamPermissionId=" + iamPermissionId +
+            ", createTime=" + createTime +
+            ", createBy=" + createBy +
+            '}';
+    }
 }

@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class SimpleApisixRegister implements ApisixRegister {
 
-    private static final Logger log = LoggerFactory.getLogger(SimpleApisixRegister.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimpleApisixRegister.class);
     private final RouteClient routeClient;
     private final ObjectProvider<List<ApisixCustomizer>> ApisixCustomizers;
 
@@ -57,7 +57,7 @@ public class SimpleApisixRegister implements ApisixRegister {
                          .forEach(apisixCustomizer -> apisixCustomizer.customizer(route));
         if (!hasRoute(route.getId())) {
             routeClient.route(route.getId(), apisixProperties.getToken(), route);
-            log.info("apisix create route:{}", route.getId());
+            logger.info("apisix create route:{}", route.getId());
         }
 
     }

@@ -18,8 +18,6 @@ package plus.wcj.heifer.common.apisix;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Data;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,7 +25,6 @@ import java.util.Map;
  * @author changjin wei(魏昌进)
  * @since 2022/5/9
  */
-@Data
 public class Route {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String id;
@@ -72,6 +69,230 @@ public class Route {
         return plugins;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
+    public Object getUri() {
+        return uri;
+    }
+
+    public void setUri(Object uri) {
+        this.uri = uri;
+    }
+
+    public Object getUris() {
+        return uris;
+    }
+
+    public void setUris(Object uris) {
+        this.uris = uris;
+    }
+
+    public void setPlugins(Map<String, Object> plugins) {
+        this.plugins = plugins;
+    }
+
+    public Object getScript() {
+        return script;
+    }
+
+    public void setScript(Object script) {
+        this.script = script;
+    }
+
+    public Map<String, Object> getUpstream() {
+        return upstream;
+    }
+
+    public void setUpstream(Map<String, Object> upstream) {
+        this.upstream = upstream;
+    }
+
+    public Object getUpstreamId() {
+        return upstreamId;
+    }
+
+    public void setUpstreamId(Object upstreamId) {
+        this.upstreamId = upstreamId;
+    }
+
+    public Object getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Object serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public Object getPluginConfigId() {
+        return pluginConfigId;
+    }
+
+    public void setPluginConfigId(Object pluginConfigId) {
+        this.pluginConfigId = pluginConfigId;
+    }
+
+    public Object getName() {
+        return name;
+    }
+
+    public void setName(Object name) {
+        this.name = name;
+    }
+
+    public Object getDesc() {
+        return desc;
+    }
+
+    public void setDesc(Object desc) {
+        this.desc = desc;
+    }
+
+    public Object getHost() {
+        return host;
+    }
+
+    public void setHost(Object host) {
+        this.host = host;
+    }
+
+    public Object getHosts() {
+        return hosts;
+    }
+
+    public void setHosts(Object hosts) {
+        this.hosts = hosts;
+    }
+
+    public Object getRemoteAddr() {
+        return remoteAddr;
+    }
+
+    public void setRemoteAddr(Object remoteAddr) {
+        this.remoteAddr = remoteAddr;
+    }
+
+    public Object getRemoteAddrs() {
+        return remoteAddrs;
+    }
+
+    public void setRemoteAddrs(Object remoteAddrs) {
+        this.remoteAddrs = remoteAddrs;
+    }
+
+    public Object getMethods() {
+        return methods;
+    }
+
+    public void setMethods(Object methods) {
+        this.methods = methods;
+    }
+
+    public Object getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Object priority) {
+        this.priority = priority;
+    }
+
+    public Object getVars() {
+        return vars;
+    }
+
+    public void setVars(Object vars) {
+        this.vars = vars;
+    }
+
+    public Object getFilterFunc() {
+        return filterFunc;
+    }
+
+    public void setFilterFunc(Object filterFunc) {
+        this.filterFunc = filterFunc;
+    }
+
+    public Map<String, String> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(Map<String, String> labels) {
+        this.labels = labels;
+    }
+
+    public Object getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(Object timeout) {
+        this.timeout = timeout;
+    }
+
+    public Object getEnableWebsocket() {
+        return enableWebsocket;
+    }
+
+    public void setEnableWebsocket(Object enableWebsocket) {
+        this.enableWebsocket = enableWebsocket;
+    }
+
+    public Object getStatus() {
+        return status;
+    }
+
+    public void setStatus(Object status) {
+        this.status = status;
+    }
+
+    public Object getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Object createTime) {
+        this.createTime = createTime;
+    }
+
+    public Object getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Object updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+            "id='" + id + '\'' +
+            ", uri=" + uri +
+            ", uris=" + uris +
+            ", plugins=" + plugins +
+            ", script=" + script +
+            ", upstream=" + upstream +
+            ", upstreamId=" + upstreamId +
+            ", serviceId=" + serviceId +
+            ", pluginConfigId=" + pluginConfigId +
+            ", name=" + name +
+            ", desc=" + desc +
+            ", host=" + host +
+            ", hosts=" + hosts +
+            ", remoteAddr=" + remoteAddr +
+            ", remoteAddrs=" + remoteAddrs +
+            ", methods=" + methods +
+            ", priority=" + priority +
+            ", vars=" + vars +
+            ", filterFunc=" + filterFunc +
+            ", labels=" + labels +
+            ", timeout=" + timeout +
+            ", enableWebsocket=" + enableWebsocket +
+            ", status=" + status +
+            ", createTime=" + createTime +
+            ", updateTime=" + updateTime +
+            '}';
+    }
 }

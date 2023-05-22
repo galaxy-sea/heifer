@@ -16,17 +16,18 @@
 
 package plus.wcj.heifer.plugin.iam.entity;
 
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+
 import javax.validation.constraints.NotNull;
-import plus.wcj.heifer.metadata.annotation.PutValid;
-import plus.wcj.heifer.metadata.annotation.PostValid;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -36,7 +37,6 @@ import plus.wcj.heifer.metadata.annotation.PostValid;
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
-@Data
 @TableName("iam_permission")
 @ApiModel(value = "IamPermission对象", description = "功能权限")
 public class IamPermission implements Serializable {
@@ -76,5 +76,99 @@ public class IamPermission implements Serializable {
 
     private Long updateBy;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Long updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    @Override
+    public String toString() {
+        return "IamPermission{" +
+            "id=" + id +
+            ", parentId=" + parentId +
+            ", name='" + name + '\'' +
+            ", permission='" + permission + '\'' +
+            ", type='" + type + '\'' +
+            ", sort=" + sort +
+            ", createTime=" + createTime +
+            ", createBy=" + createBy +
+            ", updateTime=" + updateTime +
+            ", updateBy=" + updateBy +
+            '}';
+    }
 }

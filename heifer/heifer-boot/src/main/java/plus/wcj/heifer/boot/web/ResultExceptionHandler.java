@@ -17,14 +17,12 @@
 package plus.wcj.heifer.boot.web;
 
 
+import plus.wcj.heifer.boot.web.mvc.ResultResponseBodyAdvice;
 import plus.wcj.heifer.metadata.bean.BindObjectError;
 import plus.wcj.heifer.metadata.bean.Result;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatus;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
@@ -52,6 +50,9 @@ import org.springframework.web.context.request.async.AsyncRequestTimeoutExceptio
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.validation.ConstraintViolationException;
 import java.nio.file.AccessDeniedException;
 
@@ -59,15 +60,19 @@ import java.nio.file.AccessDeniedException;
  * @author changjin wei(魏昌进)
  * @since 2021/7/8
  */
-@Slf4j
-@RequiredArgsConstructor
-
 @ControllerAdvice
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ResultExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(ResultExceptionHandler.class);
+
+
     private final MessageSource messageSource;
+
+    public ResultExceptionHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @SuppressWarnings("unused")
     protected <T> ResponseEntity<Result<?>> handleExceptionInternal(ResultStatus resultStatus, Exception ex, HttpHeaders headers, WebRequest request) {
@@ -79,9 +84,9 @@ public class ResultExceptionHandler {
     protected <T> ResponseEntity<Result<?>> handleExceptionInternal(ResultStatus resultStatus, T data, Object[] ages, Exception ex, HttpHeaders headers, WebRequest request) {
         String message = messageSource.getMessage(resultStatus.getClass().getName() + '.' + resultStatus.name(), ages, resultStatus.getMessage(), request.getLocale());
         Result<T> body = Result.of(resultStatus.getCode(), message, data);
-        log.error("{}\nmessage\n{}\n{}", ex.getClass(), message, ex.getMessage());
-        if (log.isDebugEnabled()) {
-            log.debug("小可爱，注意检查代码哦", ex);
+        logger.error("{}\nmessage\n{}\n{}", ex.getClass(), message, ex.getMessage());
+        if (logger.isDebugEnabled()) {
+            logger.debug("小可爱，注意检查代码哦", ex);
         }
         return new ResponseEntity<>(body, headers, resultStatus.getHttpStatus());
     }

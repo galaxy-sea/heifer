@@ -23,8 +23,6 @@ import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -60,7 +58,6 @@ import java.util.Set;
  * @since 2022-01-13
  */
 @Configuration
-@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableConfigurationProperties(IgnoreWebSecurityProperties.class)
 @AutoConfigureOrder(AutoConfigureOrder.DEFAULT_ORDER - 1000)

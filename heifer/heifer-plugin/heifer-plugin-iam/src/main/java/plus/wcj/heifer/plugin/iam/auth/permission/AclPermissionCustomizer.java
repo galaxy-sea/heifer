@@ -16,22 +16,26 @@
 
 package plus.wcj.heifer.plugin.iam.auth.permission;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import plus.wcj.heifer.plugin.iam.dao.AuthDao;
+
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * 获取功能权限
+ *
  * @author changjin wei(魏昌进)
  * @since 2023/4/5
  */
 @Component
-@RequiredArgsConstructor
-public class AclPermissionCustomizer implements PermissionCustomizer{
+public class AclPermissionCustomizer implements PermissionCustomizer {
 
     private final AuthDao authDao;
+
+    public AclPermissionCustomizer(AuthDao authDao) {
+        this.authDao = authDao;
+    }
 
     public List<String> customize(Long accountId, Long tenantId) {
         return authDao.selectAclPermissionByIamIamAccountIdAndTenantId(accountId, tenantId);

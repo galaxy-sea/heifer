@@ -19,13 +19,10 @@ package plus.wcj.heifer.plugin.iam.controller;
 
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
+import plus.wcj.heifer.plugin.iam.auth.AuthService;
 import plus.wcj.heifer.plugin.iam.dto.JwtDto;
 import plus.wcj.heifer.plugin.iam.dto.LoginDto;
 import plus.wcj.heifer.plugin.iam.dto.TenantDto;
-import plus.wcj.heifer.plugin.iam.auth.AuthService;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.validation.annotation.Validated;
@@ -47,14 +44,16 @@ import java.util.List;
  * @author changjin wei(魏昌进)
  * @since 2022-01-13
  */
-@Slf4j
 @RestController
 @RequestMapping("/auth")
-@RequiredArgsConstructor
 @ResponseBodyResult
 public class AuthController {
 
     private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     /**
      * 登录
@@ -68,7 +67,7 @@ public class AuthController {
     /**
      * 登录
      *
-     * @return  返回租户列表信息
+     * @return 返回租户列表信息
      */
     @GetMapping("/tenant")
     public List<TenantDto> tenant(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorization) {

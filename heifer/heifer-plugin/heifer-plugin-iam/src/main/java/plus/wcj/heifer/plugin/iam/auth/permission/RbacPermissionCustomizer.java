@@ -16,11 +16,10 @@
 
 package plus.wcj.heifer.plugin.iam.auth.permission;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import plus.wcj.heifer.plugin.iam.dao.AuthDao;
 
-import java.util.ArrayList;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 /**
@@ -29,10 +28,13 @@ import java.util.List;
  * @since 2023/4/5
  */
 @Component
-@RequiredArgsConstructor
 public class RbacPermissionCustomizer implements PermissionCustomizer{
 
     private final AuthDao authDao;
+
+    public RbacPermissionCustomizer(AuthDao authDao) {
+        this.authDao = authDao;
+    }
 
     public List<String> customize(Long accountId, Long tenantId) {
         return authDao.selectRbacPermissionByIamIamAccountIdAndTenantId(accountId, tenantId);

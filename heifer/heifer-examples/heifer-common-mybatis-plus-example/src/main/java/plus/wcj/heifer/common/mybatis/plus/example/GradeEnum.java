@@ -18,15 +18,10 @@ package plus.wcj.heifer.common.mybatis.plus.example;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * @author changjin wei(魏昌进)
  * @since 2022/4/19
  */
-@Getter
-@AllArgsConstructor
 public enum GradeEnum {
 
     PRIMARY(1, "小学"),
@@ -36,4 +31,17 @@ public enum GradeEnum {
     @EnumValue
     private final int code;
     private final String descp;
+
+    GradeEnum(int code, String descp) {
+        this.code = code;
+        this.descp = descp;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getDescp() {
+        return descp;
+    }
 }

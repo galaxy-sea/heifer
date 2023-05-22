@@ -16,10 +16,6 @@
 
 package plus.wcj.heifer.plugin.iam.dto;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
 import java.io.Serializable;
 
 /**
@@ -30,9 +26,6 @@ import java.io.Serializable;
  * @author changjinwei
  * @since 2021-11-28
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class TenantDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,4 +35,28 @@ public class TenantDto implements Serializable {
 
     /** 租户名称 */
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "TenantDto{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            '}';
+    }
 }

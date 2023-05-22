@@ -16,15 +16,10 @@
 
 package plus.wcj.heifer.metadata.bean;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 /**
  * @author changjin wei(魏昌进)
  * @since 2022/4/7
  */
-@Data
-@AllArgsConstructor
 public class BindObjectError {
     /**
      * 默认信息
@@ -38,4 +33,34 @@ public class BindObjectError {
      * 错误代码
      */
     private String code;
+
+    public BindObjectError(String defaultMessage, String field, String code) {
+        this.defaultMessage = defaultMessage;
+        this.field = field;
+        this.code = code;
+    }
+
+    public String getDefaultMessage() {
+        return defaultMessage;
+    }
+
+    public void setDefaultMessage(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

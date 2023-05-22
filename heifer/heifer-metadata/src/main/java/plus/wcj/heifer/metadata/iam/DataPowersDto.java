@@ -16,8 +16,6 @@
 
 package plus.wcj.heifer.metadata.iam;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,6 @@ import java.util.List;
  * @author changjin wei(魏昌进)
  * @since 2022/3/13
  */
-@Data
 public class DataPowersDto {
 
     /**
@@ -64,5 +61,35 @@ public class DataPowersDto {
         return dataPowersDto;
     }
 
+    public Long getDeptId() {
+        return deptId;
+    }
 
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public List<Long> getDataPowers() {
+        return dataPowers;
+    }
+
+    public void setDataPowers(List<Long> dataPowers) {
+        this.dataPowers = dataPowers;
+    }
+
+    public Boolean getTenantDataPower() {
+        return tenantDataPower;
+    }
+
+    public void setTenantDataPower(Boolean tenantDataPower) {
+        this.tenantDataPower = tenantDataPower;
+    }
+
+    public Boolean getDeptDataPower() {
+        return deptDataPower;
+    }
+
+    public void setDeptDataPower(Boolean deptDataPower) {
+        this.deptDataPower = deptDataPower;
+    }
 }

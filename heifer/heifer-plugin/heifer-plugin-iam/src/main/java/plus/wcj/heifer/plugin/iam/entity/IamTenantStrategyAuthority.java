@@ -16,17 +16,18 @@
 
 package plus.wcj.heifer.plugin.iam.entity;
 
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+
 import javax.validation.constraints.NotNull;
-import plus.wcj.heifer.metadata.annotation.PutValid;
-import plus.wcj.heifer.metadata.annotation.PostValid;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -36,7 +37,6 @@ import plus.wcj.heifer.metadata.annotation.PostValid;
  * @author weichangjin (魏昌进)
  * @since 2022-06-26
  */
-@Data
 @TableName("iam_tenant_strategy_authority")
 @ApiModel(value = "IamTenantStrategyAuthority对象", description = "租户配置的策略规则与功能权限的绑定")
 public class IamTenantStrategyAuthority implements Serializable {
@@ -64,5 +64,63 @@ public class IamTenantStrategyAuthority implements Serializable {
 
     private LocalDateTime createTime;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIamTenantStrategyId() {
+        return iamTenantStrategyId;
+    }
+
+    public void setIamTenantStrategyId(Long iamTenantStrategyId) {
+        this.iamTenantStrategyId = iamTenantStrategyId;
+    }
+
+    public Long getIamTenantId() {
+        return iamTenantId;
+    }
+
+    public void setIamTenantId(Long iamTenantId) {
+        this.iamTenantId = iamTenantId;
+    }
+
+    public Long getIamPermissionId() {
+        return iamPermissionId;
+    }
+
+    public void setIamPermissionId(Long iamPermissionId) {
+        this.iamPermissionId = iamPermissionId;
+    }
+
+    public Long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "IamTenantStrategyAuthority{" +
+            "id=" + id +
+            ", iamTenantStrategyId=" + iamTenantStrategyId +
+            ", iamTenantId=" + iamTenantId +
+            ", iamPermissionId=" + iamPermissionId +
+            ", createBy=" + createBy +
+            ", createTime=" + createTime +
+            '}';
+    }
 }

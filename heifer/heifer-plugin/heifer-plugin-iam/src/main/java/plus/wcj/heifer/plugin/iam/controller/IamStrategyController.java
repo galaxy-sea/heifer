@@ -17,15 +17,12 @@
 package plus.wcj.heifer.plugin.iam.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import plus.wcj.heifer.metadata.annotation.PostValid;
 import plus.wcj.heifer.metadata.annotation.PutValid;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.iam.User;
 import plus.wcj.heifer.plugin.iam.entity.IamStrategy;
 import plus.wcj.heifer.plugin.iam.service.IamStrategyService;
-
-import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -37,6 +34,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import javax.validation.constraints.NotNull;
 
@@ -51,10 +50,13 @@ import javax.validation.constraints.NotNull;
 @ResponseBodyResult
 @RestController
 @RequestMapping("/iam/iamStrategy")
-@RequiredArgsConstructor
 public class IamStrategyController {
 
     private final IamStrategyService iamStrategyService;
+
+    public IamStrategyController(IamStrategyService iamStrategyService) {
+        this.iamStrategyService = iamStrategyService;
+    }
 
     /** id查询 */
     @GetMapping("/{id}")

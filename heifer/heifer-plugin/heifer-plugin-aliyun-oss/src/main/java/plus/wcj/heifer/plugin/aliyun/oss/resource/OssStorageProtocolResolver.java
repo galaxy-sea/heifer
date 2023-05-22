@@ -43,7 +43,7 @@ public class OssStorageProtocolResolver
 	 */
 	public static final String PROTOCOL = "oss://";
 
-	private static final Logger log = LoggerFactory
+	private static final Logger logger = LoggerFactory
 			.getLogger(OssStorageProtocolResolver.class);
 
 	private ConfigurableListableBeanFactory beanFactory;
@@ -53,7 +53,7 @@ public class OssStorageProtocolResolver
     private AliyunOssServer getAliyunOsServer() {
         if (this.aliyunOssServer == null) {
             if (this.beanFactory.getBeansOfType(OSS.class).size() > 1) {
-                log.warn(
+                logger.warn(
                         "There are multiple OSS instances, consider marking one of them as @Primary to resolve oss "
                                 + "protocol.");
             }
@@ -80,7 +80,7 @@ public class OssStorageProtocolResolver
 			((DefaultResourceLoader) resourceLoader).addProtocolResolver(this);
 		}
 		else {
-			log.warn("The provided delegate resource loader is not an implementation "
+			logger.warn("The provided delegate resource loader is not an implementation "
 					+ "of DefaultResourceLoader. Custom Protocol using oss:// prefix will not be enabled.");
 		}
 	}

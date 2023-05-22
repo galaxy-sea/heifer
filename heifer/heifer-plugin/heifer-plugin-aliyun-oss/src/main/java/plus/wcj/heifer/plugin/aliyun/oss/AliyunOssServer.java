@@ -25,8 +25,6 @@ import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PolicyConditions;
 
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,12 +45,15 @@ import java.util.Map;
  * @since 2021/7/16
  */
 @Component
-@RequiredArgsConstructor
 public class AliyunOssServer {
 
     private final Map<String, OSS> aliyunOssMap;
     private final Map<String, AliyunOssProperties> aliyunOssPropertiesMap;
 
+    public AliyunOssServer(Map<String, OSS> aliyunOssMap, Map<String, AliyunOssProperties> aliyunOssPropertiesMap) {
+        this.aliyunOssMap = aliyunOssMap;
+        this.aliyunOssPropertiesMap = aliyunOssPropertiesMap;
+    }
 
     public Map<String, String> policy(String dir) {
         return this.policy(dir, OssConstants.DEFAULT_OSS_KEY);

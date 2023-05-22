@@ -16,16 +16,11 @@
 
 package plus.wcj.heifer.boot.examples;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * @author changjin wei(魏昌进)
  * @since 2022/4/18
  */
 @SuppressWarnings("AlibabaEnumConstantsMustHaveComment")
-@Getter
-@AllArgsConstructor
 public enum GradeEnum {
     PRIMARY(1, "小学"),
     SECONDORY(2, "中学"),
@@ -33,4 +28,17 @@ public enum GradeEnum {
 
     private final int value;
     private final String desc;
+
+    GradeEnum(int value, String desc) {
+        this.value = value;
+        this.desc = desc;
+    }
+
+    @Override
+    public String toString() {
+        return "GradeEnum{" +
+            "value=" + value +
+            ", desc='" + desc + '\'' +
+            '}';
+    }
 }

@@ -17,15 +17,11 @@
 package plus.wcj.heifer.plugin.aliyun.oss;
 
 
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author changjinwei
  * @since 2021/7/19
  */
-@Getter
-@Setter
 public class AliyunOssProperties {
     /** 阿里云账号 accessId */
     private String accessId;
@@ -39,4 +35,52 @@ public class AliyunOssProperties {
     private String host;
     /** 授权过期时间 默认 0， 单位毫秒 */
     private long expire = 0;
+
+    public String getAccessId() {
+        return accessId;
+    }
+
+    public void setAccessId(String accessId) {
+        this.accessId = accessId;
+    }
+
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
+
+    public String getBucket() {
+        return bucket;
+    }
+
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public long getExpire() {
+        return expire;
+    }
+
+    public void setExpire(long expire) {
+        this.expire = expire;
+    }
 }

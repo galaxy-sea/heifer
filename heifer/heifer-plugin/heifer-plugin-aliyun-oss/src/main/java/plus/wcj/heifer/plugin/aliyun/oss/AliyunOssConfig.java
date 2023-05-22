@@ -20,8 +20,6 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import plus.wcj.heifer.plugin.aliyun.oss.resource.OssStorageProtocolResolver;
 
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +39,6 @@ import java.util.concurrent.TimeUnit;
  * @author changjin wei(魏昌进)
  */
 @Configuration
-@RequiredArgsConstructor
 @EnableConfigurationProperties(AliyunOssManyProperties.class)
 public class AliyunOssConfig {
 
