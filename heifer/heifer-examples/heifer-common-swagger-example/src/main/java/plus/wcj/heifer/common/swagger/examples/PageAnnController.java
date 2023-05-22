@@ -19,7 +19,7 @@ package plus.wcj.heifer.common.swagger.examples;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
-import plus.wcj.heifer.metadata.iam.Tenant;
+import plus.wcj.heifer.metadata.iam.User;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -42,13 +42,13 @@ public class PageAnnController {
 
     @GetMapping("page")
     @ResponseBodyResult
-    public Page<Tenant> page(Page<Tenant> page) {
+    public Page<User> page(Page<User> page) {
         return page;
     }
 
     @GetMapping("ann")
     @ResponseBodyResult
-    public Page<Tenant> ann(@OrderByValid(field = "ann") Page<Tenant> page) {
+    public Page<User> ann(@OrderByValid(field = "ann") Page<User> page) {
         return page;
     }
 
@@ -56,7 +56,7 @@ public class PageAnnController {
     @GetMapping("security")
     @ResponseBodyResult
     @PreAuthorize("hasAuthority('admin123123')")
-    public Page<Tenant> security(@OrderByValid(field = "ann") Page<Tenant> page) {
+    public Page<User> security(@OrderByValid(field = "ann") Page<User> page) {
         return page;
     }
 
@@ -66,7 +66,7 @@ public class PageAnnController {
     @PostFilter("hasAuthority('admin123123')")
     @PostAuthorize("hasAuthority('admin123123')")
     @PreFilter("hasAuthority('admin123123')")
-    public Page<Tenant> all(Page<Tenant> page) {
+    public Page<User> all(Page<User> page) {
         return page;
     }
 

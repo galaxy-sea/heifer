@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import plus.wcj.heifer.metadata.annotation.PostValid;
 import plus.wcj.heifer.metadata.annotation.PutValid;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
-import plus.wcj.heifer.metadata.iam.Tenant;
+import plus.wcj.heifer.metadata.iam.User;
 import plus.wcj.heifer.plugin.iam.entity.IamAccount;
 import plus.wcj.heifer.plugin.iam.service.IamAccountService;
 
@@ -65,14 +65,14 @@ public class IamAccountController {
     /** 分页查询 */
     @GetMapping
     @PreAuthorize("hasAuthority('iamAccount')")
-    public Page<IamAccount> page(Page<IamAccount> page, IamAccount iamAccount, Tenant tenant) {
+    public Page<IamAccount> page(Page<IamAccount> page, IamAccount iamAccount, User user) {
         return iamAccountService.page(page, iamAccount);
     }
 
     /** 保存 */
     @PostMapping
     @PreAuthorize("hasAuthority('iamAccount:post')")
-    public boolean save(@Validated(value = PostValid.class) @RequestBody IamAccount iamAccount, Tenant tenant) {
+    public boolean save(@Validated(value = PostValid.class) @RequestBody IamAccount iamAccount, User user) {
         return iamAccountService.save(iamAccount);
     }
 

@@ -16,7 +16,7 @@
 
 package plus.wcj.heifer.common.swagger;
 
-import plus.wcj.heifer.metadata.iam.Tenant;
+import plus.wcj.heifer.metadata.iam.User;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -89,7 +89,7 @@ public class SwaggerAutoConfiguration {
     public Docket docket() {
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(this.apiInfo())
-                .ignoredParameterTypes(HttpServletResponse.class, HttpServletRequest.class, Tenant.class)
+                .ignoredParameterTypes(HttpServletResponse.class, HttpServletRequest.class, User.class)
                 // .enableUrlTemplating(true)
                 .select()
                 // .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))

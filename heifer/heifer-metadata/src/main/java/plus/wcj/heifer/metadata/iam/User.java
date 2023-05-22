@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Getter
 @EqualsAndHashCode
-public class Tenant {
+public class User {
     /** 用户id */
     private final Long accountId;
 
@@ -47,7 +47,7 @@ public class Tenant {
     /** 是否拥有当前tenant下的全部dept权限，租户管理员权限 */
     private final boolean deptDataPower;
 
-    public Tenant(Long accountId, String username, Long tenantId, Long deptId, List<Long> dataPowers, boolean tenantDataPower, boolean deptDataPower) {
+    public User(Long accountId, String username, Long tenantId, Long deptId, List<Long> dataPowers, boolean tenantDataPower, boolean deptDataPower) {
         this.accountId = accountId;
         this.username = username;
         this.tenantId = tenantId;

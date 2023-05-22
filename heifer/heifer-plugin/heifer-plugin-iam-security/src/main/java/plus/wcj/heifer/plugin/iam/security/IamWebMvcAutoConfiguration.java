@@ -24,7 +24,7 @@ import plus.wcj.heifer.metadata.iam.UserPrincipalService;
 import plus.wcj.heifer.plugin.iam.security.support.mvc.ChaosAuthenticationFilter;
 import plus.wcj.heifer.plugin.iam.security.support.mvc.JwtAuthenticationFilter;
 import plus.wcj.heifer.plugin.iam.security.support.mvc.SecurityUserHandlerMethodArgumentResolver;
-import plus.wcj.heifer.plugin.iam.security.support.mvc.TenantHandlerMethodArgumentResolver;
+import plus.wcj.heifer.plugin.iam.security.support.mvc.UserHandlerMethodArgumentResolver;
 import plus.wcj.heifer.plugin.iam.security.support.registry.ChaosMetadata;
 
 import lombok.AllArgsConstructor;
@@ -80,7 +80,7 @@ public class IamWebMvcAutoConfiguration implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(0, new SecurityUserHandlerMethodArgumentResolver());
-        resolvers.add(0, new TenantHandlerMethodArgumentResolver(userPrincipalService));
+        resolvers.add(0, new UserHandlerMethodArgumentResolver(userPrincipalService));
     }
 }
 

@@ -19,7 +19,7 @@ package plus.wcj.heifer.plugin.iam.security.support.mvc;
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
 import plus.wcj.heifer.metadata.iam.DataPowersDto;
-import plus.wcj.heifer.metadata.iam.Tenant;
+import plus.wcj.heifer.metadata.iam.User;
 import plus.wcj.heifer.metadata.iam.UserPrincipalService;
 import plus.wcj.heifer.plugin.iam.security.IamUserDetails;
 
@@ -34,22 +34,22 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * @author changjin wei(魏昌进)
  * @since 2022/3/13
  */
-public class TenantHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public class UserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final UserPrincipalService userPrincipalService;
 
-    public TenantHandlerMethodArgumentResolver(UserPrincipalService userPrincipalService) {
+    public UserHandlerMethodArgumentResolver(UserPrincipalService userPrincipalService) {
         this.userPrincipalService = userPrincipalService;
     }
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return Tenant.class.isAssignableFrom(parameter.getParameterType());
+        return User.class.isAssignableFrom(parameter.getParameterType());
     }
 
     @SuppressWarnings("NullableProblems")
     @Override
-    public Tenant resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+    public User resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof IamUserDetails iamUserDetails) {
@@ -58,7 +58,7 @@ public class TenantHandlerMethodArgumentResolver implements HandlerMethodArgumen
                 dataPowersDto = userPrincipalService.listPower(iamUserDetails.getTenantId(), iamUserDetails.getId());
             }
             dataPowersDto = DataPowersDto.init(dataPowersDto);
-            return new Tenant(iamUserDetails.getId(),
+            return new User(iamUserDetails.getId(),
                               iamUserDetails.getUsername(),
                               iamUserDetails.getTenantId(),
                               dataPowersDto.getDeptId(),

@@ -21,7 +21,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import plus.wcj.heifer.metadata.annotation.PostValid;
 import plus.wcj.heifer.metadata.annotation.PutValid;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
-import plus.wcj.heifer.metadata.iam.Tenant;
+import plus.wcj.heifer.metadata.iam.User;
 import plus.wcj.heifer.plugin.iam.entity.IamTenant;
 import plus.wcj.heifer.plugin.iam.service.IamTenantService;
 
@@ -66,14 +66,14 @@ public class IamTenantController {
     /** 分页查询 */
     @GetMapping
     @PreAuthorize("hasAuthority('iamTenant')")
-    public Page<IamTenant> page(Page<IamTenant> page, IamTenant iamTenant, Tenant tenant) {
+    public Page<IamTenant> page(Page<IamTenant> page, IamTenant iamTenant, User user) {
         return iamTenantService.page(page, iamTenant);
     }
 
     /** 保存 */
     @PostMapping
     @PreAuthorize("hasAuthority('iamTenant:post')")
-    public boolean save(@Validated(value = PostValid.class) @RequestBody IamTenant iamTenant, Tenant tenant) {
+    public boolean save(@Validated(value = PostValid.class) @RequestBody IamTenant iamTenant, User user) {
         return iamTenantService.save(iamTenant);
     }
 

@@ -2,7 +2,7 @@ package plus.wcj.heifer.common.swagger.examples;
 
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
-import plus.wcj.heifer.metadata.iam.Tenant;
+import plus.wcj.heifer.metadata.iam.User;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -27,30 +27,30 @@ public class SwaggerAnnController {
 
     @GetMapping("sign")
     @ResponseBodyResult
-    public Tenant test1(Tenant tenant) {
-        return tenant;
+    public User test1(User user) {
+        return user;
     }
 
 
     @GetMapping("permission")
     @ResponseBodyResult
     @PreAuthorize("hasAuthority('heifer:admin:test')")
-    public Tenant test2(Tenant tenant) {
-        return tenant;
+    public User test2(User user) {
+        return user;
     }
 
     @GetMapping("role")
     @ResponseBodyResult
     @PreAuthorize("hasRole('admin')")
-    public Tenant testRole(Tenant tenant) {
-        return tenant;
+    public User testRole(User user) {
+        return user;
     }
 
     @GetMapping("not")
     @ResponseBodyResult
     @PreAuthorize("hasAuthority('admin123123')")
-    public Tenant testUser(Tenant tenant) {
-        return tenant;
+    public User testUser(User user) {
+        return user;
     }
 
     @RequestMapping(value = {"ignoreWebSecurity", "wodesijie"})
