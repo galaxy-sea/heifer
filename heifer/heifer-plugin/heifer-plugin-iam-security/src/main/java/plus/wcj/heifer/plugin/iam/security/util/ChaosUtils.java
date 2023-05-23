@@ -18,9 +18,6 @@ package plus.wcj.heifer.plugin.iam.security.util;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import javax.xml.crypto.Data;
-import java.util.Date;
-
 /**
  * 混沌加密， 瞎几把写的
  *

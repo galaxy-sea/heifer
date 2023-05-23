@@ -19,7 +19,6 @@ package plus.wcj.heifer.common.mybatisplus.validation;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import plus.wcj.heifer.metadata.exception.ResultException;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.util.CollectionUtils;

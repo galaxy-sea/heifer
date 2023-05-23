@@ -16,8 +16,6 @@
 
 package plus.wcj.heifer.boot.web;
 
-
-import plus.wcj.heifer.boot.web.mvc.ResultResponseBodyAdvice;
 import plus.wcj.heifer.metadata.bean.BindObjectError;
 import plus.wcj.heifer.metadata.bean.Result;
 import plus.wcj.heifer.metadata.exception.ResultException;

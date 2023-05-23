@@ -18,7 +18,6 @@ package plus.wcj.heifer.plugin.iam.security.support.mvc;
 
 import plus.wcj.heifer.metadata.exception.ResultException;
 import plus.wcj.heifer.metadata.exception.ResultStatusEnum;
-import plus.wcj.heifer.plugin.iam.security.ChaosUserDetails;
 import plus.wcj.heifer.plugin.iam.security.IamUserDetails;
 
 import org.springframework.core.MethodParameter;
