@@ -1,3 +1,2 @@
 plus.wcj.heifer.common.feign.FeignConfiguration
 plus.wcj.heifer.common.feign.FeignExceptionHandler
-plus.wcj.heifer.common.feign.loadbalancer.FeignLoadBalancerConfiguration
