@@ -19,10 +19,9 @@
         <spring-cloud-tencent.version>1.11.4-2022.0.1</spring-cloud-tencent.version>
 
 
-        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <mybatis.version>3.5.10</mybatis.version>
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
-        <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
 
         <seata.version>1.4.2</seata.version>
 
@@ -135,12 +134,6 @@
 
 
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-                <version>${dynamic-datasource.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${seata.version}</version>
@@ -221,11 +214,6 @@
             <dependency>
                 <groupId>plus.wcj</groupId>
                 <artifactId>heifer-common-mybatis-plus</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>plus.wcj</groupId>
-                <artifactId>heifer-common-dynamic-datasource</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
