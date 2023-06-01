@@ -1,3 +1,0 @@
-# AutoConfiguration
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-plus.wcj.heifer.common.swagger.SwaggerAutoConfiguration

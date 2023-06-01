@@ -1,4 +1,0 @@
-# AutoConfiguration
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-plus.wcj.heifer.boot.HeiferBootAutoConfiguration,\
-plus.wcj.heifer.boot.SchedulingConfiguration
