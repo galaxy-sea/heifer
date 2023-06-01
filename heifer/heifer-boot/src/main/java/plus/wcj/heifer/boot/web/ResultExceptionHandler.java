@@ -16,6 +16,7 @@
 
 package plus.wcj.heifer.boot.web;
 
+import jakarta.validation.ConstraintViolationException;
 import plus.wcj.heifer.metadata.bean.BindObjectError;
 import plus.wcj.heifer.metadata.bean.Result;
 import plus.wcj.heifer.metadata.exception.ResultException;
@@ -51,7 +52,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.validation.ConstraintViolationException;
 import java.nio.file.AccessDeniedException;
 
 /**
