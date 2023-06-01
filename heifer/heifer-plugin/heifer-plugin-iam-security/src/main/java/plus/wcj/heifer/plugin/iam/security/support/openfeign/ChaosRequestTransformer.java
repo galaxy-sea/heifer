@@ -17,7 +17,7 @@
 package plus.wcj.heifer.plugin.iam.security.support.openfeign;
 
 import feign.Request;
-import plus.wcj.heifer.common.feign.loadbalancer.LoadBalancerFeignRequestTransformer;
+import org.springframework.cloud.openfeign.loadbalancer.LoadBalancerFeignRequestTransformer;
 import plus.wcj.heifer.plugin.iam.security.Constant;
 import plus.wcj.heifer.plugin.iam.security.util.ChaosUtils;
 
