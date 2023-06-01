@@ -18,6 +18,7 @@ package plus.wcj.heifer.common.apisix;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatusCode;
 import plus.wcj.heifer.common.apisix.admin.api.RouteClient;
 
 import org.springframework.beans.factory.ObjectProvider;
@@ -66,7 +67,7 @@ public class SimpleApisixRegister implements ApisixRegister {
     private boolean hasRoute(String routeId) {
         try {
             ResponseEntity<String> response = this.routeClient.route(routeId, this.apisixProperties.getToken());
-            HttpStatus statusCode = response.getStatusCode();
+            HttpStatusCode statusCode = response.getStatusCode();
             return HttpStatus.OK.equals(statusCode);
         }  catch (Exception e) {
             return false;
