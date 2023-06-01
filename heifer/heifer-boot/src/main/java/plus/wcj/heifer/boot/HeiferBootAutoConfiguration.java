@@ -16,6 +16,9 @@
 
 package plus.wcj.heifer.boot;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.hibernate.validator.HibernateValidator;
 import plus.wcj.heifer.boot.web.ResultExceptionHandler;
 import plus.wcj.heifer.boot.web.mvc.ResultResponseBodyAdvice;
@@ -27,9 +30,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.List;
 
 /**

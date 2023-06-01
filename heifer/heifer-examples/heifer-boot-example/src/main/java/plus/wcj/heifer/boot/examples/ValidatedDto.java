@@ -17,7 +17,7 @@
 package plus.wcj.heifer.boot.examples;
 
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**

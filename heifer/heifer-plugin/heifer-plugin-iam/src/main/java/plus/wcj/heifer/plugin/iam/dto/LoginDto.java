@@ -16,7 +16,7 @@
 
 package plus.wcj.heifer.plugin.iam.dto;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * <p>
