@@ -17,6 +17,8 @@
 package plus.wcj.heifer.common.security.config;
 
 
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.web.SecurityFilterChain;
 import plus.wcj.heifer.common.security.filter.IamOncePerRequestFilter;
 import plus.wcj.heifer.common.security.properties.IgnoreWebSecurityProperties;
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
@@ -36,7 +38,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.util.CollectionUtils;
@@ -61,7 +62,7 @@ import java.util.Set;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableConfigurationProperties(IgnoreWebSecurityProperties.class)
 @AutoConfigureOrder(AutoConfigureOrder.DEFAULT_ORDER - 1000)
-public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityAutoConfiguration {
     private IgnoreWebSecurityProperties ignoreWebSecurityProperties;
     private ObjectProvider<List<IamOncePerRequestFilter>> iamOncePerRequestFilterObjectProviderLists;
     private ObjectProvider<RequestMappingHandlerMapping> requestMappingHandlerMappingObjectProvider;
@@ -83,42 +84,40 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
         return impl;
     }
 
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // @formatter:off
         http.cors()
-            // 关闭 CSRF
-            .and().csrf().disable()
-            // 登录行为由自己实现，参考 AuthController#login
-            .formLogin().disable()
-            .httpBasic().disable()
+                // 关闭 CSRF
+                .and().csrf().disable()
+                // 登录行为由自己实现，参考 AuthController#login
+                .formLogin().disable()
+                .httpBasic().disable()
 
-            // 认证请求
-            .authorizeRequests()
-            // 所有请求都需要登录访问
-            .anyRequest()
-            .authenticated()
-            // RBAC 动态 url 认证
-            // .anyRequest()
-            // .access("@rbacAuthorityService.hasPermission(request,authentication)")
+                // 认证请求
+                .authorizeRequests()
+                // 所有请求都需要登录访问
+                .anyRequest()
+                .authenticated()
+                // RBAC 动态 url 认证
+                // .anyRequest()
+                // .access("@rbacAuthorityService.hasPermission(request,authentication)")
 
-            // 登出行为由自己实现，参考 AuthController#logout
-            .and().logout().disable()
-            // Session 管理
-            .sessionManagement()
-            // 因为使用了JWT，所以这里不管理Session
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // 登出行为由自己实现，参考 AuthController#logout
+                .and().logout().disable()
+                // Session 管理
+                .sessionManagement()
+                // 因为使用了JWT，所以这里不管理Session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-            // 异常处理
-            .and().exceptionHandling()
-            .authenticationEntryPoint((request, response, authException) -> {
-                throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
-            })
-            .accessDeniedHandler((request, response, accessDeniedException) -> {
-                throw new ResultException(ResultStatusEnum.FORBIDDEN);
-            });
+                // 异常处理
+                .and().exceptionHandling()
+                .authenticationEntryPoint((request, response, authException) -> {
+                    throw new ResultException(ResultStatusEnum.UNAUTHORIZED);
+                })
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    throw new ResultException(ResultStatusEnum.FORBIDDEN);
+                });
         // @formatter:on
 
         // 添加自定义 JWT 过滤器
@@ -128,20 +127,23 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
                 http.addFilterBefore(iamOncePerRequestFilter, BasicAuthenticationFilter.class);
             }
         }
+        return http.build();
     }
 
-    /**
-     * 放行所有不需要登录就可以访问的请求，参见 AuthController
-     * 也可以在 {@link #configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)} 中配置
-     * {@code http.authorizeRequests().antMatchers("/api/auth/**").permitAll()}
-     */
-    @Override
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return this::configure;
+    }
+
+
+
     public void configure(WebSecurity web) {
         WebSecurity.IgnoredRequestConfigurer ignoring = web.ignoring();
         //noinspection ConstantConditions
         this.ignoreAnnotation(ignoring, this.requestMappingHandlerMappingObjectProvider.getIfAvailable());
         this.ignoreProperties(ignoring, this.ignoreWebSecurityProperties);
     }
+
 
     private void ignoreAnnotation(WebSecurity.IgnoredRequestConfigurer ignoring, RequestMappingHandlerMapping requestMappingHandlerMapping) {
         Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
@@ -152,10 +154,10 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
                 Set<String> patternValues = entry.getKey().getPatternValues();
                 Set<RequestMethod> methods = entry.getKey().getMethodsCondition().getMethods();
                 if (CollectionUtils.isEmpty(methods)) {
-                    ignoring.antMatchers(patternValues.toArray(new String[0]));
+                    ignoring.requestMatchers(patternValues.toArray(new String[0]));
                 } else {
                     for (RequestMethod method : methods) {
-                        ignoring.antMatchers(HttpMethod.resolve(method.name()), patternValues.toArray(new String[0]));
+                        ignoring.requestMatchers(HttpMethod.valueOf(method.name()), patternValues.toArray(new String[0]));
                     }
                 }
             }
@@ -163,15 +165,15 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private void ignoreProperties(WebSecurity.IgnoredRequestConfigurer ignoring, IgnoreWebSecurityProperties ignoreWebSecurityProperties) {
-        ignoring.antMatchers(HttpMethod.GET, ignoreWebSecurityProperties.getGet())
-                .antMatchers(HttpMethod.POST, ignoreWebSecurityProperties.getPost())
-                .antMatchers(HttpMethod.DELETE, ignoreWebSecurityProperties.getDelete())
-                .antMatchers(HttpMethod.PUT, ignoreWebSecurityProperties.getPut())
-                .antMatchers(HttpMethod.HEAD, ignoreWebSecurityProperties.getHead())
-                .antMatchers(HttpMethod.PATCH, ignoreWebSecurityProperties.getPatch())
-                .antMatchers(HttpMethod.OPTIONS, ignoreWebSecurityProperties.getOptions())
-                .antMatchers(HttpMethod.TRACE, ignoreWebSecurityProperties.getTrace())
-                .antMatchers(ignoreWebSecurityProperties.getPattern());
+        ignoring.requestMatchers(HttpMethod.GET, ignoreWebSecurityProperties.getGet())
+                .requestMatchers(HttpMethod.POST, ignoreWebSecurityProperties.getPost())
+                .requestMatchers(HttpMethod.DELETE, ignoreWebSecurityProperties.getDelete())
+                .requestMatchers(HttpMethod.PUT, ignoreWebSecurityProperties.getPut())
+                .requestMatchers(HttpMethod.HEAD, ignoreWebSecurityProperties.getHead())
+                .requestMatchers(HttpMethod.PATCH, ignoreWebSecurityProperties.getPatch())
+                .requestMatchers(HttpMethod.OPTIONS, ignoreWebSecurityProperties.getOptions())
+                .requestMatchers(HttpMethod.TRACE, ignoreWebSecurityProperties.getTrace())
+                .requestMatchers(ignoreWebSecurityProperties.getPattern());
     }
 }
 
