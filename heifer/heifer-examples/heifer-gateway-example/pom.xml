@@ -51,7 +51,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.3.7.RELEASE</version>
+                <version>3.0.7</version>
                 <configuration>
                     <mainClass>plus.wcj.heifer.gateway.example.HeiferGatewayExampleApplication</mainClass>
                 </configuration>

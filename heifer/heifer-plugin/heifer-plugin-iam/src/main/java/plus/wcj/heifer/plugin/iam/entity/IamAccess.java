@@ -16,16 +16,14 @@
 
 package plus.wcj.heifer.plugin.iam.entity;
 
-import plus.wcj.heifer.metadata.annotation.PostValid;
-import plus.wcj.heifer.metadata.annotation.PutValid;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -38,25 +36,25 @@ import java.time.LocalDateTime;
  * @since 2022-06-26
  */
 @TableName("iam_access")
-@ApiModel(value = "IamAccess对象", description = "开放平台信息")
+@Schema(name = "IamAccess对象", description = "开放平台信息")
 public class IamAccess implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("主键ID")
+    @Schema(name = "主键ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     @NotNull(groups = {PutValid.class}, message = "id is null")
     private Long id;
 
-    @ApiModelProperty("账户id")
+    @Schema(name = "账户id")
     @NotNull(groups = {PostValid.class}, message = "iamAccountManageId is null")
     private Long iamAccountManageId;
 
-    @ApiModelProperty("access_key_id")
+    @Schema(name = "access_key_id")
     @NotNull(groups = {PostValid.class}, message = "accessKeyId is null")
     private String accessKeyId;
 
-    @ApiModelProperty("access_key_secret")
+    @Schema(name = "access_key_secret")
     @NotNull(groups = {PostValid.class}, message = "accessKeySecret is null")
     private String accessKeySecret;
 

@@ -16,16 +16,14 @@
 
 package plus.wcj.heifer.plugin.iam.entity;
 
-import plus.wcj.heifer.metadata.annotation.PostValid;
-import plus.wcj.heifer.metadata.annotation.PutValid;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -38,25 +36,25 @@ import java.time.LocalDateTime;
  * @since 2022-06-26
  */
 @TableName("iam_account_role_rel")
-@ApiModel(value = "IamAccountRoleRel对象", description = "账户拥有角色关系表")
+@Schema(name = "IamAccountRoleRel对象", description = "账户拥有角色关系表")
 public class IamAccountRoleRel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("主键id")
+    @Schema(name = "主键id")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     @NotNull(groups = {PutValid.class}, message = "id is null")
     private Long id;
 
-    @ApiModelProperty("账户id")
+    @Schema(name = "账户id")
     @NotNull(groups = {PostValid.class}, message = "iamAccountId is null")
     private Long iamAccountId;
 
-    @ApiModelProperty("角色id")
+    @Schema(name = "角色id")
     @NotNull(groups = {PostValid.class}, message = "iamRoleId is null")
     private Long iamRoleId;
 
-    @ApiModelProperty("租户id")
+    @Schema(name = "租户id")
     @NotNull(groups = {PostValid.class}, message = "iamTenantId is null")
     private Long iamTenantId;
 

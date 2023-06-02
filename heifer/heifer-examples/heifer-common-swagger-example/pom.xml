@@ -29,21 +29,6 @@
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-common-swagger</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-common-mybatis-plus</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -56,7 +41,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.3.7.RELEASE</version>
+                <version>3.0.7</version>
                 <configuration>
                     <mainClass>com.example.heifer.common.redis.examples.HeiferCommonRedisExamplesApplication</mainClass>
                 </configuration>

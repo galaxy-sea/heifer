@@ -70,7 +70,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.3.7.RELEASE</version>
+                <version>3.0.7</version>
                 <configuration>
                     <mainClass>wcj.plus.heifer.common.feign.example.HeiferCommonFeignExampleApplication</mainClass>
                 </configuration>

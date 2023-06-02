@@ -29,8 +29,8 @@
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
         <jasypt.version>3.0.4</jasypt.version>
 
-        <knife4j.version>3.0.3</knife4j.version>
-        <swagger.version>1.5.20</swagger.version>
+        <knife4j.version>4.1.0</knife4j.version>
+        <swagger-annotations-jakarta.version>2.2.8</swagger-annotations-jakarta.version>
         <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
         <libby-http-cache-control.version>2022.1.6</libby-http-cache-control.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
@@ -145,17 +145,16 @@
                 <artifactId>xk-time</artifactId>
                 <version>${xk-time.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger.version}</version>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
+                <version>${swagger-annotations-jakarta.version}</version>
             </dependency>
 
             <dependency>

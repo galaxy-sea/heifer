@@ -16,16 +16,14 @@
 
 package plus.wcj.heifer.plugin.iam.entity;
 
-import plus.wcj.heifer.metadata.annotation.PostValid;
-import plus.wcj.heifer.metadata.annotation.PutValid;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -38,37 +36,37 @@ import java.time.LocalDateTime;
  * @since 2022-06-26
  */
 @TableName("iam_account")
-@ApiModel(value = "IamAccount对象", description = "账户表")
+@Schema(name = "IamAccount对象", description = "账户表")
 public class IamAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("主键ID")
+    @Schema(name = "主键ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     @NotNull(groups = {PutValid.class}, message = "id is null")
     private Long id;
 
-    @ApiModelProperty("账户名")
+    @Schema(name = "账户名")
     @NotNull(groups = {PostValid.class}, message = "username is null")
     private String username;
 
-    @ApiModelProperty("手机号")
+    @Schema(name = "手机号")
     @NotNull(groups = {PostValid.class}, message = "phone is null")
     private String phone;
 
-    @ApiModelProperty("邮箱")
+    @Schema(name = "邮箱")
     @NotNull(groups = {PostValid.class}, message = "email is null")
     private String email;
 
-    @ApiModelProperty("密码")
+    @Schema(name = "密码")
     @NotNull(groups = {PostValid.class}, message = "password is null")
     private String password;
 
-    @ApiModelProperty("昵称")
+    @Schema(name = "昵称")
     @NotNull(groups = {PostValid.class}, message = "nickname is null")
     private String nickname;
 
-    @ApiModelProperty("指示账户是启用还是禁用。禁用的账户无法通过身份验证。返回值：true如果账户已启用，false否则")
+    @Schema(name = "指示账户是启用还是禁用。禁用的账户无法通过身份验证。返回值：true如果账户已启用，false否则")
     @NotNull(groups = {PostValid.class}, message = "isEnabled is null")
     private Boolean isEnabled;
 
@@ -172,17 +170,17 @@ public class IamAccount implements Serializable {
     @Override
     public String toString() {
         return "IamAccount{" +
-            "id=" + id +
-            ", username='" + username + '\'' +
-            ", phone='" + phone + '\'' +
-            ", email='" + email + '\'' +
-            ", password='" + password + '\'' +
-            ", nickname='" + nickname + '\'' +
-            ", isEnabled=" + isEnabled +
-            ", createTime=" + createTime +
-            ", createBy=" + createBy +
-            ", updateTime=" + updateTime +
-            ", updateBy=" + updateBy +
-            '}';
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", isEnabled=" + isEnabled +
+                ", createTime=" + createTime +
+                ", createBy=" + createBy +
+                ", updateTime=" + updateTime +
+                ", updateBy=" + updateBy +
+                '}';
     }
 }

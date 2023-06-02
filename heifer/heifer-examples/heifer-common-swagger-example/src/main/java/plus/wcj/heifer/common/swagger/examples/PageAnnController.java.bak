@@ -17,19 +17,13 @@
 package plus.wcj.heifer.common.swagger.examples;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
-import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
-import plus.wcj.heifer.metadata.iam.User;
-
-import io.swagger.annotations.ApiOperation;
-
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.access.prepost.PreFilter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
+import plus.wcj.heifer.metadata.iam.User;
 
 /**
  * @author changjin wei(魏昌进)
@@ -37,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("page")
-@ApiOperation("data")
+@Tag(name = "data")
 public class PageAnnController {
 
     @GetMapping("page")
@@ -55,17 +49,17 @@ public class PageAnnController {
 
     @GetMapping("security")
     @ResponseBodyResult
-    @PreAuthorize("hasAuthority('admin123123')")
+//    @PreAuthorize("hasAuthority('admin123123')")
     public Page<User> security(@OrderByValid(field = "ann") Page<User> page) {
         return page;
     }
 
     @GetMapping("all")
     @ResponseBodyResult
-    @PreAuthorize("hasAuthority('admin123123')")
-    @PostFilter("hasAuthority('admin123123')")
-    @PostAuthorize("hasAuthority('admin123123')")
-    @PreFilter("hasAuthority('admin123123')")
+//    @PreAuthorize("hasAuthority('admin123123')")
+//    @PostFilter("hasAuthority('admin123123')")
+//    @PostAuthorize("hasAuthority('admin123123')")
+//    @PreFilter("hasAuthority('admin123123')")
     public Page<User> all(Page<User> page) {
         return page;
     }

@@ -16,16 +16,14 @@
 
 package plus.wcj.heifer.plugin.iam.entity;
 
-import plus.wcj.heifer.metadata.annotation.PostValid;
-import plus.wcj.heifer.metadata.annotation.PutValid;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import plus.wcj.heifer.metadata.annotation.PostValid;
+import plus.wcj.heifer.metadata.annotation.PutValid;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -38,33 +36,33 @@ import java.time.LocalDateTime;
  * @since 2022-06-26
  */
 @TableName("iam_permission")
-@ApiModel(value = "IamPermission对象", description = "功能权限")
+@Schema(name = "IamPermission对象", description = "功能权限")
 public class IamPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("主键ID")
+    @Schema(name = "主键ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     @NotNull(groups = {PutValid.class}, message = "id is null")
     private Long id;
 
-    @ApiModelProperty("父节点名称")
+    @Schema(name = "父节点名称")
     @NotNull(groups = {PostValid.class}, message = "parentId is null")
     private Long parentId;
 
-    @ApiModelProperty("权限名称")
+    @Schema(name = "权限名称")
     @NotNull(groups = {PostValid.class}, message = "name is null")
     private String name;
 
-    @ApiModelProperty("权限表达式，用:分割")
+    @Schema(name = "权限表达式，用:分割")
     @NotNull(groups = {PostValid.class}, message = "permission is null")
     private String permission;
 
-    @ApiModelProperty("client:客户端,menu:菜单,button:按钮")
+    @Schema(name = "client:客户端,menu:菜单,button:按钮")
     @NotNull(groups = {PostValid.class}, message = "type is null")
     private String type;
 
-    @ApiModelProperty("排序，默认asc")
+    @Schema(name = "排序，默认asc")
     @NotNull(groups = {PostValid.class}, message = "sort is null")
     private Integer sort;
 

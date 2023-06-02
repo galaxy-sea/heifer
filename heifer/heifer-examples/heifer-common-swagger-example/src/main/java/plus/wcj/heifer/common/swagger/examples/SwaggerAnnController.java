@@ -1,12 +1,10 @@
 package plus.wcj.heifer.common.swagger.examples;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.iam.User;
 
-import io.swagger.annotations.ApiOperation;
-
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("security")
-@ApiOperation("data")
+@Tag(name = "data")
 public class SwaggerAnnController {
 
     @GetMapping
@@ -34,21 +32,21 @@ public class SwaggerAnnController {
 
     @GetMapping("permission")
     @ResponseBodyResult
-    @PreAuthorize("hasAuthority('heifer:admin:test')")
+//    @PreAuthorize("hasAuthority('heifer:admin:test')")
     public User test2(User user) {
         return user;
     }
 
     @GetMapping("role")
     @ResponseBodyResult
-    @PreAuthorize("hasRole('admin')")
+//    @PreAuthorize("hasRole('admin')")
     public User testRole(User user) {
         return user;
     }
 
     @GetMapping("not")
     @ResponseBodyResult
-    @PreAuthorize("hasAuthority('admin123123')")
+//    @PreAuthorize("hasAuthority('admin123123')")
     public User testUser(User user) {
         return user;
     }
