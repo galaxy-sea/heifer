@@ -60,9 +60,9 @@ public class HeiferBootAutoConfiguration implements WebMvcConfigurer {
         return new ResultResponseBodyAdvice();
     }
 
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.sort((o1, o2) -> o1.getClass().equals(o2.getClass()) ? 0 : o1 instanceof MappingJackson2HttpMessageConverter ? -1 : 0);
-    }
+    // https://github.com/springdoc/springdoc-openapi/issues/2143
+    //@Override
+    //public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    //    converters.sort((o1, o2) -> o1.getClass().equals(o2.getClass()) ? 0 : o1 instanceof MappingJackson2HttpMessageConverter ? -1 : 0);
+    //}
 }
