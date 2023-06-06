@@ -42,6 +42,12 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-javadoc</artifactId>
+            <optional>true</optional>
+        </dependency>
+
 
         <dependency>
             <groupId>plus.wcj</groupId>

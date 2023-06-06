@@ -30,7 +30,9 @@
         <jasypt.version>3.0.4</jasypt.version>
 
         <knife4j.version>4.1.0</knife4j.version>
+        <springdoc.version>1.7.0</springdoc.version>
         <swagger-annotations-jakarta.version>2.2.8</swagger-annotations-jakarta.version>
+
         <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
         <libby-http-cache-control.version>2022.1.6</libby-http-cache-control.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
@@ -79,16 +81,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!-- Spring Boot -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
 
             <!--  orm  -->
             <dependency>
@@ -155,6 +147,18 @@
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations-jakarta</artifactId>
                 <version>${swagger-annotations-jakarta.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-javadoc</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.therapi</groupId>
+                <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+                <version>0.15.0</version>
             </dependency>
 
             <dependency>
