@@ -156,12 +156,6 @@
             </dependency>
 
             <dependency>
-                <groupId>com.github.therapi</groupId>
-                <artifactId>therapi-runtime-javadoc-scribe</artifactId>
-                <version>0.15.0</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${aliyun-sdk-oss.version}</version>
