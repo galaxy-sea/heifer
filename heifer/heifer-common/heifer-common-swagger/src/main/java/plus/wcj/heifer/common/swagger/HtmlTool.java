@@ -34,11 +34,13 @@ public class HtmlTool {
 
     public static String p(String beforeText, String afterText) {
         if (StringUtils.hasText(beforeText)) {
-            return beforeText + "<p />" + afterText;
+            return afterText;
         }
-        return afterText;
+        if (StringUtils.hasText(afterText)) {
+            return beforeText;
+        }
+        return beforeText + "<p />" + afterText;
     }
-
 
     public static String fontColor(String text, String fontColor) {
         return "<font color=\"" + fontColor + "\">" + text + "</font>";

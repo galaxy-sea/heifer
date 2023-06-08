@@ -18,19 +18,17 @@ package plus.wcj.heifer.common.swagger;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.fasterxml.classmate.ResolvedType;
-import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
-import springfox.documentation.service.ResolvedMethodParameter;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.service.OperationBuilderPlugin;
-import springfox.documentation.spi.service.contexts.OperationContext;
-import springfox.documentation.swagger.common.SwaggerPluginSupport;
-
-import org.springframework.core.annotation.Order;
+import io.swagger.v3.oas.models.Operation;
+import org.springdoc.core.customizers.GlobalOperationCustomizer;
+import org.springframework.core.MethodParameter;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.method.HandlerMethod;
+import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -42,31 +40,30 @@ import static plus.wcj.heifer.common.swagger.HtmlTool.p;
  * @author changjin wei(魏昌进)
  * @since 2022/8/12
  */
-@Order(SwaggerPluginSupport.OAS_PLUGIN_ORDER + 101)
-public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlugin {
+@Component
+public class OrderByFieldsOperationCustomizer implements GlobalOperationCustomizer {
     @Override
-    public void apply(OperationContext context) {
-        List<ResolvedMethodParameter> parameters = context.getParameters();
+    public Operation customize(Operation operation, HandlerMethod handlerMethod) {
+        MethodParameter[] methodParameters = handlerMethod.getMethodParameters();
 
+        for (MethodParameter methodParameter : methodParameters) {
+            Class<?> parameterType = methodParameter.getParameterType();
+            if (IPage.class.isAssignableFrom(parameterType)) {
+                Optional<OrderByValid> annotation = Optional.ofNullable(methodParameter.getParameterAnnotation(OrderByValid.class));
 
-        for (ResolvedMethodParameter resolvedMethodParameter : parameters) {
-            Class<?> erasedType = resolvedMethodParameter.getParameterType().getErasedType();
-            if (IPage.class.isAssignableFrom(erasedType)) {
-                Optional<OrderByValid> annotation = resolvedMethodParameter.findAnnotation(OrderByValid.class);
                 List<String> orderItems = this.toOrderItems(annotation);
-
                 if (CollectionUtils.isEmpty(orderItems)) {
-                    orderItems = this.toOrderItems(resolvedMethodParameter);
+                    orderItems = this.toOrderItems(methodParameter);
                 }
-
                 this.excludeField(orderItems, annotation);
 
                 if (!CollectionUtils.isEmpty(orderItems)) {
-                    this.joinNotes(orderItems, context);
+                    this.joinNotes(orderItems, operation);
                 }
-                return;
+                return operation;
             }
         }
+        return operation;
     }
 
     @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "OptionalIsPresent"})
@@ -76,17 +73,18 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
         }
     }
 
-    private void joinNotes(List<String> orderItems, OperationContext context) {
+    private void joinNotes(List<String> orderItems, Operation operation) {
         StringBuilder code = new StringBuilder();
         for (String orderItem : orderItems) {
             code.append(HtmlTool.code(orderItem));
         }
-        String notes = context.operationBuilder().build().getNotes();
+        String notes = operation.getDescription();
         String order = b("OrderBy: ") + code;
 
         notes = StringUtils.hasText(notes) ? p(notes, order) : order;
-        context.operationBuilder().notes(notes);
+        operation.setDescription(notes);
     }
+
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     private List<String> toOrderItems(Optional<OrderByValid> annotation) {
@@ -96,23 +94,21 @@ public class OrderByFieldsOperationBuilderPlugin implements OperationBuilderPlug
         return Arrays.stream(annotation.get().field()).toList();
     }
 
-    private List<String> toOrderItems(ResolvedMethodParameter resolvedMethodParameter) {
-        ResolvedType boundType = resolvedMethodParameter.getParameterType().getTypeBindings().getBoundType(0);
-        if (boundType == null) {
+    private List<String> toOrderItems(MethodParameter methodParameter) {
+        String typeName = ((ParameterizedType) methodParameter.getGenericParameterType()).getActualTypeArguments()[0].getTypeName();
+
+        if (typeName == null) {
             return List.of();
         }
-        Class<?> orderClass = boundType.getErasedType();
-        return TableInfoHelper.getAllFields(orderClass)
-                              .stream()
-                              .map(Field::getName)
-                              .toList();
+        Class<?> orderClass = null;
+        try {
+            orderClass = Class.forName(typeName);
+            return TableInfoHelper.getAllFields(orderClass)
+                    .stream()
+                    .map(Field::getName)
+                    .toList();
+        } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+        }
     }
-
-    @SuppressWarnings("NullableProblems")
-    @Override
-    public boolean supports(DocumentationType delimiter) {
-        return true;
-    }
-
-
 }
