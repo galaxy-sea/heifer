@@ -48,11 +48,15 @@
             <optional>true</optional>
         </dependency>
 
-
         <dependency>
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-common-mybatis-plus</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
 
     </dependencies>

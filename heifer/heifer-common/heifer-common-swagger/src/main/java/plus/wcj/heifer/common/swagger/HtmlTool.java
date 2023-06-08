@@ -1,5 +1,7 @@
 package plus.wcj.heifer.common.swagger;
 
+import org.springframework.util.StringUtils;
+
 /**
  * <a href="https://htmlcolorcodes.com/zh/yanse-biao/bianping-hua-sheji-yanse-biao/">color</a>
  *
@@ -23,6 +25,7 @@ public class HtmlTool {
     public static String code(String text) {
         return code(text, PETER_RIVER);
     }
+
     public static String code(String text, String fontColor) {
         text = "`" + text + " `";
         return "<code>" + fontColor(text, fontColor) + "</code>";
@@ -30,7 +33,10 @@ public class HtmlTool {
 
 
     public static String p(String beforeText, String afterText) {
-        return beforeText + "<p />" + afterText;
+        if (StringUtils.hasText(beforeText)) {
+            return beforeText + "<p />" + afterText;
+        }
+        return afterText;
     }
 
 
