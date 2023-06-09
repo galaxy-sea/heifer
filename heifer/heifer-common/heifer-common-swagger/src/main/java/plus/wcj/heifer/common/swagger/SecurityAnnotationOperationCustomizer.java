@@ -42,8 +42,8 @@ public class SecurityAnnotationOperationCustomizer implements GlobalOperationCus
 
         StringBuffer classNote = classSecurityAnnotation(handlerMethod);
         StringBuffer methodNote = methodSecurityAnnotation(handlerMethod);
-        noteAppend("class: ", classNote, operation);
-        noteAppend("method: ", methodNote, operation);
+        noteAppend(b("class: ", ALIZARIN), classNote, operation);
+        noteAppend(b("method: ", ALIZARIN), methodNote, operation);
 
         return operation;
     }
@@ -57,7 +57,7 @@ public class SecurityAnnotationOperationCustomizer implements GlobalOperationCus
         operation.setDescription(p(description, note));
     }
 
-    private StringBuffer methodSecurityAnnotation(HandlerMethod handlerMethod) {
+    private StringBuffer classSecurityAnnotation(HandlerMethod handlerMethod) {
         StringBuffer note = new StringBuffer();
 
         Optional.ofNullable(AnnotatedElementUtils.getMergedAnnotation(handlerMethod.getBeanType(), PostAuthorize.class))
@@ -74,7 +74,7 @@ public class SecurityAnnotationOperationCustomizer implements GlobalOperationCus
         return note;
     }
 
-    private StringBuffer classSecurityAnnotation(HandlerMethod handlerMethod) {
+    private StringBuffer methodSecurityAnnotation(HandlerMethod handlerMethod) {
         StringBuffer note = new StringBuffer();
 
         Optional.ofNullable(handlerMethod.getMethodAnnotation(PostAuthorize.class))

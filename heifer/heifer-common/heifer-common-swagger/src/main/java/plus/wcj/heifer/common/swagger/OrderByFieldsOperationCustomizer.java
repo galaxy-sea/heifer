@@ -21,9 +21,8 @@ import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import io.swagger.v3.oas.models.Operation;
 import org.springdoc.core.customizers.GlobalOperationCustomizer;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import plus.wcj.heifer.common.mybatisplus.validation.OrderByValid;
 
@@ -40,7 +39,7 @@ import static plus.wcj.heifer.common.swagger.HtmlTool.p;
  * @author changjin wei(魏昌进)
  * @since 2022/8/12
  */
-@Component
+@Order
 public class OrderByFieldsOperationCustomizer implements GlobalOperationCustomizer {
     @Override
     public Operation customize(Operation operation, HandlerMethod handlerMethod) {
@@ -81,7 +80,7 @@ public class OrderByFieldsOperationCustomizer implements GlobalOperationCustomiz
         String notes = operation.getDescription();
         String order = b("OrderBy: ") + code;
 
-        notes = StringUtils.hasText(notes) ? p(notes, order) : order;
+        notes = p(notes, order);
         operation.setDescription(notes);
     }
 

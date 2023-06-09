@@ -19,9 +19,8 @@ package plus.wcj.heifer.common.swagger;
 import io.swagger.v3.oas.models.Operation;
 import org.springdoc.core.customizers.GlobalOperationCustomizer;
 import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.method.HandlerMethod;
-import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
+import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 
 import java.util.Optional;
 
@@ -29,25 +28,23 @@ import static plus.wcj.heifer.common.swagger.HtmlTool.*;
 
 /**
  * @author changjin wei(魏昌进)
- * @since 2022/6/20
+ * @since 2022/8/13
  */
-@Order
-public class IgnoreWebSecurityOperationCustomizer implements GlobalOperationCustomizer {
+public class ResponseBodyResultOperationCustomizer implements GlobalOperationCustomizer {
+
     @Override
     public Operation customize(Operation operation, HandlerMethod handlerMethod) {
-        StringBuffer notes = new StringBuffer();
+        StringBuffer note = new StringBuffer();
 
-        Optional.ofNullable(handlerMethod.getMethodAnnotation(IgnoreWebSecurity.class))
-                .or(() -> Optional.ofNullable(AnnotatedElementUtils.getMergedAnnotation(handlerMethod.getBeanType(), IgnoreWebSecurity.class)))
-                .ifPresentOrElse(ignoreWebSecurity ->
-                                notes.append(b("IgnoreWebSecurity: ")).append(code("True ", ALIZARIN)),
-                        () -> notes.append(b("IgnoreWebSecurity: ")).append(code("False", ALIZARIN))
-                );
+        Optional.ofNullable(handlerMethod.getMethodAnnotation(ResponseBodyResult.class))
+                .or(() -> Optional.ofNullable(AnnotatedElementUtils.getMergedAnnotation(handlerMethod.getBeanType(), ResponseBodyResult.class)))
+                .ifPresentOrElse(responseBodyResult -> note.append(b("ResponseBodyResult: ")).append(code("True", ALIZARIN)),
+                        () -> note.append(b("ResponseBodyResult: ")).append(code("False", ALIZARIN)));
 
         String description = operation.getDescription();
-        operation.setDescription(p(description, notes.toString()));
+        operation.setDescription(p(description, note.toString()));
 
         return operation;
     }
-}
 
+}

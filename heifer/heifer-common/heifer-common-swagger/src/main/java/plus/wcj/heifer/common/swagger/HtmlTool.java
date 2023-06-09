@@ -19,7 +19,11 @@ public class HtmlTool {
 
 
     public static String b(String text) {
-        return "<b>" + fontColor(text, TURQUOISE) + "</b>";
+        return b(text, TURQUOISE);
+    }
+
+    public static String b(String text, String fontColor) {
+        return "<b>" + fontColor(text, fontColor) + "</b>";
     }
 
     public static String code(String text) {
@@ -33,10 +37,10 @@ public class HtmlTool {
 
 
     public static String p(String beforeText, String afterText) {
-        if (StringUtils.hasText(beforeText)) {
+        if (!StringUtils.hasText(beforeText)) {
             return afterText;
         }
-        if (StringUtils.hasText(afterText)) {
+        if (!StringUtils.hasText(afterText)) {
             return beforeText;
         }
         return beforeText + "<p />" + afterText;
