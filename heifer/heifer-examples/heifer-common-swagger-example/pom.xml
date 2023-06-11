@@ -25,14 +25,10 @@
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-boot</artifactId>
         </dependency>
+
         <dependency>
             <groupId>plus.wcj</groupId>
             <artifactId>heifer-common-swagger</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-javadoc</artifactId>
         </dependency>
 
         <dependency>

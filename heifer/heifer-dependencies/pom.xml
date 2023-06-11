@@ -30,7 +30,7 @@
         <jasypt.version>3.0.4</jasypt.version>
 
         <knife4j.version>4.1.0</knife4j.version>
-        <springdoc.version>1.7.0</springdoc.version>
+        <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
         <swagger-annotations-jakarta.version>2.2.8</swagger-annotations-jakarta.version>
 
         <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
@@ -150,9 +150,9 @@
             </dependency>
 
             <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-javadoc</artifactId>
-                <version>${springdoc.version}</version>
+                <groupId>com.github.therapi</groupId>
+                <artifactId>therapi-runtime-javadoc</artifactId>
+                <version>${therapi-runtime-javadoc.version}</version>
             </dependency>
 
             <dependency>

@@ -20,9 +20,20 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>plus.wcj</groupId>
+            <artifactId>heifer-metadata</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.therapi</groupId>
+            <artifactId>therapi-runtime-javadoc</artifactId>
         </dependency>
 
         <dependency>
@@ -32,19 +43,8 @@
         </dependency>
 
         <dependency>
-            <groupId>plus.wcj</groupId>
-            <artifactId>heifer-metadata</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-javadoc</artifactId>
             <optional>true</optional>
         </dependency>
 
@@ -57,6 +57,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
