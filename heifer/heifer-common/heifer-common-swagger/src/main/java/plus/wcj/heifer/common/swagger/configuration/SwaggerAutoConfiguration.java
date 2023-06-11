@@ -14,14 +14,27 @@
  * limitations under the License.
  */
 
-package plus.wcj.heifer.common.swagger;
+package plus.wcj.heifer.common.swagger.configuration;
 
+import org.springdoc.core.customizers.ParameterCustomizer;
+import org.springdoc.core.discoverer.SpringDocParameterNameDiscoverer;
+import org.springdoc.core.service.GenericParameterService;
+import org.springdoc.core.service.OperationService;
+import org.springdoc.core.service.RequestBodyService;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import plus.wcj.heifer.common.swagger.IgnoreWebSecurityOperationCustomizer;
+import plus.wcj.heifer.common.swagger.RequestService;
+import plus.wcj.heifer.common.swagger.ResponseBodyResultOperationCustomizer;
+import plus.wcj.heifer.common.swagger.SecurityAnnotationOperationCustomizer;
+import plus.wcj.heifer.common.swagger.customizers.FieldToIgnoreOperationCustomizer;
+
+import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -33,10 +46,8 @@ import org.springframework.context.annotation.PropertySource;
 @AutoConfigureBefore(com.github.xiaoymin.knife4j.spring.configuration.Knife4jAutoConfiguration.class)
 public class SwaggerAutoConfiguration {
 
-
-
-
     @Bean
+    @ConditionalOnMissingBean
     @ConditionalOnClass(name = "plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity")
     public IgnoreWebSecurityOperationCustomizer ignoreWebSecurityOperationCustomizer() {
         return new IgnoreWebSecurityOperationCustomizer();
@@ -44,33 +55,34 @@ public class SwaggerAutoConfiguration {
 
 
     @Bean
+    @ConditionalOnMissingBean
     @ConditionalOnClass(name = "plus.wcj.heifer.metadata.annotation.ResponseBodyResult")
     public ResponseBodyResultOperationCustomizer resultResponseOperationCustomizer() {
         return new ResponseBodyResultOperationCustomizer();
     }
 
     @Bean
+    @ConditionalOnMissingBean
     @ConditionalOnClass(name = {
             "org.springframework.security.access.prepost.PostAuthorize",
             "org.springframework.security.access.prepost.PostFilter",
             "org.springframework.security.access.prepost.PreAuthorize",
             "org.springframework.security.access.prepost.PreFilter",
     })
-    @ConditionalOnMissingBean
     public SecurityAnnotationOperationCustomizer securityAnnotationOperationCustomizer() {
         return new SecurityAnnotationOperationCustomizer();
     }
 
-    @Bean
-    @ConditionalOnClass(name = "plus.wcj.heifer.common.mybatisplus.validation.OrderByValid")
-    public OrderByFieldsOperationCustomizer orderByFieldsOperationCustomizer() {
-        return new OrderByFieldsOperationCustomizer();
-    }
+
 
 
     @Bean
-    @ConditionalOnClass(name = "com.baomidou.mybatisplus.core.metadata.IPage")
-    public PageIgnoreFieldOperationCustomizer pageIgnoreFieldOperationCustomizer() {
-        return new PageIgnoreFieldOperationCustomizer();
+    @ConditionalOnMissingBean
+    org.springdoc.webmvc.core.service.RequestService requestBuilder(GenericParameterService parameterBuilder, RequestBodyService requestBodyService,
+                                                                    OperationService operationService, Optional<List<ParameterCustomizer>> parameterCustomizers,
+                                                                    SpringDocParameterNameDiscoverer localSpringDocParameterNameDiscoverer,
+                                                                    Optional<List<FieldToIgnoreOperationCustomizer>> fieldToIgnoreOperationCustomizers) {
+        return new RequestService(parameterBuilder, requestBodyService, operationService, parameterCustomizers,
+                localSpringDocParameterNameDiscoverer, fieldToIgnoreOperationCustomizers);
     }
 }

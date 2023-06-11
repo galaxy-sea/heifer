@@ -7,8 +7,7 @@ spring:
     username: root
     password: test
 springdoc:
-  default-flat-param-object: true
-  enable-spring-security: false
+
   swagger-ui:
     path: /swagger-ui.html
     tags-sorter: alpha
@@ -24,6 +23,3 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
-logging:
-  level:
-    root: trace

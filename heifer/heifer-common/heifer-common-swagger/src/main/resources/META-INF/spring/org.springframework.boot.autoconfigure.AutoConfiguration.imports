@@ -1,1 +1,3 @@
-plus.wcj.heifer.common.swagger.SwaggerAutoConfiguration
+plus.wcj.heifer.common.swagger.configuration.ImaSwaggerAutoConfiguration
+plus.wcj.heifer.common.swagger.configuration.SwaggerAutoConfiguration
+plus.wcj.heifer.common.swagger.configuration.MybatisPlusSwaggerConfiguration
