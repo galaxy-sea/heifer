@@ -1,14 +1,15 @@
 spring:
   application:
     name: heifer-common-redis-example
-  redis:
-    host: nuc8i7.wcj.plus
-    password: weichangjin
-    port: 6379
-    # 连接超时时间（记得添加单位，Duration）
-    timeout: 10000ms
-    # Redis默认情况下有16个分片，这里配置具体使用的分片
-    database: 0
+  data:
+    redis:
+      host: nuc8i7.wcj.plus
+      password: weichangjin
+      port: 6379
+      # 连接超时时间（记得添加单位，Duration）
+      timeout: 10000ms
+      # Redis默认情况下有16个分片，这里配置具体使用的分片
+      database: 0
   cache:
     redis:
       cache-null-values: true
