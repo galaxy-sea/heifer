@@ -31,8 +31,8 @@ public class HtmlTool {
     }
 
     public static String code(String text, String fontColor) {
-        text = "`" + text + " `";
-        return "<code>" + fontColor(text, fontColor) + "</code>";
+        text = "`" + text + "`";
+        return "<code onclick='navigator.clipboard.writeText(this.textContent)'> " + fontColor(text, fontColor) + "</code>";
     }
 
 
