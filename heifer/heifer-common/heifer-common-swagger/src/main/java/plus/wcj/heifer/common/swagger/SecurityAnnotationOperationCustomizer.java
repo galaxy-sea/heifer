@@ -49,9 +49,8 @@ public class SecurityAnnotationOperationCustomizer implements GlobalOperationCus
 
         StringBuffer classNote = classSecurityAnnotation(handlerMethod);
         StringBuffer methodNote = methodSecurityAnnotation(handlerMethod);
-        noteAppend(b("class( ", ALIZARIN), classNote, ")", operation);
-        noteAppend(b("method( ", ALIZARIN), methodNote, ")", operation);
-
+        noteAppend(b("class( ", ALIZARIN), classNote, b(")", ALIZARIN), operation);
+        noteAppend(b("method( ", ALIZARIN), methodNote, b(")", ALIZARIN), operation);
         return operation;
     }
 
@@ -100,7 +99,7 @@ public class SecurityAnnotationOperationCustomizer implements GlobalOperationCus
 
 
     private void appendAnnotationValue(Annotation annotation, StringBuffer note, String text) {
-        note.append(b(text)).append(code(getAuthority(AnnotationUtils.getAnnotationAttributes(annotation).get("value"))));
+        note.append(b(text)).append(code(getAuthority(AnnotationUtils.getAnnotationAttributes(annotation).get("value")))).append(' ');
     }
 
     private String getAuthority(Object value) {
