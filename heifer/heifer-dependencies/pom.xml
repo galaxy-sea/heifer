@@ -29,7 +29,7 @@
         <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
         <jasypt.version>3.0.4</jasypt.version>
 
-        <knife4j.version>4.1.0</knife4j.version>
+        <knife4j.version>4.3.0</knife4j.version>
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
         <swagger-annotations-jakarta.version>2.2.8</swagger-annotations-jakarta.version>
 
