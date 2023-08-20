@@ -34,7 +34,10 @@
             <optional>true</optional>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.github.therapi</groupId>
+            <artifactId>therapi-runtime-javadoc</artifactId>
+        </dependency>
 
     </dependencies>
 </project>
