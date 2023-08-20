@@ -17,9 +17,12 @@
 package plus.wcj.heifer.common.swagger;
 
 import io.swagger.v3.oas.models.Operation;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import org.springdoc.core.customizers.GlobalOperationCustomizer;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.method.HandlerMethod;
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 
@@ -32,7 +35,7 @@ import static plus.wcj.heifer.common.swagger.HtmlTool.*;
  * @since 2022/6/20
  */
 @Order
-public class IgnoreWebSecurityOperationCustomizer implements GlobalOperationCustomizer {
+public class SecurityOperationCustomizer implements GlobalOperationCustomizer {
     @Override
     public Operation customize(Operation operation, HandlerMethod handlerMethod) {
         StringBuffer notes = new StringBuffer();
@@ -41,7 +44,10 @@ public class IgnoreWebSecurityOperationCustomizer implements GlobalOperationCust
                 .or(() -> Optional.ofNullable(AnnotatedElementUtils.getMergedAnnotation(handlerMethod.getBeanType(), IgnoreWebSecurity.class)))
                 .ifPresentOrElse(ignoreWebSecurity ->
                                 notes.append(b("IgnoreWebSecurity: ")).append(code("True ", ALIZARIN)),
-                        () -> notes.append(b("IgnoreWebSecurity: ")).append(code("False", ALIZARIN))
+                        () -> {
+                            notes.append(b("IgnoreWebSecurity: ")).append(code("False", ALIZARIN));
+                            addHeader(operation);
+                        }
                 );
 
         String description = operation.getDescription();
@@ -49,5 +55,19 @@ public class IgnoreWebSecurityOperationCustomizer implements GlobalOperationCust
 
         return operation;
     }
+
+    private void addHeader(Operation operation) {
+        HeaderParameter headerParameter = new HeaderParameter();
+
+        Schema<Object> schema = new Schema<Object>();
+        schema.setType("String");
+
+        headerParameter.setName(HttpHeaders.AUTHORIZATION);
+        headerParameter.setRequired(Boolean.TRUE);
+        headerParameter.setSchema(schema);
+
+        operation.addParametersItem(headerParameter);
+    }
+
 }
 

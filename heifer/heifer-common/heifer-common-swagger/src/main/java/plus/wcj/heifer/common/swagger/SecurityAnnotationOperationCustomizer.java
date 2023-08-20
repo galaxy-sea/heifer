@@ -58,7 +58,9 @@ public class SecurityAnnotationOperationCustomizer implements GlobalOperationCus
         if (classNote.isEmpty()) {
             return;
         }
-        String note = prefix + classNote + suffix;
+        classNote.insert(0, b(prefix, ALIZARIN));
+        classNote.append( b(suffix, ALIZARIN));
+        String note = classNote.toString();
         String description = operation.getDescription();
         operation.setDescription(p(description, note));
     }

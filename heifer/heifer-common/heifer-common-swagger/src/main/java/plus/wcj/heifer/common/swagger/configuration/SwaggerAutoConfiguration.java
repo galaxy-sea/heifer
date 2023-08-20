@@ -27,7 +27,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import plus.wcj.heifer.common.swagger.IgnoreWebSecurityOperationCustomizer;
+import plus.wcj.heifer.common.swagger.SecurityOperationCustomizer;
 import plus.wcj.heifer.common.swagger.RequestService;
 import plus.wcj.heifer.common.swagger.ResponseBodyResultOperationCustomizer;
 import plus.wcj.heifer.common.swagger.SecurityAnnotationOperationCustomizer;
@@ -49,8 +49,8 @@ public class SwaggerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnClass(name = "plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity")
-    public IgnoreWebSecurityOperationCustomizer ignoreWebSecurityOperationCustomizer() {
-        return new IgnoreWebSecurityOperationCustomizer();
+    public SecurityOperationCustomizer ignoreWebSecurityOperationCustomizer() {
+        return new SecurityOperationCustomizer();
     }
 
 

@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
+import org.springframework.web.bind.annotation.RequestHeader;
 import plus.wcj.heifer.metadata.annotation.IgnoreWebSecurity;
 import plus.wcj.heifer.metadata.annotation.ResponseBodyResult;
 import plus.wcj.heifer.metadata.iam.User;
@@ -44,7 +45,7 @@ public class SwaggerAnnController {
     @PostAuthorize("hasAuthority('heifer:admin:test')")
     @PostFilter("hasAuthority('heifer:admin:test')")
     @PreFilter("hasAuthority('heifer:admin:test')")
-    public User test2(User user) {
+    public User test2(User user, @RequestHeader(value = "test11111", defaultValue = "123123") String test) {
         return user;
     }
 
