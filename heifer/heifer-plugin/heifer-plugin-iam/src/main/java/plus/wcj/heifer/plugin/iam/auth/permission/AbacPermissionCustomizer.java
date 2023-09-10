@@ -16,30 +16,55 @@
 
 package plus.wcj.heifer.plugin.iam.auth.permission;
 
+import org.springframework.context.expression.MapAccessor;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
-import plus.wcj.heifer.plugin.iam.dao.AuthDao;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 获取功能权限
+ *
  * @author changjin wei(魏昌进)
  * @since 2023/4/5
  */
 @Component
-public class AbacPermissionCustomizer implements PermissionCustomizer{
+public class AbacPermissionCustomizer implements PermissionCustomizer {
 
-    private final AuthDao authDao;
+    private final List<AbacAttribute> abacAttributes;
 
-    public AbacPermissionCustomizer(AuthDao authDao) {
-        this.authDao = authDao;
+    private final StandardEvaluationContext context;
+
+    public AbacPermissionCustomizer(List<AbacAttribute> abacAttributes) {
+        this.abacAttributes = abacAttributes;
+        this.context = new StandardEvaluationContext();
+        this.context.addPropertyAccessor(new MapAccessor());
     }
 
     public List<String> customize(Long accountId, Long tenantId) {
-        // TODO: 2023/4/16 changjin wei(魏昌进)
 
-        return new ArrayList<>();
+        List<String> listPermission = new ArrayList<>();
+
+        for (AbacAttribute abacAttribute : abacAttributes) {
+            AbacAttribute.Attribute attributes = abacAttribute.getAttributes(accountId, tenantId);
+            List<AbacAttribute.AbacExpression> abacExpressions = abacAttribute.listAbacExpression(accountId, tenantId);
+            for (AbacAttribute.AbacExpression abacExpression : abacExpressions) {
+                ExpressionParser parser = new SpelExpressionParser();
+                try {
+                    Boolean flag = parser.parseExpression(abacExpression.getExpression())
+                            .getValue(context, attributes, Boolean.class);
+                    if (flag) {
+                        List<String> strings = abacAttribute.listPermission(accountId, tenantId, abacExpression);
+                        listPermission.addAll(strings);
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        }
+        return listPermission;
     }
 
 }
