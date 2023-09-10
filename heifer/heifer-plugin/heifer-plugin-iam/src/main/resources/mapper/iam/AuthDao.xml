@@ -88,6 +88,6 @@
                                                WHERE iarr.iam_account_id = #{iamAccountId}
                                                  AND ir.id = iarr.iam_role_id)
                                     AND ir.iam_tenant_id = #{iamTenantId})
-          AND ira.iam_tenant_id = #{tenantId}
+          AND ira.iam_tenant_id = #{iamTenantId}
     </select>
 </mapper>
