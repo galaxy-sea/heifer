@@ -1,17 +1,35 @@
 
 
 
-# 1. Features
+# 1. How to Use
+
+Add maven dependency
+``` xml
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>plus.wcj</groupId>
+                <artifactId>heifer-dependencies</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+```
+
+
+# 2. Features
 heifer是一套为一站式 saas平台开发，集成了``多租户``，``数据权限``，``功能权限``等一些常见的功能并对Spring框架进行增强。
 
 `Heifer` is a set of common features developed for a one-stop SAAS platform, integrating `multi tenant`, `data permissions`,`functional permissions`, and enhancing the Spring framework.
 
-## 1.1. heifer boot
+## 2.1. heifer boot
 
 集成了 Spring MVC和validation
 
 
-### 1.1.1. ExceptionHandler
+### 2.1.1. ExceptionHandler
 提供全局拦截器, 对异常进行全局拦截器
 
 异常返回格式
@@ -31,7 +49,7 @@ heifer是一套为一站式 saas平台开发，集成了``多租户``，``数据
 
 
 
-### 1.1.2. ResponseBodyAdvice
+### 2.1.2. ResponseBodyAdvice
 
 全局统一返回
 
@@ -50,25 +68,25 @@ Controller的类或者方法中使用了 ``@ResponseBodyResult``就会进行装�
 }
 ```   
 
-### 1.1.3. RestTemplate
+### 2.1.3. RestTemplate
 提供``ResponseBodyResult``自动拆箱，会判断是否启用ResponseBodyResult
 
 
 
 
-### 1.1.4. validation
+### 2.1.4. validation
 
 
 添加快速失败
 
 
-### 1.1.5. 异常
+### 2.1.5. 异常
 
 plus.wcj.heifer.metadata.exception.ResultException是定制的异常类, 支持国际化, 枚举类, 占位符
 
 
 
-#### 1.1.5.1. 自定义异常枚举
+#### 2.1.5.1. 自定义异常枚举
 
 
 
@@ -97,7 +115,7 @@ public enum plus.wcj.heifer.boot.common.exception.ResultStatusEnum implements Re
 }
 ```
 
-#### 1.1.5.2. 异常信息国际化
+#### 2.1.5.2. 异常信息国际化
 
 默认添加异常信息国际化
 
@@ -115,7 +133,7 @@ plus.wcj.heifer.boot.common.exception.ResultStatusEnum.SUCCESS=OK{}
 
 
 
-## 1.2. heifer-common-apisix
+## 2.2. heifer-common-apisix
 
 大部分公司的网关设计都为``流量网关（nginx）``+``业务网关（gateway）``两层网关的设计，流量网关主要用web服务器和上游负载均衡，业务网关主要用于Spring Cloud环境下的负载均衡， heifer在设计之初也是采用了两层网关设计，两层网关设计增加了通讯成本和运维成本。
 
@@ -142,9 +160,9 @@ id使用md5生成
 | ZipkinPlugin            | 引入sleuth和zipkin2后自动开启 | spring-cloud-sleuth-zipkin            |
 
 
-### 1.2.1. Route 生成规则
+### 2.2.1. Route 生成规则
 Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心的原因，Route注册upstream会有所变化，其他的基本上都是一致的
-#### 1.2.1.1. Spring Booth
+#### 2.2.1.1. Spring Booth
 ```json
 {
   "uri": "/heifer-boot-example/*",
@@ -178,7 +196,7 @@ Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心
   "status": 1
 }
 ```
-#### 1.2.1.2. Spring Cloud
+#### 2.2.1.2. Spring Cloud
 ``` json
 {
   "uri": "/heifer-boot-example/*",
@@ -210,7 +228,7 @@ Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心
   "status": 1
 }
 ```
-### 1.2.2. Zipkin
+### 2.2.2. Zipkin
 引入Zipk后json数据增加一下数据
 ```json
 {
@@ -227,15 +245,15 @@ Spring Boot和Spring Cloud生成时候在，Spring Cloud多了一个注册中心
 ```
 
 
-## 1.3. heifer-common-dynamic-datasource
+## 2.3. heifer-common-dynamic-datasource
 感觉没有多少用处, 还不如直接买阿里云的高性能服务器
 
 
-## 1.4. heifer-common-feign
+## 2.4. heifer-common-feign
 
 feign集成 okhttp, ResponseBodyAdvice自动拆箱, rpc快速失败
 
-### 1.4.1. 使用 okhttp
+### 2.4.1. 使用 okhttp
 
 开启okhttp需要配置文件开启,
 ```properties
@@ -247,12 +265,12 @@ feign:
 ```
 
 
-### 1.4.2. ResponseBodyAdvice自动拆箱
+### 2.4.2. ResponseBodyAdvice自动拆箱
 
 ResponseBodyAdvice在Spring Boot当中是没有侵入性的,但是在Spring Cloud OpenFeign中具有了侵入性, 目前仅判断 feign interface的方法和类中使用了 ``@ResponseBodyResult``就会进行拆箱
 
 
-### 1.4.3. rpc快速失败
+### 2.4.3. rpc快速失败
 使用Spring Boot的全局异常拦截, 拦截``FeignException``, 然后一直将信息返回给调用方.
 
 web浏览器->A服务->B服务->C服务
@@ -260,7 +278,7 @@ web浏览器->A服务->B服务->C服务
 如果C服务发生了异常会被Spring Boot全局异常拦截,返回异常信息给B服务, B服务拦截``FeignException``将C服务的异常信息原封不动的返回给A服务, A服务拦截``FeignException``将信息原封不动的返回给web浏览器,
 
 
-## 1.5. heifer-common-mybatis-plus
+## 2.5. heifer-common-mybatis-plus
 
 也是一个没有多少作用的功能模块
 
@@ -270,42 +288,42 @@ MyBatis Plus在Spring Boot环境中开发是一件很舒服的事情,但是他�
 2. soa开发时直接暴露service层时 Wrapper序列化和反序列化时有很大问题
 
 
-## 1.6. heifer-common-nacos-discovery
+## 2.6. heifer-common-nacos-discovery
 
 目前没有多少作用,就是注册的时候Instance会注入一些元数据, 就jvm信息呀,os信息呀. 方便以后做做些基于元数据的骚操作啦
 
 
-## 1.7. heifer-common-redis
+## 2.7. heifer-common-redis
 这个模块也就那样子吧, 缓存和锁
 
-### 1.7.1. Cache Abstraction
+### 2.7.1. Cache Abstraction
 jsr107的那些注解和spring cache的那些注解啦,
 基于Redis cache增加了一个时间偏移量, 防止面试的天天问我Redis雪崩和击穿这些问题的出现啦
 
 ``spring.cache.redis.time-offset-to-live``偏移量配置路径也就那样子 会在timeToLive+timeToLiveOffset之间产生一个随机数,
 
-### 1.7.2. lock
+### 2.7.2. lock
 Redis 锁, 也就那样子啦 , 悲观锁呀,tryLock呀,没有多大用处的,
 
 要不要增加注解模式的锁呐,反正百度一大堆, 懒得弄了
 
 
 
-## 1.8. heifer-common-security
+## 2.8. heifer-common-security
 
 啧啧,有趣的模块了, 因为Spring Security的模块设计太繁琐了,
 
 
-### 1.8.1. 自定义登陆
+### 2.8.1. 自定义登陆
 删除了默认的UserDetailsService,所以你无法登陆, 需要自定义登陆
 自己造一个Controller进行多因子登陆多方便呀,比写什么过滤器呀,拦截器呀,userDetailsService什么的方便多了,随便玩了.
 
-### 1.8.2. 自定义拦截器
+### 2.8.2. 自定义拦截器
 
 自己去实现 IamOncePerRequestFilter 就可以了实现 token解析这些了, 然后把解析数据放进Spring Security context里面
 
 
-### 1.8.3. 忽略路由拦截
+### 2.8.3. 忽略路由拦截
 
 嗯, 设计了2个部分
 1. 配置忽略: 适合静态资源和Controller
@@ -339,7 +357,7 @@ heifer.security.ignore.matchers:
 ```
 
 
-## 1.9. heifer-common-swagger
+## 2.9. heifer-common-swagger
 
 1. swagger整合了Spring Security 注解， 让swagger的note能显示Spring Security的注解
 2. swagger的路由自动注入到Spring Security拦截白名单  // todo
@@ -350,7 +368,7 @@ heifer.security.ignore.matchers:
 
 
 
-## 1.10. heifer-gateway
+## 2.10. heifer-gateway
 没啥好说的, 加了nacos, loadbalancer,actuator
 
 引用一下,加一下配置就可以了
@@ -379,12 +397,12 @@ management:
 ```
 
 
-## 1.11. heifer-metadata
+## 2.11. heifer-metadata
 
 
 就是各个模块中共用的 bean啦,
 
-## 1.12. heifer-plugin-aliyun-oss
+## 2.12. heifer-plugin-aliyun-oss
 就很正经的oss, 能支持多个oss操作啦, 默认实现了OssController和AliyunOssServer, 觉得不好用就自己造一个吧,
 
 配置如下
@@ -407,13 +425,13 @@ heifer:
             expire: 
 ```
 
-### 1.12.1. 服务端签名后直传
+### 2.12.1. 服务端签名后直传
 设计之初就按照[服务端签名后直传](https://help.aliyun.com/document_detail/31926.html), AliyunOssServer那几个上传是给本地文件上传用的,
 
 看``AliyunOssServer#policy`` 的实现的,
 
 
-### 1.12.2. Resource支持
+### 2.12.2. Resource支持
 
 Resource本身是spring提供读取文件的, 和spring的原生用法一直, 很方便.
 xxx就是``heifer.aliyun``配置的key,
@@ -422,14 +440,14 @@ xxx就是``heifer.aliyun``配置的key,
     @Value("oss://xxx/sister1.jpg")
     private Resource defaultFile;
 ```
-## 1.13. heifer-plugin-iam
+## 2.13. heifer-plugin-iam
 iam服务支持saas, 提供多租户,数据权限,功能权限,rbac,acl, 用户跨租户, 登陆等等等
 
 因为不会大前端 所以一直没有对接前端页面, 也就 table设计有参考价值
 
 后面说吧
 
-## 1.14. heifer-plugin-iam-security
+## 2.14. heifer-plugin-iam-security
 
 
 由于plugin模块设计的是偏向于业务的, 所以这一块太TMD复杂了,
@@ -447,13 +465,13 @@ iam服务支持saas, 提供多租户,数据权限,功能权限,rbac,acl, 用户�
 2. 实现了``UserPrincipalService``来完成 获取``heifer-plugin-iam``的权限信息
 3. ``UserPrincipalService``的类都修饰了 ``@Cacheable`` 具有缓存性质, 在分布式缓存的情况中能保证性能, 但是在本地缓存中的存在过期问题
 
-### 1.14.1. 权限拦截
+### 2.14.1. 权限拦截
 
 ``JwtTokenAuthenticationFilter``实现``IamOncePerRequestFilter``完成对jwt的解析
 jwt无效就会立马返回401
 jwt有效就调用``UserPrincipalService``获取功能权限并生成一个用户注入SecurityContext中
 
-### 1.14.2. user解析
+### 2.14.2. user解析
 支持 UserDetails和Tenant在Controller层的注入,  解决了Spring Security context这种线程隐式传递带来的问题,
 
 没有用aop或者代理来实现注入, 不会有性能上面的问题的啦
@@ -464,7 +482,7 @@ jwt有效就调用``UserPrincipalService``获取功能权限并生成一个用�
         return null
     }
 ```
-### 1.14.3. 数据权限
+### 2.14.3. 数据权限
 
 数据权限都存在tenant中了, 详细查看tenant类就可以了
 
@@ -472,11 +490,11 @@ jwt有效就调用``UserPrincipalService``获取功能权限并生成一个用�
 
 
 
-# Who is using
+# 3. Who is using
 感谢前辈们的指点和批评。也感谢AnyEx负责人对heifer提出的意见。
 
 ![alt AnyEx](http://www.anyex.net/static/images/logo.png "AnyEx")
 
 
-# License
+# 4. License
 The project license file is available https://raw.githubusercontent.com/spring-cloud/spring-cloud-openfeign/main/LICENSE.txt[here].
