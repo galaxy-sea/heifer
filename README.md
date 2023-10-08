@@ -496,8 +496,11 @@ jwt有效就调用``UserPrincipalService``获取功能权限并生成一个用�
 ![alt AnyEx](http://www.anyex.net/static/images/logo.png "AnyEx")
 
 # 鸣谢
-感谢 JetBrains 对开源项目的支持
-![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)
+
+感谢 [JetBrains](https://www.jetbrains.com/community/opensource/) 对开源项目的支持
+<a href="https://www.jetbrains.com/community/opensource/">
+  <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" height="200" width="200" alt="JetBrains Logo (Main) logo">
+</a>
 
 # 4. License
 The project license file is available https://raw.githubusercontent.com/spring-cloud/spring-cloud-openfeign/main/LICENSE.txt[here].
